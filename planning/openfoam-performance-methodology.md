@@ -62,12 +62,35 @@ Before authorising or preparing each new experiment, record answers to these que
 | Application | **[CONFIRMED 2026 FACT]** | OpenFOAM.com, target release v2512. |
 | Case | **[CONFIRMED 2026 FACT]** | `occDrivAerStaticMesh`, approximately 65M cells. |
 | Solver and algorithm | **[CONFIRMED 2026 FACT]** | `simpleFoam` with SIMPLE. Scientific inputs remain fixed within the optimisation scope. |
-| Primary performance measure | **[CONFIRMED 2026 FACT]** | Wall-clock performance; record solver-only timing explicitly where this is the scored metric. |
+| Primary performance measure | **[CONFIRMED 2026 FACT]** | Layer 1 solver `ClockTime` [s]; record it exactly for every valid run and compare controlled repeat medians once repeats exist. |
 | Working iteration convention | **[CONFIRMED 2026 FACT]** | 1 node: 40; 2 nodes: 80; 4 nodes: 150 SIMPLE iterations. |
 | Intended scored configuration | **[CONFIRMED 2026 FACT]** | Four CPU nodes. |
 | Official case/rules | **[TBD AFTER OFFICIAL INPUT RELEASE]** | Final input files, exact iteration rule, scoring wording, rank/decomposition constraints, and correctness acceptance criteria. |
 
 The local `APPLICATION.md` also records a Gadi four-node reference of 192 MPI ranks, 150 steps, and `ClockTime` 787 s. **[CURRENT EXPERIMENTAL EVIDENCE]** This is a Gadi reference only; it is not an ASPIRE2A baseline and must not be compared directly with Iris times or transferred as an ASPIRE2A rank count.
+
+### 3.1.1 Two-layer performance evaluation
+
+**Metric** means the defined quantity under measurement; a run produces a
+**measurement** (value) of that metric. Summary statistics describe a set of
+controlled repeated measurements and are not themselves metrics.
+
+**Layer 1 — Official Competition Metric.** Solver `ClockTime` [s] is the
+primary competition-oriented comparison metric: “did the configuration become
+faster according to the scoring objective?” Record the exact value for every
+valid run. After repeatability runs exist, use the controlled-run median for
+baseline and optimized comparisons; never select the single fastest run.
+
+**Layer 2 — Performance Characterization Metrics.** Record solver
+`ExecutionTime` [s], mean and standard deviation of measured timestep wall
+time [s/step], measured timestep count, PBS walltime, and peak memory usage.
+When authorised profiling is available, add MPI communication time/fraction,
+MPI wait time, load imbalance, CPU hotspots, and I/O contribution. These
+metrics answer “why did the competition result change?” and do not replace
+Layer 1.
+
+For example, Phase 0 produced the measurements `Solver ClockTime = 802 s` and
+`mean measured timestep wall time = 5.1367 s/step`.
 
 ### 3.2 Gadi profiling lessons
 
@@ -212,7 +235,12 @@ Discover and record CPU model/microarchitecture, sockets, NUMA domains, physical
 
 ### Stage B — Reproducible baseline
 
-Use the correct official case and workload; fix the scientific configuration; collect clean solver-only timing; validate successful completion, convergence, and required science outputs; record environment and launch provenance; and repeat the baseline when practical. Pre-run validation must verify that the solver command and all required shell functions are available before the timed run.
+Use the correct official case and workload; fix the scientific configuration;
+collect Layer 1 solver ClockTime and Layer 2 characterization metrics; validate
+successful completion, convergence, and required science outputs; record
+environment and launch provenance; and repeat the baseline when practical.
+Pre-run validation must verify that the solver command and all required shell
+functions are available before the timed run.
 
 ### Stage C — Coarse screening
 
@@ -277,7 +305,7 @@ These rows are examples of analytical reasoning, not a claim that every platform
 | Build | OpenFOAM version; compiler; compiler version; compiler flags; MPI; MPI version; LTO status; PGO status/profile provenance. |
 | Launch | Nodes; ranks/node; total ranks; threads; launcher; placement; binding; relevant runtime environment. |
 | Case | Mesh/cell count; SIMPLE iterations; decomposition method; decomposition parameters; input/case revision. |
-| Performance | `decomposePar` time; preprocessing times; `simpleFoam` `ClockTime`; seconds per SIMPLE step; speedup; parallel efficiency; improvement vs baseline; repeat number; median/range. |
+| Performance | **Layer 1:** exact `simpleFoam` `ClockTime`. **Layer 2:** `ExecutionTime`; mean/stddev measured timestep wall time; measured timestep count; PBS walltime; peak memory; plus `decomposePar` and other preprocessing diagnostics. Record repeat number and calculate median, mean where useful, minimum, maximum, range, and standard deviation across controlled measurements. |
 | Correctness | Completion status; Cd validation; convergence; scientific validity; exception/diagnostic notes. |
 | Analysis | Profiling tool; profiling result; bottleneck; interpretation; decision; next experiment. |
 

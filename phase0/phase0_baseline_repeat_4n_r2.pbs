@@ -1,0 +1,96 @@
+#!/bin/bash
+# Phase 0 candidate only — do not qsub until final read-only validation is complete.
+#PBS -P pm78
+#PBS -q normal
+#PBS -N drivaer_p0r2_4n
+#PBS -l ncpus=192
+#PBS -l mem=760GB
+#PBS -l walltime=02:00:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/phase0-baseline-repeat-20260903-r2/submit-logs/drivaer_p0r2_4n.pbs.out
+
+set -euo pipefail
+
+# The historical source is only read. No source file, time directory, log, or
+# processor directory is reused by the fresh case.
+SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+REPEAT_ROOT=/scratch/pm78/kj7183/openfoam_cpu/phase0-baseline-repeat-20260903-r2
+REPEAT_CASE="${REPEAT_ROOT}/case"
+RUN_TAG=phase0-baseline-repeat-20260903-r2-4n-192r
+EVIDENCE_DIR="${REPEAT_ROOT}/evidence/${RUN_TAG}.${PBS_JOBID}"
+
+module purge
+module load OpenFOAM/2512
+
+# Preserved baseline mechanics; this is not an explicit placement/binding option.
+export OMP_NUM_THREADS=1
+export EXPECTED_ENDTIME=150
+ulimit -s unlimited
+
+if [ -e "$REPEAT_CASE" ]; then
+    printf 'ERROR: fresh repeat case already exists: %s\n' "$REPEAT_CASE" >&2
+    exit 2
+fi
+
+mkdir -p "$EVIDENCE_DIR"
+exec > >(tee -a "${EVIDENCE_DIR}/run.log") 2>&1
+
+echo "===== PHASE 0 PROVENANCE / PREFLIGHT ====="
+printf 'run_tag=%s\n' "$RUN_TAG"
+printf 'pbs_jobid=%s\n' "${PBS_JOBID:-UNSET}"
+printf 'pbs_ncpus=%s\n' "${PBS_NCPUS:-UNSET}"
+printf 'allocated_hosts:\n'
+sort -u "$PBS_NODEFILE"
+printf 'allocated_node_count=%s\n' "$(sort -u "$PBS_NODEFILE" | wc -l | tr -d ' ')"
+printf 'openfoam_version=%s\n' "${WM_PROJECT_VERSION:-UNSET}"
+printf 'openfoam_build=%s\n' "${WM_PROJECT_DIR:-UNSET}"
+printf 'wm_compiler=%s\n' "${WM_COMPILER:-UNSET}"
+printf 'wm_options=%s\n' "${WM_OPTIONS:-UNSET}"
+printf 'wm_mplib=%s\n' "${WM_MPLIB:-UNSET}"
+printf 'wm_cxx=%s\n' "${WM_CXX:-UNSET}"
+printf 'module_list:\n'; module list 2>&1
+printf 'gcc_version:\n'; gcc --version | head -n 1
+printf 'gxx_version:\n'; g++ --version | head -n 1
+printf 'mpirun_version:\n'; mpirun --version | head -n 1
+printf 'cpu_topology:\n'; lscpu | grep -E 'Model name|Socket\(s\)|Core\(s\) per socket|Thread\(s\) per core|CPU\(s\)'
+printf 'launcher=mpirun -np %s simpleFoam -parallel\n' "$PBS_NCPUS"
+printf 'decomposition_target=hierarchical; nHierarchical (16 6 2); ranks=192\n'
+printf 'simple_iteration_target=%s\n' "$EXPECTED_ENDTIME"
+
+mkdir -p "$REPEAT_CASE"
+# Deliberately copied: baseline initial state, mesh, dictionaries, and launcher.
+# Excluded: source 0/, old time directories, logFiles/, postProcessing/,
+# dynamicCode/, and every processor* directory.
+cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" \
+    "$SOURCE_CASE/Allrun.gadi" "$REPEAT_CASE/"
+cd "$REPEAT_CASE"
+
+echo "===== FRESH CASE VALIDATION ====="
+grep -E 'nCores|decompositionMethod|nHierarchical' system/include/caseDefinition
+grep -E 'startFrom|startTime|endTime|deltaT' system/controlDict.noWrite
+grep -Eq '^[[:space:]]*nCores[[:space:]]+192;' system/include/caseDefinition
+grep -Eq '^[[:space:]]*nHierarchical[[:space:]]+\(16 6 2\);' system/include/caseDefinition
+grep -Eq '^[[:space:]]*endTime[[:space:]]+150;' system/controlDict.noWrite
+cmp -s system/fvSolution system/fvSolution.fixedIter
+test -f constant/polyMesh/points
+test -x Allrun.gadi
+if find . -maxdepth 1 -type d -name 'processor*' | grep -q .; then
+    echo 'ERROR: fresh case unexpectedly contains processor state'
+    exit 1
+fi
+sha256sum Allrun.gadi system/include/caseDefinition system/controlDict.noWrite \
+    system/fvSchemes system/fvSolution system/fvSolution.fixedIter \
+    | tee "${EVIDENCE_DIR}/copied-protocol.sha256"
+
+echo "===== STARTING UNCHANGED OPENFOAM PIPELINE ====="
+bash ./Allrun.gadi
+
+echo "===== SOLVER RESULT ====="
+solver_log=$(ls -1t logFiles/50_simpleFoam.*.log | head -n 1)
+printf 'solver_log=%s\n' "$solver_log"
+grep -a -E 'Time =|ExecutionTime|ClockTime' "$solver_log" | tail -n 15
+tail -n 30 "$solver_log"
+echo "Completed: $(date)"
+echo "PHASE 0 BASELINE REPEAT COMPLETE"

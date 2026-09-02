@@ -25,8 +25,8 @@ fact.
 | Submission | `/opt/pbs/default/bin/qsub` | Successful command discovery on `gadi-comp` | CONFIRMED |
 | Status | `/opt/pbs/default/bin/qstat` | Successful command discovery on `gadi-comp` | CONFIRMED |
 | Cancellation | `/opt/pbs/default/bin/qdel` | Successful command discovery on `gadi-comp`; explicit approval remains required | CONFIRMED |
-| CPU model | Intel Xeon Platinum 8268 @ 2.90 GHz | `lscpu` on `gadi-comp`; raw OpenFOAM logs show `gadi-cpu-clx-*` hosts | CONFIRMED |
-| Cores per node | 48 in the known-good baseline allocation | `APPLICATION.md`, `planning/PLANS.md`, and user-provided current context | DISCOVERED AND VERIFIED from project evidence; hardware topology TBD |
+| CPU model | Intel Xeon Platinum 8274 @ 3.20 GHz | Phase 0 PBS output from allocated compute nodes, job `178063948.gadi-pbs` | DISCOVERED AND VERIFIED |
+| Cores / topology per compute node | 2 sockets × 24 physical cores = 48 physical cores; SMT = 2 | Phase 0 PBS output from allocated compute nodes, job `178063948.gadi-pbs` | DISCOVERED AND VERIFIED |
 | Known-good OpenFOAM | OpenFOAM.com v2512 | `APPLICATION.md` and local Gadi PBS example (`module load OpenFOAM/2512`) | DISCOVERED AND VERIFIED locally |
 | Known-good baseline | 1 node/48 ranks; 2 nodes/96 ranks; 4 nodes/192 ranks; 150 SIMPLE iterations for scored 4-node reference | `APPLICATION.md`, `planning/PLANS.md`, user-provided current context | DISCOVERED AND VERIFIED from project evidence |
 | 4-node reference time | `ClockTime ≈ 787 s` | `APPLICATION.md`, `planning/PLANS.md` | DISCOVERED AND VERIFIED from project evidence |
@@ -64,6 +64,7 @@ remote scripts and raw logs listed below.
 | 1-node baseline | 1 | 48 | 40 | 822 s | `/scratch/pm78/kj7183/openfoam_cpu/results/gadi_1n_baseline/50_simpleFoam.177590568.gadi-pbs.log` |
 | 2-node baseline | 2 | 96 | 80 | 831 s | `/scratch/pm78/kj7183/openfoam_cpu/results/gadi_2n_baseline/50_simpleFoam.177597315.gadi-pbs.log` |
 | 4-node baseline | 4 | 192 | 150 | 787 s | `/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/logFiles/50_simpleFoam.177602742.gadi-pbs.log` |
+| Phase 0 independent repeat | 4 | 192 | 150 | 802 s | `/scratch/pm78/kj7183/openfoam_cpu/phase0-baseline-repeat-20260902/case/logFiles/50_simpleFoam.178063948.gadi-pbs.log` |
 
 The exact final 4-node line is:
 
@@ -197,21 +198,11 @@ is independently discovered and verified.
 
 ## Readiness assessment
 
-**READY FOR GADI PHASE 0: NO**
+**READY FOR DOCUMENTED PHASE 0 REPEATABILITY RUNS: YES**
 
-The workload and historical timing are documented, but the adapter is not yet
-operationally complete. Before any benchmark job, confirm:
-
-1. working SSH alias and remote user;
-2. remote home, project, and scratch paths;
-3. account/project permission;
-4. CPU model and node topology;
-5. exact OpenFOAM module and `WM_*` environment;
-6. exact compiler and compiler version;
-7. exact MPI implementation/version;
-8. exact `mpirun`/`mpiexec` syntax and binding behavior;
-9. clean baseline case location and correctness markers;
-10. PBS resource and storage requirements.
-
-No benchmark, build, or OpenFOAM run has been performed as part of this
-adapter setup.
+Job `178063948.gadi-pbs` independently validated the access path, account,
+compute-node topology, OpenFOAM module, compiler, MPI, launcher, PBS request,
+fresh-case isolation, and solver completion. Each future submission remains
+subject to separate explicit approval. No compiler, MPI, binding,
+decomposition, or numerical optimisation is authorised by this readiness
+statement.
