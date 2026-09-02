@@ -1,0 +1,36 @@
+#!/bin/bash
+#PBS -N of2512_smoke
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=2:mpiprocs=2:ompthreads=1:mem=4gb
+#PBS -l walltime=00:05:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/of2512_smoke.out
+
+set -e
+cd "$PBS_O_WORKDIR"
+
+set +e
+. /app/apps/resetmodule
+set -e
+module load openfoam/2512
+
+export OMP_NUM_THREADS=1
+
+echo "PBS_JOBID=$PBS_JOBID"
+echo "PBS_O_WORKDIR=$PBS_O_WORKDIR"
+
+echo "Allocated hosts:"
+sort "$PBS_NODEFILE" | uniq -c
+
+echo "Loaded modules:"
+module list
+
+echo "OpenFOAM binary:"
+command -v simpleFoam
+
+echo "MPI rank placement:"
+mpirun -np 2 --cpu-bind depth -d 1 hostname
+
+echo "OpenFOAM runtime check:"
+simpleFoam -help

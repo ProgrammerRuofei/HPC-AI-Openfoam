@@ -1,0 +1,59 @@
+#!/bin/bash -l
+
+#PBS -N mesh65_setup512
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=1:mpiprocs=1:ompthreads=1:mem=440gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/mesh65_setup512.out
+
+set +e
+. /app/apps/resetmodule
+set -e
+
+module load openfoam/2512
+set -u
+
+CASE_DIR="$HOME/scratch/openfoam-isc26/cases/occDrivAerStaticMesh-v2512"
+LOG_DIR="$CASE_DIR/logFiles"
+
+cd "$CASE_DIR"
+mkdir -p "$LOG_DIR"
+
+echo "PBS_JOBID=$PBS_JOBID"
+echo "Compute node=$(hostname)"
+echo "OpenFOAM executable=$(command -v simpleFoam)"
+echo "Start time=$(date)"
+
+test -f constant/polyMesh/points
+test -f constant/polyMesh/faces
+test -f constant/polyMesh/owner
+test -f constant/polyMesh/neighbour
+
+echo "Checking mesh"
+checkMesh -constant > "$LOG_DIR/05_checkMesh.log" 2>&1
+
+grep -E 'cells:|Mesh OK|Failed' "$LOG_DIR/05_checkMesh.log" || true
+
+if [ -d processor0 ]; then
+    echo "STOP: processor0 already exists; decomposition was not overwritten."
+    exit 3
+fi
+
+echo "Decomposing mesh into 512 MPI partitions"
+decomposePar -constant > "$LOG_DIR/10_decomposePar.log" 2>&1
+
+test -d processor0
+test -d processor511
+
+NPROC_DIRS=$(find . -maxdepth 1 -type d -name 'processor*' | wc -l)
+
+echo "Processor directories=$NPROC_DIRS"
+test "$NPROC_DIRS" -eq 512
+
+echo "Decomposed size:"
+du -sh processor*
+
+echo "Finish time=$(date)"
+echo "Mesh validation and decomposition completed."

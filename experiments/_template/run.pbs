@@ -1,0 +1,7 @@
+#!/bin/sh
+# Template only. Do not submit.
+# Expected location: experiments/_template/.
+# Replace this placeholder only after explicit approval for a specific
+# experiment and after the required local diff review.
+
+exit 1

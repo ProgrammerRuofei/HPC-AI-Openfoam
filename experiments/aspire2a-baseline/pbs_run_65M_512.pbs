@@ -1,0 +1,151 @@
+#!/bin/bash
+
+#PBS -N of65M_512
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=4:ncpus=128:mpiprocs=128:ompthreads=1:mem=256gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/of65M_512.out
+
+set -e
+trap 'echo "ERROR: job failed at line $LINENO with exit code $?"' ERR
+
+CASE_DIR="$HOME/scratch/openfoam-isc26/cases/occDrivAerStaticMesh-v2512"
+LOG_DIR="$CASE_DIR/logFiles"
+NPROCS=512
+
+echo "========================================"
+echo "OpenFOAM 65M / 512-rank benchmark"
+echo "PBS_JOBID=$PBS_JOBID"
+echo "Start time=$(date)"
+echo "========================================"
+
+echo
+echo "Allocated hosts:"
+sort "$PBS_NODEFILE" | uniq -c
+
+echo
+echo "Total allocated MPI slots:"
+wc -l < "$PBS_NODEFILE"
+
+echo
+echo "Resetting module environment..."
+
+set +e
+. /app/apps/resetmodule
+set -e
+
+echo
+echo "Loading OpenFOAM v2512..."
+module load openfoam/2512
+
+export OMP_NUM_THREADS=1
+
+echo
+echo "Loaded modules:"
+module list
+
+echo
+echo "OpenFOAM environment:"
+echo "WM_PROJECT_VERSION=${WM_PROJECT_VERSION:-not-set}"
+echo "WM_PROJECT_DIR=${WM_PROJECT_DIR:-not-set}"
+
+echo
+echo "simpleFoam binary:"
+command -v simpleFoam
+
+echo
+echo "simpleFoam availability check:"
+simpleFoam -help >/dev/null
+echo "simpleFoam: OK"
+
+cd "$CASE_DIR"
+
+echo
+echo "Working directory:"
+pwd
+
+mkdir -p "$LOG_DIR"
+
+echo
+echo "Checking processor decomposition..."
+
+NPROC_DIRS=$(find . -maxdepth 1 -type d -name 'processor*' | wc -l)
+
+echo "Processor directories found: $NPROC_DIRS"
+
+if [ "$NPROC_DIRS" -ne "$NPROCS" ]; then
+    echo "ERROR: expected $NPROCS processor directories, found $NPROC_DIRS"
+    exit 1
+fi
+
+echo
+echo "Using benchmark dictionaries..."
+
+cp system/controlDict.noWrite system/controlDict
+cp system/fvSolution.fixedIter system/fvSolution
+
+echo "fvSolution = fixedIter"
+echo "controlDict = noWrite"
+
+echo
+echo "========================================"
+echo "Step 1: restore0Dir -processor"
+echo "========================================"
+
+restore0Dir -processor
+
+echo
+echo "========================================"
+echo "Step 2: renumberMesh"
+echo "========================================"
+
+time mpirun -np "$NPROCS" --cpu-bind depth -d 1 \
+    renumberMesh -constant -overwrite -parallel \
+    > "$LOG_DIR/20_renumberMesh.log" 2>&1
+
+echo
+echo "renumberMesh completed"
+
+echo
+echo "========================================"
+echo "Step 3: potentialFoam"
+echo "========================================"
+
+time mpirun -np "$NPROCS" --cpu-bind depth -d 1 \
+    potentialFoam -initialiseUBCs -parallel \
+    > "$LOG_DIR/30_potentialFoam.log" 2>&1
+
+echo
+echo "potentialFoam completed"
+
+echo
+echo "========================================"
+echo "Step 4: applyBoundaryLayer"
+echo "========================================"
+
+time mpirun -np "$NPROCS" --cpu-bind depth -d 1 \
+    applyBoundaryLayer -ybl "0.0450244" -parallel \
+    > "$LOG_DIR/40_applyBoundaryLayer.log" 2>&1
+
+echo
+echo "applyBoundaryLayer completed"
+
+TIMESTAMP=$(date "+%Y-%m-%d_%H-%M-%S")
+
+echo
+echo "========================================"
+echo "Step 5: simpleFoam 65M benchmark"
+echo "========================================"
+
+time mpirun -np "$NPROCS" --cpu-bind depth -d 1 \
+    simpleFoam -parallel \
+    > "$LOG_DIR/50_simpleFoam.${TIMESTAMP}.log" 2>&1
+
+echo
+echo "========================================"
+echo "Benchmark completed successfully"
+echo "End time=$(date)"
+echo "Solver log=$LOG_DIR/50_simpleFoam.${TIMESTAMP}.log"
+echo "========================================"

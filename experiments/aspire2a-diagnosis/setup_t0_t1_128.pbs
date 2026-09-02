@@ -1,0 +1,43 @@
+#!/bin/bash -l
+# Purpose: create an independent fresh T1 128-rank diagnostic case and decompose it.
+# Source is read-only; destination is created once and never reused.
+#PBS -N of2512_diag_t0_t1
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=1:mpiprocs=1:ompthreads=1:mem=440gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/of2512_diag_t0_t1_128_setup.out
+set +e
+. /app/apps/resetmodule
+set -e
+module load openfoam/2512
+set -euo pipefail
+SRC="$HOME/scratch/openfoam-isc26/cases/occDrivAerStaticMesh-v2512"
+DST="/home/project/59000020/openfoam-isc26/diagnostic-t1-128"
+RES="/home/project/59000020/openfoam-isc26/results"
+MANIFEST="$RES/of2512_diag_t0_source_mesh.sha256"
+DECOMP_LOG="$DST/logFiles/10_decomposePar.t1-128.log"
+test -d "$SRC"
+test -d "$SRC/0.orig"
+test -f "$SRC/constant/polyMesh/points"
+test -f "$SRC/constant/polyMesh/faces"
+test ! -e "$DST"
+test ! -e "$MANIFEST"
+mkdir -p "$RES"
+sha256sum "$SRC/constant/polyMesh/points" "$SRC/constant/polyMesh/faces" \
+    "$SRC/system/controlDict" "$SRC/system/fvSchemes" "$SRC/system/fvSolution" > "$MANIFEST"
+rsync -a --exclude='processor*' --exclude='logFiles' --exclude='postProcessing' "$SRC/" "$DST/"
+test -d "$DST/0.orig"
+test -f "$DST/constant/polyMesh/points"
+test -f "$DST/constant/polyMesh/faces"
+test "$(find "$DST" -maxdepth 1 -type d -name 'processor*' | wc -l)" -eq 0
+mkdir -p "$DST/logFiles"
+sed -i 's/^[[:space:]]*nCores[[:space:]]\+512;/nCores              128;/' "$DST/system/include/caseDefinition"
+grep -E '^[[:space:]]*(nCores|decompositionMethod|nHierarchical)[[:space:]]' "$DST/system/include/caseDefinition"
+cd "$DST"
+decomposePar -constant > "$DECOMP_LOG" 2>&1
+test -d processor0
+test -d processor127
+test "$(find . -maxdepth 1 -type d -name 'processor*' | wc -l)" -eq 128
+echo "T0/T1 setup complete: $DST"

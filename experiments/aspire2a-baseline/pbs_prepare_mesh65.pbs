@@ -1,0 +1,51 @@
+#!/bin/bash
+#PBS -N mesh65_prepare
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=1:mpiprocs=1:ompthreads=1:mem=8gb
+#PBS -l walltime=00:30:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/mesh65_prepare.out
+
+set -e
+
+ARCHIVE="$HOME/scratch/openfoam-isc26/downloads/polyMesh_65M.tar.gz"
+CASE_DIR="$HOME/scratch/openfoam-isc26/cases/occDrivAerStaticMesh-v2512"
+RESULT_DIR="/home/project/59000020/openfoam-isc26/results"
+
+echo "PBS_JOBID=$PBS_JOBID"
+echo "Compute node=$(hostname)"
+
+test -f "$ARCHIVE"
+test -d "$CASE_DIR/constant"
+
+if [ -e "$CASE_DIR/constant/polyMesh" ]; then
+    echo "STOP: constant/polyMesh already exists."
+    exit 2
+fi
+
+echo "Archive:"
+ls -lh "$ARCHIVE"
+
+echo "MD5:"
+md5sum "$ARCHIVE" | tee "$RESULT_DIR/polyMesh_65M.md5"
+
+echo "Archive structure:"
+tar -tzf "$ARCHIVE" | head -20
+
+echo "Testing gzip integrity:"
+gzip -t "$ARCHIVE"
+echo "gzip integrity: PASS"
+
+echo "Extracting mesh:"
+tar -xzf "$ARCHIVE" -C "$CASE_DIR/constant"
+
+test -d "$CASE_DIR/constant/polyMesh"
+
+echo "Extracted mesh size:"
+du -sh "$CASE_DIR/constant/polyMesh"
+
+echo "polyMesh files:"
+ls -lh "$CASE_DIR/constant/polyMesh"
+
+echo "Mesh preparation completed."

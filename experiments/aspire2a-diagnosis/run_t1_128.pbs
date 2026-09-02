@@ -1,0 +1,50 @@
+#!/bin/bash -l
+# Purpose: T1 fresh-case, 128-rank renumberMesh-only diagnostic.
+#PBS -N of2512_diag_t1_128
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=128:mpiprocs=128:ompthreads=1:mem=440gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/of2512_diag_t1_128.out
+set +e
+. /app/apps/resetmodule
+set -e
+module load openfoam/2512
+set -o pipefail
+export OMP_NUM_THREADS=1
+ulimit -s unlimited
+CASE_DIR="/home/project/59000020/openfoam-isc26/diagnostic-t1-128"
+LOG_DIR="$CASE_DIR/logFiles"
+RUN_TAG="t1-128"
+NPROCS=128
+PPN=128
+DIAG="$LOG_DIR/00_runtime.${RUN_TAG}.log"
+REN_LOG="$LOG_DIR/20_renumberMesh.${RUN_TAG}.log"
+fail() { echo "DIAGNOSTIC PRECHECK FAILED: $*" >&2; exit 2; }
+test -n "${WM_PROJECT_DIR:-}" || fail "WM_PROJECT_DIR unset"
+test -f "$WM_PROJECT_DIR/bin/tools/RunFunctions" || fail "RunFunctions missing"
+. "$WM_PROJECT_DIR/bin/tools/RunFunctions"
+set -u
+test "$(type -t restore0Dir || true)" = function || fail "restore0Dir not function"
+test -x "$(command -v renumberMesh)" || fail "renumberMesh missing"
+test -d "$CASE_DIR" || fail "case missing"
+test "$(find "$CASE_DIR" -maxdepth 1 -type d -name 'processor*' | wc -l)" -eq "$NPROCS" || fail "processor count"
+test ! -e "$REN_LOG" || fail "renumber log exists"
+mkdir -p "$LOG_DIR"
+{
+ echo "PBS_JOBID=${PBS_JOBID:-not-set}"; date; hostname; echo "PBS_NODEFILE=$PBS_NODEFILE";
+ sort -u "$PBS_NODEFILE"; echo "slots=$(wc -l < "$PBS_NODEFILE")"; module list 2>&1;
+ mpirun --version 2>&1; command -v renumberMesh; ulimit -a; ulimit -c;
+ env | sort | grep -E '^(PBS|WM|FOAM|MPICH|PMI|PALS|CRAY|FI|OMP)_' | grep -viE '(PASS|TOKEN|KEY)' || true;
+ echo "launch: mpirun -n $NPROCS --ppn $PPN --cpu-bind depth -d 1 renumberMesh -constant -overwrite -parallel";
+ } > "$DIAG" 2>&1
+cd "$CASE_DIR"
+restore0Dir -processor
+set +e
+time mpirun -n "$NPROCS" --ppn "$PPN" --cpu-bind depth -d 1 renumberMesh -constant -overwrite -parallel > "$REN_LOG" 2>&1
+rc=$?
+set -e
+echo "launcher_exit_code=$rc" >> "$DIAG"
+date >> "$DIAG"
+exit "$rc"

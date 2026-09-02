@@ -1,0 +1,32 @@
+#!/bin/bash -l
+# Fresh T4 case: 2 nodes x 64 ranks, 128 total; immutable source.
+#PBS -N of2512_diag_t4_128setup
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=1:mpiprocs=1:ompthreads=1:mem=440gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/of2512_diag_t4_128_2n_setup.out
+set +e
+. /app/apps/resetmodule
+set -e
+module load openfoam/2512
+set -euo pipefail
+SRC="$HOME/scratch/openfoam-isc26/cases/occDrivAerStaticMesh-v2512"
+DST="/home/project/59000020/openfoam-isc26/diagnostic-t4-128-2n"
+LOG="$DST/logFiles/10_decomposePar.t4-128-2n.log"
+test -d "$SRC"; test -d "$SRC/0.orig"; test -f "$SRC/constant/polyMesh/points"; test -f "$SRC/constant/polyMesh/faces"; test ! -e "$DST"
+rsync -a --exclude='processor*' --exclude='logFiles' --exclude='postProcessing' "$SRC/" "$DST/"
+test "$(find "$DST" -maxdepth 1 -type d -name 'processor*' | wc -l)" -eq 0
+mkdir -p "$DST/logFiles"
+CF="$DST/system/include/caseDefinition"
+sed -i 's/^[[:space:]]*nCores[[:space:]]\+512;/nCores              128;/' "$CF"
+sed -i 's/^[[:space:]]*nHierarchical[[:space:]]\+(16 8 4);/nHierarchical       (8 4 4);/' "$CF"
+NCORES=$(awk '/^[[:space:]]*nCores[[:space:]]/{gsub(";", "", $2); print $2}' "$CF")
+HIER=$(awk '/^[[:space:]]*nHierarchical[[:space:]]/{gsub("[();]", "", $2); gsub("[();]", "", $3); gsub("[();]", "", $4); print $2, $3, $4}' "$CF")
+test "$NCORES" -eq 128; set -- $HIER; test "$#" -eq 3; test "$1" -eq 8; test "$2" -eq 4; test "$3" -eq 4; test $(( $1 * $2 * $3 )) -eq "$NCORES"
+echo "caseDefinition verification: nCores=$NCORES nHierarchical=($1 $2 $3) product=$(( $1 * $2 * $3 ))"; cat "$CF"
+cd "$DST"; decomposePar -constant > "$LOG" 2>&1
+test -d processor0; test -d processor127
+COUNT=$(find . -maxdepth 1 -type d -name 'processor*' | wc -l); echo "processor_directories=$COUNT"; test "$COUNT" -eq 128
+echo "T4 setup PASS: $DST"

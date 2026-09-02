@@ -1,0 +1,32 @@
+#!/bin/bash -l
+# Purpose: fresh T1 setup retry; fixes only 128-way hierarchical decomposition consistency.
+#PBS -N of2512_diag_t0_t1v2
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=1:mpiprocs=1:ompthreads=1:mem=440gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/of2512_diag_t0_t1_128_v2_setup.out
+set +e
+. /app/apps/resetmodule
+set -e
+module load openfoam/2512
+set -euo pipefail
+SRC="$HOME/scratch/openfoam-isc26/cases/occDrivAerStaticMesh-v2512"
+DST="/home/project/59000020/openfoam-isc26/diagnostic-t1-128-v2"
+LOG="$DST/logFiles/10_decomposePar.t1-128-v2.log"
+test -d "$SRC"
+test ! -e "$DST"
+rsync -a --exclude='processor*' --exclude='logFiles' --exclude='postProcessing' "$SRC/" "$DST/"
+test "$(find "$DST" -maxdepth 1 -type d -name 'processor*' | wc -l)" -eq 0
+mkdir -p "$DST/logFiles"
+sed -i 's/^[[:space:]]*nCores[[:space:]]\+512;/nCores              128;/' "$DST/system/include/caseDefinition"
+sed -i 's/^[[:space:]]*n[[:space:]]\+(16 8 4);/n               (8 4 4);/' "$DST/system/decomposeParDict/hierarchicalCoeffs"
+grep -E '^[[:space:]]*(nCores|decompositionMethod|nHierarchical)[[:space:]]' "$DST/system/include/caseDefinition"
+grep -E '^[[:space:]]*n[[:space:]]' "$DST/system/decomposeParDict/hierarchicalCoeffs"
+cd "$DST"
+decomposePar -constant > "$LOG" 2>&1
+test -d processor0
+test -d processor127
+test "$(find . -maxdepth 1 -type d -name 'processor*' | wc -l)" -eq 128
+echo "T0/T1 v2 setup complete: $DST"

@@ -1,0 +1,144 @@
+#!/bin/bash -l
+
+# Purpose: v2 candidate repair for the copied ASPIRE2A OpenFOAM v2512 baseline.
+# Expected working directory: the existing occDrivAerStaticMesh-v2512 case.
+# Inputs: pre-existing decomposed 512-rank case and OpenFOAM v2512 module.
+# Outputs: uniquely tagged stage logs under the existing case logFiles directory.
+# Assumption: the copied baseline resource, MPI, decomposition, and binding
+# settings remain valid; this script changes only environment setup/preflight.
+
+#PBS -N of2512_4n512_b01_fixed_v2
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=4:ncpus=128:mpiprocs=128:ompthreads=1:mem=440gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/of2512_4n512_baseline_fixed_v2.out
+
+set +e
+. /app/apps/resetmodule
+set -e
+
+module load openfoam/2512
+set -o pipefail
+
+export OMP_NUM_THREADS=1
+ulimit -s unlimited
+
+CASE_DIR="$HOME/scratch/openfoam-isc26/cases/occDrivAerStaticMesh-v2512"
+LOG_DIR="$CASE_DIR/logFiles"
+NPROCS=512
+PPN=128
+RUN_TAG="4n512_baseline_fixed_v2"
+
+fail_preflight() {
+    echo "PRE-RUN VALIDATION FAILED: $*" >&2
+    exit 2
+}
+
+echo "PBS_JOBID=${PBS_JOBID:-not-set}"
+echo "Start time=$(date)"
+echo "Head node=$(hostname)"
+echo "WM_PROJECT_DIR=${WM_PROJECT_DIR:-not-set}"
+
+if [ -z "${WM_PROJECT_DIR:-}" ]; then
+    fail_preflight "WM_PROJECT_DIR is not set after module load openfoam/2512."
+fi
+
+RUN_FUNCTIONS="$WM_PROJECT_DIR/bin/tools/RunFunctions"
+if [ ! -f "$RUN_FUNCTIONS" ]; then
+    fail_preflight "OpenFOAM RunFunctions is missing: $RUN_FUNCTIONS"
+fi
+
+# RunFunctions itself references optional variables. Source it before nounset.
+. "$RUN_FUNCTIONS"
+set -u
+
+if [ "$(type -t restore0Dir || true)" != "function" ]; then
+    fail_preflight "restore0Dir did not resolve as a shell function after sourcing $RUN_FUNCTIONS"
+fi
+
+SIMPLEFOAM_BIN="$(command -v simpleFoam || true)"
+if [ -z "$SIMPLEFOAM_BIN" ] || [ ! -x "$SIMPLEFOAM_BIN" ]; then
+    fail_preflight "simpleFoam did not resolve as an executable after module load."
+fi
+
+if [ ! -d "$CASE_DIR" ]; then
+    fail_preflight "Expected case directory is missing: $CASE_DIR"
+fi
+
+echo "RunFunctions=$RUN_FUNCTIONS"
+echo "restore0Dir=$(type -t restore0Dir)"
+echo "OpenFOAM executable=$SIMPLEFOAM_BIN"
+echo "Expected case directory=$CASE_DIR"
+echo "Pre-run validation: PASS"
+
+cd "$CASE_DIR"
+mkdir -p "$LOG_DIR"
+
+REN_LOG="$LOG_DIR/20_renumberMesh.${RUN_TAG}.log"
+POT_LOG="$LOG_DIR/30_potentialFoam.${RUN_TAG}.log"
+ABL_LOG="$LOG_DIR/40_applyBoundaryLayer.${RUN_TAG}.log"
+SOLVER_LOG="$LOG_DIR/50_simpleFoam.${RUN_TAG}.log"
+
+for LOG_FILE in "$REN_LOG" "$POT_LOG" "$ABL_LOG" "$SOLVER_LOG"
+do
+    if [ -e "$LOG_FILE" ]; then
+        echo "STOP: output already exists: $LOG_FILE"
+        exit 4
+    fi
+done
+
+echo "PBS_NODEFILE=${PBS_NODEFILE:-not-set}"
+echo "Allocated MPI slots=$(wc -l < "$PBS_NODEFILE")"
+echo "Unique nodes:"
+sort -u "$PBS_NODEFILE"
+echo "MPI executable=$(command -v mpirun)"
+
+module list
+simpleFoam -help 2>&1 | tail -n 8
+mpirun --version 2>&1 | head -n 5
+
+grep -E '^[[:space:]]*(startTime|endTime)[[:space:]]' \
+    system/controlDict
+
+grep -E '^[[:space:]]*(nCores|decompositionMethod|nHierarchical)[[:space:]]' \
+    system/include/caseDefinition
+
+NPROC_DIRS=$(find . -maxdepth 1 -type d -name 'processor*' | wc -l)
+echo "Processor directories=$NPROC_DIRS"
+test "$NPROC_DIRS" -eq "$NPROCS"
+
+echo "Restoring initial fields"
+restore0Dir -processor
+
+echo "Running renumberMesh"
+time mpirun -n "$NPROCS" --ppn "$PPN" \
+    --cpu-bind depth -d 1 \
+    renumberMesh -constant -overwrite -parallel \
+    > "$REN_LOG" 2>&1
+
+echo "Running potentialFoam"
+time mpirun -n "$NPROCS" --ppn "$PPN" \
+    --cpu-bind depth -d 1 \
+    potentialFoam -initialiseUBCs -parallel \
+    > "$POT_LOG" 2>&1
+
+echo "Running applyBoundaryLayer"
+time mpirun -n "$NPROCS" --ppn "$PPN" \
+    --cpu-bind depth -d 1 \
+    applyBoundaryLayer -ybl 0.0450244 -parallel \
+    > "$ABL_LOG" 2>&1
+
+echo "Running simpleFoam"
+time mpirun -n "$NPROCS" --ppn "$PPN" \
+    --cpu-bind depth -d 1 \
+    simpleFoam -parallel \
+    > "$SOLVER_LOG" 2>&1
+
+echo "Solver summary:"
+grep -E '^(Time =|ExecutionTime =|ClockTime =)|FOAM FATAL|Floating point|nan|NaN' \
+    "$SOLVER_LOG" | tail -n 20
+
+echo "Finish time=$(date)"
+echo "Four-node baseline fixed v2 candidate completed."

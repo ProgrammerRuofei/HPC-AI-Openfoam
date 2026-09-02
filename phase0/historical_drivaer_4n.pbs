@@ -1,0 +1,106 @@
+#!/bin/bash
+#PBS -P pm78
+#PBS -q normal
+#PBS -N drivaer_4n
+#PBS -l ncpus=192
+#PBS -l mem=760GB
+#PBS -l walltime=02:00:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+
+set -euo pipefail
+
+CASE="/scratch/pm78/$USER/openfoam_cpu/case/occDrivAerStaticMesh"
+
+module purge
+module load OpenFOAM/2512
+
+export OMP_NUM_THREADS=1
+export EXPECTED_ENDTIME=150
+
+ulimit -s unlimited
+
+cd "$CASE"
+
+echo "===== JOB INFORMATION ====="
+echo "Job ID: $PBS_JOBID"
+echo "Started: $(date)"
+echo "Allocated cores: $PBS_NCPUS"
+
+echo "Ranks allocated per node:"
+sort "$PBS_NODEFILE" | uniq -c
+
+echo "===== HARDWARE ====="
+lscpu | grep -E 'Model name|Socket|Core|Thread|CPU\(s\)'
+
+echo "===== SOFTWARE ====="
+module list 2>&1
+echo "OpenFOAM: $WM_PROJECT_VERSION"
+echo "Options: $WM_OPTIONS"
+echo "MPI library: $WM_MPLIB"
+which simpleFoam
+mpirun --version | head -n 1
+
+echo "===== CASE CONFIGURATION ====="
+grep -E 'nCores|decompositionMethod|nHierarchical' \
+    system/include/caseDefinition
+
+grep -E 'startFrom|startTime|endTime|deltaT' \
+    system/controlDict.noWrite
+
+if ! grep -Eq '^[[:space:]]*nCores[[:space:]]+192;' \
+    system/include/caseDefinition; then
+    echo "ERROR: nCores must be 192"
+    exit 1
+fi
+
+if ! grep -Eq '^[[:space:]]*nHierarchical[[:space:]]+\(16 6 2\);' \
+    system/include/caseDefinition; then
+    echo "ERROR: nHierarchical must be (16 6 2)"
+    exit 1
+fi
+
+if ! grep -Eq '^[[:space:]]*endTime[[:space:]]+150;' \
+    system/controlDict.noWrite; then
+    echo "ERROR: endTime must be 150"
+    exit 1
+fi
+
+if ! cmp -s system/fvSolution system/fvSolution.fixedIter; then
+    echo "ERROR: fvSolution is not fixedIter"
+    exit 1
+fi
+
+if [ -d processor0 ]; then
+    echo "ERROR: Existing processor directories detected"
+    exit 1
+fi
+
+if [ ! -f constant/polyMesh/points ]; then
+    echo "ERROR: Mesh is missing"
+    exit 1
+fi
+
+if [ ! -x Allrun.gadi ]; then
+    echo "ERROR: Allrun.gadi is missing or not executable"
+    exit 1
+fi
+
+echo "===== STARTING OPENFOAM PIPELINE ====="
+
+bash ./Allrun.gadi
+
+echo "===== SOLVER RESULT ====="
+
+solver_log=$(ls -1t logFiles/50_simpleFoam.*.log | head -n 1)
+
+echo "Solver log: $solver_log"
+
+grep -a -E 'Time =|ExecutionTime|ClockTime' \
+    "$solver_log" | tail -n 15
+
+tail -n 30 "$solver_log"
+
+echo "Completed: $(date)"
+echo "FOUR-NODE SCORED BASELINE SUCCESSFUL"

@@ -1,0 +1,100 @@
+#!/bin/bash -l
+
+#PBS -N of2512_4n512_b01
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=4:ncpus=128:mpiprocs=128:ompthreads=1:mem=440gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/results/of2512_4n512_baseline01.out
+
+set +e
+. /app/apps/resetmodule
+set -e
+
+module load openfoam/2512
+set -u
+set -o pipefail
+
+export OMP_NUM_THREADS=1
+ulimit -s unlimited
+
+CASE_DIR="$HOME/scratch/openfoam-isc26/cases/occDrivAerStaticMesh-v2512"
+LOG_DIR="$CASE_DIR/logFiles"
+NPROCS=512
+PPN=128
+RUN_TAG="4n512_baseline01"
+
+cd "$CASE_DIR"
+mkdir -p "$LOG_DIR"
+
+REN_LOG="$LOG_DIR/20_renumberMesh.${RUN_TAG}.log"
+POT_LOG="$LOG_DIR/30_potentialFoam.${RUN_TAG}.log"
+ABL_LOG="$LOG_DIR/40_applyBoundaryLayer.${RUN_TAG}.log"
+SOLVER_LOG="$LOG_DIR/50_simpleFoam.${RUN_TAG}.log"
+
+for LOG_FILE in "$REN_LOG" "$POT_LOG" "$ABL_LOG" "$SOLVER_LOG"
+do
+    if [ -e "$LOG_FILE" ]; then
+        echo "STOP: output already exists: $LOG_FILE"
+        exit 4
+    fi
+done
+
+echo "PBS_JOBID=$PBS_JOBID"
+echo "Start time=$(date)"
+echo "Head node=$(hostname)"
+echo "PBS_NODEFILE=$PBS_NODEFILE"
+echo "Allocated MPI slots=$(wc -l < "$PBS_NODEFILE")"
+echo "Unique nodes:"
+sort -u "$PBS_NODEFILE"
+echo "OpenFOAM executable=$(command -v simpleFoam)"
+echo "MPI executable=$(command -v mpirun)"
+
+module list
+simpleFoam -help 2>&1 | tail -n 8
+mpirun --version 2>&1 | head -n 5
+
+grep -E '^[[:space:]]*(startTime|endTime)[[:space:]]' \
+    system/controlDict
+
+grep -E '^[[:space:]]*(nCores|decompositionMethod|nHierarchical)[[:space:]]' \
+    system/include/caseDefinition
+
+NPROC_DIRS=$(find . -maxdepth 1 -type d -name 'processor*' | wc -l)
+echo "Processor directories=$NPROC_DIRS"
+test "$NPROC_DIRS" -eq "$NPROCS"
+
+echo "Restoring initial fields"
+restore0Dir -processor
+
+echo "Running renumberMesh"
+time mpirun -n "$NPROCS" --ppn "$PPN" \
+    --cpu-bind depth -d 1 \
+    renumberMesh -constant -overwrite -parallel \
+    > "$REN_LOG" 2>&1
+
+echo "Running potentialFoam"
+time mpirun -n "$NPROCS" --ppn "$PPN" \
+    --cpu-bind depth -d 1 \
+    potentialFoam -initialiseUBCs -parallel \
+    > "$POT_LOG" 2>&1
+
+echo "Running applyBoundaryLayer"
+time mpirun -n "$NPROCS" --ppn "$PPN" \
+    --cpu-bind depth -d 1 \
+    applyBoundaryLayer -ybl 0.0450244 -parallel \
+    > "$ABL_LOG" 2>&1
+
+echo "Running simpleFoam"
+time mpirun -n "$NPROCS" --ppn "$PPN" \
+    --cpu-bind depth -d 1 \
+    simpleFoam -parallel \
+    > "$SOLVER_LOG" 2>&1
+
+echo "Solver summary:"
+grep -E '^(Time =|ExecutionTime =|ClockTime =)|FOAM FATAL|Floating point|nan|NaN' \
+    "$SOLVER_LOG" | tail -n 20
+
+echo "Finish time=$(date)"
+echo "Four-node baseline-01 completed."
