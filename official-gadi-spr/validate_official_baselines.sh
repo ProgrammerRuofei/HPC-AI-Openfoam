@@ -56,6 +56,20 @@ check_one() {
   report "RunFunctions sourced"       "$(has "$pbs" 'bin/tools/RunFunctions')"
   report "nounset lifted for source"  "$(hasre "$pbs" 'set \+u;[^\n]*bin/tools/RunFunctions')"
 
+  # -- parallel launch -----------------------------------------------------------
+  # Job 178148324 aborted with "attempt to run parallel on 1 processor": the
+  # -parallel preparation steps were launched without mpirun. Every executable
+  # line carrying -parallel must go through the mpirun launcher, and
+  # decomposePar must NOT (the case-supplied Allrun runs it serially).
+  bare=$(grep -nE '^[^#]*[[:space:]]-parallel([[:space:]]|$)' "$pbs" \
+         | grep -vE '\$PAREX|mpirun' | cut -d: -f1 | tr '\n' ' ')
+  report "every -parallel step uses mpirun" "$([ -z "$bare" ] && echo PASS || echo FAIL)"
+  [ -n "$bare" ] && echo "      bare -parallel on line(s): $bare"
+  report "decomposePar stays serial"  "$(grep -qE '^[^#]*(\$PAREX|mpirun)[^#]*decomposePar' "$pbs" && echo FAIL || echo PASS)"
+  for L in 10_decomposePar 20_renumberMesh 30_potentialFoam 40_applyBoundaryLayer; do
+    report "per-step log $L"           "$(has "$pbs" "$L.log")"
+  done
+
   # -- frozen numerics ---------------------------------------------------------
   report "uses controlDict.noWrite"   "$(has "$pbs" 'controlDict.noWrite')"
   report "uses fvSolution.fixedIter"  "$(has "$pbs" 'fvSolution.fixedIter')"

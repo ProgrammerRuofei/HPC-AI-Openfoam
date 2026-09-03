@@ -18,8 +18,8 @@ COEFF="$EV/coefficient.dat"
 
 fail=0
 note() { printf '%-42s %s\n' "$1" "$2"; }
-check() { # check <label> <ok:0|1> <detail>
-  if [ "$2" -eq 0 ]; then note "$1" "PASS  $3"; else note "$1" "FAIL  $3"; fail=1; fi
+check() { # check <label> <ok:0|1> <detail-shown-only-on-failure>
+  if [ "$2" -eq 0 ]; then note "$1" "PASS"; else note "$1" "FAIL  $3"; fail=1; fi
 }
 
 echo "=== evidence: $EV ==="
@@ -29,16 +29,25 @@ echo "=== evidence: $EV ==="
 # Each step must show OpenFOAM's normal "End" completion in the captured run log.
 echo
 echo "-- preparation chain --"
+# Each parallel/serial utility writes its own log; completion is OpenFOAM's "End".
+for step in 10_decomposePar 20_renumberMesh 30_potentialFoam 40_applyBoundaryLayer; do
+  f="$EV/$step.log"
+  if [ ! -f "$f" ]; then
+    check "$step completed" 1 "log missing"
+  elif grep -qa '^End' "$f"; then
+    check "$step completed" 0 ""
+  else
+    check "$step completed" 1 "log present but no End marker"
+  fi
+done
+# restore0Dir is a shell function with no log of its own; it announces itself
+# into run.log and must have resolved as a function rather than a command.
 if [ -f "$RUNLOG" ]; then
-  for step in decomposePar restore0Dir renumberMesh potentialFoam applyBoundaryLayer; do
-    if grep -qa "$step" "$RUNLOG"; then
-      check "$step invoked" 0 ""
-    else
-      check "$step invoked" 1 "not found in run.log"
-    fi
-  done
+  grep -qa 'Restore 0/ from 0.orig/' "$RUNLOG"
+  check "restore0Dir completed" $? "no restore marker in run.log"
+  grep -qa 'command not found' "$RUNLOG" && { check "no unresolved commands" 1 "run.log reports command not found"; } || check "no unresolved commands" 0 ""
 else
-  note "run.log" "MISSING - cannot verify prep chain"
+  note "run.log" "MISSING - cannot verify restore0Dir"
   fail=1
 fi
 

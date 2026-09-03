@@ -37,6 +37,16 @@ grep -Eq "^[[:space:]]*endTime[[:space:]]+${ENDTIME};" system/controlDict; cmp -
 # FOAM_LD_LIBRARY_PATH, so nounset is lifted for the source only.
 set +u; . "${WM_PROJECT_DIR:?}/bin/tools/RunFunctions"; set -u
 type restore0Dir | head -n 1
-decomposePar -constant; restore0Dir -processor; renumberMesh -constant -overwrite -parallel; potentialFoam -initialiseUBCs -parallel; applyBoundaryLayer -ybl 0.0450244 -parallel
-mpirun -np "$NRANKS" simpleFoam -parallel > "$EVIDENCE/simpleFoam.log" 2>&1
+# Launch pattern taken verbatim from the case-supplied Allrun: decomposePar is
+# serial, restore0Dir is a shell function, and every -parallel step runs under
+# mpirun. Job 178148324 aborted with "attempt to run parallel on 1 processor"
+# because the three -parallel preparation steps were launched bare.
+# Per-step logs give the evidence each chain step completed.
+PAREX="mpirun -np $NRANKS"
+decomposePar -constant                             > "$EVIDENCE/10_decomposePar.log" 2>&1
+restore0Dir -processor
+$PAREX renumberMesh -constant -overwrite -parallel > "$EVIDENCE/20_renumberMesh.log" 2>&1
+$PAREX potentialFoam -initialiseUBCs -parallel     > "$EVIDENCE/30_potentialFoam.log" 2>&1
+$PAREX applyBoundaryLayer -ybl 0.0450244 -parallel > "$EVIDENCE/40_applyBoundaryLayer.log" 2>&1
+$PAREX simpleFoam -parallel                        > "$EVIDENCE/simpleFoam.log" 2>&1
 grep -a 'Average wall-clock time per time step' "$EVIDENCE/simpleFoam.log" | tail -n 1 || true
