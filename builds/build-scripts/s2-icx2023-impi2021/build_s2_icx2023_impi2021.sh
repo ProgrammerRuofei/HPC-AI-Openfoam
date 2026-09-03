@@ -131,7 +131,7 @@ verify_identity_value authoritative_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$AUTH
 rsync -a --exclude='/platforms/' --exclude='/ThirdParty-v2512/platforms/' \
     --exclude='/ThirdParty-v2512/build/' "${AUTHORITATIVE_SOURCE}/" "${WORKTREE}/"
 for required in etc/bashrc etc/config.sh/settings src/Allwmake applications/Allwmake \
-    wmake/wmake ThirdParty-v2512/Allwmake; do test -f "${WORKTREE}/${required}"; done
+    wmake/wmake wmake/src/Allmake ThirdParty-v2512/Allwmake; do test -f "${WORKTREE}/${required}"; done
 test ! -e "${WORKTREE}/platforms"
 test ! -e "${WORKTREE}/ThirdParty-v2512/platforms"
 test ! -e "${WORKTREE}/ThirdParty-v2512/build"
@@ -155,6 +155,15 @@ test "$WM_PROJECT_VERSION" = v2512
 test "$WM_OPTIONS" = "$EXPECTED_OPTIONS"
 printf 'ThirdParty/SCOTCH configuration (source default, unmodified):\n'
 find etc config ThirdParty -maxdepth 3 -iname '*scotch*' -type f -print 2>/dev/null | sort || true
+# The site tree ships no top-level Allwmake, so the per-directory steps are
+# driven here -- and wmake's own tools must come first. platforms/tools is
+# named ${WM_ARCH}${WM_COMPILER}, so changing compiler invalidates the
+# prebuilt linux64Gcc set and wmkdepend has to be rebuilt for this one.
+# Job 178141482 died exactly here: "wmkdepend: Command not found".
+"${WM_PROJECT_DIR}/wmake/src/Allmake"
+WMAKE_TOOLS="${WM_PROJECT_DIR}/platforms/tools/${WM_ARCH}${WM_COMPILER}"
+test -x "${WMAKE_TOOLS}/wmkdepend" || { echo "ERROR: wmkdepend absent in ${WMAKE_TOOLS}" >&2; exit 5; }
+printf 'wmake_tools=%s\n' "$WMAKE_TOOLS"; ls "$WMAKE_TOOLS"
 "${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?PBS_NCPUS is required}"
 "${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?PBS_NCPUS is required}"
 "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?PBS_NCPUS is required}"

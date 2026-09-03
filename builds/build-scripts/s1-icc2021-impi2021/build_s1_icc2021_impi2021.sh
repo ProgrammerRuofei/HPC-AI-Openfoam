@@ -15,6 +15,8 @@ EXPECTED_SYMLINK_MANIFEST_SHA256=7d4ad344a50520ca0f79c6e45e198eb4f294e73759291fd
 EXPECTED_SOURCE_ID_V2=5e43349d5b302beb354e4e0d9842ff8148cfed069fb0f1a224616df6021c18db
 EXPECTED_SYMLINK_ENTRY_COUNT=10976
 EXPECTED_OPTIONS=linux64IccDPInt32Opt
+EXPECTED_FOAM_API=2512
+EXPECTED_API_INFO_SHA256=d03cf08cf48ab523323a8849439b2f1073df920e29e969f51f188568a4fa0a8a
 
 module purge
 module load intel-compiler/2021.10.0 intel-mpi/2021.10.0
@@ -99,6 +101,25 @@ verify_identity_value() {
     test "$expected" = "$observed" || { echo "ERROR: ${label} mismatch" >&2; exit 4; }
 }
 
+bootstrap_api_info() {
+    local source_root=$1 api_info="${source_root}/META-INFO/api-info" observed_sha origin
+    if test -e "$api_info" || test -L "$api_info"; then
+        test -f "$api_info" || { echo "ERROR: api-info is not a regular file" >&2; exit 4; }
+        origin=staged-source
+    else
+        # The authoritative site tree is missing this tracked v2512 metadata.
+        # SOURCE_ID_V2 has already verified the unmodified staged copy; add only
+        # the reviewed API metadata required by upstream environment bootstrap.
+        mkdir -p "${api_info%/*}"
+        printf 'api=2512\npatch=0\n' > "$api_info"
+        origin=jobfs-bootstrap
+    fi
+    observed_sha=$(sha256sum "$api_info" | awk '{print $1}')
+    printf 'api_info_origin=%s\napi_info_sha256_expected=%s\napi_info_sha256_observed=%s\n' \
+        "$origin" "$EXPECTED_API_INFO_SHA256" "$observed_sha" | tee -a "$IDENTITY_EVIDENCE"
+    test "$observed_sha" = "$EXPECTED_API_INFO_SHA256" || { echo "ERROR: api-info mismatch" >&2; exit 4; }
+}
+
 echo "stack_id=${STACK_ID}"; echo "authoritative_source=${AUTHORITATIVE_SOURCE}"; echo "persistent_build_root=${BUILD_ROOT}"; echo "jobfs_root=${JOBFS_ROOT}"
 IDENTITY_EVIDENCE="${EVIDENCE_DIR}/source-identity-v2.txt"
 {
@@ -131,7 +152,7 @@ verify_identity_value authoritative_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$AUTH
 rsync -a --exclude='/platforms/' --exclude='/ThirdParty-v2512/platforms/' \
     --exclude='/ThirdParty-v2512/build/' "${AUTHORITATIVE_SOURCE}/" "${WORKTREE}/"
 for required in etc/bashrc etc/config.sh/settings src/Allwmake applications/Allwmake \
-    wmake/wmake ThirdParty-v2512/Allwmake; do test -f "${WORKTREE}/${required}"; done
+    wmake/wmake wmake/src/Allmake ThirdParty-v2512/Allwmake; do test -f "${WORKTREE}/${required}"; done
 test ! -e "${WORKTREE}/platforms"
 test ! -e "${WORKTREE}/ThirdParty-v2512/platforms"
 test ! -e "${WORKTREE}/ThirdParty-v2512/build"
@@ -146,20 +167,38 @@ printf 'staged_regular_entry_count=%s\nstaged_symlink_entry_count=%s\n' "$STAGED
 verify_identity_value staged_regular_manifest "$EXPECTED_REGULAR_MANIFEST_SHA256" "$STAGED_REGULAR_MANIFEST_SHA256"
 verify_identity_value staged_symlink_manifest "$EXPECTED_SYMLINK_MANIFEST_SHA256" "$STAGED_SYMLINK_MANIFEST_SHA256"
 verify_identity_value staged_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$STAGED_SOURCE_ID_V2"
+bootstrap_api_info "$WORKTREE"
 record_jobfs_usage post-stage
 cd "$WORKTREE"
-# OpenFOAM's upstream bashrc reads previously unset environment variables while
-# cleaning inherited paths.  Retain fail-fast settings, but disable nounset for
-# that source operation only; the configured OpenFOAM environment must persist.
+# The bashrc defaults WM_COMPILER/WM_MPLIB before config.sh/setup processes its
+# arguments. Pass S1 values as arguments so Intel MPI selects its native branch.
+# It also reads previously unset variables while cleaning paths, so temporarily
+# disable nounset for this upstream source operation only.
 set +u
-. etc/bashrc
+. etc/bashrc WM_COMPILER=Icc WM_MPLIB=INTELMPI WM_COMPILE_OPTION=Opt
 set -u
-printf 'WM_PROJECT_VERSION=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\n' \
-    "$WM_PROJECT_VERSION" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS"
+printf 'WM_PROJECT_VERSION=%s\nFOAM_API=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\nFOAM_MPI=%s\nMPI_ARCH_PATH=%s\nI_MPI_ROOT=%s\nI_MPI_CC=%s\nI_MPI_CXX=%s\n' \
+    "$WM_PROJECT_VERSION" "$FOAM_API" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS" "$FOAM_MPI" \
+    "$MPI_ARCH_PATH" "$I_MPI_ROOT" "$I_MPI_CC" "$I_MPI_CXX"
 test "$WM_PROJECT_VERSION" = v2512
+test "$FOAM_API" = "$EXPECTED_FOAM_API"
+test "$WM_COMPILER" = Icc
+test "$WM_MPLIB" = INTELMPI
 test "$WM_OPTIONS" = "$EXPECTED_OPTIONS"
+test "$FOAM_MPI" = intelmpi
+test "$I_MPI_CC" = icc
+test "$I_MPI_CXX" = icpc
 printf 'ThirdParty/SCOTCH configuration (source default, unmodified):\n'
 find etc config ThirdParty -maxdepth 3 -iname '*scotch*' -type f -print 2>/dev/null | sort || true
+# The site tree ships no top-level Allwmake, so the per-directory steps are
+# driven here -- and wmake's own tools must come first. platforms/tools is
+# named ${WM_ARCH}${WM_COMPILER}, so changing compiler invalidates the
+# prebuilt linux64Gcc set and wmkdepend has to be rebuilt for this one.
+# Job 178141482 died exactly here: "wmkdepend: Command not found".
+"${WM_PROJECT_DIR}/wmake/src/Allmake"
+WMAKE_TOOLS="${WM_PROJECT_DIR}/platforms/tools/${WM_ARCH}${WM_COMPILER}"
+test -x "${WMAKE_TOOLS}/wmkdepend" || { echo "ERROR: wmkdepend absent in ${WMAKE_TOOLS}" >&2; exit 5; }
+printf 'wmake_tools=%s\n' "$WMAKE_TOOLS"; ls "$WMAKE_TOOLS"
 "${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?PBS_NCPUS is required}"
 "${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?PBS_NCPUS is required}"
 "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?PBS_NCPUS is required}"

@@ -51,7 +51,7 @@ write_regular_manifest "$AUTHORITATIVE_SOURCE" "${EVIDENCE_DIR}/authoritative-so
 auth_r=$(sha256sum "${EVIDENCE_DIR}/authoritative-source-files.sha256" | awk '{print $1}'); auth_s=$(sha256sum "${EVIDENCE_DIR}/authoritative-symlink-files.nul" | awk '{print $1}')
 verify authoritative_regular_manifest "$EXPECTED_REGULAR_MANIFEST_SHA256" "$auth_r"; verify authoritative_symlink_manifest "$EXPECTED_SYMLINK_MANIFEST_SHA256" "$auth_s"; verify authoritative_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$(source_id_v2 "$auth_r" "$auth_s")"
 rsync -a --exclude='/platforms/' --exclude='/ThirdParty-v2512/platforms/' --exclude='/ThirdParty-v2512/build/' "${AUTHORITATIVE_SOURCE}/" "${WORKTREE}/"
-for f in etc/bashrc etc/config.sh/settings src/Allwmake applications/Allwmake wmake/wmake ThirdParty-v2512/Allwmake; do test -f "${WORKTREE}/$f"; done
+for f in etc/bashrc etc/config.sh/settings src/Allwmake applications/Allwmake wmake/wmake wmake/src/Allmake ThirdParty-v2512/Allwmake; do test -f "${WORKTREE}/$f"; done
 write_regular_manifest "$WORKTREE" "${EVIDENCE_DIR}/staged-source-files.sha256"; write_symlink_manifest "$WORKTREE" "${EVIDENCE_DIR}/staged-symlink-files.nul"
 stage_r=$(sha256sum "${EVIDENCE_DIR}/staged-source-files.sha256" | awk '{print $1}'); stage_s=$(sha256sum "${EVIDENCE_DIR}/staged-symlink-files.nul" | awk '{print $1}')
 printf 'staged_regular_entry_count=%s\nstaged_symlink_entry_count=%s\n' "$(count_entries "$WORKTREE" f)" "$(count_entries "$WORKTREE" l)" | tee -a "$IDENTITY_EVIDENCE"
@@ -67,6 +67,15 @@ cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB
 printf 'WM_PROJECT_VERSION=%s\nFOAM_API=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\nFOAM_MPI=%s\nMPI_ARCH_PATH=%s\n' "$WM_PROJECT_VERSION" "$FOAM_API" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS" "$FOAM_MPI" "$MPI_ARCH_PATH"
 test "$WM_PROJECT_VERSION" = v2512; test "$FOAM_API" = "$EXPECTED_FOAM_API"; test "$WM_COMPILER" = "$WM_COMPILER_VALUE"; test "$WM_MPLIB" = SYSTEMOPENMPI; test "$FOAM_MPI" = sys-openmpi; test "$(command -v mpicc)" = /apps/openmpi/4.1.7/bin/mpicc
 test "$WM_THIRD_PARTY_DIR" = "$THIRDPARTY_TREE"; test -f "$WM_THIRD_PARTY_DIR/Allwmake"; test -f "$WM_PROJECT_DIR/src/Allwmake"
+# The site tree ships no top-level Allwmake, so the per-directory steps are
+# driven here -- and wmake's own tools must come first. platforms/tools is
+# named ${WM_ARCH}${WM_COMPILER}, so changing compiler invalidates the
+# prebuilt linux64Gcc set and wmkdepend has to be rebuilt for this one.
+# Job 178141482 died exactly here: "wmkdepend: Command not found".
+"${WM_PROJECT_DIR}/wmake/src/Allmake"
+WMAKE_TOOLS="${WM_PROJECT_DIR}/platforms/tools/${WM_ARCH}${WM_COMPILER}"
+test -x "${WMAKE_TOOLS}/wmkdepend" || { echo "ERROR: wmkdepend absent in ${WMAKE_TOOLS}" >&2; exit 5; }
+printf 'wmake_tools=%s\n' "$WMAKE_TOOLS"; ls "$WMAKE_TOOLS"
 "${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?}"
 BIN="${FOAM_APPBIN}/simpleFoam"; test -x "$BIN"; case "$(realpath "$BIN")" in "${WORKTREE}"/*) ;; *) echo 'ERROR: binary outside candidate worktree' >&2; exit 3;; esac
 file "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.file"; ldd "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.ldd"; grep -qi '/apps/openmpi/4.1.7' "${EVIDENCE_DIR}/simpleFoam.ldd"; sha256sum "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.sha256"
