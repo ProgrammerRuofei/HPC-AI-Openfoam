@@ -56,6 +56,19 @@ write_regular_manifest "$WORKTREE" "${EVIDENCE_DIR}/staged-source-files.sha256";
 stage_r=$(sha256sum "${EVIDENCE_DIR}/staged-source-files.sha256" | awk '{print $1}'); stage_s=$(sha256sum "${EVIDENCE_DIR}/staged-symlink-files.nul" | awk '{print $1}')
 printf 'staged_regular_entry_count=%s\nstaged_symlink_entry_count=%s\n' "$(count_entries "$WORKTREE" f)" "$(count_entries "$WORKTREE" l)" | tee -a "$IDENTITY_EVIDENCE"
 verify staged_regular_manifest "$EXPECTED_REGULAR_MANIFEST_SHA256" "$stage_r"; verify staged_symlink_manifest "$EXPECTED_SYMLINK_MANIFEST_SHA256" "$stage_s"; verify staged_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$(source_id_v2 "$stage_r" "$stage_s")"
+# ICC 2021.10 accepts -std=c++17 but does not advertise __cpp_aligned_new.
+# OpenFOAM v2512 ListPolicy uses aligned new[]/delete[], while the GCC 8
+# libstdc++ declarations are gated on that feature macro.  Apply this only to
+# C1's JOBFS staging after authoritative SOURCE_ID_V2 verification; /apps is
+# never changed and other compiler candidates leave this branch untouched.
+if [ "${ICC_ALIGNED_NEW_WORKAROUND:-0}" = 1 ]; then
+    test "$WM_COMPILER_VALUE" = Icc
+    ICC_RULE="${WORKTREE}/wmake/rules/linux64Icc/c++"
+    test -f "$ICC_RULE"
+    printf '\n# C1 ICC 2021.10 aligned-allocation compatibility workaround\nc++FLAGS += -D__cpp_aligned_new=201606L\n' >> "$ICC_RULE"
+    grep -Fq -- '-D__cpp_aligned_new=201606L' "$ICC_RULE"
+    printf 'icc_aligned_new_workaround=enabled\nicc_rule=%s\n' "$ICC_RULE" | tee -a "$IDENTITY_EVIDENCE"
+fi
 # v2512 discovers ThirdParty-v<api> alongside, not inside, WM_PROJECT_DIR.
 # Verify the authoritative nested source first, then relocate it without changing
 # contents to reproduce the supported OpenFOAM/ThirdParty installation topology.
