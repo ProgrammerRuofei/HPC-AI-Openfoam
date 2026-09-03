@@ -31,7 +31,8 @@ fact.
 | Known-good baseline | 1 node/48 ranks; 2 nodes/96 ranks; 4 nodes/192 ranks; 150 SIMPLE iterations for scored 4-node reference | `APPLICATION.md`, `planning/PLANS.md`, user-provided current context | DISCOVERED AND VERIFIED from project evidence |
 | 4-node reference time | `ClockTime ≈ 787 s` | `APPLICATION.md`, `planning/PLANS.md` | DISCOVERED AND VERIFIED from project evidence |
 | MPI implementation/version | System Open MPI 4.1.7 | `module load OpenFOAM/2512`; `WM_MPLIB=SYSTEMOPENMPI`; `mpirun --version`; `ldd simpleFoam` | CONFIRMED |
-| Compiler/version | GCC toolchain, OpenFOAM `WM_COMPILER=Gcc` | Loaded `OpenFOAM/2512` environment; `WM_OPTIONS=linux64GccDPInt32Opt` | CONFIRMED for build family; exact GCC sub-version TBD |
+| Compiler/version | **GCC 8.5.0 20210514 (Red Hat 8.5.0-26 / -28)** | `strings $(which simpleFoam) \| grep "^GCC:"` read from the shipped binary; node `gcc --version` agrees | DISCOVERED AND VERIFIED |
+| Site-build target ISA | Generic x86-64: **zero AVX-512** anywhere in the hot path | `objdump -d`: `simpleFoam` zmm=0/ymm=0/xmm=3027; `libOpenFOAM` zmm=0/ymm=19162; `libfiniteVolume` zmm=0/ymm=92169 | DISCOVERED AND VERIFIED |
 | Launcher | `mpirun -np "$PBS_NCPUS" simpleFoam -parallel` | `/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/Allrun.gadi` | CONFIRMED |
 | Binding/placement | No explicit binding flags in baseline; Open MPI/PBS allocation placement | `Allrun.gadi` and raw solver `Hosts`/`Pstream` sections | CONFIRMED for baseline script; detailed CPU binding map TBD |
 | Decomposition | `hierarchical`; 48 `(8 3 2)`, 96 `(16 3 2)`, 192 `(16 6 2)` | `caseDefinition`, PBS preflight checks, and `40_decomposePar.log` files | CONFIRMED |

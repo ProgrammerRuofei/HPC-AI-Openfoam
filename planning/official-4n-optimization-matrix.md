@@ -156,6 +156,33 @@ everything after it is conditional on E0 producing a valid baseline.
 - **Precondition**: E0, E0b and at least E1-E3 complete, and enough SU remains that a
   rebuild campaign cannot displace final validation repeats.
 
+**Measured headroom (2026-09-03).** The site module is built with **GCC 8.5.0
+20210514**, verified from the shipped binary. GCC 8.5.0 was released in May 2021
+and predates Sapphire Rapids support, which arrived in GCC 11
+(`-march=sapphirerapids`), so it cannot target the scored hardware at all.
+`objdump` confirms what that costs:
+
+| Object | AVX-512 (`zmm`) | AVX/AVX2 (`ymm`) | SSE (`xmm`) |
+| --- | ---: | ---: | ---: |
+| `simpleFoam` | **0** | 0 | 3027 |
+| `libOpenFOAM` | **0** | 19162 | 90999 |
+| `libfiniteVolume` | **0** | 92169 | 162251 |
+
+The Xeon 8470Q has two 512-bit FMA units per core and **not one AVX-512
+instruction is issued anywhere in the hot path**.
+
+**State this honestly.** The unused width is a verified fact; a proportional
+speedup is not. `simpleFoam` runs sparse matrix-vector work over an unstructured
+mesh, dominated by indirect gather/scatter and memory bandwidth rather than
+vector throughput, and AVX-512 can also depress clocks. The defensible claim is
+"the scored hardware's vector units are entirely unused by the site build, and
+the size of the recoverable gain is an open question", **not** "we expect an
+AVX-512 speedup".
+
+This is the argument for a self-built stack, and it needs no artificially
+handicapped baseline: the site module is what any competitor gets by default, so
+it is already the honest reference point.
+
 ### E8 - Final validation repeats
 
 - **Hypothesis**: a single fast run may be favourable variance rather than a real gain.
