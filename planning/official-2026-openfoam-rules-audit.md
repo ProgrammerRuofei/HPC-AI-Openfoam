@@ -16,3 +16,29 @@ Official source: [2026 APAC OpenFOAM HPC Task Rules](https://github.com/hpcac/20
 R1–R4 are **pre-rule development / Cascade Lake workflow-validation results**.
 They remain useful for workflow validation and variability analysis, but are not
 official Gadi contest baselines and must never be mixed with normalsr results.
+
+## Cd sanity targets per scaling point
+
+Read from the official rules page on 2026-09-03. The earlier project notes only
+recorded the 150-step value; the 40/80-step targets are needed before the 1N and
+2N scaling runs can be validated.
+
+| Nodes | Iterations | Expected Cd |
+| ---: | ---: | --- |
+| 1 | 40 | ~0.43 |
+| 2 | 80 | ~0.34 |
+| 4 | 150 | 0.28-0.29 |
+
+Cd comes from `postProcessing/forceCoeffsAll/*/coefficient.dat` and never appears
+in the `simpleFoam` log. The primary metric line
+`Average wall-clock time per time step` is emitted by `simpleFoam` directly, so it
+is extracted from the solver log rather than computed from `ClockTime`.
+
+## Gadi allocation constraint (2026-09-03)
+
+Reservation is charged on the **requested** walltime; actual billing uses real
+elapsed time. On `normalsr` the rate is 2 SU per resource-hour and a 4-node
+request resolves to 416 resources, so a 2 h request reserves 1664 SU while a
+1:15 request reserves 1040 SU for the same run. Project `pm78` holds a 4.00 KSU
+quarterly grant, which makes requested walltime a first-class budget variable
+rather than a free safety margin.

@@ -5,7 +5,7 @@
 #PBS -N of2512_spr_4n
 #PBS -l ncpus=416
 #PBS -l mem=760GB
-#PBS -l walltime=02:00:00
+#PBS -l walltime=01:15:00
 #PBS -l storage=scratch/pm78
 #PBS -l wd
 #PBS -j oe
@@ -16,6 +16,10 @@ SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
 RUN_ROOT=/scratch/pm78/kj7183/openfoam_cpu/official-gadi-spr/baseline-4n; CASE="$RUN_ROOT/case"; EVIDENCE="$RUN_ROOT/evidence/official-spr-4n.${PBS_JOBID}"
 NRANKS=416
 test ! -e "$CASE"; mkdir -p "$CASE" "$EVIDENCE"; exec > >(tee -a "$EVIDENCE/run.log") 2>&1
+# Preserve Cd evidence unconditionally: a failed or truncated run is exactly the
+# one whose coefficient.dat we most need to diagnose it.
+preserve_evidence() { rc=$?; set +e; c=$(find "$CASE/postProcessing/forceCoeffsAll" -name coefficient.dat -type f 2>/dev/null | head -n 1); [ -n "$c" ] && cp -f "$c" "$EVIDENCE/coefficient.dat"; printf "script_exit_rc=%s\n" "$rc" >> "$EVIDENCE/run.log"; return $rc; }
+trap preserve_evidence EXIT
 test "$PBS_NNODES" = 4; test "$PBS_NCPUS" = "$NRANKS"
 sort -u "$PBS_NODEFILE"; module list 2>&1; lscpu | grep -E 'Model name|Socket|Core|Thread|NUMA'; mpirun --version | head -n 3
 cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$CASE/"
@@ -27,5 +31,4 @@ sed -i -E 's/^([[:space:]]*nHierarchical[[:space:]]+)\([^)]*\);/\1(16 13 2);/' s
 grep -Eq '^[[:space:]]*endTime[[:space:]]+150;' system/controlDict; cmp -s system/fvSolution system/fvSolution.fixedIter; grep -Eq '^[[:space:]]*nCores[[:space:]]+416;' system/include/caseDefinition; grep -Eq '^[[:space:]]*nHierarchical[[:space:]]+\(16 13 2\);' system/include/caseDefinition
 decomposePar -constant; restore0Dir -processor; renumberMesh -constant -overwrite -parallel; potentialFoam -initialiseUBCs -parallel; applyBoundaryLayer -ybl 0.0450244 -parallel
 mpirun -np "$NRANKS" simpleFoam -parallel > "$EVIDENCE/simpleFoam.log" 2>&1
-grep -a 'Average wall-clock time per time step' "$EVIDENCE/simpleFoam.log" | tail -n 1
-coeff=$(find postProcessing/forceCoeffsAll -name coefficient.dat -type f | head -n 1); test -n "$coeff"; cp "$coeff" "$EVIDENCE/coefficient.dat"
+grep -a 'Average wall-clock time per time step' "$EVIDENCE/simpleFoam.log" | tail -n 1 || true
