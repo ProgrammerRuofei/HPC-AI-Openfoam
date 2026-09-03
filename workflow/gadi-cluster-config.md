@@ -37,7 +37,10 @@ fact.
 | Decomposition | `hierarchical`; 48 `(8 3 2)`, 96 `(16 3 2)`, 192 `(16 6 2)` | `caseDefinition`, PBS preflight checks, and `40_decomposePar.log` files | CONFIRMED |
 | Login-node policy | Lightweight inspection only | Project workflow policy and user request | PROVISIONAL; confirm with NCI |
 | Compute-node policy | OpenFOAM runs, profiling, large builds only on compute nodes | Project workflow policy and user request | PROVISIONAL; confirm with NCI |
-| Persistent SSH | `TBD` | Alias works; persistence method not documented | TBD |
+| Persistent SSH | `ControlMaster auto`, `ControlPath ~/.ssh/agent/%C`, `ControlPersist 4h` in `~/.ssh/config` | Read from the live config; master observed running, then observed expiring mid-session on 2026-09-03 | DISCOVERED AND VERIFIED |
+| Persistent SSH check | `ssh -O check gadi-comp` | Returns `Master running (pid=...)`, or `Control socket connect(...): No such file or directory` once expired | DISCOVERED AND VERIFIED |
+| Persistent SSH restore | `ssh -MNf gadi-comp` (user-run; may prompt for a passphrase) | Required after the 4 h `ControlPersist` window lapses | DISCOVERED AND VERIFIED |
+| Behaviour once expired | Non-interactive `ssh -o BatchMode=yes` fails with `Permission denied (publickey,...)` | Observed 2026-09-03 while monitoring job `178149002` | DISCOVERED AND VERIFIED |
 | Off-campus/VPN/jump host | `TBD` | Not discovered | TBD |
 
 ## Local evidence reviewed
@@ -206,3 +209,23 @@ fresh-case isolation, and solver completion. Each future submission remains
 subject to separate explicit approval. No compiler, MPI, binding,
 decomposition, or numerical optimisation is authorised by this readiness
 statement.
+
+## Persistent-connection expiry (2026-09-03)
+
+`ControlPersist 4h` means the shared master connection lapses silently mid-session.
+Once it does, every non-interactive `ssh -o BatchMode=yes` returns
+`Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password,hostbased)`,
+because re-authentication needs a credential only the user can supply. Restoring
+it is a user action:
+
+```bash
+ssh -MNf gadi-comp     # rebuild the background master
+ssh -O check gadi-comp # expect: Master running (pid=...)
+```
+
+**Monitoring scripts must not treat an ssh failure as a job result.** The first
+watcher used here reported `STATE=FINAL` when the connection dropped, because a
+dead transport and a finished job both produced empty output - it would have
+recorded a running job as complete. Any watcher must check the ssh exit status
+separately from the scheduler's answer, and report an unreachable cluster as
+**unknown**, never as an outcome.
