@@ -69,6 +69,20 @@ if [ "${ICC_ALIGNED_NEW_WORKAROUND:-0}" = 1 ]; then
     grep -Fq -- '-D__cpp_aligned_new=201606L' "$ICC_RULE"
     printf 'icc_aligned_new_workaround=enabled\nicc_rule=%s\n' "$ICC_RULE" | tee -a "$IDENTITY_EVIDENCE"
 fi
+# ICC 2021.10 incorrectly propagates the top-level const qualifier from the
+# CircularBuffer::toGlobal declaration to its out-of-line definition, making
+# the local value parameter non-modifiable on instantiation.  Adjust only the
+# staged JOBFS declaration after source-identity verification; /apps remains
+# unmodified and non-C1 candidates do not enter this branch.
+if [ "${ICC_CIRCULARBUFFER_CONST_WORKAROUND:-0}" = 1 ]; then
+    test "$WM_COMPILER_VALUE" = Icc
+    ICC_CIRCULARBUFFER_HEADER="${WORKTREE}/src/OpenFOAM/containers/Buffers/CircularBuffer.H"
+    test -f "$ICC_CIRCULARBUFFER_HEADER"
+    /bin/perl -0pi -e 's/inline label toGlobal\(const label i\) const;/inline label toGlobal(label i) const;/' "$ICC_CIRCULARBUFFER_HEADER"
+    grep -Fqx '        inline label toGlobal(label i) const;' "$ICC_CIRCULARBUFFER_HEADER"
+    ! grep -Fq 'toGlobal(const label i)' "$ICC_CIRCULARBUFFER_HEADER"
+    printf 'icc_circularbuffer_const_workaround=enabled\nicc_circularbuffer_header=%s\n' "$ICC_CIRCULARBUFFER_HEADER" | tee -a "$IDENTITY_EVIDENCE"
+fi
 # v2512 discovers ThirdParty-v<api> alongside, not inside, WM_PROJECT_DIR.
 # Verify the authoritative nested source first, then relocate it without changing
 # contents to reproduce the supported OpenFOAM/ThirdParty installation topology.

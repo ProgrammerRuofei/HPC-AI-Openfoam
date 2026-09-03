@@ -20,3 +20,20 @@ the build appends `-D__cpp_aligned_new=201606L` to the staged JOBFS copy of
 `wmake/rules/linux64Icc/c++`.  `/apps/OpenFOAM/2512` is never modified; the
 workaround is recorded in evidence and no numerical, MPI, or runtime setting
 changes.
+
+## Attempt 4 result — `178166039.gadi-pbs`
+
+The aligned-allocation repair worked: SOURCE_ID_V2, JOBFS staging, ThirdParty,
+and the OpenFOAM `src` build advanced past the prior `ListPolicy.H` failure.
+ICC 2021.10 then rejected `CircularBuffer::toGlobal` when instantiating
+`OFstreamCollator`: the declaration uses `const label i`, and ICC incorrectly
+treated the definition's local value parameter as non-modifiable.  This is a
+second ICC front-end compatibility issue, unrelated to the source identity or
+runtime configuration.
+
+## Attempt 5 compatibility repair
+
+Only C1 enables `ICC_CIRCULARBUFFER_CONST_WORKAROUND=1`.  After SOURCE_ID_V2
+verification, it changes the staged JOBFS declaration to `toGlobal(label i)`.
+The out-of-line definition already uses `label i`; `/apps/OpenFOAM/2512` is
+not modified.  Attempt 5 is limited to the approved three-hour retry budget.
