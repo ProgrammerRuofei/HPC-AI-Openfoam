@@ -148,7 +148,12 @@ verify_identity_value staged_symlink_manifest "$EXPECTED_SYMLINK_MANIFEST_SHA256
 verify_identity_value staged_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$STAGED_SOURCE_ID_V2"
 record_jobfs_usage post-stage
 cd "$WORKTREE"
+# OpenFOAM's upstream bashrc reads previously unset environment variables while
+# cleaning inherited paths.  Retain fail-fast settings, but disable nounset for
+# that source operation only; the configured OpenFOAM environment must persist.
+set +u
 . etc/bashrc
+set -u
 printf 'WM_PROJECT_VERSION=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\n' \
     "$WM_PROJECT_VERSION" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS"
 test "$WM_PROJECT_VERSION" = v2512
