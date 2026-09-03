@@ -3,7 +3,8 @@
 #PBS -P pm78
 #PBS -q normalsr
 #PBS -N of2512_spr_4n
-#PBS -l select=4:ncpus=104:mpiprocs=104:mem=190GB
+#PBS -l ncpus=416
+#PBS -l mem=760GB
 #PBS -l walltime=02:00:00
 #PBS -l storage=scratch/pm78
 #PBS -l wd
