@@ -1,0 +1,37 @@
+#!/bin/bash
+# Official 1N Sapphire Rapids site-module baseline (40 iterations per the rules).
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of2512_spr_1n
+#PBS -l ncpus=104
+#PBS -l mem=190GB
+#PBS -l walltime=01:30:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/official-gadi-spr/baseline-1n/submit-logs/of2512_spr_1n.pbs.out
+set -euo pipefail
+module purge; module load OpenFOAM/2512
+SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+RUN_ROOT=/scratch/pm78/kj7183/openfoam_cpu/official-gadi-spr/baseline-1n; CASE="$RUN_ROOT/case"; EVIDENCE="$RUN_ROOT/evidence/official-spr-1n.${PBS_JOBID}"
+NRANKS=104; NNODES=1; ENDTIME=40; NHIER='(4 13 2)'
+test ! -e "$CASE"; mkdir -p "$CASE" "$EVIDENCE"; exec > >(tee -a "$EVIDENCE/run.log") 2>&1
+# Preserve Cd evidence unconditionally: a failed or truncated run is exactly the
+# one whose coefficient.dat we most need to diagnose it.
+preserve_evidence() { rc=$?; set +e; c=$(find "$CASE/postProcessing/forceCoeffsAll" -name coefficient.dat -type f 2>/dev/null | head -n 1); [ -n "$c" ] && cp -f "$c" "$EVIDENCE/coefficient.dat"; printf "script_exit_rc=%s\n" "$rc" >> "$EVIDENCE/run.log"; return $rc; }
+trap preserve_evidence EXIT
+test "$PBS_NNODES" = "$NNODES"; test "$PBS_NCPUS" = "$NRANKS"
+sort -u "$PBS_NODEFILE"; module list 2>&1; lscpu | grep -E 'Model name|Socket|Core|Thread|NUMA'; mpirun --version | head -n 3
+cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$CASE/"
+cd "$CASE"; cp system/controlDict.noWrite system/controlDict; cp system/fvSolution.fixedIter system/fvSolution
+# Officially permitted per-scaling-point settings only: the rules mandate 40
+# iterations at one node, and one rank per physical core on a 104-core SPR node.
+# 104 = 2^3 x 13, so 13 is a forced factor of any decomposition; this keeps the
+# 4N baseline's y=13, z=2 and scales only the streamwise dimension.
+sed -i -E "s/^([[:space:]]*endTime[[:space:]]+)[0-9]+;/\\1${ENDTIME};/" system/controlDict
+sed -i -E "s/^([[:space:]]*nCores[[:space:]]+)[0-9]+;/\\1${NRANKS};/" system/include/caseDefinition
+sed -i -E "s/^([[:space:]]*nHierarchical[[:space:]]+)\\([^)]*\\);/\\1${NHIER};/" system/include/caseDefinition
+grep -Eq "^[[:space:]]*endTime[[:space:]]+${ENDTIME};" system/controlDict; cmp -s system/fvSolution system/fvSolution.fixedIter; grep -Eq "^[[:space:]]*nCores[[:space:]]+${NRANKS};" system/include/caseDefinition; grep -Eq '^[[:space:]]*nHierarchical[[:space:]]+\(4 13 2\);' system/include/caseDefinition
+decomposePar -constant; restore0Dir -processor; renumberMesh -constant -overwrite -parallel; potentialFoam -initialiseUBCs -parallel; applyBoundaryLayer -ybl 0.0450244 -parallel
+mpirun -np "$NRANKS" simpleFoam -parallel > "$EVIDENCE/simpleFoam.log" 2>&1
+grep -a 'Average wall-clock time per time step' "$EVIDENCE/simpleFoam.log" | tail -n 1 || true
