@@ -11,7 +11,7 @@
 - [x] Previous Cascade Lake results reclassified
 - [x] normalsr hardware validated
 - [x] Official 4N baseline (416 ranks; hierarchical `(16 13 2)`) - **2.1396 s/step**, Cd 0.28231, job `178149002`
-- [ ] Official 1N / 2N scaling - scripts ready and gated; awaiting SU
+- [x] Official 1N / 2N scaling - valid: 8.824444 / 4.296500 / 2.139565 s per step at 1N / 2N / 4N
 - [ ] Decomposition and rank-count screening - planned in `planning/official-4n-optimization-matrix.md`
 - [ ] Profiling, affinity, compiler optimization, final validation, submission package, presentation
 
@@ -65,3 +65,16 @@ operator cancellation of a running job, one exit 127 (`restore0Dir` is a shell
 function, not a binary), and one exit 134 (`-parallel` steps launched without
 `mpirun`). Both defects were inherited from the original chain and both were
 invisible to a gate that only checked whether command strings were present.
+
+## Official scaling complete (2026-09-04)
+
+| Nodes | Ranks | Hierarchical decomposition | Avg wall-clock / step | ClockTime | Cd | PBS walltime | Job |
+| ---: | ---: | --- | ---: | ---: | ---: | --- | --- |
+| 1 | 104 | `(4 13 2)` | **8.824444 s** | 378 s | 0.43087 | 00:12:11 | `178153587` |
+| 2 | 208 | `(8 13 2)` | **4.296500 s** | 362 s | 0.33201 | 00:12:36 | `178154724` |
+| 4 | 416 | `(16 13 2)` | **2.139565 s** | 336 s | 0.28231 | 00:13:12 | `178149002` |
+
+The normalized 1N-to-2N speedup is 2.053868× and the 1N-to-4N speedup is
+4.124410×. All three points used 104 ranks per node, the site GCC 8.5.0 /
+Open MPI 4.1.7 v2512 module, no SCOTCH, the full official preparation chain,
+and their expected Cd sanity range.

@@ -1,89 +1,84 @@
-# OpenFOAM v2512 compiler screening
+# OpenFOAM v2512 performance matrix
 
-> **Deprecated as an official-contest baseline.** This table is pre-rule
-> Cascade Lake development work. Official Gadi scoring requires `normalsr`
-> Sapphire Rapids and Average wall-clock time per time step as the primary metric.
+The official competition metric is **Average wall-clock time per time step**
+from the `simpleFoam` log. It is the primary value in every official-result
+table; `ClockTime` is retained as secondary provenance. Official results run
+on Gadi `normalsr` Sapphire Rapids and must not be compared as compiler-only
+speedups with the earlier Cascade Lake development runs.
 
-## Comparison rule
+## Official Gadi Sapphire Rapids performance matrix
 
-This is an initial **compiler screening**: the workload, 4-node/192-rank
-layout, hierarchical `(16 6 2)` decomposition, and Open MPI 4.1.7 are fixed
-where stated.  The **PROVISIONAL COMPILER-SCREENING REFERENCE** is **797.5 s**,
-the median of all four correctness-valid B0 repeats: R1=802 s, R2=1045 s,
-R3=793 s, and R4=790 s. Its stable-looking cluster is 790–802 s; R2 is a
-valid sustained performance anomaly and remains in the stated median.
+| ID | Changed variable | Nodes | Ranks | Ranks/node | Compiler | MPI | Decomposition | Avg wall-clock / step | ClockTime | Cd | Improvement vs baseline | Validity |
+| --- | --- | ---: | ---: | ---: | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
+| B0-SPR-1N | official scaling point | 1 | 104 | 104 | GCC 8.5.0 site OpenFOAM v2512 | OpenMPI 4.1.7 | hierarchical `(4 13 2)`; SCOTCH not used | **8.824444 s** | 378 s | 0.43087 | 0.243× of 4N | **VALID** |
+| B0-SPR-2N | official scaling point | 2 | 208 | 104 | GCC 8.5.0 site OpenFOAM v2512 | OpenMPI 4.1.7 | hierarchical `(8 13 2)`; SCOTCH not used | **4.296500 s** | 362 s | 0.33201 | 0.498× of 4N | **VALID** |
+| B0-SPR | baseline | 4 | 416 | 104 | GCC 8.5.0 site OpenFOAM v2512 | OpenMPI 4.1.7 | hierarchical `(16 13 2)`; SCOTCH not used | **2.139565 s** | 336 s | 0.28231 | 0.0% | **VALID — first official baseline** |
 
-| ID | Compiler | MPI | Build | Smoke | 65M Job | ClockTime | ExecutionTime | Mean step | Speedup | Status |
-| -- | -------- | --- | ----- | ----- | ------- | --------- | ------------- | --------- | ------- | ------ |
-| B0 | GCC 8.5 | OpenMPI 4.1.7 | existing validated | existing validated | R1/R2/R3/R4 | 802 / 1045 / 793 / 790 s | — | — | 1.000 (reference) | Provisional screening reference: 797.5 s median; R2 retained anomalous. |
-| C1 | ICC 2021.10 | OpenMPI 4.1.7 | `178141482.gadi-pbs`: reached L5 and **compiled ThirdParty successfully**, then stopped on a missing `wmkdepend` | pending | — | — | — | — | — | Not a compiler result. Root cause found offline and fixed; see below. |
-| C2 | ICX 2025.1.1 | OpenMPI 4.1.7 | Original `178140527.gadi-pbs`: same common defect before L5 | pending | — | — | — | — | — | SOURCE_ID_V2 and L4 passed; not a compiler result. |
-| C3 | ICX 2023.2.0 | OpenMPI 4.1.7 | Original `178140528.gadi-pbs`: cancelled before execution | pending | — | — | — | — | — | Cancelled after the confirmed common ThirdParty-path defect; not a compiler/build failure. |
-| S1 | ICC 2021.10 | Intel MPI 2021.10 | deferred | — | — | — | — | — | — | Deferred at L4 OpenFOAM environment/compiler-MPI integration. |
+## Official 1N / 2N / 4N scaling
 
-## Table B — scaling / official-result matrix
+Average step time is normalized because the official workloads use 40, 80, and
+150 steps at 1, 2, and 4 nodes respectively. No raw `ClockTime` ratio is used
+to infer scaling.
 
-Normalized timestep cost, rather than raw ClockTime ratios, is the intended
-comparison when controlled 1N/2N/4N workloads use different iteration counts.
-The Cascade Lake development row and the official Sapphire Rapids row are
-retained separately: they differ in hardware and ranks, so neither is a
-compiler-only speedup comparison against the other.
+| Configuration | 1N Avg step | 2N Avg step | 4N Avg step | 2N Speedup | 4N Speedup | Notes |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| GCC 8.5.0 site OpenFOAM / OpenMPI 4.1.7 / hierarchical | **8.824444 s** | **4.296500 s** | **2.139565 s** | **2.053868×** | **4.124410×** | 104 ranks/node throughout; parallel efficiency is 102.69% at 2N and 103.11% at 4N. |
 
-| Compiler | Metric | Decomposition / SCOTCH | 1N Clock | 1N mean/step | 2N Clock | 2N mean/step | 4N Clock | 4N mean/step |
-| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| GCC 8.5 + OpenMPI 4.1.7 — Cascade Lake development, 192 ranks | Mean measured solver timestep (non-official) | hierarchical `(16 6 2)`; SCOTCH not used | — | — | — | — | 797.5 s provisional | 5.144659 s (four-run median) |
-| GCC 8.5 + OpenMPI 4.1.7 — **official SPR baseline**, 416 ranks | **Official average wall-clock time/step** | hierarchical `(16 13 2)`; SCOTCH not used | — | — | — | — | **336 s** (`178149002`) | **2.139565 s** |
-| ICC 2021.10 + OpenMPI 4.1.7 | — | — | — | — | — | — | — | — |
-| ICX 2025.1.1 + OpenMPI 4.1.7 | — | — | — | — | — | — | — | — |
-| ICX 2023.2.0 + OpenMPI 4.1.7 | — | — | — | — | — | — | — | — |
+## Optimization progression
 
-No performance, binding, MPI, decomposition, or numerical tuning is part of
-this screening.  ClockTime results will be appended without suppressing valid
-anomalies.
+| Attempt | Change from previous | Compiler | MPI | Ranks | Decomposition | Avg wall-clock / step | Improvement | What we learned |
+| --- | --- | --- | --- | ---: | --- | ---: | ---: | --- |
+| B0-SPR-1N | Official 1N scaling point | GCC 8.5.0 | OpenMPI 4.1.7 | 104 | hierarchical `(4 13 2)`; SCOTCH not used | **8.824444 s** | — | Valid 40-step point; Cd 0.43087 is within the expected 40-step range. |
+| B0-SPR-2N | Official 2N scaling point | GCC 8.5.0 | OpenMPI 4.1.7 | 208 | hierarchical `(8 13 2)`; SCOTCH not used | **4.296500 s** | **2.053868× vs 1N** | Valid 80-step point; Cd 0.33201 is within the expected 80-step range. |
+| B0-SPR | Untuned official site-module baseline | GCC 8.5.0 | OpenMPI 4.1.7 | 416 | hierarchical `(16 13 2)`; SCOTCH not used | **2.139565 s** | 0.0% | Valid competition baseline on four SPR nodes; later rank, decomposition, affinity, compiler, and MPI experiments compare against this row. |
 
-## C1 diagnosis (2026-09-03, offline from existing logs — no SU spent)
+## Historical pre-rule Cascade Lake results
 
-Job `178141482` is the furthest any build has reached: 24:08 walltime, **38.61 SU
-actually billed**, Exit_status 2. It is *not* a compiler-compatibility result.
+These are retained as workload-validation evidence only. They use four
+Cascade Lake nodes, 192 ranks, hierarchical `(16 6 2)`, and the pre-rule
+measurement convention; they are **not** an official baseline and their
+797.5-second median is not a competition headline reference.
 
-ThirdParty built cleanly under ICC — scotch, boost and CGAL all completed, and
-`flex 2.6.1` was found. The build then stopped at:
+| ID | Hardware | Nodes | Ranks | Compiler | MPI | Decomposition | Avg wall-clock / step | ClockTime | Cd | Status |
+| --- | --- | ---: | ---: | --- | --- | --- | --- | --- | --- | --- |
+| B0-CLX | Gadi Cascade Lake | 4 | 192 | GCC 8.5 | OpenMPI 4.1.7 | hierarchical `(16 6 2)`; SCOTCH not used | Historical mean timestep: 5.144659 s (four-run median) | 802 / 1045 / 793 / 790 s; 797.5 s median | — | Pre-rule reference; R2 is correctness-valid but performance-anomalous and retained. |
 
-```
-make: .../platforms/tools/linux64Icc/wmkdepend: Command not found
-make: *** No rule to make target '.../POSIX.C.dep', needed by '.../POSIX.o'.  Stop.
-```
+## Deferred compiler build attempts
 
-**Root cause.** `wmkdepend` is wmake's own dependency generator, built from
-`wmake/src/`, and it is installed into `platforms/tools/${WM_ARCH}${WM_COMPILER}`.
-That path is **compiler-specific**, and the site tree ships only
-`platforms/tools/linux64Gcc`. Switching to ICC therefore requires rebuilding the
-wmake toolchain as `linux64Icc` before any library can be compiled. Grepping the
-whole 4.6 MB log for `wmake/src`, `wmakeBuildTools` or `dirToString` returns
-nothing: **the step was never run**.
+No row below is a performance result: none has produced a valid solver run on
+the official workload.
 
-Why it was missed: a normal OpenFOAM source distribution has a top-level
-`Allwmake` that sequences `wmake/src` -> `src` -> `applications`. The site
-installation has **no top-level `Allwmake`**, so the build scripts drive the
-per-directory steps by hand — and reproduced only the last two.
+| ID | Hardware / scope | Compiler | MPI | Performance | Status |
+| --- | --- | --- | --- | --- | --- |
+| C1 | Cascade Lake build attempt | ICC 2021.10 | OpenMPI 4.1.7 | — | ThirdParty passed; OpenFOAM build stopped on missing `wmkdepend`. |
+| C2 | Cascade Lake build attempt | ICX 2025.1.1 | OpenMPI 4.1.7 | — | Build not completed. |
+| C3 | Cascade Lake build attempt | ICX 2023.2.0 | OpenMPI 4.1.7 | — | Cancelled before execution. |
+| S1 | Deferred compiler/MPI integration | ICC 2021.10 | Intel MPI 2021.10 | — | Deferred at OpenFOAM compiler/MPI environment integration. |
 
-**Fix applied** to `common/build_openfoam_v2512_openmpi.sh` (which C1/C2/C3 all
-exec into) and to the three s-series scripts: run
-`"${WM_PROJECT_DIR}/wmake/src/Allmake"` first, then assert
-`platforms/tools/${WM_ARCH}${WM_COMPILER}/wmkdepend` is executable before
-continuing. `wmake/src/Allmake` is also added to the staged-source preflight list.
-The post-condition check means this failure can no longer appear 24 minutes deep
-as a confusing `make` error.
+## Build and workflow provenance
 
-**Remaining known blocker for the s-series only.** Intel MPI candidates still hit
-`etc/bashrc` resetting `WM_MPLIB=INTELMPI` to `SYSTEMOPENMPI`, after which
-`mpicc --showme:link` (an Open MPI flag) is handed to Intel MPI's wrapper. The
-OpenMPI candidates C1/C2/C3 do not have this problem, which is why C1 is the
-right first target.
+Build and scheduler diagnostics are intentionally separated from the
+performance-first tables above.
 
-**Scheduling note, not a cost note.** These builds are cheap to run — 38.61 SU
-for 24 minutes on 48 `normal` cores. The hazard is the **8 h walltime request**,
-which reserves ~768 SU and can starve a concurrent `normalsr` job of allocation.
-That is exactly what happened to baseline attempt 1 (`178142339`). Do not run
-builds concurrently with a scored run; the walltime itself is defensible until a
-full build time is measured.
+| ID | Build / PBS job | Commit | Build / workflow state | Failure layer | Notes |
+| --- | --- | --- | --- | --- | --- |
+| B0-SPR | `178149002.gadi-pbs` | `d13aea1` | PASS | — | Four SPR nodes, 416 ranks; full official chain, Time=150, final parallel completion, Cd sanity, and Exit_status=0 all passed. |
+| C1 | `178141482.gadi-pbs` | — | ThirdParty PASS; OpenFOAM build stopped | L5 | Missing compiler-specific `wmkdepend`; SOURCE_ID_V2 and L4 passed. |
+| C2 | `178140527.gadi-pbs` | — | Not completed | Before L5 | Same common ThirdParty-path defect; SOURCE_ID_V2 and L4 passed. |
+| C3 | `178140528.gadi-pbs` | — | Cancelled | Pre-execution | Cancelled after the common ThirdParty-path defect was identified; not a compiler/build failure. |
+| S1 | `178136462.gadi-pbs` | `70d6dc0` | Not completed | PBS startup / pre-build | Exit_status=127; build workflow not entered. |
+
+Detailed official job-by-job evidence, including unsuccessful attempts, remains
+in `results/official-gadi-spr/run-registry.md`.
+
+### C1 diagnostic record
+
+Job `178141482.gadi-pbs` reached the furthest point of the compiler builds:
+ThirdParty built successfully with ICC, including SCOTCH, boost, and CGAL, then
+the OpenFOAM build stopped because the compiler-specific
+`platforms/tools/linux64Icc/wmkdepend` did not exist. `wmkdepend` is wmake's
+own dependency generator; the site tree supplied only the GCC variant. The
+common build workflow was subsequently corrected to run
+`wmake/src/Allmake` and assert that the matching `wmkdepend` is executable
+before it starts the OpenFOAM libraries. This is build provenance, not a
+compiler-performance result.
