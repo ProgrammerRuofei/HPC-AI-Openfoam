@@ -10,6 +10,7 @@ EVIDENCE_DIR="${BUILD_ROOT}/evidence/${STACK_ID}.${PBS_JOBID:?}"
 RUNTIME_DIR="${BUILD_ROOT}/runtime-archive"
 JOBFS_ROOT="${PBS_JOBFS:?}/openfoam-build/${STACK_ID}"
 WORKTREE="${JOBFS_ROOT}/OpenFOAM-v2512"
+THIRDPARTY_TREE="${JOBFS_ROOT}/ThirdParty-v2512"
 IDENTITY_ALGORITHM=OPENFOAM_SOURCE_ID_V2
 EXPECTED_REGULAR_MANIFEST_SHA256=802414c5b14ebb9cb4e3bab1a570e3c06c77e2d3028792faff865bcd4a181cc0
 EXPECTED_SYMLINK_MANIFEST_SHA256=7d4ad344a50520ca0f79c6e45e198eb4f294e73759291fd4062c3ea2ab14b538
@@ -55,13 +56,20 @@ write_regular_manifest "$WORKTREE" "${EVIDENCE_DIR}/staged-source-files.sha256";
 stage_r=$(sha256sum "${EVIDENCE_DIR}/staged-source-files.sha256" | awk '{print $1}'); stage_s=$(sha256sum "${EVIDENCE_DIR}/staged-symlink-files.nul" | awk '{print $1}')
 printf 'staged_regular_entry_count=%s\nstaged_symlink_entry_count=%s\n' "$(count_entries "$WORKTREE" f)" "$(count_entries "$WORKTREE" l)" | tee -a "$IDENTITY_EVIDENCE"
 verify staged_regular_manifest "$EXPECTED_REGULAR_MANIFEST_SHA256" "$stage_r"; verify staged_symlink_manifest "$EXPECTED_SYMLINK_MANIFEST_SHA256" "$stage_s"; verify staged_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$(source_id_v2 "$stage_r" "$stage_s")"
+# v2512 discovers ThirdParty-v<api> alongside, not inside, WM_PROJECT_DIR.
+# Verify the authoritative nested source first, then relocate it without changing
+# contents to reproduce the supported OpenFOAM/ThirdParty installation topology.
+test -d "${WORKTREE}/ThirdParty-v2512"; test ! -e "$THIRDPARTY_TREE"
+mv "${WORKTREE}/ThirdParty-v2512" "$THIRDPARTY_TREE"
+test -f "$THIRDPARTY_TREE/Allwmake"; test ! -e "${WORKTREE}/ThirdParty-v2512"
 bootstrap_api_info
 cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt; set -u
 printf 'WM_PROJECT_VERSION=%s\nFOAM_API=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\nFOAM_MPI=%s\nMPI_ARCH_PATH=%s\n' "$WM_PROJECT_VERSION" "$FOAM_API" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS" "$FOAM_MPI" "$MPI_ARCH_PATH"
 test "$WM_PROJECT_VERSION" = v2512; test "$FOAM_API" = "$EXPECTED_FOAM_API"; test "$WM_COMPILER" = "$WM_COMPILER_VALUE"; test "$WM_MPLIB" = SYSTEMOPENMPI; test "$FOAM_MPI" = sys-openmpi; test "$(command -v mpicc)" = /apps/openmpi/4.1.7/bin/mpicc
+test "$WM_THIRD_PARTY_DIR" = "$THIRDPARTY_TREE"; test -f "$WM_THIRD_PARTY_DIR/Allwmake"; test -f "$WM_PROJECT_DIR/src/Allwmake"
 "${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?}"
 BIN="${FOAM_APPBIN}/simpleFoam"; test -x "$BIN"; case "$(realpath "$BIN")" in "${WORKTREE}"/*) ;; *) echo 'ERROR: binary outside candidate worktree' >&2; exit 3;; esac
 file "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.file"; ldd "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.ldd"; grep -qi '/apps/openmpi/4.1.7' "${EVIDENCE_DIR}/simpleFoam.ldd"; sha256sum "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.sha256"
-tar -C "$WORKTREE" -czf "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" etc "platforms/${WM_OPTIONS}" ThirdParty-v2512/platforms
+tar -C "$JOBFS_ROOT" -czf "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" "OpenFOAM-v2512/etc" "OpenFOAM-v2512/platforms/${WM_OPTIONS}" ThirdParty-v2512/platforms
 sha256sum "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" | tee "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz.sha256"
 echo BUILD_VALIDATION_PASS
