@@ -1,13 +1,14 @@
 # Results
 
 `metrics.csv` is the structured source of truth for extracted run results.
-It currently contains headers only; no ASPIRE2A measurements have been
-recorded. Phase 0 Gadi evidence remains in its remote experiment directory
-until a user-approved extraction/schema update is performed.
+It contains four extracted Phase 0 Gadi controlled-repeat rows (R1–R4).  Raw
+PBS, provenance, checksum, and solver files remain remote and unchanged; CSV
+rows are a documented extraction, not replacements for those artifacts.
 
-The initial columns preserve experiment identity, environment/resource
-metadata, runtime, correctness, and raw-output provenance. Confirm any new
-columns or changed semantics with the user before a sweep.
+The columns preserve experiment identity, environment/resource metadata,
+runtime, correctness, and raw-output provenance.  Phase 0 adds explicit
+ExecutionTime, timestep statistics, PBS resources, and artifact-status fields
+so all raw metrics can be interpreted without conflating them.
 
 ## Two-layer performance metric framework
 

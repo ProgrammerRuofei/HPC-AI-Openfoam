@@ -1,0 +1,16 @@
+#!/bin/bash
+# Future build only: build the isolated S2 OpenFOAM v2512 stack. Run from this directory.
+#PBS -P pm78
+#PBS -q normal
+#PBS -N of2512_s2_build
+#PBS -l ncpus=48
+#PBS -l mem=190GB
+#PBS -l walltime=08:00:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/s2-icx2023-impi2021/submit-logs/of2512_s2_build.pbs.out
+
+set -euo pipefail
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+exec bash "${SCRIPT_DIR}/build_s2_icx2023_impi2021.sh"

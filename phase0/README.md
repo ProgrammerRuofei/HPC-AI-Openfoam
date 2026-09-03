@@ -171,3 +171,102 @@ controlled-run median, not the fastest run, as the future comparison baseline.
 - PBS output: `/scratch/pm78/kj7183/openfoam_cpu/phase0-baseline-repeat-20260902/submit-logs/drivaer_p0r_4n.pbs.out`
 - Solver log: `/scratch/pm78/kj7183/openfoam_cpu/phase0-baseline-repeat-20260902/case/logFiles/50_simpleFoam.178063948.gadi-pbs.log`
 - Provenance and copied checksums: `/scratch/pm78/kj7183/openfoam_cpu/phase0-baseline-repeat-20260902/evidence/phase0-baseline-repeat-20260902-4n-192r.178063948.gadi-pbs/`
+
+## Phase 0 closeout — four controlled repeats
+
+**Closeout date:** 2026-09-03.  This section records extracted facts and
+interpretation; it does not alter any raw remote artifact.  The four repeats
+are correctness-valid controlled observations.  R2 is retained in the raw
+dataset despite its anomalous performance.
+
+### Exact shared configuration
+
+Every run recorded `OpenFOAM v2512` at `/apps/OpenFOAM/2512`, GCC/G++ `8.5.0
+20210514`, Open MPI `4.1.7`, `WM_OPTIONS=linux64GccDPInt32Opt`, and
+`WM_MPLIB=SYSTEMOPENMPI`.  Each requested four nodes / 192 `ncpus` / 192
+`mpiprocs` (48 ranks per node), used `mpirun -np 192 simpleFoam -parallel`,
+one OpenMP thread per rank, `hierarchical (16 6 2)`, `endTime 150`, and the
+fixed-iteration `fvSolution`.  No script specifies an explicit Open MPI
+binding or mapping option; the detailed runtime binding map was not captured.
+
+Each provenance log records the same copied-protocol SHA-256 values:
+`Allrun.gadi` `2a02ec…a662ec3`, `caseDefinition` `1da447…e6a6c6`,
+`controlDict.noWrite` `ce4ec0…278ef06`, `fvSchemes` `064bb5…7889b3`, and
+both fixed-iteration `fvSolution` files `5e1db8…cab1ba`.  Thus the source
+workload protocol and protected numerical dictionaries agree across R1–R4.
+
+The local PBS diffs independently show that R2–R4 differ from R1 only in PBS
+job name, PBS output path, `REPEAT_ROOT`, and `RUN_TAG`.  Physical allocation
+is deliberately not controlled: every repeat received a different four-node
+set.
+
+### Raw repeat inventory and validity
+
+| Repeat | PBS job | Allocated nodes | PBS / exit | Classification | Artifact note |
+| --- | --- | --- | --- | --- | --- |
+| R1 | `178063948.gadi-pbs` | 1096, 1105, 1106, 1115 | F / 0 | VALID CONTROLLED REPEAT | Expected solver, provenance, and PBS output artifacts present. |
+| R2 | `178073349.gadi-pbs` | 1694, 1695, 1696, 1706 | F / 0 | VALID CONTROLLED REPEAT | Correctness-valid sustained performance anomaly; retained. |
+| R3 | `178073350.gadi-pbs` | 0995, 1000, 1003, 1004 | F / 0 | VALID CONTROLLED REPEAT | Expected solver, provenance, and PBS output artifacts present. |
+| R4 | `178107780.gadi-pbs` | 1274, 1280, 1281, 1282 | F / 0 | VALID WITH DOCUMENTED ARTIFACT ANOMALY | Configured `submit-logs` PBS stdout is absent. Provenance `run.log`, solver log, and PBS historical record are present; no repair was performed. |
+
+All four solver logs reached `Time = 150`, then `End` and `Finalising parallel
+run`.  The fresh-copy protocol created a separate case for each repeat; no
+historical source case was modified.
+
+| Repeat | ClockTime (s) | ExecutionTime (s) | Clock−Execution (s) | Measured steps | Mean timestep (s) | Timestep stddev (s) | PBS walltime | PBS memory (kb) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| R1 | 802 | 781.85 | 20.15 | 149 | 5.136668 | 0.027106 | 17m54s | 241,305,336 |
+| R2 | 1045 | 1025.47 | 19.53 | 149 | 6.842763 | 0.310174 | 21m52s | 241,862,424 |
+| R3 | 793 | 773.28 | 19.72 | 149 | 5.152651 | 0.023207 | 17m48s | 236,809,152 |
+| R4 | 790 | 770.84 | 19.16 | 149 | 5.129230 | 0.023586 | 17m40s | 239,705,140 |
+
+Raw remote evidence roots are the corresponding
+`/scratch/pm78/kj7183/openfoam_cpu/phase0-baseline-repeat-*` directories;
+every solver log is `case/logFiles/50_simpleFoam.<PBS_JOBID>.log` and every
+provenance root contains `run.log` plus `copied-protocol.sha256`.
+
+### Repeatability statistics
+
+Sample standard deviation is used below; percentage is relative to the
+four-run median.  These summaries retain R2 and therefore describe the full
+observed controlled sample, not a normal-noise estimate.
+
+| Metric | R1 | R2 | R3 | R4 | Min / max / range | Mean | Median | Sample SD | CV | R1/R2/R3/R4 vs median |
+| --- | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: | ---: | --- |
+| Solver ClockTime (s) | 802 | 1045 | 793 | 790 | 790 / 1045 / 255 | 857.50 | 797.50 | 125.10 | 14.59% | +0.56% / +31.03% / −0.56% / −0.94% |
+| Solver ExecutionTime (s) | 781.85 | 1025.47 | 773.28 | 770.84 | 770.84 / 1025.47 / 254.63 | 837.86 | 777.565 | 125.16 | 14.94% | +0.55% / +31.88% / −0.55% / −0.86% |
+| Mean timestep (s) | 5.136668 | 6.842763 | 5.152651 | 5.129230 | 5.129230 / 6.842763 / 1.713533 | 5.565328 | 5.144659 | 0.851679 | 15.30% | −0.16% / +33.01% / +0.16% / −0.30% |
+
+### Interpretation and baseline status
+
+R1, R3, and R4 form a close observed group (ClockTime 790–802 s); R2 is
+approximately 31% above the all-run ClockTime median and has a much larger
+within-run timestep standard deviation.  R2's timestep sequence rises from
+an initial 5.21 s to approximately 7.0 s/step for the later run, rather than
+showing a small number of isolated large spikes.  Its `ClockTime −
+ExecutionTime` overhead (19.53 s) is comparable to the other three
+(19.16–20.15 s), so the measurable difference is in per-timestep solver
+performance, not startup/finalisation overhead.  Its longer PBS walltime is
+consistent with that solver-time difference.
+
+Different physical node sets correlate with the four observations only in the
+weak sense that each run had a different allocation.  No captured per-rank
+timing, node-level frequency, network/MPI counters, binding map, or filesystem
+throughput establishes a cause.  CPU-frequency variation, OS noise,
+MPI/network contention, rank straggling, NUMA placement, and filesystem noise
+remain hypotheses, not findings.
+
+**Baseline configuration:** frozen reference configuration is the verified
+GCC 8.5.0 / Open MPI 4.1.7 / OpenFOAM v2512 four-node configuration above.
+
+**Representative baseline performance:** report the median of all valid
+controlled repeats, currently Solver ClockTime **797.5 s**.  R1 (802 s) is
+the valid concrete run closest to that median, but it is not selected as a
+replacement for the median.  R2 remains reported.  Four runs cannot establish
+a stationary normal-noise distribution or attribute the anomaly to hardware.
+
+### Next approved planning boundary
+
+No toolchain build, PBS submission, profiling, or optimisation has begun.
+The next proposed phase is compiler/toolchain screening, with the frozen
+configuration as control and only one primary variable changed per experiment.
