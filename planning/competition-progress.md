@@ -25,3 +25,24 @@ granted. A request to the organizers is in progress.
 All local preparation that does not consume SU is complete: 1N/2N/4N scripts,
 a negative-tested static gate, metric/Cd extraction, and the costed optimization
 matrix.
+
+## Correction (2026-09-03, later)
+
+Two earlier readings were wrong and are corrected here rather than edited away:
+
+1. **Job `178142339` was not permanently blocked.** The
+   `Could not reserve allocation from project` comment was transient. PBS
+   scheduled the job at 20:28:15 on four verified SPR nodes once a concurrent
+   build released its reservation. Cancelling it was an operator error costing
+   ~45 SU. A queue comment is a snapshot, not a terminal state.
+2. **The grant is not exhausted.** The 2.05 KSU shown as Reserved was a pending
+   hold that reconciled, mostly released rather than charged. Actual position is
+   Used 2.12 KSU, Reserved 0, **Avail 1.88 KSU** - enough for the 4N baseline.
+
+Measured from the cancelled run: `decomposePar -constant` wrote 183 of 416
+processor directories in ~143 s, so the full decomposition takes ~5-6 min. The
+1:15 walltime request has ample margin.
+
+Hardware confirmed from the same log: 2 sockets x 52 cores, **8 NUMA domains of
+13 cores each**, which is why 13 is a forced factor of every decomposition and
+why 104 ranks/node maps to exactly 13 ranks per NUMA domain.
