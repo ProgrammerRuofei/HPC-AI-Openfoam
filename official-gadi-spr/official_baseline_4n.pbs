@@ -29,6 +29,11 @@ cd "$CASE"; cp system/controlDict.noWrite system/controlDict; cp system/fvSoluti
 sed -i -E "s/^([[:space:]]*nCores[[:space:]]+)[0-9]+;/\\1${NRANKS};/" system/include/caseDefinition
 sed -i -E 's/^([[:space:]]*nHierarchical[[:space:]]+)\([^)]*\);/\1(16 13 2);/' system/include/caseDefinition
 grep -Eq '^[[:space:]]*endTime[[:space:]]+150;' system/controlDict; cmp -s system/fvSolution system/fvSolution.fixedIter; grep -Eq '^[[:space:]]*nCores[[:space:]]+416;' system/include/caseDefinition; grep -Eq '^[[:space:]]*nHierarchical[[:space:]]+\(16 13 2\);' system/include/caseDefinition
+# restore0Dir is the one step of the official chain that is a shell function,
+# not a binary -- it lives in RunFunctions. Sourcing it under `set -u` trips on
+# FOAM_LD_LIBRARY_PATH, so nounset is lifted for the source only.
+set +u; . "${WM_PROJECT_DIR:?}/bin/tools/RunFunctions"; set -u
+type restore0Dir | head -n 1
 decomposePar -constant; restore0Dir -processor; renumberMesh -constant -overwrite -parallel; potentialFoam -initialiseUBCs -parallel; applyBoundaryLayer -ybl 0.0450244 -parallel
 mpirun -np "$NRANKS" simpleFoam -parallel > "$EVIDENCE/simpleFoam.log" 2>&1
 grep -a 'Average wall-clock time per time step' "$EVIDENCE/simpleFoam.log" | tail -n 1 || true

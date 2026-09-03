@@ -48,6 +48,14 @@ check_one() {
     fi
   done
 
+  # -- shell-function chain step ----------------------------------------------
+  # restore0Dir is a RunFunctions shell function, not a binary. Job 178147674
+  # died with exit 127 because the chain called it without sourcing. Merely
+  # finding the string in the chain is not enough - the gate must prove it can
+  # actually resolve at runtime.
+  report "RunFunctions sourced"       "$(has "$pbs" 'bin/tools/RunFunctions')"
+  report "nounset lifted for source"  "$(hasre "$pbs" 'set \+u;[^\n]*bin/tools/RunFunctions')"
+
   # -- frozen numerics ---------------------------------------------------------
   report "uses controlDict.noWrite"   "$(has "$pbs" 'controlDict.noWrite')"
   report "uses fvSolution.fixedIter"  "$(has "$pbs" 'fvSolution.fixedIter')"
