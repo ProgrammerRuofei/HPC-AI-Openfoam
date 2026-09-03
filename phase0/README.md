@@ -1,5 +1,10 @@
 # Gadi Phase 0 baseline repeat — successful independent reproduction
 
+> **Historical classification (official rules released 2026-09-03):** R1–R4 are
+> pre-rule Gadi Cascade Lake workflow-validation results, not official normalsr
+> Sapphire Rapids contest baseline measurements. Preserve them as development
+> evidence; do not compare or combine them with official scored results.
+
 ## Project status
 
 - **GADI CLUSTER ADAPTER: READY FOR DOCUMENTED PHASE 0 REPEATABILITY RUNS**

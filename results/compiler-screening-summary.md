@@ -1,5 +1,9 @@
 # OpenFOAM v2512 compiler screening
 
+> **Deprecated as an official-contest baseline.** This table is pre-rule
+> Cascade Lake development work. Official Gadi scoring requires `normalsr`
+> Sapphire Rapids and Average wall-clock time per time step as the primary metric.
+
 ## Comparison rule
 
 This is an initial **compiler screening**: the workload, 4-node/192-rank

@@ -1,0 +1,19 @@
+#!/bin/bash
+# Short hardware/environment probe only: no 65M case and no solver execution.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of2512_spr_probe
+#PBS -l ncpus=1
+#PBS -l mem=4GB
+#PBS -l jobfs=1GB
+#PBS -l walltime=00:10:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/official-gadi-spr/probe-logs/of2512_spr_probe.out
+set -euo pipefail
+module purge; module load OpenFOAM/2512
+printf 'pbs_jobid=%s\nqueue=normalsr\n' "$PBS_JOBID"; sort -u "$PBS_NODEFILE"; lscpu; numactl --hardware || true; free -h
+module list 2>&1
+printf 'openfoam=%s project=%s options=%s mplib=%s\n' "$WM_PROJECT_VERSION" "$WM_PROJECT_DIR" "$WM_OPTIONS" "$WM_MPLIB"
+command -v mpirun; mpirun --version | head -n 3; command -v mpicc; mpicc -show
