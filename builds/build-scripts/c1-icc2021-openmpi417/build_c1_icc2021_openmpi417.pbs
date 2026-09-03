@@ -1,15 +1,15 @@
 #!/bin/bash
 #PBS -P pm78
 #PBS -q normal
-#PBS -N of2512_c1_a4
+#PBS -N of2512_c1_a5
 #PBS -l ncpus=48
 #PBS -l mem=190GB
 #PBS -l jobfs=100GB
-#PBS -l walltime=08:00:00
+#PBS -l walltime=03:00:00
 #PBS -l storage=scratch/pm78
 #PBS -l wd
 #PBS -j oe
-#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/submit-logs/of2512_c1_build_a4.pbs.out
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/submit-logs/of2512_c1_build_a5.pbs.out
 set -euo pipefail
 cd "${PBS_O_WORKDIR:?PBS_O_WORKDIR is required}"
 exec bash builds/build-scripts/c1-icc2021-openmpi417/build_c1_icc2021_openmpi417.sh
