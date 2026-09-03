@@ -10,8 +10,8 @@
 - [x] Official rules audited
 - [x] Previous Cascade Lake results reclassified
 - [x] normalsr hardware validated
-- [ ] Official 4N baseline (416 ranks; hierarchical `(16 13 2)`) - scripts ready and gated; **blocked on SU**
-- [ ] Official 1N / 2N scaling - scripts ready and gated; **blocked on SU**
+- [x] Official 4N baseline (416 ranks; hierarchical `(16 13 2)`) - **2.1396 s/step**, Cd 0.28231, job `178149002`
+- [ ] Official 1N / 2N scaling - scripts ready and gated; awaiting SU
 - [ ] Decomposition and rank-count screening - planned in `planning/official-4n-optimization-matrix.md`
 - [ ] Profiling, affinity, compiler optimization, final validation, submission package, presentation
 
@@ -46,3 +46,22 @@ processor directories in ~143 s, so the full decomposition takes ~5-6 min. The
 Hardware confirmed from the same log: 2 sockets x 52 cores, **8 NUMA domains of
 13 cores each**, which is why 13 is a forced factor of every decomposition and
 why 104 ranks/node maps to exactly 13 ranks per NUMA domain.
+
+## First valid official baseline (2026-09-03)
+
+| Metric | Value |
+| --- | --- |
+| **Average wall-clock time per time step** | **2.1396 s** |
+| Cd (target 0.28-0.29) | 0.28231 |
+| ClockTime / ExecutionTime | 336 s / 319.73 s |
+| PBS walltime | 00:13:12 |
+| Nodes | gadi-cpu-spr-0681/0682/0683/0684 |
+| Ranks / decomposition | 416, hierarchical (16 13 2) |
+| Job / commit | `178149002.gadi-pbs` / `d13aea1` |
+| Cost | ~183 SU |
+
+Reached on the fourth attempt. The three failures are kept in the registry: one
+operator cancellation of a running job, one exit 127 (`restore0Dir` is a shell
+function, not a binary), and one exit 134 (`-parallel` steps launched without
+`mpirun`). Both defects were inherited from the original chain and both were
+invisible to a gate that only checked whether command strings were present.
