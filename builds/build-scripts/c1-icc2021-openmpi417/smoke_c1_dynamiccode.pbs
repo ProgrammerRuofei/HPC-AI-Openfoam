@@ -1,0 +1,136 @@
+#!/bin/bash
+# Cheap validation that the precompiled C1 dynamicCode library LOADS without any
+# JIT compilation. Deliberately stages the C1 runtime WITHOUT wmake or src, so if
+# OpenFOAM tried to build the functionObject it would fail exactly as job
+# 178564210 did. A pass therefore proves the library was loaded, not rebuilt.
+#
+# This is a correctness check on a tutorial case. It produces no performance
+# result and confers no official status.
+#PBS -P pm78
+#PBS -q normal
+#PBS -N of2512_c1_dyncode_smoke
+#PBS -l ncpus=5
+#PBS -l mem=10GB
+#PBS -l jobfs=10GB
+#PBS -l walltime=00:15:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/dynamiccode-artifact/submit-logs/of2512_c1_dyncode_smoke.pbs.out
+set -euo pipefail
+
+ARCHIVE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/runtime-archive/c1-icc2021-openmpi417.178166771.gadi-pbs.runtime-v2.tar.gz
+EXPECTED_ARCHIVE_SHA256=16f5836b3084a284eb67e5e560d5ca245c29be14febec036b2e7f0cf7f4dc7eb
+EXPECTED_BINARY_SHA256=73a3260e2dfec970a9b76de990983fffd4ed8a47363aa497a89560f5c684533d
+BINARY_REL=platforms/linux64IccDPInt32Opt/bin/simpleFoam
+
+AUTHORITATIVE_SOURCE=/apps/OpenFOAM/2512
+WORKLOAD_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+FO_FILE="${WORKLOAD_CASE}/system/FOwallClockTimeStatistics"
+EXPECTED_FO_SHA256=0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08
+
+DYNCODE_SHA1=6e8d888ad28997c1bc9eebd1c08a1a15774516a4
+PLATFORM=linux64IccDPInt32Opt
+LIB_BASENAME="libwallClockTimeStatistics_${DYNCODE_SHA1}.so"
+ARTIFACT_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/dynamiccode-artifact
+ARTIFACT="${ARTIFACT_ROOT}/${LIB_BASENAME}"
+
+EVIDENCE="${ARTIFACT_ROOT}/evidence/c1-dyncode-smoke.${PBS_JOBID:?}"
+CONTAINER="${PBS_JOBFS:?}/c1-dyncode-smoke-runtime"
+RUNTIME_ROOT="${CONTAINER}/OpenFOAM-v2512"
+THIRDPARTY_ROOT="${CONTAINER}/ThirdParty-v2512"
+SMOKE_CASE="${PBS_JOBFS}/pitzDaily_fused-dyncode-smoke"
+NRANKS=5
+
+mkdir -p "$EVIDENCE"
+exec > >(tee -a "$EVIDENCE/run.log") 2>&1
+preserve() {
+    status=$?; set +e
+    test -f "${SMOKE_CASE}/log.simpleFoam" && cp -p "${SMOKE_CASE}/log.simpleFoam" "$EVIDENCE/"
+    printf 'pbs_exit_status=%s\n' "$status" > "$EVIDENCE/exit-status.txt"
+    exit "$status"
+}
+trap preserve EXIT
+
+echo '===== ARTIFACT INTEGRITY ====='
+test -f "$ARTIFACT"; test -f "${ARTIFACT}.sha256"
+( cd "$ARTIFACT_ROOT" && sha256sum -c "${LIB_BASENAME}.sha256" )
+ARTIFACT_SHA=$(sha256sum "$ARTIFACT" | awk '{print $1}')
+printf 'artifact=%s\nartifact_sha256=%s\ndynamiccode_sha1=%s\n' "$ARTIFACT" "$ARTIFACT_SHA" "$DYNCODE_SHA1"
+case "$ARTIFACT" in *"_${DYNCODE_SHA1}.so") ;; *) echo 'ERROR: artifact name does not carry the expected dynamicCode SHA1' >&2; exit 5;; esac
+printf '%s  %s\n' "$EXPECTED_FO_SHA256" "$FO_FILE" | sha256sum -c -
+
+echo '===== TOOLCHAIN ====='
+module purge
+module load intel-compiler/2021.10.0 openmpi/4.1.7
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+env | grep '^I_MPI_' | sort | tee "$EVIDENCE/i_mpi_vars.txt" || true
+test "$(command -v mpirun)" = /apps/openmpi/4.1.7/bin/mpirun
+mpirun --version > "$EVIDENCE/mpirun.version" 2>&1
+grep -Fq 'Open MPI) 4.1.7' "$EVIDENCE/mpirun.version"
+
+echo '===== STAGE C1 RUNTIME (no wmake, no src: JIT must be impossible) ====='
+printf '%s  %s\n' "$EXPECTED_ARCHIVE_SHA256" "$ARCHIVE" | sha256sum -c -
+test ! -e "$CONTAINER"; mkdir -p "$CONTAINER"
+tar -C "$CONTAINER" -xzf "$ARCHIVE"
+mkdir -p "$RUNTIME_ROOT/META-INFO"
+printf 'api=2512\npatch=0\n' > "$RUNTIME_ROOT/META-INFO/api-info"
+printf '%s  %s\n' d03cf08cf48ab523323a8849439b2f1073df920e29e969f51f188568a4fa0a8a "$RUNTIME_ROOT/META-INFO/api-info" | sha256sum -c -
+test "$(sha256sum "$RUNTIME_ROOT/$BINARY_REL" | awk '{print $1}')" = "$EXPECTED_BINARY_SHA256"
+test ! -e "$RUNTIME_ROOT/wmake"
+test ! -e "$RUNTIME_ROOT/src"
+echo 'confirmed: staged runtime has no build toolchain'
+
+set +u
+. "$RUNTIME_ROOT/etc/bashrc" WM_COMPILER=Icc WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+set -u
+test "$WM_OPTIONS" = "$PLATFORM"
+test "$WM_MPLIB" = SYSTEMOPENMPI
+test "$FOAM_MPI" = sys-openmpi
+
+echo '===== SMOKE CASE + PRESTAGED LIBRARY ====='
+cp -a "$AUTHORITATIVE_SOURCE/tutorials/incompressible/simpleFoam/pitzDaily_fused" "$SMOKE_CASE"
+cd "$SMOKE_CASE"
+cp -p "$FO_FILE" system/FOwallClockTimeStatistics
+printf '\nfunctions\n{\n    #include "FOwallClockTimeStatistics"\n}\n' >> system/controlDict
+sed -i -E 's/^(endTime[[:space:]]+)[0-9]+;/\120;/' system/controlDict
+LIBDIR="dynamicCode/platforms/${PLATFORM}/lib"
+mkdir -p "$LIBDIR"
+cp -p "$ARTIFACT" "${LIBDIR}/${LIB_BASENAME}"
+test "$(sha256sum "${LIBDIR}/${LIB_BASENAME}" | awk '{print $1}')" = "$ARTIFACT_SHA"
+ls -la "$LIBDIR" | tee "$EVIDENCE/staged-lib.txt"
+
+echo '===== RUN ====='
+blockMesh > "$EVIDENCE/blockMesh.log" 2>&1
+decomposePar -force > "$EVIDENCE/decomposePar.log" 2>&1
+mpirun -np "$NRANKS" "$RUNTIME_ROOT/$BINARY_REL" -parallel > log.simpleFoam 2>&1
+cp -p log.simpleFoam "$EVIDENCE/"
+
+echo '===== NO-JIT GATES ====='
+if grep -Fq 'Creating new library' log.simpleFoam; then
+    echo 'ERROR: dynamicCode was rebuilt at runtime; the prestaged library was not used' >&2; exit 8
+fi
+if grep -Fq 'Invoking wmake libso' log.simpleFoam; then
+    echo 'ERROR: wmake was invoked at runtime' >&2; exit 8
+fi
+if grep -Fq 'Could not load' log.simpleFoam; then
+    echo 'ERROR: OpenFOAM could not load the prestaged dynamicCode library' >&2; exit 8
+fi
+echo 'no JIT compilation occurred'
+
+echo '===== FUNCTIONOBJECT + COMPLETION GATES ====='
+grep -Fq 'Using dynamicCode for functionObject wallClockTimeStatistics' log.simpleFoam
+grep -Fq 'Average wall-clock time per time step' log.simpleFoam
+grep -Fq 'Finalising parallel run' log.simpleFoam
+grep -aEq '^End$' log.simpleFoam
+grep -a 'Average wall-clock time per time step' log.simpleFoam | tail -1 | tee "$EVIDENCE/fo-output.txt"
+
+echo '===== RUNTIME LIBRARY ISOLATION ====='
+ldd "$RUNTIME_ROOT/$BINARY_REL" | tee "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq '/apps/OpenFOAM/2512/' "$EVIDENCE/simpleFoam.ldd"
+! grep -Eqi 'intel-mpi|/impi|libmpi\.so\.12|libmpicxx' "$EVIDENCE/simpleFoam.ldd"
+grep -Fq 'libmpi.so.40 => /apps/openmpi/4.1.7/' "$EVIDENCE/simpleFoam.ldd"
+
+printf 'artifact_sha256=%s\ndynamiccode_sha1=%s\nplatform=%s\nranks=%s\npbs_jobid=%s\nofficial_result=false\n' \
+    "$ARTIFACT_SHA" "$DYNCODE_SHA1" "$PLATFORM" "$NRANKS" "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
+echo C1_DYNAMICCODE_SMOKE_PASS

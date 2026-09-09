@@ -1,0 +1,174 @@
+#!/bin/bash
+# Build the C1 (ICC) dynamicCode library for the workload's wallClockTimeStatistics
+# coded functionObject, ONCE, so the 65M screening run loads it instead of
+# JIT-compiling it on 192 ranks.
+#
+# Why this exists: the C1 runtime-v2 archive ships only etc/, bin/ and
+# platforms/linux64IccDPInt32Opt. It has no wmake, no wmake/rules, no
+# platforms/tools/linux64Icc/wmkdepend and no src/ headers, so OpenFOAM cannot
+# compile the coded functionObject at runtime. Job 178564210 deadlocked there
+# with "exec(wmake, ...) failed" before timestep 1.
+#
+# The authoritative v2512 wmake/ and src/ are used as BUILD-TIME SOURCE INPUT
+# only. The resulting library must link against the C1 ICC runtime, never the
+# site GCC platform libraries.
+#PBS -P pm78
+#PBS -q normal
+#PBS -N of2512_c1_dyncode
+#PBS -l ncpus=8
+#PBS -l mem=32GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:30:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/dynamiccode-artifact/submit-logs/of2512_c1_dyncode.pbs.out
+set -euo pipefail
+
+ARCHIVE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/runtime-archive/c1-icc2021-openmpi417.178166771.gadi-pbs.runtime-v2.tar.gz
+EXPECTED_ARCHIVE_SHA256=16f5836b3084a284eb67e5e560d5ca245c29be14febec036b2e7f0cf7f4dc7eb
+EXPECTED_BINARY_SHA256=73a3260e2dfec970a9b76de990983fffd4ed8a47363aa497a89560f5c684533d
+BINARY_REL=platforms/linux64IccDPInt32Opt/bin/simpleFoam
+
+AUTHORITATIVE_SOURCE=/apps/OpenFOAM/2512
+WORKLOAD_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+FO_FILE="${WORKLOAD_CASE}/system/FOwallClockTimeStatistics"
+EXPECTED_FO_SHA256=0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08
+
+# The dynamicCode SHA1 is a hash of the coded functionObject text, so it is
+# identical for GCC and ICC; only the platform directory differs.
+DYNCODE_SHA1=6e8d888ad28997c1bc9eebd1c08a1a15774516a4
+PLATFORM=linux64IccDPInt32Opt
+LIB_BASENAME="libwallClockTimeStatistics_${DYNCODE_SHA1}.so"
+
+ARTIFACT_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/dynamiccode-artifact
+ARTIFACT="${ARTIFACT_ROOT}/${LIB_BASENAME}"
+EVIDENCE="${ARTIFACT_ROOT}/evidence/c1-dyncode.${PBS_JOBID:?}"
+
+CONTAINER="${PBS_JOBFS:?}/c1-dyncode-runtime"
+RUNTIME_ROOT="${CONTAINER}/OpenFOAM-v2512"
+THIRDPARTY_ROOT="${CONTAINER}/ThirdParty-v2512"
+BUILD_CASE="${PBS_JOBFS}/pitzDaily_fused-dyncode"
+
+mkdir -p "$EVIDENCE"
+exec > >(tee -a "$EVIDENCE/run.log") 2>&1
+trap 'status=$?; printf "pbs_exit_status=%s\n" "$status" > "$EVIDENCE/exit-status.txt"; exit "$status"' EXIT
+
+echo '===== INPUT PROVENANCE ====='
+printf 'pbs_jobid=%s\ntarget_sha1=%s\nplatform=%s\n' "$PBS_JOBID" "$DYNCODE_SHA1" "$PLATFORM"
+printf '%s  %s\n' "$EXPECTED_ARCHIVE_SHA256" "$ARCHIVE" | sha256sum -c -
+printf '%s  %s\n' "$EXPECTED_FO_SHA256" "$FO_FILE" | sha256sum -c -
+test ! -e "$ARTIFACT"
+
+echo '===== TOOLCHAIN ====='
+module purge
+module load intel-compiler/2021.10.0 openmpi/4.1.7
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+icc --version > "$EVIDENCE/icc.version" 2>&1; head -1 "$EVIDENCE/icc.version"
+grep -Fq '2021.10.0' "$EVIDENCE/icc.version"
+mpirun --version > "$EVIDENCE/mpirun.version" 2>&1; head -1 "$EVIDENCE/mpirun.version"
+grep -Fq 'Open MPI) 4.1.7' "$EVIDENCE/mpirun.version"
+test "$(command -v mpicc)" = /apps/openmpi/4.1.7/bin/mpicc
+
+echo '===== STAGE C1 RUNTIME ====='
+test ! -e "$CONTAINER"; mkdir -p "$CONTAINER"
+tar -C "$CONTAINER" -xzf "$ARCHIVE"
+test -d "$RUNTIME_ROOT"; test -d "$THIRDPARTY_ROOT"
+mkdir -p "$RUNTIME_ROOT/META-INFO"
+printf 'api=2512\npatch=0\n' > "$RUNTIME_ROOT/META-INFO/api-info"
+printf '%s  %s\n' d03cf08cf48ab523323a8849439b2f1073df920e29e969f51f188568a4fa0a8a "$RUNTIME_ROOT/META-INFO/api-info" | sha256sum -c -
+test "$(sha256sum "$RUNTIME_ROOT/$BINARY_REL" | awk '{print $1}')" = "$EXPECTED_BINARY_SHA256"
+
+echo '===== ADD BUILD-TIME SOURCE INPUT (headers/wmake only, never runtime libs) ====='
+# wmake must be writable because its own tools are compiled into the staged tree.
+test ! -e "$RUNTIME_ROOT/wmake"
+cp -a "$AUTHORITATIVE_SOURCE/wmake" "$RUNTIME_ROOT/wmake"
+# src/ is read-only header input; symlink avoids copying ~200k inodes.
+test ! -e "$RUNTIME_ROOT/src"
+ln -s "$AUTHORITATIVE_SOURCE/src" "$RUNTIME_ROOT/src"
+test -d "$RUNTIME_ROOT/wmake/rules/linux64Icc"
+test -r "$RUNTIME_ROOT/src/finiteVolume/lnInclude/fvCFD.H"
+
+echo '===== OPENFOAM ENVIRONMENT ====='
+set +u
+. "$RUNTIME_ROOT/etc/bashrc" WM_COMPILER=Icc WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+set -u
+printf 'WM_PROJECT_DIR=%s\nWM_OPTIONS=%s\nWM_MPLIB=%s\nFOAM_MPI=%s\n' \
+    "$WM_PROJECT_DIR" "$WM_OPTIONS" "$WM_MPLIB" "$FOAM_MPI" | tee "$EVIDENCE/foam-env.txt"
+test "$WM_OPTIONS" = "$PLATFORM"
+test "$WM_PROJECT_DIR" = "$RUNTIME_ROOT"
+test "$WM_MPLIB" = SYSTEMOPENMPI
+
+echo '===== BUILD wmake TOOLS FOR linux64Icc (lesson L5) ====='
+"$RUNTIME_ROOT/wmake/src/Allmake" > "$EVIDENCE/wmake-tools.log" 2>&1
+WMKDEPEND="$RUNTIME_ROOT/platforms/tools/linux64Icc/wmkdepend"
+test -x "$WMKDEPEND"
+printf 'wmkdepend=%s\n' "$WMKDEPEND"
+
+echo '===== BUILD CASE (tutorial, NOT the benchmark workload) ====='
+cp -a "$AUTHORITATIVE_SOURCE/tutorials/incompressible/simpleFoam/pitzDaily_fused" "$BUILD_CASE"
+cd "$BUILD_CASE"
+# Use the authoritative functionObject text verbatim so the SHA1 matches the
+# 65M workload exactly. Only this tutorial case is modified.
+cp -p "$FO_FILE" system/FOwallClockTimeStatistics
+printf '\nfunctions\n{\n    #include "FOwallClockTimeStatistics"\n}\n' >> system/controlDict
+sed -i -E 's/^(endTime[[:space:]]+)[0-9]+;/\120;/' system/controlDict
+grep -Eq '^endTime[[:space:]]+20;' system/controlDict
+
+echo '===== TRIGGER ICC dynamicCode COMPILATION ====='
+blockMesh > "$EVIDENCE/blockMesh.log" 2>&1
+simpleFoam > "$EVIDENCE/simpleFoam-build.log" 2>&1
+grep -Fq 'Invoking wmake libso' "$EVIDENCE/simpleFoam-build.log"
+grep -aEq '^End$' "$EVIDENCE/simpleFoam-build.log"
+# The functionObject must have actually run.
+grep -Fq 'Average wall-clock time per time step' "$EVIDENCE/simpleFoam-build.log"
+
+BUILT="${BUILD_CASE}/dynamicCode/platforms/${PLATFORM}/lib/${LIB_BASENAME}"
+test -f "$BUILT"
+printf 'built=%s\n' "$BUILT"
+
+echo '===== LINKAGE ISOLATION ====='
+ldd "$BUILT" | tee "$EVIDENCE/dyncode.ldd"
+readelf -d "$BUILT" | grep -E 'NEEDED|RPATH|RUNPATH' | tee "$EVIDENCE/dyncode.readelf"
+! grep -q 'not found' "$EVIDENCE/dyncode.ldd"
+grep -Fq "libOpenFOAM.so => ${RUNTIME_ROOT}/platforms/${PLATFORM}/lib/" "$EVIDENCE/dyncode.ldd"
+grep -Fq "libfiniteVolume.so => ${RUNTIME_ROOT}/platforms/${PLATFORM}/lib/" "$EVIDENCE/dyncode.ldd"
+grep -Fq "libmeshTools.so => ${RUNTIME_ROOT}/platforms/${PLATFORM}/lib/" "$EVIDENCE/dyncode.ldd"
+# Site GCC OpenFOAM runtime must not appear anywhere.
+! grep -Fq '/apps/OpenFOAM/2512/platforms/' "$EVIDENCE/dyncode.ldd"
+! grep -Fq 'linux64Gcc' "$EVIDENCE/dyncode.ldd"
+# Intel MPI must not appear.
+! grep -Eqi 'intel-mpi|/impi|libmpi\.so\.12|libmpicxx' "$EVIDENCE/dyncode.ldd"
+# Any MPI that does appear must be the OpenMPI 4.1.7 module.
+if grep -q 'libmpi' "$EVIDENCE/dyncode.ldd"; then
+    grep -Fq '/apps/openmpi/4.1.7/' "$EVIDENCE/dyncode.ldd"
+fi
+
+echo '===== PUBLISH ARTIFACT ====='
+mkdir -p "$ARTIFACT_ROOT"
+cp -p "$BUILT" "$ARTIFACT"
+chmod 0644 "$ARTIFACT"
+sha256sum "$ARTIFACT" | tee "${ARTIFACT}.sha256"
+ARTIFACT_SHA=$(awk '{print $1}' "${ARTIFACT}.sha256")
+cp -p "$EVIDENCE/dyncode.ldd" "${ARTIFACT_ROOT}/${LIB_BASENAME}.ldd"
+
+cat > "${ARTIFACT_ROOT}/${LIB_BASENAME}.provenance" <<PROV
+artifact=${LIB_BASENAME}
+artifact_sha256=${ARTIFACT_SHA}
+dynamiccode_sha1=${DYNCODE_SHA1}
+platform=${PLATFORM}
+build_pbs_job=${PBS_JOBID}
+build_node=$(hostname)
+compiler=ICC Classic 2021.10.0
+mpi=OpenMPI 4.1.7 (/apps/openmpi/4.1.7)
+openfoam=v2512
+c1_runtime_archive_sha256=${EXPECTED_ARCHIVE_SHA256}
+c1_simpleFoam_sha256=${EXPECTED_BINARY_SHA256}
+functionobject_source=${FO_FILE}
+functionobject_sha256=${EXPECTED_FO_SHA256}
+build_source_input=${AUTHORITATIVE_SOURCE} (wmake + src headers only, build-time input)
+official_result=false
+PROV
+cat "${ARTIFACT_ROOT}/${LIB_BASENAME}.provenance"
+cp -p "${ARTIFACT_ROOT}/${LIB_BASENAME}.provenance" "$EVIDENCE/"
+echo C1_DYNAMICCODE_PREPARE_PASS
