@@ -89,6 +89,19 @@ ln -s "$AUTHORITATIVE_SOURCE/src" "$RUNTIME_ROOT/src"
 test -d "$RUNTIME_ROOT/wmake/rules/linux64Icc"
 test -r "$RUNTIME_ROOT/src/finiteVolume/lnInclude/fvCFD.H"
 
+# Same reviewed workaround that produced the C1 simpleFoam binary being
+# benchmarked (see common/build_openfoam_v2512_openmpi.sh,
+# ICC_ALIGNED_NEW_WORKAROUND): v2512 ListPolicy uses aligned new[]/delete[],
+# and the GCC 8 libstdc++ declarations are gated on __cpp_aligned_new, which
+# ICC 2021.10 does not define even under -std=c++17. Job 178567913 failed here.
+# Applied only to the JOBFS-staged rule file; /apps is never modified, and the
+# functionObject source text is untouched, so the dynamicCode SHA1 is unchanged.
+ICC_RULE="${RUNTIME_ROOT}/wmake/rules/linux64Icc/c++"
+test -f "$ICC_RULE"
+printf '\n# C1 ICC 2021.10 aligned-allocation compatibility workaround\nc++FLAGS += -D__cpp_aligned_new=201606L\n' >> "$ICC_RULE"
+grep -Fq -- '-D__cpp_aligned_new=201606L' "$ICC_RULE"
+printf 'icc_aligned_new_workaround=enabled\nicc_rule=%s\n' "$ICC_RULE" | tee "$EVIDENCE/icc-workaround.txt"
+
 echo '===== OPENFOAM ENVIRONMENT ====='
 set +u
 . "$RUNTIME_ROOT/etc/bashrc" WM_COMPILER=Icc WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
