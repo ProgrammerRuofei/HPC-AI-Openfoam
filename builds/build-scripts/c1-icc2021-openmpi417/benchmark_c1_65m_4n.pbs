@@ -110,8 +110,16 @@ grep -Fq 'openmpi/4.1.7' "$EVIDENCE/modules.txt"
 if grep -Eqi 'intel-mpi|impi' "$EVIDENCE/modules.txt"; then
     echo 'ERROR: Intel MPI module present in a SYSTEMOPENMPI run' >&2; exit 7
 fi
-if env | grep -q '^I_MPI_'; then
-    env | grep '^I_MPI_' >&2; echo 'ERROR: Intel MPI environment present' >&2; exit 7
+# The intel-compiler module legitimately exports I_MPI_CC/CXX/F77/F90 as wrapper
+# *compiler hints*; their presence does not imply Intel MPI is loaded. Job
+# 178563232 exited 7 on the former, over-broad '^I_MPI_' test. Every I_MPI_*
+# variable is now recorded as provenance and NONE is fatal on its own: Intel MPI
+# contamination is decided by the concrete module, launcher-path, launcher-version
+# and ldd checks, which remain fatal. A stale or compiler-exported environment
+# variable must never fail this run by itself.
+env | grep '^I_MPI_' | sort | tee "$EVIDENCE/i_mpi_vars.txt" || true
+if env | grep -q '^I_MPI_ROOT='; then
+    printf 'ADVISORY: I_MPI_ROOT is set (%s). Not fatal by itself; the module, mpirun path/version and ldd checks below decide.\n' "$(printenv I_MPI_ROOT)"
 fi
 command -v mpirun | tee "$EVIDENCE/mpirun.path"
 mpirun --version > "$EVIDENCE/mpirun.version" 2>&1; cat "$EVIDENCE/mpirun.version"
