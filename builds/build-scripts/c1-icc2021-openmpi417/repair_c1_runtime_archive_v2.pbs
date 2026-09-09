@@ -1,0 +1,78 @@
+#!/bin/bash
+# Complete the validated C1 runtime archive without rebuilding OpenFOAM.
+#PBS -P pm78
+#PBS -q normal
+#PBS -N of2512_c1_archive_v2
+#PBS -l ncpus=1
+#PBS -l mem=4GB
+#PBS -l jobfs=5GB
+#PBS -l walltime=00:20:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/runtime-repair/submit-logs/of2512_c1_archive_v2.pbs.out
+set -euo pipefail
+
+SOURCE_ARCHIVE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/runtime-archive/c1-icc2021-openmpi417.178166771.gadi-pbs.tar.gz
+EXPECTED_SOURCE_ARCHIVE_SHA256=8362364c1dbe44f53a2e9db213d2ef2eb378a3cbb38e7d38a40457abcac2d825
+EXPECTED_BINARY_SHA256=73a3260e2dfec970a9b76de990983fffd4ed8a47363aa497a89560f5c684533d
+AUTHORITATIVE_SOURCE=/apps/OpenFOAM/2512
+OUTPUT_ARCHIVE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/runtime-archive/c1-icc2021-openmpi417.178166771.gadi-pbs.runtime-v2.tar.gz
+REPAIR_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/runtime-repair
+EVIDENCE="${REPAIR_ROOT}/evidence/c1-runtime-archive-v2.${PBS_JOBID:?}"
+WORK_ROOT="${PBS_JOBFS:?}/c1-runtime-archive-v2"
+RUNTIME_ROOT="${WORK_ROOT}/OpenFOAM-v2512"
+CANDIDATE_SIMPLEFOAM="${RUNTIME_ROOT}/platforms/linux64IccDPInt32Opt/bin/simpleFoam"
+JOBFS_ARCHIVE="${PBS_JOBFS}/c1-icc2021-openmpi417.runtime-v2.tar.gz"
+
+mkdir -p "$EVIDENCE"
+exec > >(tee -a "$EVIDENCE/run.log") 2>&1
+test -r "$SOURCE_ARCHIVE"
+test -d "$AUTHORITATIVE_SOURCE/bin"
+test ! -e "$OUTPUT_ARCHIVE"
+test ! -e "${OUTPUT_ARCHIVE}.sha256"
+printf '%s  %s\n' "$EXPECTED_SOURCE_ARCHIVE_SHA256" "$SOURCE_ARCHIVE" | sha256sum -c -
+
+mkdir -p "$WORK_ROOT"
+tar -C "$WORK_ROOT" -xzf "$SOURCE_ARCHIVE"
+test -d "$RUNTIME_ROOT"
+test -x "$CANDIDATE_SIMPLEFOAM"
+printf '%s  %s\n' "$EXPECTED_BINARY_SHA256" "$CANDIDATE_SIMPLEFOAM" | sha256sum -c -
+test ! -e "$RUNTIME_ROOT/bin"
+
+# Add only runtime support scripts from the same authoritative v2512 tree.
+rsync -a "$AUTHORITATIVE_SOURCE/bin/" "$RUNTIME_ROOT/bin/"
+test -x "$RUNTIME_ROOT/bin/foamEtcFile"
+test -x "$RUNTIME_ROOT/bin/foamCleanPath"
+rsync -acni --delete "$AUTHORITATIVE_SOURCE/bin/" "$RUNTIME_ROOT/bin/" | tee "$EVIDENCE/bin-rsync-check.txt"
+test ! -s "$EVIDENCE/bin-rsync-check.txt"
+
+# Add the reviewed release metadata already used in the successful C1 build.
+mkdir -p "$RUNTIME_ROOT/META-INFO"
+printf 'api=2512\npatch=0\n' > "$RUNTIME_ROOT/META-INFO/api-info"
+printf '%s  %s\n' d03cf08cf48ab523323a8849439b2f1073df920e29e969f51f188568a4fa0a8a "$RUNTIME_ROOT/META-INFO/api-info" | sha256sum -c -
+
+(cd "$AUTHORITATIVE_SOURCE"; LC_ALL=C find bin -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum) > "$EVIDENCE/authoritative-bin-files.sha256"
+(cd "$RUNTIME_ROOT"; LC_ALL=C find bin -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum) > "$EVIDENCE/runtime-bin-files.sha256"
+cmp -s "$EVIDENCE/authoritative-bin-files.sha256" "$EVIDENCE/runtime-bin-files.sha256"
+write_bin_symlinks()
+{
+    (cd "$1"; LC_ALL=C find bin -type l -printf '%p\0%l\0' | /bin/perl -0e 'use bytes; my @r; while (defined(my $p = <>)) { chomp $p; my $t = <>; die "odd symlink stream\n" unless defined $t; chomp $t; push @r, [$p,$t]; } for my $r (sort {$a->[0] cmp $b->[0]} @r) { print $r->[0],"\0",$r->[1],"\0"; }')
+}
+write_bin_symlinks "$AUTHORITATIVE_SOURCE" > "$EVIDENCE/authoritative-bin-symlinks.nul"
+write_bin_symlinks "$RUNTIME_ROOT" > "$EVIDENCE/runtime-bin-symlinks.nul"
+sha256sum "$EVIDENCE/authoritative-bin-symlinks.nul" "$EVIDENCE/runtime-bin-symlinks.nul" | tee "$EVIDENCE/bin-symlink-manifests.sha256"
+cmp -s "$EVIDENCE/authoritative-bin-symlinks.nul" "$EVIDENCE/runtime-bin-symlinks.nul"
+
+tar -C "$WORK_ROOT" -czf "$JOBFS_ARCHIVE" OpenFOAM-v2512 ThirdParty-v2512
+tar -tzf "$JOBFS_ARCHIVE" > "$EVIDENCE/runtime-v2-members.txt"
+grep -Fxq OpenFOAM-v2512/bin/foamEtcFile "$EVIDENCE/runtime-v2-members.txt"
+grep -Fxq OpenFOAM-v2512/bin/foamCleanPath "$EVIDENCE/runtime-v2-members.txt"
+member=OpenFOAM-v2512/platforms/linux64IccDPInt32Opt/bin/simpleFoam
+test "$(tar -xOzf "$JOBFS_ARCHIVE" "$member" | sha256sum | awk '{print $1}')" = "$EXPECTED_BINARY_SHA256"
+runtime_v2_sha=$(sha256sum "$JOBFS_ARCHIVE" | awk '{print $1}')
+printf '%s  %s\n' "$runtime_v2_sha" "$JOBFS_ARCHIVE" | tee "$EVIDENCE/runtime-v2.sha256"
+cp -p "$JOBFS_ARCHIVE" "$OUTPUT_ARCHIVE"
+sha256sum "$OUTPUT_ARCHIVE" > "${OUTPUT_ARCHIVE}.sha256"
+test "$(sha256sum "$OUTPUT_ARCHIVE" | awk '{print $1}')" = "$runtime_v2_sha"
+echo C1_RUNTIME_ARCHIVE_V2_PASS
