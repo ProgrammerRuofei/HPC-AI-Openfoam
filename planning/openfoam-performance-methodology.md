@@ -67,7 +67,7 @@ Before authorising or preparing each new experiment, record answers to these que
 | Intended scored configuration | **[CONFIRMED 2026 FACT]** | Four CPU nodes. |
 | Official case/rules | **[TBD AFTER OFFICIAL INPUT RELEASE]** | Final input files, exact iteration rule, scoring wording, rank/decomposition constraints, and correctness acceptance criteria. |
 
-The local `APPLICATION.md` also records a Gadi four-node reference of 192 MPI ranks, 150 steps, and `ClockTime` 787 s. **[CURRENT EXPERIMENTAL EVIDENCE]** This is a Gadi reference only; it is not an ASPIRE2A baseline and must not be compared directly with Iris times or transferred as an ASPIRE2A rank count.
+The local `APPLICATION.md` also records a Gadi four-node reference of 192 MPI ranks, 150 steps, and `ClockTime` 787 s. **[HISTORICAL PRE-RULE EVIDENCE]** This is a Gadi reference only; it is not an ASPIRE2A baseline and must not be compared directly with Iris times or transferred as an ASPIRE2A rank count. *(Updated 2026-09-09: 787 s is the uncontrolled 4-node run `177602742.gadi-pbs` on Cascade Lake. The current **scored** reference is the official Sapphire Rapids `normalsr` result, 2.139565 s per time step at 4 nodes / 416 ranks, job `178149002.gadi-pbs`; the controlled Cascade Lake reference is the Phase 0 median, 797.5 s. See [`results/experiment-index.md`](../results/experiment-index.md).)*
 
 ### 3.1.1 Two-layer performance evaluation
 

@@ -1,14 +1,30 @@
 # Results
 
-`metrics.csv` is the structured source of truth for extracted run results.
-It contains four extracted Phase 0 Gadi controlled-repeat rows (R1–R4).  Raw
-PBS, provenance, checksum, and solver files remain remote and unchanged; CSV
-rows are a documented extraction, not replacements for those artifacts.
+Extracted numbers and their provenance, kept separate from the scripts that
+produced them so results can be reviewed without reading code.
 
-The columns preserve experiment identity, environment/resource metadata,
-runtime, correctness, and raw-output provenance.  Phase 0 adds explicit
-ExecutionTime, timestep statistics, PBS resources, and artifact-status fields
-so all raw metrics can be interpreted without conflating them.
+## Start here
+
+| Document | What it is |
+| --- | --- |
+| [`experiment-index.md`](experiment-index.md) | **Master index** — every run and validation attempt, with status labels and provenance. Start here. |
+| [`hpc-lessons.md`](hpc-lessons.md) | Failure and scheduler lessons (L1–L10), kept as permanent evidence |
+| [`official-gadi-spr/run-registry.md`](official-gadi-spr/run-registry.md) | Official `normalsr` run-by-run registry, including the failed attempts |
+| [`compiler-screening-summary.md`](compiler-screening-summary.md) | Performance matrix and the compiler-screening narrative |
+| [`RESULTS.md`](RESULTS.md) | Phase 0 controlled-repeat report |
+| [`metrics.csv`](metrics.csv) | Machine-readable rows — currently the four Phase 0 repeats (R1-R4) |
+| `scripts/` | Extraction helpers |
+
+`metrics.csv` is the structured source of truth for extracted run results. Its
+columns preserve experiment identity, environment/resource metadata, runtime,
+correctness, and raw-output provenance, with explicit ExecutionTime, timestep
+statistics, PBS resources, and artifact-status fields so raw metrics are never
+conflated.
+
+Raw PBS, provenance, checksum, and solver files remain on Gadi under
+`/scratch/pm78/kj7183/openfoam_cpu/` and are unchanged. CSV rows and the tables
+in this directory are a documented extraction, **not** replacements for those
+artifacts.
 
 ## Two-layer performance metric framework
 

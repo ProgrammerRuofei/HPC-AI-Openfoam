@@ -186,8 +186,11 @@ it is already the honest reference point.
 ### E8 - Final validation repeats
 
 - **Hypothesis**: a single fast run may be favourable variance rather than a real gain.
-  Phase 0 saw ClockTime range 787-1045 s across four nominally identical runs - a
-  ~30% spread that would swamp every threshold above.
+  Phase 0 saw ClockTime range **790-1045 s** across four nominally identical runs -
+  a ~32% spread that would swamp every threshold above.
+  *(Corrected 2026-09-09: this previously read "787-1045 s". 787 s is the earlier
+  uncontrolled 4-node run `177602742.gadi-pbs`, not a Phase 0 repeat. The four
+  Phase 0 measurements are 802 / 1045 / 793 / 790 s, median 797.5 s.)*
 - **Changed variable**: none; repeats of the chosen final configuration.
 - **Cost**: 3 runs at 4N = **~1872 SU**.
 - **Success criterion**: report median and spread, not the best observed run.

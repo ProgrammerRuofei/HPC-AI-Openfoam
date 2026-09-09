@@ -34,7 +34,7 @@ possible. No original file was moved, deleted, overwritten, or content-edited.
 | Gadi profiling deck | `/Users/sofia/Downloads/openfoam_gadi_profile.pptx` | PPTX | Gadi profiling/performance narrative | `artifacts/presentations/openfoam_gadi_profile.pptx` | Copied; SHA-256 `c2db460649f692f91cc0e55f6b3bc243de7a160cde0d190703b0b591ad887653` |
 | Gadi baseline deck | `/Users/sofia/Desktop/HPC/slides/openfoam_gadi_baseline_v2_副本.pptx` | PPTX | Earlier Gadi baseline/scaling presentation | `artifacts/presentations/openfoam_gadi_baseline_v2_copy.pptx` | Copied; SHA-256 `de8fe6bf00d40e9e3da45474cafcff464296134a02bb14db9f940bb63157dcbc` |
 | OpenFOAM runtime tracker | `/Users/sofia/Downloads/OpenFOAM Runtime.xlsx` | XLSX | Experiment/runtime table | `artifacts/spreadsheets/OpenFOAM_Runtime.xlsx` | Copied; SHA-256 `6d660f3bf955ed70e19f3810de72cd8a9bce5196c036aae46f32596919836f6e` |
-| Current Gadi facts | `/Users/sofia/Projects/openfoam-aspire2a/APPLICATION.md` | Markdown | 1/2/4-node ranks and 787 s reference | Already present | Present, unchanged |
+| Current Gadi facts | `/Users/sofia/Projects/openfoam-aspire2a/APPLICATION.md` | Markdown | Official `normalsr` 1/2/4-node scored table (2.139565 s/step at 4N) plus the pre-rule Cascade Lake references incl. 787 s | Already present | Updated 2026-09-09: the scored reference is now the official SPR table; 787 s is retained as labelled historical evidence |
 | Gadi profiler notes | `/Users/sofia/Projects/openfoam-aspire2a/planning/openfoam-performance-methodology.md` | Markdown | Arm Performance Reports/MAP aggregates | Already present | Present, unchanged |
 
 Raw Gadi solver logs and scripts were verified remotely under:

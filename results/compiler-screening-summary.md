@@ -43,14 +43,14 @@ measurement convention; they are **not** an official baseline and their
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- | --- | --- |
 | B0-CLX | Gadi Cascade Lake | 4 | 192 | GCC 8.5 | OpenMPI 4.1.7 | hierarchical `(16 6 2)`; SCOTCH not used | Historical mean timestep: 5.144659 s (four-run median) | 802 / 1045 / 793 / 790 s; 797.5 s median | — | Pre-rule reference; R2 is correctness-valid but performance-anomalous and retained. |
 
-## Deferred compiler build attempts
+## Compiler build candidates
 
-No row below is a performance result: none has produced a valid solver run on
-the official workload.
+No row below is an official performance result. Build and runtime validation
+do not supply an official `normalsr` timing measurement.
 
 | ID | Hardware / scope | Compiler | MPI | Performance | Status |
 | --- | --- | --- | --- | --- | --- |
-| C1 | Cascade Lake build attempt | ICC 2021.10 | OpenMPI 4.1.7 | — | ThirdParty passed; OpenFOAM build stopped on missing `wmkdepend`. |
+| C1 | Cascade Lake build/runtime artifact | ICC 2021.10 | OpenMPI 4.1.7 | — | **BUILD PASS**, **RUNTIME ARCHIVE V2 PASS** (`178252413`), **RUNTIME SMOKE PASS** (`178254935`); no 65M benchmark and no official `normalsr` result. |
 | C2 | Cascade Lake build attempt | ICX 2025.1.1 | OpenMPI 4.1.7 | — | Build not completed. |
 | C3 | Cascade Lake build attempt | ICX 2023.2.0 | OpenMPI 4.1.7 | — | Cancelled before execution. |
 | S1 | Deferred compiler/MPI integration | ICC 2021.10 | Intel MPI 2021.10 | — | Deferred at OpenFOAM compiler/MPI environment integration. |
@@ -63,9 +63,15 @@ performance-first tables above.
 | ID | Build / PBS job | Commit | Build / workflow state | Failure layer | Notes |
 | --- | --- | --- | --- | --- | --- |
 | B0-SPR | `178149002.gadi-pbs` | `d13aea1` | PASS | — | Four SPR nodes, 416 ranks; full official chain, Time=150, final parallel completion, Cd sanity, and Exit_status=0 all passed. |
+| C1 | `178140361.gadi-pbs` | — | Source identity PASS; build stopped | L5 setup | Common workflow referenced a non-existent nested `OpenFOAM-v2512/ThirdParty/Allwmake` path. |
 | C1 | `178141482.gadi-pbs` | — | ThirdParty PASS; OpenFOAM build stopped | L5 | Missing compiler-specific `wmkdepend`; SOURCE_ID_V2 and L4 passed. |
+| C1 | `178163598.gadi-pbs` | `bc45f06` | ThirdParty PASS; OpenFOAM build stopped | L6 | ICC 2021.10 did not expose the C++17 aligned-new declarations required by `ListPolicy`; no runtime artifact. |
+| C1 | `178166039.gadi-pbs` | `421908e` | ThirdParty PASS; OpenFOAM build stopped | L6 | The aligned-new workaround passed its former failure point; ICC then propagated the `const` value-parameter declaration of `CircularBuffer::toGlobal`, producing non-modifiable-lvalue errors. |
+| C1 | `178166771.gadi-pbs` | `cfc6c9514024f07713b3f0664633b3118387e3e3` | **BUILD_VALIDATION_PASS** | — | ICC/OpenMPI candidate runtime produced on one Cascade Lake build node. This is not an official performance result. |
 | C2 | `178140527.gadi-pbs` | — | Not completed | Before L5 | Same common ThirdParty-path defect; SOURCE_ID_V2 and L4 passed. |
 | C3 | `178140528.gadi-pbs` | — | Cancelled | Pre-execution | Cancelled after the common ThirdParty-path defect was identified; not a compiler/build failure. |
+| C1 | `178252413.gadi-pbs` | *untracked script* | **C1_RUNTIME_ARCHIVE_V2_PASS** | — | Runtime archive closure: added the authoritative v2512 `bin/` tree and reviewed `META-INFO/api-info`, re-hashed. No rebuild; the original archive was not overwritten. |
+| C1 | `178254935.gadi-pbs` | *untracked script* | **C1_RUNTIME_SMOKE_PASS** | — | Five-rank `pitzDaily_fused` correctness/isolation smoke on `gadi-cpu-clx-2372`; Exit_status=0, 14 s. Not a performance result. |
 | S1 | `178136462.gadi-pbs` | `70d6dc0` | Not completed | PBS startup / pre-build | Exit_status=127; build workflow not entered. |
 
 Detailed official job-by-job evidence, including unsuccessful attempts, remains
@@ -82,3 +88,61 @@ common build workflow was subsequently corrected to run
 `wmake/src/Allmake` and assert that the matching `wmkdepend` is executable
 before it starts the OpenFOAM libraries. This is build provenance, not a
 compiler-performance result.
+
+### C1 successful build and runtime evidence
+
+Candidate C1 is ICC 2021.10.0 with OpenMPI 4.1.7 and OpenFOAM v2512. The
+successful PBS build ran on Cascade Lake node `gadi-cpu-clx-1303`; the build
+node is acceptable for artifact production but supplies no official
+competition timing.
+
+| Field | Evidence |
+| --- | --- |
+| PBS job | `178166771.gadi-pbs` |
+| Gadi build commit | `cfc6c9514024f07713b3f0664633b3118387e3e3` |
+| Content-equivalent local commit | `1765c86b47ad937e52504fdc17319311a8e7562c` |
+| Exit status | `0` |
+| PBS walltime | `01:26:52` |
+| Peak memory | `102240748 KiB` (about 97.5 GiB) |
+| SOURCE_ID_V2 | Authoritative and JOBFS staged values both matched `5e43349d5b302beb354e4e0d9842ff8148cfed069fb0f1a224616df6021c18db` |
+| ICC compatibility fixes | C++17 aligned-new feature macro; staged `CircularBuffer::toGlobal` value-parameter declaration correction |
+| `simpleFoam` | ELF x86-64, dynamically linked, not stripped; validation PASS |
+| `simpleFoam` SHA256 | `73a3260e2dfec970a9b76de990983fffd4ed8a47363aa497a89560f5c684533d` |
+| Runtime archive | `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/runtime-archive/c1-icc2021-openmpi417.178166771.gadi-pbs.tar.gz` |
+| Runtime archive SHA256 | `8362364c1dbe44f53a2e9db213d2ef2eb378a3cbb38e7d38a40457abcac2d825` |
+| Runtime contents | ICC platform `linux64IccDPInt32Opt`, validated `simpleFoam`, OpenFOAM libraries, and `sys-openmpi` Pstream libraries present |
+| MPI linkage | `libmpi.so.40` resolves to `/apps/openmpi/4.1.7`; OpenMPI itself is an external Gadi module dependency and is not bundled in the archive |
+| Runtime smoke attempt 1 | `178249214.gadi-pbs`: archive and binary SHA plus OpenMPI 4.1.7 provenance passed; runtime setup stopped before MPI because the archive omitted `OpenFOAM-v2512/bin/foamEtcFile` and `foamCleanPath` |
+| Runtime archive v2 repair | `178252413.gadi-pbs`: **C1_RUNTIME_ARCHIVE_V2_PASS**. Added only the authoritative v2512 `bin/` tree and the reviewed `META-INFO/api-info`; re-hashed. No rebuild; the original archive was preserved. Submitted from an untracked script, so no commit provenance |
+| runtime-v2 archive SHA256 | `16f5836b3084a284eb67e5e560d5ca245c29be14febec036b2e7f0cf7f4dc7eb` |
+| Runtime smoke attempt 2 | `178254935.gadi-pbs`: **C1_RUNTIME_SMOKE_PASS**. Node `gadi-cpu-clx-2372`, 1 node / 5 CPUs / 5 ranks, Exit_status 0, walltime 14 s, `pitzDaily_fused` reached `Time = 200`. `blockMesh`, `decomposePar`, the five-rank MPI probe, and JOBFS-staged runtime/library isolation all passed. Submitted from an untracked script, so no commit provenance |
+| Next validation | The 65M Cascade Lake screening benchmark (4 nodes / 192 ranks, hierarchical `(16 6 2)`) is prepared but **not submitted**. No official `normalsr` C1 result exists or has been attempted |
+
+The archive-member `simpleFoam` was streamed directly from the tarball and
+re-hashed as `73a3260e...`, matching the build evidence. The archive contains
+414 ICC-platform entries, including 136 shared-library entries and three
+`sys-openmpi` entries. No official 65M or Cascade Lake performance benchmark
+was submitted as part of this build validation.
+
+The prepared correctness-only smoke definition is
+`builds/build-scripts/c1-icc2021-openmpi417/smoke_c1_icc2021_openmpi417.pbs`.
+It retains the trusted five-rank `pitzDaily_fused` decomposition and requests
+one normal-queue allocation with 5 CPUs, 10 GB memory, 5 GB JOBFS, and a
+10-minute walltime. Attempt 1 stopped after 10 seconds with `Exit_status=1`
+when `etc/bashrc` proved that the runtime archive lacked the OpenFOAM `bin/`
+support scripts. Archive SHA, binary SHA, and OpenMPI 4.1.7 provenance had
+already passed. It verifies archive and binary hashes, candidate-path and
+`ldd` closure, OpenMPI 4.1.7 provenance, five-rank launch, and normal solver
+completion. It records no performance result.
+
+The low-cost archive-v2 repair then ran as `178252413.gadi-pbs` and returned
+**C1_RUNTIME_ARCHIVE_V2_PASS**: it added only the authoritative v2512 `bin/`
+tree and reviewed API metadata, did not rebuild OpenFOAM, and did not overwrite
+the original archive. Smoke attempt 2 (`178254935.gadi-pbs`) then returned
+**C1_RUNTIME_SMOKE_PASS** on `gadi-cpu-clx-2372` in 14 s with Exit_status 0.
+
+The C1 runtime chain is therefore closed: **build PASS -> archive PASS ->
+smoke PASS**. The next stage, a 65M screening benchmark, has not been run, and
+no step so far produces a timing or an official result. Full per-stage
+provenance is in
+[`results/experiment-index.md`](experiment-index.md).
