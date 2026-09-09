@@ -76,8 +76,11 @@ toolchains** to beat it, on the evidence that the site module was built with
 GCC 8.5.0 (2021) — which predates Sapphire Rapids support in GCC and therefore
 emits generic x86-64 code with no AVX-512 tuning for the scored hardware.
 
-Current step: **C1 is built and runtime-validated; its 65M benchmark has not
-been run yet.**
+Current step: **C1 is built, runtime-validated and screened.** Its one 65M
+screening run came out about 2.66% *slower* than the GCC baseline on identical
+hardware. Both builds use `-O3` with no architecture targeting, so the AVX-512
+headroom argument remains untested — see
+[`results/experiment-index.md`](results/experiment-index.md) section 3.3.
 
 ## 6. What is C1?
 
@@ -93,7 +96,7 @@ something different, and passing one does **not** grant the status of the next:
 | Build validation | The stack compiles and produces a `simpleFoam` binary | `PASS` — job `178166771.gadi-pbs` |
 | Runtime archive repair | The portable runtime tarball is complete and re-hashed | `PASS` — job `178252413.gadi-pbs`, token `C1_RUNTIME_ARCHIVE_V2_PASS` |
 | Runtime smoke | A tiny 5-rank tutorial case actually runs to completion | `PASS` — job `178254935.gadi-pbs`, token `C1_RUNTIME_SMOKE_PASS`, 14 s on `gadi-cpu-clx-2372` |
-| **65M benchmark** | The real competition workload produces a timing | **`PENDING` — never run** |
+| **65M benchmark** | The real competition workload produces a timing | **`VALID SCREENING`** — job `178570241.gadi-pbs`, **5.281517 s/step**, Cd 0.28120622. About **2.66% slower** than the Phase 0 GCC baseline (5.144659 s/step); one run only, a negative screening signal, not a statistical conclusion |
 | Official result | Same, on `normalsr`, under official rules | **not attempted** |
 
 > **A passing smoke test proves the binary works. It does not produce a

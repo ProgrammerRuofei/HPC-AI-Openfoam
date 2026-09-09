@@ -187,7 +187,146 @@ The only candidate that has produced a working binary.
 | Runtime archive repair | `178252413.gadi-pbs` | *no commit — script untracked at submission* | `C1_RUNTIME_ARCHIVE_V2_PASS` — added the authoritative `bin/` tree + reviewed `META-INFO/api-info`, re-hashed; no rebuild, original archive not overwritten | `PASS` |
 | Runtime smoke attempt 1 | `178249214.gadi-pbs` | — | SHA and OpenMPI provenance passed; archive lacked `bin/foamEtcFile` and `bin/foamCleanPath` | `FAILED` |
 | Runtime smoke attempt 2 | `178254935.gadi-pbs` | *no commit — script untracked at submission* | `C1_RUNTIME_SMOKE_PASS` — see the detail table below | `PASS` |
-| **65M benchmark, 4N/192r** | — | — | Script written and statically verified; **not submitted** | `PENDING` |
+| 65M attempt 1, 4N/192r | `178563232.gadi-pbs` | `37c842f` | Exit 7 after 2 s on an over-broad `env \| grep '^I_MPI_'` gate; `intel-compiler` legitimately exports `I_MPI_CC/CXX/F77/F90`. Harness defect, not an environment problem | `FAILED` |
+| 65M attempt 2, 4N/192r | `178564210.gadi-pbs` | `37c842f` | Exit 271 (SIGTERM via `qdel`) after 00:32:36; 192 ranks deadlocked at 100% CPU before timestep 1 with `exec(wmake, ...) failed` — the runtime could not JIT-compile the `wallClockTimeStatistics` coded functionObject | `INVALID` — runtime dynamicCode/wmake capability missing before solver timestep loop |
+| dynamicCode prepare attempt 1 | `178567913.gadi-pbs` | `9ed6d1f` | Reached the compile and failed on the same ICC aligned-new defect as build attempt 3 | `FAILED` (L6) |
+| dynamicCode prepare attempt 2 | `178568099.gadi-pbs` | `5471b4f` | `C1_DYNAMICCODE_PREPARE_PASS` — built the ICC library with the reviewed `-D__cpp_aligned_new=201606L` workaround | `PASS` |
+| dynamicCode no-JIT smoke | `178568271.gadi-pbs` | `5471b4f` | `C1_DYNAMICCODE_SMOKE_PASS` — library loads on a runtime with no wmake/src; zero JIT markers | `PASS` |
+| **65M benchmark, 4N/192r** | **`178570241.gadi-pbs`** | **`e9f60aa`** | **`C1_65M_SCREEN_PASS`** — see the result table below | **`VALID SCREENING`** |
+
+#### C1 65M screening result — `178570241.gadi-pbs` `VALID SCREENING`
+
+**Not an official result.** Gadi `normal` (Cascade Lake), not `normalsr`
+Sapphire Rapids, so it may not be quoted as a competition figure.
+
+| Field | Value |
+| --- | --- |
+| PBS job | `178570241.gadi-pbs` |
+| Git commit | `e9f60aad7c0d8e8543ba3645f9b12ee795206de8` |
+| Queue / platform | `normal` / Intel Xeon Platinum 8274 @ 3.20 GHz (Cascade Lake) |
+| Nodes | 4 — `gadi-cpu-clx-1956/1963/1964/1969` |
+| Ranks | 192, 48 per node |
+| Compiler | ICC Classic 2021.10.0 |
+| MPI | OpenMPI 4.1.7 (`/apps/openmpi/4.1.7`) |
+| OpenFOAM | v2512, `linux64IccDPInt32Opt`, `FOAM_MPI=sys-openmpi` |
+| Decomposition | hierarchical `(16 6 2)` |
+| dynamicCode artifact | `.../c1-icc2021-openmpi417/dynamiccode-artifact/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so` |
+| dynamicCode SHA256 | `e772e9d2af426f4d3997b88d07ea8f06c95b16b89efb0cb6d5ec9604c95a211b` |
+| Completion token | `C1_65M_SCREEN_PASS` |
+| **Average wall-clock time per time step** | **5.281516726617448 s** |
+| Standard deviation | 0.02258265344653323 s (0.428% of mean) |
+| Measured time steps | 149 |
+| ExecutionTime / ClockTime | 790.87 s / 802 s |
+| Cd | 0.28120622 — inside the expected 150-step range 0.28-0.29 |
+| PBS walltime | 00:18:01 |
+| Peak memory | 256,631,488 kb (about 244.7 GiB) |
+| SU | about 115 (256 reserved at the 00:40:00 request) |
+| Exit status | 0 |
+
+All seven acceptance conditions passed: `Exit_status = 0`, `C1_65M_SCREEN_PASS`,
+`Time = 150`, `Finalising parallel run`, `End`, every provenance/runtime/workload
+gate, and zero dynamicCode JIT (`Creating new library` = 0, `Invoking wmake
+libso` = 0, `Could not load` = 0, with the functionObject reported as used).
+
+The correct Cd is a **correctness** confirmation: the ICC build reproduces the
+same physics as the GCC baseline (official SPR 4N recorded 0.28231).
+
+##### Comparison against the controlled Phase 0 GCC baseline
+
+The primary comparison is the controlled Phase 0 Cascade Lake 4N/192-rank GCC
+reference, **5.144659 s/step** — identical hardware, rank count and
+decomposition, so compiler is the only changed variable.
+
+```
+speed ratio = 5.144659 / 5.281516727 = 0.974087
+improvement = (5.144659 - 5.281516727) / 5.144659 x 100 = -2.660 %
+```
+
+**C1 is approximately 2.66% slower** than the GCC baseline on this metric.
+Against each individual valid Phase 0 run: R1 -2.82%, R3 -2.50%, R4 -2.97%.
+ClockTime 802 s versus the 797.5 s median is 0.56% slower, but ClockTime is
+secondary here: this harness carries runtime staging overhead Phase 0 did not,
+and the precompiled dynamicCode library removes a JIT compile the GCC baseline
+did pay, both of which flatter C1 on ClockTime without affecting the per-step
+metric.
+
+Qualifications, all of which limit how far this may be taken:
+
+- **One valid C1 performance run only.** Phase 0 has four.
+- This is a **negative screening signal**, not a statistical conclusion. The
+  within-run standard deviation is tight (0.428%, and the functionObject's own
+  check reports `Minimum number of measured time steps for 2% error at 95%
+  confidence level = 0`), and the gap is consistent against all three
+  tightly-clustered valid GCC runs — but run-to-run variation is a separate
+  matter, and Phase 0's R2 `OUTLIER` shows a single run can deviate by 33%.
+- **Not directly comparable** to the official SPR 416-rank result
+  (2.139565 s/step): different CPU architecture and rank policy.
+- This says nothing about ICC in general, only about **this exact
+  configuration**: ICC Classic 2021.10 at `-O3` with no architecture targeting,
+  on Cascade Lake, at 4N/192 ranks with hierarchical `(16 6 2)`.
+
+##### Verified compiler flags — the comparison is fair on optimization level
+
+Read from the C1 build log of job `178166771` (85 MB) and from the OpenFOAM
+v2512 wmake rules:
+
+| | GCC (Phase 0, site module) | C1 (ICC) |
+| --- | --- | --- |
+| Optimization | `-O3` (`linux64Gcc/c++Opt`) | `-O3` — **5,878 occurrences** in the build log |
+| `-O2` / `-O1` | — | **0 occurrences** |
+| `-xCORE-AVX512` | not available in `linux64Gcc` | **0 occurrences** |
+| `-xCORE-AVX2` | not available in `linux64Gcc` | **0 occurrences** |
+| `-march=` / `-xHost` | none | **0 occurrences** |
+| Observed ISA | `zmm=0 / ymm=0` — no AVX-512 | no architecture targeting requested |
+
+Flag resolution for ICC under `WM_COMPILE_OPTION=Opt`:
+`General/Icc/c++` sets `c++OPT := -O2`, then `sinclude
+General/common/c++Opt` overrides it to `-O3`, then `linux64Icc/c++Opt` is
+`sinclude`d but **does not exist** and is silently skipped. Net effect `-O3`,
+confirmed by the build log.
+
+**Therefore the current GCC-versus-ICC screening comparison is fair with respect
+to optimization level and to the absence of architecture targeting.** Neither
+build vectorizes for the host.
+
+##### Correction: ICC 2021.10 does support Sapphire Rapids targeting
+
+Verified directly with `icpc -help` under `intel-compiler/2021.10.0` on Gadi.
+Supported `-x` targets include **`SAPPHIRERAPIDS`**, `ICELAKE-SERVER`,
+`SKYLAKE-AVX512` and `CORE-AVX512`.
+
+Any earlier suggestion that only the ICX candidates (C2/C3) could target
+Sapphire Rapids is **incorrect and withdrawn**. Compiler vintage is not what
+gates architecture targeting here.
+
+OpenFOAM v2512 already ships the rules to use it:
+
+| Rule file | Flags | Present |
+| --- | --- | --- |
+| `linux64Icc/c++OptAVX512` | `-O3 -xCORE-AVX512` | yes |
+| `linux64Icc/c++OptAVX2` | `-O3 -xCORE-AVX2` | yes |
+| `linux64Icx/c++OptAVX512` / `c++OptAVX2` | equivalent for ICX | yes |
+| `linux64Gcc/c++OptAVX512` or `AVX2` | — | **absent**; GCC has only `c++Opt` |
+
+**C1 was built with ordinary `Opt`, not `OptAVX512`.** The AVX-512 headroom
+argument has therefore never been tested. Note also that Cascade Lake supports
+AVX-512, so this is testable on the `normal` queue; `-xSAPPHIRERAPIDS` is not,
+because a Cascade Lake node cannot execute Sapphire Rapids code.
+
+##### Scaling status — not performed
+
+**C1 scaling has NOT been performed.** C1 has exactly one performance point:
+4 nodes, 192 ranks. **Do not construct an ICC scaling curve from it.**
+
+The historical Cascade Lake 1N and 2N runs (`177590568`, 822 s, 1 node /
+48 ranks / 40 steps; `177597315`, 831 s, 2 nodes / 96 ranks / 80 steps) are
+**not** controlled equivalents of Phase 0 R1-R4: different rank counts,
+different iteration counts, and pre-rule uncontrolled conditions. They must not
+be combined into a C1-versus-GCC scaling comparison.
+
+The official 1N/2N/4N SPR series is a different architecture and a different
+ranks-per-node policy and must remain separate from any Cascade Lake
+compiler screening.
 
 #### C1 runtime smoke attempt 2 — `178254935.gadi-pbs` `PASS`
 
@@ -252,12 +391,30 @@ protocol requires the fixed-iteration solution to be the active one.
 
 | ID | Stack | PBS job | Outcome | Status |
 | --- | --- | --- | --- | --- |
-| C2 | ICX 2025.1.1 + OpenMPI 4.1.7 | `178140527.gadi-pbs` | Same common ThirdParty-path defect; `SOURCE_ID_V2` and L4 passed | `FAILED` |
-| C3 | ICX 2023.2.0 + OpenMPI 4.1.7 | `178140528.gadi-pbs` | Cancelled once the common defect was identified — not a compiler failure | `FAILED` |
+| C2 | ICX 2025.1.1 + OpenMPI 4.1.7 | `178140527.gadi-pbs` | Stopped on the common ThirdParty/build-path defect; `SOURCE_ID_V2` and L4 passed | `FAILED UNDER EARLIER BUILD PATH — NOT RETESTED AFTER bc45f06` |
+| C3 | ICX 2023.2.0 + OpenMPI 4.1.7 | `178140528.gadi-pbs` | Cancelled once the same common defect was identified — never a compiler failure | `FAILED UNDER EARLIER BUILD PATH — NOT RETESTED AFTER bc45f06` |
 | S1 | ICC 2021.10 + **Intel MPI** 2021.10 | `178136462` / `178137625` / `178137861` / `178138805` | Four-layer debug; deferred at OpenFOAM compiler/MPI environment integration | `FAILED` — see [`s1-autonomous-debug-summary.md`](s1-autonomous-debug-summary.md) |
 | S2 | ICX 2023.2.0 + Intel MPI | — | Out of scope while S1 is blocked | `PENDING` |
 | S3 | ICX 2025.1.1 + Intel MPI | — | Out of scope while S1 is blocked | `PENDING` |
 | A1 | GCC 11.2 + Cray MPICH, private source | — | ASPIRE2A private-source rebuild; separates a site-binary issue from the multi-node failure. Scripts untracked | `PENDING` |
+
+> **C2 and C3 status is stale, not disproven.** Both stopped on the common
+> ThirdParty/build-path defect that was subsequently repaired in `bc45f06`
+> (run `wmake/src/Allmake` first and assert the matching `wmkdepend`; lesson
+> L5). Neither has been retried since that fix, so their present viability is
+> **unknown**. This is not a claim that they will now build.
+
+### 3.3 Next experiment candidates — none started
+
+Recorded for planning only. **No build or benchmark has been submitted for any
+of these.**
+
+| | Candidate | What changes | Why it is interesting |
+| --- | --- | --- | --- |
+| **A** | **ICC `OptAVX512`** | Same ICC 2021.10, same Cascade Lake hardware, same ranks and decomposition; only `WM_COMPILE_OPTION` changes from `Opt` to `OptAVX512` (`-O3 -xCORE-AVX512`) | Isolates the benefit of **architecture targeting**, the variable the C1 screening never tested. The rule file already exists; no new compiler is needed |
+| B | GCC AVX-512 | Would need a new `linux64Gcc/c++OptAVX512` rule (GCC 8.5 syntax, e.g. `-march=skylake-avx512`) — it does not ship | Only needed later, to compare compilers at *matched* architecture targeting. Without it, "ICC+AVX512 vs GCC generic" measures vectorization, not compiler |
+| C | C2 / C3 retry | Rebuild the ICX candidates on the repaired build path | Their failure status is stale after `bc45f06`; viability is currently unknown |
+| D | ICC scaling (1N/2N) | Add C1 points at 1 and 2 nodes | **Lower priority**: no controlled GCC 1N/2N Cascade Lake reference exists to compare against, so the design question must be settled first |
 
 ## 4. ASPIRE2A (NSCC) — `FAILED` / blocked
 

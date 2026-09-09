@@ -42,6 +42,7 @@ measurement convention; they are **not** an official baseline and their
 | ID | Hardware | Nodes | Ranks | Compiler | MPI | Decomposition | Avg wall-clock / step | ClockTime | Cd | Status |
 | --- | --- | ---: | ---: | --- | --- | --- | --- | --- | --- | --- |
 | B0-CLX | Gadi Cascade Lake | 4 | 192 | GCC 8.5 | OpenMPI 4.1.7 | hierarchical `(16 6 2)`; SCOTCH not used | Historical mean timestep: 5.144659 s (four-run median) | 802 / 1045 / 793 / 790 s; 797.5 s median | — | Pre-rule reference; R2 is correctness-valid but performance-anomalous and retained. |
+| C1-CLX | Gadi Cascade Lake | 4 | 192 | ICC Classic 2021.10.0 | OpenMPI 4.1.7 | hierarchical `(16 6 2)`; SCOTCH not used | **5.281516726617448 s** (single run, SD 0.02258 s over 149 steps) | 802 s | 0.28120622 | `VALID SCREENING`, job `178570241`, commit `e9f60aa`. **2.66% slower** than the B0-CLX GCC median. One run only; negative screening signal, not a statistical conclusion. Not comparable with the SPR rows. |
 
 ## Compiler build candidates
 
@@ -50,9 +51,9 @@ do not supply an official `normalsr` timing measurement.
 
 | ID | Hardware / scope | Compiler | MPI | Performance | Status |
 | --- | --- | --- | --- | --- | --- |
-| C1 | Cascade Lake build/runtime artifact | ICC 2021.10 | OpenMPI 4.1.7 | — | **BUILD PASS**, **RUNTIME ARCHIVE V2 PASS** (`178252413`), **RUNTIME SMOKE PASS** (`178254935`); no 65M benchmark and no official `normalsr` result. |
-| C2 | Cascade Lake build attempt | ICX 2025.1.1 | OpenMPI 4.1.7 | — | Build not completed. |
-| C3 | Cascade Lake build attempt | ICX 2023.2.0 | OpenMPI 4.1.7 | — | Cancelled before execution. |
+| C1 | Cascade Lake build/runtime artifact | ICC 2021.10 | OpenMPI 4.1.7 | **5.281516726617448 s/step** (`SCREENING`, Cascade Lake 4N/192r, job `178570241`) | **BUILD PASS**, **RUNTIME ARCHIVE V2 PASS** (`178252413`), **RUNTIME SMOKE PASS** (`178254935`), **65M SCREENING VALID** (`178570241`); still **no official `normalsr` result**. |
+| C2 | Cascade Lake build attempt | ICX 2025.1.1 | OpenMPI 4.1.7 | — | FAILED UNDER EARLIER BUILD PATH — NOT RETESTED AFTER `bc45f06`; present viability unknown. |
+| C3 | Cascade Lake build attempt | ICX 2023.2.0 | OpenMPI 4.1.7 | — | FAILED UNDER EARLIER BUILD PATH — NOT RETESTED AFTER `bc45f06`; present viability unknown. |
 | S1 | Deferred compiler/MPI integration | ICC 2021.10 | Intel MPI 2021.10 | — | Deferred at OpenFOAM compiler/MPI environment integration. |
 
 ## Build and workflow provenance
@@ -142,7 +143,60 @@ the original archive. Smoke attempt 2 (`178254935.gadi-pbs`) then returned
 **C1_RUNTIME_SMOKE_PASS** on `gadi-cpu-clx-2372` in 14 s with Exit_status 0.
 
 The C1 runtime chain is therefore closed: **build PASS -> archive PASS ->
-smoke PASS**. The next stage, a 65M screening benchmark, has not been run, and
-no step so far produces a timing or an official result. Full per-stage
-provenance is in
-[`results/experiment-index.md`](experiment-index.md).
+smoke PASS**. None of those steps produces a timing. The 65M screening
+benchmark has since run as job `178570241` and is recorded below and in
+[`results/experiment-index.md`](experiment-index.md); it is a `SCREENING`
+result on Cascade Lake and still not an official `normalsr` result.
+
+## Compiler flags actually used, and the untested AVX-512 variable
+
+Verified from the C1 build log (job `178166771`, 85 MB) and the OpenFOAM v2512
+wmake rules on Gadi.
+
+| | GCC 8.5.0 (site module) | C1 ICC 2021.10.0 |
+| --- | --- | --- |
+| Optimization | `-O3` (`linux64Gcc/c++Opt`) | `-O3` — 5,878 occurrences in the build log |
+| `-O2` / `-O1` | — | 0 occurrences |
+| `-xCORE-AVX512` / `-xCORE-AVX2` | rule files do not exist for `linux64Gcc` | 0 occurrences |
+| `-march=` / `-xHost` | none | 0 occurrences |
+| Observed ISA in the shipped binary | `zmm=0 / ymm=0` — no AVX-512 | no architecture targeting requested |
+
+For ICC under `WM_COMPILE_OPTION=Opt` the flag resolves as: `General/Icc/c++`
+sets `c++OPT := -O2`; `sinclude General/common/c++Opt` overrides it to `-O3`;
+`linux64Icc/c++Opt` is `sinclude`d but does not exist and is silently skipped.
+Net effect `-O3`, as the build log confirms.
+
+**The GCC-versus-ICC screening comparison is therefore fair with respect to
+optimization level and to the absence of architecture targeting.** Neither
+build vectorizes for the host.
+
+### Correction — ICC 2021.10 does support Sapphire Rapids targeting
+
+Verified with `icpc -help` under `intel-compiler/2021.10.0`: the supported `-x`
+targets include **`SAPPHIRERAPIDS`**, `ICELAKE-SERVER`, `SKYLAKE-AVX512` and
+`CORE-AVX512`.
+
+Any earlier statement that only the ICX candidates C2/C3 could target Sapphire
+Rapids is **incorrect and withdrawn**. Compiler vintage is not what gates
+architecture targeting here.
+
+OpenFOAM v2512 already ships `linux64Icc/c++OptAVX512` (`-O3 -xCORE-AVX512`)
+and `linux64Icc/c++OptAVX2`, with equivalents under `linux64Icx`. There is no
+AVX variant for `linux64Gcc`. **C1 was built with ordinary `Opt`, not
+`OptAVX512`, so the AVX-512 headroom argument has never been tested.** Cascade
+Lake supports AVX-512, so this is testable on the `normal` queue;
+`-xSAPPHIRERAPIDS` is not, since a Cascade Lake node cannot execute Sapphire
+Rapids code.
+
+### Scaling status
+
+**C1 scaling has not been performed.** C1 has one performance point only:
+4 nodes, 192 ranks. No ICC scaling curve may be constructed from it. The
+historical Cascade Lake 1N/2N runs are not controlled equivalents of Phase 0
+R1-R4 and must not be combined with C1 into a scaling comparison; the official
+SPR 1N/2N/4N series is a different architecture and ranks-per-node policy and
+stays separate.
+
+Candidate next experiments are listed in
+[`experiment-index.md`](experiment-index.md) section 3.3. **None has been
+started.**
