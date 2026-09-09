@@ -19,7 +19,7 @@
 #PBS -l storage=scratch/pm78
 #PBS -l wd
 #PBS -j oe
-#PBS -o /scratch/pm78/kj7183/openfoam_cpu/experiments/4n-decomp/baseline-16x13x2/submit-logs/of2512_4n_decomp_16x13x2.pbs.out
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/experiments/gadi-4n-decomp/baseline-16x13x2/submit-logs/of2512_4n_decomp_16x13x2.pbs.out
 set -euo pipefail
 
 # ------------------------------------------------------------ arm definition
@@ -30,9 +30,9 @@ NHIER_REGEX='\(16 13 2\)'
 
 # ------------------------------------------------------------- fixed for both
 SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
-RUN_ROOT="/scratch/pm78/kj7183/openfoam_cpu/experiments/4n-decomp/${ARM_DIR}"
+RUN_ROOT="/scratch/pm78/kj7183/openfoam_cpu/experiments/gadi-4n-decomp/${ARM_DIR}"
 CASE="${RUN_ROOT}/case"
-EVIDENCE="${RUN_ROOT}/evidence/4n-decomp-${ARM_LABEL}.${PBS_JOBID:?}"
+EVIDENCE="${RUN_ROOT}/evidence/gadi-4n-decomp-${ARM_LABEL}.${PBS_JOBID:?}"
 NRANKS=416
 NNODES=4
 RANKS_PER_NODE=104
