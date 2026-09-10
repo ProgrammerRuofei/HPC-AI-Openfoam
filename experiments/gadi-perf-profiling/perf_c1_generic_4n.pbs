@@ -30,7 +30,7 @@
 #PBS -l ncpus=192
 #PBS -l mem=760GB
 #PBS -l jobfs=40GB
-#PBS -l walltime=00:15:00
+#PBS -l walltime=00:12:00
 #PBS -l storage=scratch/pm78
 #PBS -l wd
 #PBS -j oe
@@ -130,6 +130,20 @@ for e in cycles instructions cache-references cache-misses \
     grep -q "^$e  *OK$" "$EVIDENCE/perf-events-supported.txt" || { echo "ERROR: required event $e not countable" >&2; exit 11; }
 done
 
+# Per-GROUP validation: an event may be countable alone yet fail in a group.
+echo '===== PERF GROUP VALIDATION (all four are REQUIRED) ====='
+GRP_A=cycles,instructions,cache-references,cache-misses
+GRP_B=fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.512b_packed_double
+GRP_C=cycles,instructions,cycle_activity.stalls_l3_miss,cycle_activity.stalls_total
+GRP_D=instructions,LLC-loads,LLC-load-misses,branch-misses
+: > "$EVIDENCE/perf-groups-validated.txt"
+for g in A B C D; do
+    eval "ev=\$GRP_$g"
+    if perf stat -e "$ev" -o /dev/null -- /bin/true >/dev/null 2>&1; then st=OK; else st=FAIL; fi
+    printf 'group_%s %s %s\n' "$g" "$st" "$ev" | tee -a "$EVIDENCE/perf-groups-validated.txt"
+    test "$st" = OK || { echo "ERROR: required perf group $g cannot be counted" >&2; exit 12; }
+done
+
 export OMP_NUM_THREADS=1
 ulimit -s unlimited
 
@@ -157,6 +171,14 @@ grep -Fq 'libmpi.so.40 => /apps/openmpi/4.1.7/' "$EVIDENCE/simpleFoam.ldd"
 ! grep -Fq '/apps/OpenFOAM/2512/' "$EVIDENCE/simpleFoam.ldd"
 ! grep -Eqi 'intel-mpi|/impi|libmpi\.so\.12|libmpicxx' "$EVIDENCE/simpleFoam.ldd"
 
+echo '===== RANK PLACEMENT PROBE ====='
+mpirun -np "$EXPECTED_RANKS" bash -c \
+    'printf "rank=%s size=%s node=%s\n" "$OMPI_COMM_WORLD_RANK" "$OMPI_COMM_WORLD_SIZE" "$(hostname)"' \
+    | sort > "$EVIDENCE/rank-launch.txt"
+test "$(grep -c '^rank=' "$EVIDENCE/rank-launch.txt")" -eq "$EXPECTED_RANKS"
+probe_nodes=$(awk -F'node=' '/^rank=/{print $2}' "$EVIDENCE/rank-launch.txt" | sort -u | wc -l | tr -d ' ')
+test "$probe_nodes" -eq "$EXPECTED_NODES"
+
 echo '===== WORKLOAD IDENTITY (authoritative source, before any copy) ====='
 cd "$SOURCE_CASE"
 cat > "$EVIDENCE/expected-workload.sha256" <<SHAEOF
@@ -171,17 +193,26 @@ sha256sum -c "$EVIDENCE/expected-workload.sha256"
 grep -Eq "^[[:space:]]*nCores[[:space:]]+${EXPECTED_RANKS};" system/include/caseDefinition
 grep -Eq '^[[:space:]]*nHierarchical[[:space:]]+\(16 6 2\);' system/include/caseDefinition
 
-echo '===== DIAGNOSTIC CASE COPY (shortened endTime) ====='
-cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$CASE/"
+echo '===== DIAGNOSTIC CASE COPY ====='
+# Identical to the validated harness, INCLUDING Allrun.gadi, whose preparation
+# and launch lines are reused verbatim below.
+cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" \
+    "$SOURCE_CASE/Allrun.gadi" "$CASE/"
 cd "$CASE"
-cp system/controlDict.noWrite system/controlDict
-cp system/fvSolution.fixedIter system/fvSolution
-sed -i -E "s/^([[:space:]]*endTime[[:space:]]+)[0-9]+;/\1${PROFILE_ENDTIME};/" system/controlDict
-grep -Eq "^[[:space:]]*endTime[[:space:]]+${PROFILE_ENDTIME};" system/controlDict
-cmp -s system/fvSolution system/fvSolution.fixedIter
 grep -E 'nCores|decompositionMethod|nHierarchical' system/include/caseDefinition | tee "$EVIDENCE/decomposition.txt"
-grep -E '^(startFrom|startTime|stopAt|endTime|deltaT)' system/controlDict | tee "$EVIDENCE/controldict.txt"
-# The authoritative source must still hash correctly AFTER the copy.
+test -f constant/polyMesh/points
+test -x Allrun.gadi
+if find . -maxdepth 1 -type d -name 'processor*' | grep -q .; then
+    echo 'ERROR: fresh case unexpectedly contains processor state' >&2; exit 1
+fi
+
+# THE ONLY WORKLOAD DIFFERENCE: shorten endTime in the JOB-LOCAL copy, after the
+# authoritative hashes above have proven the source is unmodified. Allrun.gadi
+# does `cp system/controlDict.noWrite system/controlDict`, so the shortened
+# value must live in controlDict.noWrite for the verbatim chain to pick it up.
+sed -i -E "s/^([[:space:]]*endTime[[:space:]]+)[0-9]+;/\1${PROFILE_ENDTIME};/" system/controlDict.noWrite
+grep -Eq "^[[:space:]]*endTime[[:space:]]+${PROFILE_ENDTIME};" system/controlDict.noWrite
+export EXPECTED_ENDTIME="$PROFILE_ENDTIME"
 (cd "$SOURCE_CASE" && sha256sum -c "$EVIDENCE/expected-workload.sha256") | tee "$EVIDENCE/post-copy-workload.sha256"
 
 echo '===== PRECOMPILED dynamicCode (generic platform) ====='
@@ -224,24 +255,81 @@ chmod +x "$WRAPPER"
 export PERF_DIR
 printf 'profiled_ranks=24,72,120,168 (one per node)\npopulation=one rank per node, distinct event group each\n' | tee "$EVIDENCE/perf-design.txt"
 
-echo '===== CHAIN: decomposePar -> simpleFoam (C1 65M chain) ====='
-decomposePar -constant > "$EVIDENCE/10_decomposePar.log" 2>&1
-tail -3 "$EVIDENCE/10_decomposePar.log"
-mpirun -np "$EXPECTED_RANKS" -x PERF_DIR "$WRAPPER" "$CANDIDATE_SIMPLEFOAM" -parallel \
-    > "$EVIDENCE/simpleFoam.log" 2>&1
+# ------------------------------------------------------------------ the chain
+# Every line below is taken VERBATIM from the case's own Allrun.gadi, in order.
+# Job 178668376 failed because this was reconstructed instead of copied: it used
+# `decomposePar -constant` and never built 0/ from 0.orig, so processor*/0/p did
+# not exist and all 192 ranks aborted before the first timestep.
+echo '===== PREPARING BENCHMARK CONFIGURATION (Allrun.gadi lines) ====='
+mkdir -p logFiles
+rm -rf 0
+cp -a 0.orig 0
+cp system/controlDict.noWrite system/controlDict
+if ! cmp -s system/fvSolution system/fvSolution.fixedIter; then
+    cp system/fvSolution.fixedIter system/fvSolution
+fi
+grep -E 'startFrom|startTime|endTime|deltaT' system/controlDict | tee "$EVIDENCE/controldict.txt"
+grep -Eq "^[[:space:]]*endTime[[:space:]]+${EXPECTED_ENDTIME};" system/controlDict
+cmp -s system/fvSolution system/fvSolution.fixedIter
+
+echo '===== PRE-DECOMPOSITION FIELD GATES ====='
+test -d 0.orig
+test -d 0
+test -f 0/p
+test -f 0/U
+
+echo '===== DECOMPOSING 65M MESH (Allrun.gadi line) ====='
+decomposePar -force > logFiles/40_decomposePar.log 2>&1
+tail -3 logFiles/40_decomposePar.log
+
+echo '===== POST-DECOMPOSITION FIELD GATES (fail BEFORE mpirun) ====='
+n_proc=$(find . -maxdepth 1 -type d -name 'processor*' | wc -l)
+n_p=$(find . -maxdepth 3 -path './processor*/0/p' -type f | wc -l)
+n_u=$(find . -maxdepth 3 -path './processor*/0/U' -type f | wc -l)
+printf 'processor_dirs=%s\nprocessor_0_p=%s\nprocessor_0_U=%s\n' "$n_proc" "$n_p" "$n_u" \
+    | tee "$EVIDENCE/decomposition-gates.txt"
+test "$n_proc" -eq "$EXPECTED_RANKS"
+test "$n_p"    -eq "$EXPECTED_RANKS"
+test "$n_u"    -eq "$EXPECTED_RANKS"
+
+echo '===== STARTING SIMPLEFOAM (Allrun.gadi line + perf wrapper) ====='
+# Allrun.gadi launches `mpirun -np "$PBS_NCPUS" simpleFoam -parallel`.
+# The ONLY change is the wrapper in front; it resolves simpleFoam through PATH
+# exactly as the bare line would.
+SOLVER_LOG="logFiles/50_simpleFoam.${PBS_JOBID}.log"
+mpirun -np "$PBS_NCPUS" -x PERF_DIR "$WRAPPER" simpleFoam -parallel \
+    > "$SOLVER_LOG" 2>&1
+cp -p "$SOLVER_LOG" "$EVIDENCE/simpleFoam.log"
 
 echo '===== COMPLETION GATES ====='
+if grep -aFq 'Creating new library' "$EVIDENCE/simpleFoam.log"; then
+    echo 'ERROR: dynamicCode rebuilt at runtime despite the precompiled artifact' >&2; exit 9
+fi
 ! grep -aFq 'Invoking wmake libso' "$EVIDENCE/simpleFoam.log"
 ! grep -aFq 'Could not load' "$EVIDENCE/simpleFoam.log"
+grep -aFq 'Using dynamicCode for functionObject wallClockTimeStatistics' "$EVIDENCE/simpleFoam.log"
 grep -aEq "^Time = ${PROFILE_ENDTIME}$" "$EVIDENCE/simpleFoam.log"
 grep -aFq 'Finalising parallel run' "$EVIDENCE/simpleFoam.log"
 grep -aEq '^End$' "$EVIDENCE/simpleFoam.log"
 grep -a 'ExecutionTime' "$EVIDENCE/simpleFoam.log" | tail -1 | tee "$EVIDENCE/clocktime.txt"
 grep -aA4 '^Statistics:' "$EVIDENCE/simpleFoam.log" | tail -5 | tee "$EVIDENCE/statistics.txt"
 
-echo '===== PERF RESULTS ====='
+echo '===== PROFILING VALIDITY (separate from solver validity) ====='
 ls -la "$PERF_DIR"
+# A silent fallback to an unprofiled solver must never be reported as success.
+if ls "$PERF_DIR"/*.UNAVAILABLE >/dev/null 2>&1; then
+    cat "$PERF_DIR"/*.UNAVAILABLE
+    echo 'ERROR: PROFILING INVALID -- a rank ran unprofiled' >&2; exit 13
+fi
 test "$(ls -1 "$PERF_DIR"/*.txt 2>/dev/null | wc -l)" -eq 4
+for f in "$PERF_DIR"/*.txt; do
+    test -s "$f" || { echo "ERROR: PROFILING INVALID -- empty $f" >&2; exit 13; }
+    grep -q 'Performance counter stats' "$f" || { echo "ERROR: PROFILING INVALID -- no stats in $f" >&2; exit 13; }
+    if grep -qE '<not supported>|<not counted>' "$f"; then
+        echo "ERROR: PROFILING INVALID -- uncountable event in $f" >&2; exit 13
+    fi
+done
+echo 'SOLVER VALID and PROFILING VALID'
 for f in "$PERF_DIR"/*.txt; do echo "--- $f"; cat "$f"; done
 
 printf 'run_kind=PROFILING / NON-PERFORMANCE-RESULT\npbs_jobid=%s\nnodes=%s\nranks=%s\nranks_per_node=%s\ndecomposition=hierarchical (16 6 2)\nendtime=%s\ncompiler=ICC 2021.10.0 generic Opt (-O3)\nofficial_result=false\n' \
