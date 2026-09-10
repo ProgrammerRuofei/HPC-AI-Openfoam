@@ -119,8 +119,14 @@ for e in $EVENTS; do
     else st=UNKNOWN; fi
     printf '%-46s %s\n' "$e" "$st" | tee -a "$EVIDENCE/perf-events-supported.txt"
 done
-# The four counters the whole exercise depends on must be countable.
-for e in cycles instructions fp_arith_inst_retired.scalar_double fp_arith_inst_retired.512b_packed_double; do
+# Every event that appears in a wrapper group must be countable. Job 178667130
+# recorded topdown-* as UNKNOWN and then used them anyway; perf exited 255 and
+# took the whole run with it.
+for e in cycles instructions cache-references cache-misses \
+         fp_arith_inst_retired.scalar_double fp_arith_inst_retired.128b_packed_double \
+         fp_arith_inst_retired.256b_packed_double fp_arith_inst_retired.512b_packed_double \
+         cycle_activity.stalls_l3_miss cycle_activity.stalls_total \
+         LLC-loads LLC-load-misses branch-misses; do
     grep -q "^$e  *OK$" "$EVIDENCE/perf-events-supported.txt" || { echo "ERROR: required event $e not countable" >&2; exit 11; }
 done
 
@@ -188,16 +194,29 @@ echo '===== PERF RANK WRAPPER ====='
 # One rank per node, one event group each, sized to avoid PMU multiplexing.
 cat > "$WRAPPER" <<'WRAP'
 #!/bin/bash
+# Job 178667130 died because `exec perf stat` makes a perf failure fatal to the
+# rank, and one rank's death aborts the whole mpirun. Probe the exact event
+# group against /bin/true first; if it cannot be counted, run the solver
+# UNPROFILED rather than losing the run.
 R=${OMPI_COMM_WORLD_RANK:-none}
+run_perf()
+{
+    local out=$1 ev=$2; shift 2
+    if perf stat -e "$ev" -o /dev/null -- /bin/true >/dev/null 2>&1; then
+        exec perf stat -e "$ev" -o "$out" -- "$@"
+    fi
+    printf 'perf unavailable for: %s\n' "$ev" > "${out}.UNAVAILABLE"
+    exec "$@"
+}
 case "$R" in
-  24)  exec perf stat -e cycles,instructions,cache-references,cache-misses \
-         -o "${PERF_DIR}/rank${R}.A_throughput.txt" -- "$@" ;;
-  72)  exec perf stat -e fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.512b_packed_double \
-         -o "${PERF_DIR}/rank${R}.B_simd.txt" -- "$@" ;;
-  120) exec perf stat -e cycles,instructions,cycle_activity.stalls_l3_miss,cycle_activity.stalls_total \
-         -o "${PERF_DIR}/rank${R}.C_stalls.txt" -- "$@" ;;
-  168) exec perf stat -e cycles,topdown-total-slots,topdown-slots-retired,topdown-fetch-bubbles,topdown-recovery-bubbles \
-         -o "${PERF_DIR}/rank${R}.D_topdown.txt" -- "$@" ;;
+  24)  run_perf "${PERF_DIR}/rank${R}.A_throughput.txt" \
+         cycles,instructions,cache-references,cache-misses "$@" ;;
+  72)  run_perf "${PERF_DIR}/rank${R}.B_simd.txt" \
+         fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.512b_packed_double "$@" ;;
+  120) run_perf "${PERF_DIR}/rank${R}.C_stalls.txt" \
+         cycles,instructions,cycle_activity.stalls_l3_miss,cycle_activity.stalls_total "$@" ;;
+  168) run_perf "${PERF_DIR}/rank${R}.D_llc.txt" \
+         instructions,LLC-loads,LLC-load-misses,branch-misses "$@" ;;
   *)   exec "$@" ;;
 esac
 WRAP
@@ -221,7 +240,8 @@ grep -a 'ExecutionTime' "$EVIDENCE/simpleFoam.log" | tail -1 | tee "$EVIDENCE/cl
 grep -aA4 '^Statistics:' "$EVIDENCE/simpleFoam.log" | tail -5 | tee "$EVIDENCE/statistics.txt"
 
 echo '===== PERF RESULTS ====='
-test "$(ls -1 "$PERF_DIR" | wc -l)" -eq 4
+ls -la "$PERF_DIR"
+test "$(ls -1 "$PERF_DIR"/*.txt 2>/dev/null | wc -l)" -eq 4
 for f in "$PERF_DIR"/*.txt; do echo "--- $f"; cat "$f"; done
 
 printf 'run_kind=PROFILING / NON-PERFORMANCE-RESULT\npbs_jobid=%s\nnodes=%s\nranks=%s\nranks_per_node=%s\ndecomposition=hierarchical (16 6 2)\nendtime=%s\ncompiler=ICC 2021.10.0 generic Opt (-O3)\nofficial_result=false\n' \
