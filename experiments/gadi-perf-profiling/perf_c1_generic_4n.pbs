@@ -1,0 +1,230 @@
+#!/bin/bash
+# PROFILING / NON-PERFORMANCE-RESULT
+#
+# perf-stat hardware-counter profile of the EXISTING C1 GENERIC ICC runtime.
+# This is a DIAGNOSTIC run on a SHORTENED workload. Its wall-clock numbers must
+# never be quoted as a benchmark result: endTime is 25, not the official 150,
+# and four ranks carry perf overhead the others do not.
+#
+# What is held identical to the validated C1 generic screening (178570241):
+#   ICC Classic 2021.10.0, OpenMPI 4.1.7, OpenFOAM v2512, Cascade Lake,
+#   4 nodes / 192 ranks / 48 per node, hierarchical (16 6 2), fixedIter,
+#   the same runtime-v2 archive, binary and precompiled dynamicCode artifact.
+# The ONLY deliberate differences: endTime 150 -> 25, and perf wrapping.
+#
+# The authoritative workload is never modified. The six SHA gates below hash
+# the SOURCE files before anything is copied; endTime is changed only in the
+# job-local diagnostic copy.
+#
+# Counter design. `perf stat mpirun ...` would capture only the ranks that are
+# children of the local mpirun -- remote ranks are started by orted and are not
+# in that process tree -- so it measures one node, silently. Instead each rank
+# passes through a wrapper that enables perf for exactly ONE rank per node.
+# Each of those four ranks carries a DIFFERENT event group, sized to fit the
+# Cascade Lake PMU so nothing is multiplexed and no count needs scaling.
+# Consequence, stated plainly: ratios WITHIN a group are valid; counts ACROSS
+# groups come from different subdomains and must not be combined.
+#PBS -P pm78
+#PBS -q normal
+#PBS -N of2512_c1_perf_prof
+#PBS -l ncpus=192
+#PBS -l mem=760GB
+#PBS -l jobfs=40GB
+#PBS -l walltime=00:15:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/experiments/gadi-perf-profiling/submit-logs/of2512_c1_perf_prof.pbs.out
+set -euo pipefail
+
+CONTROL_REPO=/scratch/pm78/kj7183/openfoam_cpu/control-repo
+STAGE_HELPER="${CONTROL_REPO}/builds/build-scripts/c1-icc2021-openmpi417/stage_c1_runtime_node.sh"
+
+ARCHIVE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/runtime-archive/c1-icc2021-openmpi417.178166771.gadi-pbs.runtime-v2.tar.gz
+EXPECTED_ARCHIVE_SHA256=16f5836b3084a284eb67e5e560d5ca245c29be14febec036b2e7f0cf7f4dc7eb
+EXPECTED_BINARY_SHA256=73a3260e2dfec970a9b76de990983fffd4ed8a47363aa497a89560f5c684533d
+PLATFORM=linux64IccDPInt32Opt
+BINARY_REL="platforms/${PLATFORM}/bin/simpleFoam"
+
+DYNCODE_SHA1=6e8d888ad28997c1bc9eebd1c08a1a15774516a4
+DYNCODE_LIB="libwallClockTimeStatistics_${DYNCODE_SHA1}.so"
+DYNCODE_ARTIFACT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1-icc2021-openmpi417/dynamiccode-artifact/${DYNCODE_LIB}"
+EXPECTED_DYNCODE_SHA256=e772e9d2af426f4d3997b88d07ea8f06c95b16b89efb0cb6d5ec9604c95a211b
+DYNCODE_CASE_REL="dynamicCode/platforms/${PLATFORM}/lib"
+
+EXPECTED_SHA_ALLRUN=2a02ec456ce880b2242d566da6c5b28fae1aa99218169260030cd53f5a662ec3
+EXPECTED_SHA_CASEDEF=1da44731f5f723c1b8471bee6c6186c6f402f63154f84cacd26bf27e30e6a6c6
+EXPECTED_SHA_CONTROLDICT_NOWRITE=ce4ec0f52bcc88eea8402b454940dc5aad1f31dea6441e7d98413b651427ef06
+EXPECTED_SHA_FVSCHEMES=064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3
+EXPECTED_SHA_FVSOLUTION=5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba
+EXPECTED_SHA_FVSOLUTION_FIXEDITER=5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba
+
+EXPECTED_NODES=4
+EXPECTED_RANKS=192
+EXPECTED_RANKS_PER_NODE=48
+PROFILE_ENDTIME=25
+
+SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+RUN_ROOT=/scratch/pm78/kj7183/openfoam_cpu/experiments/gadi-perf-profiling
+CASE="${RUN_ROOT}/case"
+EVIDENCE="${RUN_ROOT}/evidence/c1-generic-perf.${PBS_JOBID:?}"
+PERF_DIR="${EVIDENCE}/perf"
+WRAPPER="${EVIDENCE}/perf_rank_wrapper.sh"
+
+RUNTIME_CONTAINER="${PBS_JOBFS:?}/c1-perf-runtime"
+RUNTIME_ROOT="${RUNTIME_CONTAINER}/OpenFOAM-v2512"
+THIRDPARTY_ROOT="${RUNTIME_CONTAINER}/ThirdParty-v2512"
+CANDIDATE_SIMPLEFOAM="${RUNTIME_ROOT}/${BINARY_REL}"
+
+test ! -e "$CASE"
+mkdir -p "$CASE" "$EVIDENCE" "$PERF_DIR"
+exec > >(tee -a "$EVIDENCE/run.log") 2>&1
+preserve() { rc=$?; set +e; c=$(find "$CASE/postProcessing" -name coefficient.dat -type f 2>/dev/null | head -n1); [ -n "$c" ] && cp -f "$c" "$EVIDENCE/"; printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"; return $rc; }
+trap preserve EXIT
+
+printf 'run_kind=PROFILING / NON-PERFORMANCE-RESULT\nofficial_result=false\nprofile_endtime=%s\nreference_job=178570241.gadi-pbs\n' "$PROFILE_ENDTIME"
+
+echo '===== ALLOCATION / TOPOLOGY ====='
+sort -u "$PBS_NODEFILE" | tee "$EVIDENCE/nodes.txt"
+test "$(sort -u "$PBS_NODEFILE" | wc -l)" -eq "$EXPECTED_NODES"
+test "$(wc -l < "$PBS_NODEFILE")" -eq "$EXPECTED_RANKS"
+lscpu | grep -E 'Model name|Socket|Core|Thread|NUMA' | tee "$EVIDENCE/lscpu.txt"
+grep -m1 ^flags /proc/cpuinfo | tr ' ' '\n' | grep -i '^avx512' | sort | tee "$EVIDENCE/node-avx512-flags.txt"
+
+echo '===== TOOLCHAIN ====='
+module purge
+module load intel-compiler/2021.10.0 openmpi/4.1.7
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+mpirun --version > "$EVIDENCE/mpirun.version" 2>&1; head -1 "$EVIDENCE/mpirun.version"
+grep -Fq 'Open MPI) 4.1.7' "$EVIDENCE/mpirun.version"
+test "$(command -v mpirun)" = /apps/openmpi/4.1.7/bin/mpirun
+command -v perf | tee "$EVIDENCE/perf.path"
+perf --version | tee "$EVIDENCE/perf.version"
+printf 'perf_event_paranoid=%s\n' "$(cat /proc/sys/kernel/perf_event_paranoid)" | tee "$EVIDENCE/perf-paranoid.txt"
+
+# ---------------------------------------------------- PHASE 4: event validation
+echo '===== PERF EVENT VALIDATION (countable, not merely listed) ====='
+EVENTS="cycles instructions cache-references cache-misses \
+fp_arith_inst_retired.scalar_double fp_arith_inst_retired.128b_packed_double \
+fp_arith_inst_retired.256b_packed_double fp_arith_inst_retired.512b_packed_double \
+cycle_activity.stalls_l3_miss cycle_activity.stalls_total \
+topdown-total-slots topdown-slots-retired topdown-fetch-bubbles topdown-recovery-bubbles \
+LLC-load-misses LLC-loads branch-misses"
+: > "$EVIDENCE/perf-events-supported.txt"
+for e in $EVENTS; do
+    out=$(perf stat -e "$e" -x, -- /bin/true 2>&1 || true)
+    if printf '%s' "$out" | grep -q '<not supported>'; then st=NOT_SUPPORTED
+    elif printf '%s' "$out" | grep -q '<not counted>'; then st=NOT_COUNTED
+    elif printf '%s' "$out" | grep -qE "^[0-9]+,"; then st=OK
+    else st=UNKNOWN; fi
+    printf '%-46s %s\n' "$e" "$st" | tee -a "$EVIDENCE/perf-events-supported.txt"
+done
+# The four counters the whole exercise depends on must be countable.
+for e in cycles instructions fp_arith_inst_retired.scalar_double fp_arith_inst_retired.512b_packed_double; do
+    grep -q "^$e  *OK$" "$EVIDENCE/perf-events-supported.txt" || { echo "ERROR: required event $e not countable" >&2; exit 11; }
+done
+
+export OMP_NUM_THREADS=1
+ulimit -s unlimited
+
+echo '===== RUNTIME STAGING (one task per node) ====='
+cd "${PBS_O_WORKDIR:?}"
+test "$PBS_O_WORKDIR" = "$CONTROL_REPO"
+test -r "$STAGE_HELPER"
+mpirun -np "$EXPECTED_NODES" --map-by ppr:1:node /bin/bash "$STAGE_HELPER" \
+    "$ARCHIVE" "$EXPECTED_ARCHIVE_SHA256" "$RUNTIME_CONTAINER" \
+    "$BINARY_REL" "$EXPECTED_BINARY_SHA256" | sort | tee "$EVIDENCE/runtime-nodes.txt"
+test "$(grep -c '^runtime_stage_pass ' "$EVIDENCE/runtime-nodes.txt")" -eq "$EXPECTED_NODES"
+
+echo '===== OPENFOAM ENVIRONMENT GATES ====='
+set +u
+. "$RUNTIME_ROOT/etc/bashrc" WM_COMPILER=Icc WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+set -u
+printf 'WM_PROJECT_VERSION=%s\nWM_OPTIONS=%s\nWM_MPLIB=%s\nFOAM_MPI=%s\n' \
+    "$WM_PROJECT_VERSION" "$WM_OPTIONS" "$WM_MPLIB" "$FOAM_MPI" | tee "$EVIDENCE/foam-env.txt"
+test "$WM_PROJECT_VERSION" = v2512
+test "$WM_OPTIONS" = "$PLATFORM"
+test "$WM_MPLIB" = SYSTEMOPENMPI
+test "$(sha256sum "$CANDIDATE_SIMPLEFOAM" | awk '{print $1}')" = "$EXPECTED_BINARY_SHA256"
+ldd "$CANDIDATE_SIMPLEFOAM" | tee "$EVIDENCE/simpleFoam.ldd"
+grep -Fq 'libmpi.so.40 => /apps/openmpi/4.1.7/' "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq '/apps/OpenFOAM/2512/' "$EVIDENCE/simpleFoam.ldd"
+! grep -Eqi 'intel-mpi|/impi|libmpi\.so\.12|libmpicxx' "$EVIDENCE/simpleFoam.ldd"
+
+echo '===== WORKLOAD IDENTITY (authoritative source, before any copy) ====='
+cd "$SOURCE_CASE"
+cat > "$EVIDENCE/expected-workload.sha256" <<SHAEOF
+${EXPECTED_SHA_ALLRUN}  Allrun.gadi
+${EXPECTED_SHA_CASEDEF}  system/include/caseDefinition
+${EXPECTED_SHA_CONTROLDICT_NOWRITE}  system/controlDict.noWrite
+${EXPECTED_SHA_FVSCHEMES}  system/fvSchemes
+${EXPECTED_SHA_FVSOLUTION}  system/fvSolution
+${EXPECTED_SHA_FVSOLUTION_FIXEDITER}  system/fvSolution.fixedIter
+SHAEOF
+sha256sum -c "$EVIDENCE/expected-workload.sha256"
+grep -Eq "^[[:space:]]*nCores[[:space:]]+${EXPECTED_RANKS};" system/include/caseDefinition
+grep -Eq '^[[:space:]]*nHierarchical[[:space:]]+\(16 6 2\);' system/include/caseDefinition
+
+echo '===== DIAGNOSTIC CASE COPY (shortened endTime) ====='
+cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$CASE/"
+cd "$CASE"
+cp system/controlDict.noWrite system/controlDict
+cp system/fvSolution.fixedIter system/fvSolution
+sed -i -E "s/^([[:space:]]*endTime[[:space:]]+)[0-9]+;/\1${PROFILE_ENDTIME};/" system/controlDict
+grep -Eq "^[[:space:]]*endTime[[:space:]]+${PROFILE_ENDTIME};" system/controlDict
+cmp -s system/fvSolution system/fvSolution.fixedIter
+grep -E 'nCores|decompositionMethod|nHierarchical' system/include/caseDefinition | tee "$EVIDENCE/decomposition.txt"
+grep -E '^(startFrom|startTime|stopAt|endTime|deltaT)' system/controlDict | tee "$EVIDENCE/controldict.txt"
+# The authoritative source must still hash correctly AFTER the copy.
+(cd "$SOURCE_CASE" && sha256sum -c "$EVIDENCE/expected-workload.sha256") | tee "$EVIDENCE/post-copy-workload.sha256"
+
+echo '===== PRECOMPILED dynamicCode (generic platform) ====='
+printf '%s  %s\n' "$EXPECTED_DYNCODE_SHA256" "$DYNCODE_ARTIFACT" | sha256sum -c -
+mkdir -p "$DYNCODE_CASE_REL"
+cp -p "$DYNCODE_ARTIFACT" "${DYNCODE_CASE_REL}/${DYNCODE_LIB}"
+test "$(sha256sum "${DYNCODE_CASE_REL}/${DYNCODE_LIB}" | awk '{print $1}')" = "$EXPECTED_DYNCODE_SHA256"
+
+echo '===== PERF RANK WRAPPER ====='
+# One rank per node, one event group each, sized to avoid PMU multiplexing.
+cat > "$WRAPPER" <<'WRAP'
+#!/bin/bash
+R=${OMPI_COMM_WORLD_RANK:-none}
+case "$R" in
+  24)  exec perf stat -e cycles,instructions,cache-references,cache-misses \
+         -o "${PERF_DIR}/rank${R}.A_throughput.txt" -- "$@" ;;
+  72)  exec perf stat -e fp_arith_inst_retired.scalar_double,fp_arith_inst_retired.128b_packed_double,fp_arith_inst_retired.256b_packed_double,fp_arith_inst_retired.512b_packed_double \
+         -o "${PERF_DIR}/rank${R}.B_simd.txt" -- "$@" ;;
+  120) exec perf stat -e cycles,instructions,cycle_activity.stalls_l3_miss,cycle_activity.stalls_total \
+         -o "${PERF_DIR}/rank${R}.C_stalls.txt" -- "$@" ;;
+  168) exec perf stat -e cycles,topdown-total-slots,topdown-slots-retired,topdown-fetch-bubbles,topdown-recovery-bubbles \
+         -o "${PERF_DIR}/rank${R}.D_topdown.txt" -- "$@" ;;
+  *)   exec "$@" ;;
+esac
+WRAP
+chmod +x "$WRAPPER"
+export PERF_DIR
+printf 'profiled_ranks=24,72,120,168 (one per node)\npopulation=one rank per node, distinct event group each\n' | tee "$EVIDENCE/perf-design.txt"
+
+echo '===== CHAIN: decomposePar -> simpleFoam (C1 65M chain) ====='
+decomposePar -constant > "$EVIDENCE/10_decomposePar.log" 2>&1
+tail -3 "$EVIDENCE/10_decomposePar.log"
+mpirun -np "$EXPECTED_RANKS" -x PERF_DIR "$WRAPPER" "$CANDIDATE_SIMPLEFOAM" -parallel \
+    > "$EVIDENCE/simpleFoam.log" 2>&1
+
+echo '===== COMPLETION GATES ====='
+! grep -aFq 'Invoking wmake libso' "$EVIDENCE/simpleFoam.log"
+! grep -aFq 'Could not load' "$EVIDENCE/simpleFoam.log"
+grep -aEq "^Time = ${PROFILE_ENDTIME}$" "$EVIDENCE/simpleFoam.log"
+grep -aFq 'Finalising parallel run' "$EVIDENCE/simpleFoam.log"
+grep -aEq '^End$' "$EVIDENCE/simpleFoam.log"
+grep -a 'ExecutionTime' "$EVIDENCE/simpleFoam.log" | tail -1 | tee "$EVIDENCE/clocktime.txt"
+grep -aA4 '^Statistics:' "$EVIDENCE/simpleFoam.log" | tail -5 | tee "$EVIDENCE/statistics.txt"
+
+echo '===== PERF RESULTS ====='
+test "$(ls -1 "$PERF_DIR" | wc -l)" -eq 4
+for f in "$PERF_DIR"/*.txt; do echo "--- $f"; cat "$f"; done
+
+printf 'run_kind=PROFILING / NON-PERFORMANCE-RESULT\npbs_jobid=%s\nnodes=%s\nranks=%s\nranks_per_node=%s\ndecomposition=hierarchical (16 6 2)\nendtime=%s\ncompiler=ICC 2021.10.0 generic Opt (-O3)\nofficial_result=false\n' \
+    "$PBS_JOBID" "$EXPECTED_NODES" "$EXPECTED_RANKS" "$EXPECTED_RANKS_PER_NODE" "$PROFILE_ENDTIME" \
+    > "$EVIDENCE/provenance.txt"
+echo C1_PERF_PROFILE_PASS
