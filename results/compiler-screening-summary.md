@@ -200,3 +200,28 @@ stays separate.
 Candidate next experiments are listed in
 [`experiment-index.md`](experiment-index.md) section 3.3. **None has been
 started.**
+
+
+---
+
+## Status as of 2026-09-10 — profiling closes the compiler branch
+
+The ICC comparison anchor `5.144659 s/step` is a **`HISTORICAL CLX GCC
+REFERENCE`** — the median of four repeats with one retained slowdown outlier
+(R2, `178073349`, 6.842763 s/step). It is not a strict paired compiler A/B
+experiment, so the ICC generic result (`178570241`, 5.281517 s/step,
+**2.66% slower**) carries **MEDIUM** confidence, not high.
+
+A valid runtime profile of the ICC generic configuration
+(`178677055.gadi-pbs`, commit `b6272eae`, `PROFILING VALID`) shows IPC ≈ 1.0,
+63.12% of cycles stalled and 33.64% of cycles attributed directly to L3-miss
+stalls, with 87.90% of retired FP arithmetic elements still scalar. Architecture
+targeting (`OptAVX512`) does generate substantial 256-bit SIMD and zero 512-bit
+arithmetic, but its smoke run fails with SIGFPE from an unmasked `vdivpd` on
+zero-filled tail lanes under the shipped `-fp-trap=common`.
+
+Conclusion: **arithmetic width is probably not the dominant bottleneck**, so
+the ICC architecture-targeting branch is paused. Full detail, raw counters,
+sampling limitations and the measured/inferred/unknown split are in
+`results/experiment-index.md` under *Valid runtime profiling — 2026-09-10*.
+Meeting material: `artifacts/meeting-2026-09-10/`.

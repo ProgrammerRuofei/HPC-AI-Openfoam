@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="var(--sans,system-ui),sans-serif">
+<text x="12" y="30" font-size="20" font-weight="700" fill="var(--mute,#5b6472)" letter-spacing="1.5">RUNTIME EFFECT</text>
+<text x="12" y="83" font-size="21" fill="var(--ink,#12151c)">headline (single pair of runs)</text>
+<rect x="392" y="60" width="403.6" height="30" fill="var(--mute,#5b6472)" rx="3"/>
+<text x="809.6" y="84" font-size="24" font-weight="700" fill="var(--mute,#5b6472)" font-family="var(--mono,monospace)">0.94%</text>
+<text x="12" y="153" font-size="21" fill="var(--ink,#12151c)">robust estimators</text>
+<rect x="392" y="130" width="76.1" height="30" fill="var(--accent,#0b4f9c)" rx="3"/>
+<text x="482.1" y="154" font-size="24" font-weight="700" fill="var(--accent,#0b4f9c)" font-family="var(--mono,monospace)">0.13–0.23%</text>
+<text x="12" y="223" font-size="21" fill="var(--ink,#12151c)">run-to-run scatter, SAME tuple</text>
+<rect x="392" y="200" width="172.9" height="30" fill="var(--crit,#a4161a)" rx="3"/>
+<text x="578.9" y="224" font-size="24" font-weight="700" fill="var(--crit,#a4161a)" font-family="var(--mono,monospace)">0.40%</text>
+<text x="12" y="296" font-size="19" fill="var(--crit,#a4161a)">Scatter for the same tuple exceeds the robust gain.</text>
+<line x1="12" y1="326" x2="888" y2="326" stroke="var(--rule,#dfe3ea)" stroke-width="2"/>
+<text x="12" y="360" font-size="20" font-weight="700" fill="var(--mute,#5b6472)" letter-spacing="1.5">PARTITION STRUCTURE</text>
+<text x="12" y="424" font-size="46" font-weight="700" fill="var(--good,#14683c)" font-family="var(--mono,monospace)">-4.7%</text>
+<text x="12" y="454" font-size="19" fill="var(--mute,#5b6472)">total interface faces</text>
+<text x="312" y="424" font-size="46" font-weight="700" fill="var(--good,#14683c)" font-family="var(--mono,monospace)">-12.1%</text>
+<text x="312" y="454" font-size="19" fill="var(--mute,#5b6472)">max faces on one rank</text>
+<text x="612" y="424" font-size="46" font-weight="700" fill="var(--good,#14683c)" font-family="var(--mono,monospace)">-9.6%</text>
+<text x="612" y="454" font-size="19" fill="var(--mute,#5b6472)">stdev of faces per rank</text>
+<text x="12" y="488" font-size="17" fill="var(--mute,#5b6472)">Structure improved measurably; runtime did not follow.</text>
+</svg>

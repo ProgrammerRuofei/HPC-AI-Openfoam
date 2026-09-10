@@ -474,3 +474,214 @@ Raw solver-log paths are recorded in
 > registry is right. Against the Phase 0 median the ratio would instead be
 > `5.144659 / 2.139565 = 2.4045x`. Quote whichever reference you name, and name
 > it.
+
+---
+
+## Valid runtime profiling — 2026-09-10
+
+| Field | Value |
+| --- | --- |
+| PBS job | `178677055.gadi-pbs` |
+| Commit | `b6272eae9fdf14d83ce8a539c59b21c28a460491` |
+| Status | **`PROFILING VALID`** (solver validity and profiling validity both required and both met) |
+| Exit_status | 0 |
+| Walltime | 00:07:02 (requested 00:12:00) |
+| Actual SU | 45.01 |
+| Platform | Cascade Lake, 4 nodes / 192 ranks / 48 per node, hierarchical `(16 6 2)` |
+| Toolchain | ICC Classic 2021.10.0 generic `Opt` (`-O3`), OpenMPI 4.1.7, OpenFOAM v2512 |
+| Diagnostic workload | `endTime = 25` (job-local copy only; the authoritative workload was re-verified unchanged after the copy) |
+
+### Solver validity
+
+All 25 time steps completed. Measured **5.246991 s/step** against the full
+150-step C1 generic reference `178570241` at **5.281517 s/step** — a difference
+of **−0.65%**, so the shortened workload is representative enough for
+diagnostic use. Pre-mpirun gates confirmed 192 processor directories, 192
+`processor*/0/p` and 192 `processor*/0/U`.
+
+### Profiling validity
+
+All four perf event groups validated as groups before the solver started; no
+`<not supported>`, no `<not counted>`, no permission failure, no `.UNAVAILABLE`
+fallback marker, and no multiplexing scaling annotations in any output file.
+Counts are raw, not scaled.
+
+### Representative-rank sampling layout
+
+Four MPI ranks, one per node, each carrying a **different** event group. All
+four sit at **core 24 / socket 1 / NUMA 2** on their node (they are congruent
+mod 48), so there is **no socket 0 and no NUMA 0/1 coverage**. Counts must
+never be combined across groups.
+
+| Rank | Node | Core / socket / NUMA | Event group |
+| ---: | ---: | --- | --- |
+| 24 | 0 | 24 / 1 / 2 | `A_throughput` — cycles, instructions, cache-references, cache-misses |
+| 72 | 1 | 24 / 1 / 2 | `B_simd` — `fp_arith_inst_retired.{scalar,128b,256b,512b}_packed_double` |
+| 120 | 2 | 24 / 1 / 2 | `C_stalls` — cycles, instructions, `cycle_activity.stalls_l3_miss`, `stalls_total` |
+| 168 | 3 | 24 / 1 / 2 | `D_llc` — instructions, LLC-loads, LLC-load-misses, branch-misses |
+
+### Raw counters and derived ratios
+
+**`rank 24 / node 0 / group A_throughput`**
+
+| Counter | Value |
+| --- | ---: |
+| cycles | 524,732,908,252 |
+| instructions | 540,501,933,975 |
+| **IPC** | **1.030** |
+| cache-references | 7,009,166,260 |
+| cache-misses | 6,572,533,363 |
+| cache-miss / cache-reference | **93.77%** |
+
+**`rank 120 / node 2 / group C_stalls`**
+
+| Counter | Value |
+| --- | ---: |
+| cycles | 525,179,727,905 |
+| instructions | 519,618,693,188 |
+| **IPC** | **0.989** |
+| `cycle_activity.stalls_l3_miss` | 176,660,830,427 |
+| `cycle_activity.stalls_total` | 331,505,393,762 |
+| stalls_total / cycles | **63.12%** |
+| L3-miss stalls / cycles | **33.64%** |
+| L3-miss stalls / total stalls | **53.29%** |
+
+**`rank 168 / node 3 / group D_llc`**
+
+| Counter | Value |
+| --- | ---: |
+| instructions | 480,969,968,194 |
+| LLC-loads | 784,657,945 |
+| LLC-load-misses | 716,844,809 |
+| LLC load miss rate | **91.36%** |
+| branch-misses | 989,465,289 |
+| branch-misses / instructions | **0.206%** |
+
+**`rank 72 / node 1 / group B_simd`** — retired FP arithmetic **instruction
+events**, not FLOPs. FMA semantics differ; do not convert to FLOPs.
+
+| Width | Raw instruction events | Instruction share | Element-weighted share |
+| --- | ---: | ---: | ---: |
+| scalar double | 53,289,115,766 | 93.96% | **87.90%** |
+| 128-bit packed double | 3,180,474,911 | 5.61% | 10.49% |
+| 256-bit packed double | 243,580,742 | 0.43% | 1.61% |
+| **512-bit packed double** | **0** | **0.00%** | **0.00%** |
+
+### Measured / inferred / unknown
+
+**MEASURED.** IPC ≈ 1.0 on two independent ranks (1.030 and 0.989); 63.12% of
+cycles classified as stalls on the stall-sampled rank; 33.64% of total cycles
+directly attributed to L3-miss stalls; LLC load miss rate 91.36%; branch misses
+negligible at 0.206%; generic ICC FP arithmetic overwhelmingly scalar; 512-bit
+retired FP arithmetic exactly zero.
+
+**INFERRED.** The evidence strongly suggests the generic workload is far more
+constrained by the memory hierarchy and long-latency stalls than by
+floating-point arithmetic throughput. Recorded as
+**memory-hierarchy-stall dominated in representative samples** — *not* as
+"the application is definitively memory-bound".
+
+**UNKNOWN.** The MPI wall-time fraction (perf does not measure it, and OpenMPI
+busy-wait contributes both cycles and instructions, so the measured IPC may be
+optimistic and the measured miss rate conservative relative to the numerical
+kernels); full-rank, cross-socket and cross-NUMA variation; precise memory
+bandwidth saturation; whether an architecture-targeted build would improve
+end-to-end runtime if the FP-trap problem were fixed.
+
+### Limitations
+
+1. Only four ranks were sampled out of 192.
+2. All four occupy the same relative socket/NUMA position.
+3. perf does not separate MPI time.
+4. OpenMPI busy-wait contributes CPU instructions and cycles.
+
+### Decision
+
+**`NEXT: STOP ICC ARCHITECTURE-TARGETING`** — see the status section below.
+
+---
+
+## ICC architecture targeting — conclusion
+
+Static compiler evidence, from disassembly of the shipped binaries:
+
+| | C1 generic (`Opt`, `-O3`) | C1-AVX512 (`OptAVX512`, `-O3 -xCORE-AVX512`) |
+| --- | ---: | ---: |
+| `libfiniteVolume.so` ymm | 0 | 31,615 |
+| `libOpenFOAM.so` ymm | 0 | 17,550 |
+| `libincompressibleTurbulenceModels.so` ymm | 0 | 2,465 |
+| core-library zmm | 0 | **0** |
+| `-xCORE-AVX512` in real compile invocations | 0 | **4,399** |
+
+Architecture targeting therefore delivered a **scalar → 256-bit** vectorisation
+step, not the 512-bit step the name implies. `-qopt-zmm-usage` never appears in
+the build log, so ICC used its default, which on Skylake-X / Cascade Lake
+targets deliberately avoids zmm to dodge AVX-512 frequency licensing.
+
+**Root cause of the smoke failure** (`178663697`, SIGFPE, `DIAGNOSTIC FAIL`),
+established by disassembly at the exact crash PC `0x92d6fe` in
+`Foam::GAMGSolver::scale()`:
+
+```
+92d6da:  vpcmpgtd %xmm3,%xmm1,%k1            build remainder mask
+92d6e4:  vmovupd (%rbx,%rsi,8),%ymm6{%k1}{z} masked zero-filling load
+92d6eb:  vmovupd (%r14,%rsi,8),%ymm5{%k1}{z} masked zero-filling load
+92d6f2:  vmovupd (%rax,%rsi,8),%ymm7{%k1}{z} masked zero-filling load
+92d6fe:  vdivpd %ymm7,%ymm6,%ymm8            UNMASKED divide  <-- faulting
+92d702:  vfmadd231pd ...,%ymm8{%k1}{z}       masked
+92d709:  vmovupd %ymm8,(%r12,%rsi,8){%k1}    masked store
+```
+
+Tail lanes are zero-filled by the masked loads, then divided by an **unmasked**
+`vdivpd`: `0.0 / 0.0` raises `FE_INVALID`, and `-fp-trap=common` (shipped in
+`wmake/rules/linux64Icc/c++` line 4) turns that into SIGFPE. The generic build
+contains **no divide instruction at all** in this function.
+
+An empirical probe established that `-fp-trap=common` unmasks
+`FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW` (`fegetexcept() = 0x000d`) before
+`main()` runs, **independently of `FOAM_SIGFPE`** — so `FOAM_SIGFPE=false` is
+not a valid isolating test, and both builds enter the solver under the
+**identical** trap policy. **The difference is generated code, not trap
+configuration.**
+
+**Meeting-level conclusion.** Architecture targeting successfully introduced
+SIMD, but profiling indicates that arithmetic width is probably not the
+dominant current bottleneck. Given the FP-trap compatibility issue and limited
+remaining allocation, the ICC architecture-targeting branch stops for now.
+Artifacts and provenance are retained: runtime archive
+`9333da40c73a12320919815bc5e44e2ba037199d2d75c509c55090d3d5e815c5`, binary
+`b0525c1551346f1379fb673f35a736d019791bb2355d0b75ec701b93bf05a7a3`.
+
+---
+
+## Current optimization status
+
+| Branch | Status | Basis |
+| --- | --- | --- |
+| Scaling | **DONE** | `178153587` / `178154724` / `178149002`, `OFFICIAL VALID` |
+| Decomposition | **DONE — negligible remaining headroom** | `178576776` / `178577482` / `178616881`, `CONTROLLED VALID`; robust gain 0.13–0.22% against 0.40% same-tuple scatter |
+| MPI placement | **DONE — site defaults reasonable** | `178623596`, `DIAGNOSTIC PASS`; 1 rank/core, no SMT, no oversubscription |
+| ICC generic | **DONE — no performance win** | `178570241`, `SCREENING VALID`; 2.66% slower than the historical CLX GCC reference |
+| ICC architecture targeting | **PAUSED / STOPPED FOR NOW** | `178640018` `BUILD VALID`; `178663697` `DIAGNOSTIC FAIL` (SIGFPE, root cause identified) |
+| Memory / cache | **NEXT TECHNICAL AREA** | `178677055`, `PROFILING VALID`; 63.12% stalls, 33.64% on L3 misses |
+| MPI time fraction | **UNRESOLVED** | perf cannot measure it; no valid MPI profiler run yet |
+
+---
+
+## Failed profiling attempts — retained, not evidence
+
+These are kept for the historical record. They are **not** performance evidence
+and must never be quoted as such.
+
+| Job | Walltime | SU | Classification | Cause |
+| --- | ---: | ---: | --- | --- |
+| `178667130.gadi-pbs` | 00:04:32 | 29.01 | **`INVALID — HARNESS ERROR — NOT PERFORMANCE EVIDENCE`** | The event-validation pass recorded `topdown-total-slots` and `topdown-recovery-bubbles` as UNKNOWN under `perf_event_paranoid=2`, but the hard gate checked only four events and the wrapper used the topdown group anyway. `perf` exited 255; because the wrapper used `exec`, that killed rank 168 and aborted the whole `mpirun`. |
+| `178668376.gadi-pbs` | 00:04:32 | 29.01 | **`INVALID — HARNESS ERROR — NOT PERFORMANCE EVIDENCE`** | The execution chain was reconstructed instead of copied from `Allrun.gadi`: it ran `decomposePar -constant` and never built `0/` from `0.orig`, so `processor*/0/p` did not exist and all 192 ranks aborted before the first timestep. The perf files that were written cover startup and abort only. |
+
+Both failures were harness-design errors, not OpenFOAM or Gadi failures. The
+corrective measures are recorded in commits `508aca47` and `b6272eae`: every
+event used is now gated, event groups are validated as groups, a perf failure
+leaves a `.UNAVAILABLE` marker and fails the job rather than running an
+unprofiled solver silently, and the execution chain is taken verbatim from
+`Allrun.gadi` with mandatory field-count gates between decomposition and
+`mpirun`.

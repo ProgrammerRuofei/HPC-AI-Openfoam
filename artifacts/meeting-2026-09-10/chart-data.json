@@ -1,0 +1,64 @@
+{
+  "_provenance": "Every value verified against results/experiment-index.md, results/compiler-screening-summary.md and the PBS evidence directories on /scratch/pm78/kj7183/openfoam_cpu. No value in this file is estimated.",
+  "_generated": "2026-09-10",
+  "scaling": {
+    "_caveat": "Official runs use different endTime values (40/80/150). Speedup is based on average seconds per step; >100% efficiency must NOT be read as a controlled superlinear-scaling result.",
+    "points": [
+      {"nodes": 1, "ranks": 104, "tuple": "(4 13 2)",  "steps": 40,  "s_per_step": 8.824444, "speedup": 1.000000, "efficiency_pct": 100.000, "job": "178153587"},
+      {"nodes": 2, "ranks": 208, "tuple": "(8 13 2)",  "steps": 80,  "s_per_step": 4.296500, "speedup": 2.053868, "efficiency_pct": 102.693, "job": "178154724"},
+      {"nodes": 4, "ranks": 416, "tuple": "(16 13 2)", "steps": 150, "s_per_step": 2.139565, "speedup": 4.124410, "efficiency_pct": 103.110, "job": "178149002"}
+    ]
+  },
+  "decomposition": {
+    "arms": [
+      {"label": "(16 13 2) baseline",  "job": "178576776", "s_per_step": 2.147363, "stdev": 0.150832},
+      {"label": "(26 8 2) candidate",  "job": "178577482", "s_per_step": 2.127211, "stdev": 0.017738},
+      {"label": "(26 8 2) repeat",     "job": "178616881", "s_per_step": 2.118657, "stdev": 0.015900}
+    ],
+    "runtime": {
+      "headline_gain_pct": 0.9385,
+      "robust_gain_pct_low": 0.129,
+      "robust_gain_pct_high": 0.225,
+      "same_tuple_scatter_pct": 0.402,
+      "_note": "robust range spans median (+0.129%) to 5%/10% trimmed mean and fastest-50% mean (+0.220-0.225%). Same-tuple scatter is 178577482 vs 178616881."
+    },
+    "structure": {
+      "interface_faces_baseline": 4075412,
+      "interface_faces_candidate": 3882476,
+      "interface_faces_delta_pct": -4.73,
+      "max_faces_on_rank_baseline": 69510,
+      "max_faces_on_rank_candidate": 61085,
+      "max_faces_delta_pct": -12.12,
+      "stdev_faces_delta_pct": -9.62
+    }
+  },
+  "profiling": {
+    "job": "178677055",
+    "commit": "b6272eae9fdf14d83ce8a539c59b21c28a460491",
+    "endTime": 25,
+    "s_per_step": 5.246991,
+    "reference_s_per_step": 5.281517,
+    "reference_job": "178570241",
+    "delta_vs_reference_pct": -0.65,
+    "_sampling": "Four representative MPI ranks, each on a different node, each carrying a DIFFERENT event group. All four sit at core 24 / socket 1 / NUMA 2 on their node: no socket 0 and no NUMA 0/1 coverage. Counts must not be combined across groups.",
+    "stalls":  {"rank": 120, "node": 2, "group": "C_stalls", "cycles": 525179727905, "instructions": 519618693188, "ipc": 0.989, "stalls_total_pct": 63.12, "stalls_l3_miss_pct": 33.64, "l3_share_of_stalls_pct": 53.29},
+    "throughput": {"rank": 24, "node": 0, "group": "A_throughput", "cycles": 524732908252, "instructions": 540501933975, "ipc": 1.030, "cache_miss_pct": 93.77},
+    "llc": {"rank": 168, "node": 3, "group": "D_llc", "instructions": 480969968194, "llc_loads": 784657945, "llc_load_misses": 716844809, "llc_miss_pct": 91.36, "branch_miss_pct": 0.206},
+    "simd": {
+      "rank": 72, "node": 1, "group": "B_simd",
+      "_units": "retired FP arithmetic INSTRUCTION events, not FLOPs. FMA semantics differ; do not convert.",
+      "raw": {"scalar_double": 53289115766, "packed_128b_double": 3180474911, "packed_256b_double": 243580742, "packed_512b_double": 0},
+      "instruction_share_pct": {"scalar": 93.96, "b128": 5.61, "b256": 0.43, "b512": 0.00},
+      "element_share_pct":     {"scalar": 87.90, "b128": 10.49, "b256": 1.61, "b512": 0.00}
+    }
+  },
+  "compiler": {
+    "gcc_reference": {"s_per_step": 5.144659, "label": "HISTORICAL CLX GCC REFERENCE", "description": "median of 4 repeats; one retained slowdown outlier"},
+    "icc_generic":   {"s_per_step": 5.281517, "job": "178570241", "delta_pct": -2.66, "confidence": "MEDIUM"},
+    "icc_avx512":    {"build_job": "178640018", "smoke_job": "178663697", "xcore_avx512_occurrences": 4399,
+                      "ymm_core_libs": {"libfiniteVolume": 31615, "libOpenFOAM": 17550, "libincompressibleTurbulenceModels": 2465},
+                      "zmm_core_libs": 0,
+                      "smoke_result": "SIGFPE",
+                      "mechanism": "masked zero-filled tail loads -> unmasked vdivpd -> inactive lane computes 0.0/0.0 -> FE_INVALID -> -fp-trap=common -> SIGFPE"}
+  }
+}
