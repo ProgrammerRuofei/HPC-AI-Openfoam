@@ -685,3 +685,80 @@ leaves a `.UNAVAILABLE` marker and fails the job rather than running an
 unprofiled solver silently, and the execution chain is taken verbatim from
 `Allrun.gadi` with mandatory field-count gates between decomposition and
 `mpirun`.
+
+---
+
+## Next-generation toolchain inventory — 2026-09-10 (zero SU, nothing built)
+
+Read-only survey of what Gadi actually carries, prompted by the suggestion to
+move to the newest GCC / ICC / ICX and to add Intel MPI.
+
+| Toolchain | Newest on Gadi | What we have been using |
+| --- | --- | --- |
+| GCC | **15.1.0** | 8.5.0 (system, site OpenFOAM module) |
+| ICC Classic | **2021.10.0** | 2021.10.0 — already the newest that exists |
+| ICX (oneAPI) | **2025.3.2** | never tried |
+| Intel MPI | **2021.17.2** | never tried; 23 site modules |
+| OpenMPI | 5.0.8 | 4.1.7 |
+
+Two corrections to the plan as stated:
+
+1. **There is no newer ICC Classic.** Intel discontinued it; `2021.10.0` is the
+   final release and is what `178570241` and `178640018` already used. That box
+   is ticked.
+2. **Intel MPI does not need downloading.** It is a site module with 23
+   versions, PBS-integrated (`I_MPI_HYDRA_BOOTSTRAP=rsh` via `pbs_tmrsh`).
+
+### The finding that changes the AVX-512 picture
+
+`wmake/rules/linux64Icc/c++` and `wmake/rules/linux64Icx/c++` differ in exactly
+the flag that killed the ICC branch:
+
+```
+Icc: c++ARCH := -pthread -fp-trap=common -fp-model=precise
+Icx: c++ARCH := -pthread -fp-model=precise
+```
+
+The SIGFPE in `178663697` required FP trapping to be armed. **ICX's OpenFOAM
+rules do not arm it.** `linux64Icx` also ships `c++OptAVX512` (`-O3
+-xCORE-AVX512`), and `icpx 2025.3.2` accepts both `-xCORE-AVX512` and
+`-xSAPPHIRERAPIDS` (verified on the login node at zero cost).
+
+So the AVX-512 question that ICC could not answer is plausibly answerable via
+ICX. This is a statement about the trap only — whether ICX emits the same
+unmasked-divide loop shape, and whether wider SIMD helps at all given the
+memory-stall profile, both remain unknown.
+
+### Zero-SU compatibility probe
+
+All candidate compilers built the C++17 aligned-`new[]` construct that broke
+ICC 2021.10 against v2512: `gcc/15.1.0`, `gcc/14.2.0`, `gcc/12.2.0`,
+`intel-compiler/2021.10.0`, `intel-compiler-llvm/2025.3.2`,
+`intel-compiler-llvm/2023.2.0`. This shows the toolchains function; it does not
+predict a full OpenFOAM build, which is where ICC actually failed.
+
+### Prepared, not built
+
+`builds/build-scripts/next-gen-toolchains/` holds four stack definitions —
+D1 GCC 15.1, D2 ICX 2025.3.2, D3 ICX + `OptAVX512`, D4 ICX + Intel MPI — each
+one variable away from its neighbour. The shared build script now takes the MPI
+family as a parameter (`WM_MPLIB_VALUE`, `EXPECT_FOAM_MPI`, `EXPECT_MPICC`,
+`EXPECT_LDD_MPI`, `MPI_SHOW_FLAG`), defaulting to the validated OpenMPI 4.1.7
+stack so no previously validated candidate changes behaviour.
+
+`linux64Gcc` ships no `c++OptAVX512` rule, so GCC architecture targeting is
+deliberately not prepared.
+
+### Cost — why none of this has been run
+
+| Step | SU |
+| --- | ---: |
+| One OpenFOAM build (48 cores, ~1.5 h) | **~144** |
+| Smoke (8 cores, minutes) | ~0.2 |
+| 65M screening run (192 ranks, ~18 min) | **~115** |
+| **One complete stack** | **~260** |
+| Four stacks | **~1,040** |
+| **Available now** | **41.15** |
+
+A build alone is 3.5× the remaining allocation. Nothing here can run until the
+allocation resets.

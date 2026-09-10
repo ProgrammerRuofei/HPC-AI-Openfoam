@@ -1,0 +1,14 @@
+#!/bin/bash -l
+# Build A1: compile a private v2512 source copy on one ASPIRE2A compute node.
+# Run from the reviewed control directory; stdout/stderr is retained per attempt.
+#PBS -N of2512_a1_private_a6
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=128:mpiprocs=1:ompthreads=1:mem=440gb
+#PBS -l walltime=08:00:00
+#PBS -j oe
+#PBS -o /home/project/59000020/openfoam-isc26/builds/build-scripts/a1-gcc112-craympich-private/outputs/a1_6.pbs.out
+
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?PBS_O_WORKDIR is required}"
+exec bash builds/build-scripts/a1-gcc112-craympich-private/build_a1_gcc112_craympich_private.sh

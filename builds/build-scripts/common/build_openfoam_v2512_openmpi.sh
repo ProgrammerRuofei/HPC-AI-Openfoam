@@ -8,6 +8,14 @@ set -euo pipefail
 # validated candidate (C1 generic included) resolves exactly as before.
 WM_COMPILE_OPTION_VALUE="${WM_COMPILE_OPTION_VALUE:-Opt}"
 EXPECT_COMPILE_FLAGS="${EXPECT_COMPILE_FLAGS:-}"
+# MPI is a build variable too. Defaults reproduce the validated OpenMPI 4.1.7
+# stack exactly, so every previously validated candidate is unaffected.
+WM_MPLIB_VALUE="${WM_MPLIB_VALUE:-SYSTEMOPENMPI}"
+EXPECT_FOAM_MPI="${EXPECT_FOAM_MPI:-sys-openmpi}"
+EXPECT_MPICC="${EXPECT_MPICC:-/apps/openmpi/4.1.7/bin/mpicc}"
+EXPECT_LDD_MPI="${EXPECT_LDD_MPI:-/apps/openmpi/4.1.7}"
+# OpenMPI wrappers take --showme:command; Intel MPI wrappers take -show.
+MPI_SHOW_FLAG="${MPI_SHOW_FLAG:---showme:command}"
 AUTHORITATIVE_SOURCE=/apps/OpenFOAM/2512
 BUILD_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/${STACK_ID}"
 EVIDENCE_DIR="${BUILD_ROOT}/evidence/${STACK_ID}.${PBS_JOBID:?}"
@@ -25,7 +33,11 @@ EXPECTED_API_INFO_SHA256=d03cf08cf48ab523323a8849439b2f1073df920e29e969f51f18856
 
 module purge
 module load ${MODULE_LIST}
-export OMPI_CC="$OMPI_CC_VALUE" OMPI_CXX="$OMPI_CXX_VALUE"
+# The wrapper honours a different variable per MPI family.
+case "$WM_MPLIB_VALUE" in
+    INTELMPI*) export I_MPI_CC="$OMPI_CC_VALUE" I_MPI_CXX="$OMPI_CXX_VALUE" ;;
+    *)         export OMPI_CC="$OMPI_CC_VALUE" OMPI_CXX="$OMPI_CXX_VALUE" ;;
+esac
 for tool in "$OMPI_CC_VALUE" "$OMPI_CXX_VALUE" mpicc mpicxx mpirun rsync tar sha256sum perl; do command -v "$tool" >/dev/null; done
 test -d "$AUTHORITATIVE_SOURCE"; test -d "$PBS_JOBFS"; test ! -e "$JOBFS_ROOT"; test ! -e "$WORKTREE"
 mkdir -p "$JOBFS_ROOT" "$EVIDENCE_DIR" "$RUNTIME_DIR"
@@ -56,7 +68,8 @@ grep -m1 ^flags /proc/cpuinfo | tr ' ' '\n' | grep -i '^avx512' | sort \
     | tee "${EVIDENCE_DIR}/build-node-avx512-flags.txt" | tr '\n' ' '; echo
 printf 'wm_compile_option=%s\n' "$WM_COMPILE_OPTION_VALUE"
 for tool in "$OMPI_CC_VALUE" "$OMPI_CXX_VALUE" mpicc mpicxx mpirun; do printf '%s=' "$tool"; command -v "$tool"; done
-"$OMPI_CC_VALUE" --version | head -n 2; "$OMPI_CXX_VALUE" --version | head -n 2; mpicc --showme:command; mpicxx --showme:command; mpicc --showme:link; mpirun --version | head -n 3
+"$OMPI_CC_VALUE" --version | head -n 2; "$OMPI_CXX_VALUE" --version | head -n 2
+mpicc "$MPI_SHOW_FLAG" || true; mpicxx "$MPI_SHOW_FLAG" || true; mpirun --version 2>&1 | head -n 3
 write_regular_manifest "$AUTHORITATIVE_SOURCE" "${EVIDENCE_DIR}/authoritative-source-files.sha256"; write_symlink_manifest "$AUTHORITATIVE_SOURCE" "${EVIDENCE_DIR}/authoritative-symlink-files.nul"
 auth_r=$(sha256sum "${EVIDENCE_DIR}/authoritative-source-files.sha256" | awk '{print $1}'); auth_s=$(sha256sum "${EVIDENCE_DIR}/authoritative-symlink-files.nul" | awk '{print $1}')
 verify authoritative_regular_manifest "$EXPECTED_REGULAR_MANIFEST_SHA256" "$auth_r"; verify authoritative_symlink_manifest "$EXPECTED_SYMLINK_MANIFEST_SHA256" "$auth_s"; verify authoritative_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$(source_id_v2 "$auth_r" "$auth_s")"
@@ -100,9 +113,9 @@ test -d "${WORKTREE}/ThirdParty-v2512"; test ! -e "$THIRDPARTY_TREE"
 mv "${WORKTREE}/ThirdParty-v2512" "$THIRDPARTY_TREE"
 test -f "$THIRDPARTY_TREE/Allwmake"; test ! -e "${WORKTREE}/ThirdParty-v2512"
 bootstrap_api_info
-cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB=SYSTEMOPENMPI "WM_COMPILE_OPTION=${WM_COMPILE_OPTION_VALUE}"; set -u
+cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" "WM_MPLIB=${WM_MPLIB_VALUE}" "WM_COMPILE_OPTION=${WM_COMPILE_OPTION_VALUE}"; set -u
 printf 'WM_PROJECT_VERSION=%s\nFOAM_API=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\nFOAM_MPI=%s\nMPI_ARCH_PATH=%s\n' "$WM_PROJECT_VERSION" "$FOAM_API" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS" "$FOAM_MPI" "$MPI_ARCH_PATH"
-test "$WM_PROJECT_VERSION" = v2512; test "$FOAM_API" = "$EXPECTED_FOAM_API"; test "$WM_COMPILER" = "$WM_COMPILER_VALUE"; test "$WM_MPLIB" = SYSTEMOPENMPI; test "$WM_COMPILE_OPTION" = "$WM_COMPILE_OPTION_VALUE"; test "$FOAM_MPI" = sys-openmpi; test "$(command -v mpicc)" = /apps/openmpi/4.1.7/bin/mpicc
+test "$WM_PROJECT_VERSION" = v2512; test "$FOAM_API" = "$EXPECTED_FOAM_API"; test "$WM_COMPILER" = "$WM_COMPILER_VALUE"; test "$WM_MPLIB" = "$WM_MPLIB_VALUE"; test "$WM_COMPILE_OPTION" = "$WM_COMPILE_OPTION_VALUE"; test "$FOAM_MPI" = "$EXPECT_FOAM_MPI"; test "$(command -v mpicc)" = "$EXPECT_MPICC"
 test "$WM_THIRD_PARTY_DIR" = "$THIRDPARTY_TREE"; test -f "$WM_THIRD_PARTY_DIR/Allwmake"; test -f "$WM_PROJECT_DIR/src/Allwmake"
 # The site tree ships no top-level Allwmake, so the per-directory steps are
 # driven here -- and wmake's own tools must come first. platforms/tools is
@@ -131,7 +144,7 @@ for f in $EXPECT_COMPILE_FLAGS; do
     test "$n" -gt 0 || { echo "ERROR: required compile flag $f never appeared" >&2; exit 7; }
 done
 BIN="${FOAM_APPBIN}/simpleFoam"; test -x "$BIN"; case "$(realpath "$BIN")" in "${WORKTREE}"/*) ;; *) echo 'ERROR: binary outside candidate worktree' >&2; exit 3;; esac
-file "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.file"; ldd "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.ldd"; grep -qi '/apps/openmpi/4.1.7' "${EVIDENCE_DIR}/simpleFoam.ldd"; sha256sum "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.sha256"
+file "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.file"; ldd "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.ldd"; grep -qi "$EXPECT_LDD_MPI" "${EVIDENCE_DIR}/simpleFoam.ldd"; sha256sum "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.sha256"
 tar -C "$JOBFS_ROOT" -czf "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" "OpenFOAM-v2512/etc" "OpenFOAM-v2512/platforms/${WM_OPTIONS}" ThirdParty-v2512/platforms
 sha256sum "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" | tee "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz.sha256"
 echo BUILD_VALIDATION_PASS
