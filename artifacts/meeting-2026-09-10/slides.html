@@ -1,221 +1,202 @@
-<title>Gadi OpenFOAM Optimization Review</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<title>Gadi OpenFOAM Experiment Results</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
   --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
-  --ground:#f4f6f9; --surface:#ffffff; --ink:#12151c; --mute:#5b6472; --rule:#dfe3ea; --fill:#eceef2;
-  --accent:#0b4f9c; --accent2:#4a86c8; --accent3:#9dc2e6;
-  --warn:#b45309; --crit:#a4161a; --good:#14683c;
+  --ground:#eef1f5; --surface:#ffffff; --ink:#12151c; --mute:#5b6472; --faint:#8b95a3;
+  --rule:#d5dbe4; --hair:#e8ecf1; --fill:#f2f5f8;
+  --accent:#0b4f9c; --warn:#a1590a; --crit:#96131a; --good:#12613a;
 }
-@media (prefers-color-scheme:dark){
- :root:not([data-theme="light"]){
-  --ground:#0d1117; --surface:#161b22; --ink:#e8ecf2; --mute:#98a3b3; --rule:#2b3441; --fill:#20272f;
-  --accent:#69a9e8; --accent2:#3f7cb8; --accent3:#2b5a86;
-  --warn:#e0993d; --crit:#f0736f; --good:#57b87f;
- }
-}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --ground:#0b0e13; --surface:#141920; --ink:#e6ebf2; --mute:#9aa5b4; --faint:#6f7b8b;
+  --rule:#2a333f; --hair:#1e252e; --fill:#1a2029;
+  --accent:#6fadea; --warn:#dd9a44; --crit:#ef7a75; --good:#54b87e;
+}}
 :root[data-theme="dark"]{
-  --ground:#0d1117; --surface:#161b22; --ink:#e8ecf2; --mute:#98a3b3; --rule:#2b3441; --fill:#20272f;
-  --accent:#69a9e8; --accent2:#3f7cb8; --accent3:#2b5a86;
-  --warn:#e0993d; --crit:#f0736f; --good:#57b87f;
+  --ground:#0b0e13; --surface:#141920; --ink:#e6ebf2; --mute:#9aa5b4; --faint:#6f7b8b;
+  --rule:#2a333f; --hair:#1e252e; --fill:#1a2029;
+  --accent:#6fadea; --warn:#dd9a44; --crit:#ef7a75; --good:#54b87e;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
   height:100vh;overflow:hidden;display:grid;place-items:center}
-.deck{width:min(100vw,177.78vh);aspect-ratio:16/9;position:relative;font-size:calc(min(100vw,177.78vh)/64)}
+.deck{width:min(100vw,177.78vh);aspect-ratio:16/9;position:relative;font-size:calc(min(100vw,177.78vh)/68)}
 .slide{position:absolute;inset:0;background:var(--surface);display:none;
-  grid-template-rows:auto auto 1fr auto;padding:2.0em 2.6em 1.0em;gap:.75em}
+  grid-template-rows:auto auto 1fr auto;padding:1.25em 1.8em 0.7em;gap:.45em}
 .slide[data-on]{display:grid}
-.eyebrow{font-size:.62em;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-family:var(--mono)}
-h1{font-size:2.05em;font-weight:600;line-height:1.08;margin:.18em 0 0;text-wrap:balance;letter-spacing:-.015em}
-h1.big{font-size:2.55em}
-.take{font-size:.92em;color:var(--ink);border-left:.22em solid var(--accent);padding-left:.7em;font-weight:500}
-.note{font-size:.6em;color:var(--mute);line-height:1.45}
-.body{min-height:0;display:flex;flex-direction:column;gap:.7em;justify-content:center}
-svg{width:100%;height:100%;max-height:100%;display:block;object-fit:contain}
-.body>svg{flex:1;min-height:0}
-table{width:100%;border-collapse:collapse;font-size:.72em}
-th{text-align:left;font-size:.78em;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);
-  font-weight:600;padding:0 .7em .5em;border-bottom:2px solid var(--rule)}
-td{padding:.62em .7em;border-bottom:1px solid var(--rule);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:500}
-td.d{font-weight:600}
-.funnel{display:flex;gap:.3em;align-items:center;font-family:var(--mono);font-size:.56em;color:var(--mute)}
-.funnel b{font-weight:600;padding:.3em .7em;border-radius:99em;background:var(--fill);color:var(--mute)}
-.funnel b[data-here]{background:var(--accent);color:var(--surface)}
-.funnel i{font-style:normal;opacity:.45}
-.foot{display:flex;justify-content:space-between;align-items:end;font-size:.55em;color:var(--mute);font-family:var(--mono);border-top:1px solid var(--rule);padding-top:.55em}
-.cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.3em}
-.col h3{font-size:.72em;margin:0 0 .5em;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:600;font-family:var(--mono)}
-.col ul{margin:0;padding-left:1.1em;font-size:.72em;line-height:1.65}
-.col li::marker{color:var(--accent)}
-.tiles{display:flex;flex-direction:column;gap:.5em}
-.tile b{font-family:var(--mono);font-size:1.5em;font-weight:600;line-height:1.05;display:block;letter-spacing:-.02em}
-.tile b.w{color:var(--warn)} .tile b.c{color:var(--crit)} .tile b.a{color:var(--accent)}
-.tile span{font-size:.62em;color:var(--mute);line-height:1.3;display:block}
-.mech{font-family:var(--mono);font-size:.58em;line-height:1.7;background:var(--fill);padding:.75em .9em;border-radius:.25em;border-left:.2em solid var(--crit)}
-.chip{font-family:var(--mono);font-size:.86em;font-weight:600;padding:.2em .55em;border-radius:.25em;white-space:nowrap}
-.ok{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
-.bad{background:color-mix(in srgb,var(--crit) 15%,transparent);color:var(--crit)}
-.neu{background:var(--fill);color:var(--mute)}
-.hero{display:flex;flex-direction:column;justify-content:center;gap:1.4em;height:100%}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1em;font-size:.72em}
-.stat b{display:block;font-family:var(--mono);font-size:2.1em;font-weight:600;line-height:1.1;letter-spacing:-.02em}
-.stat span{color:var(--mute)}
-.nav{position:absolute;bottom:.5em;right:.9em;font-family:var(--mono);font-size:.55em;color:var(--mute);display:flex;gap:.5em;align-items:center}
-.nav button{font:inherit;color:inherit;background:var(--fill);border:1px solid var(--rule);border-radius:.25em;cursor:pointer;padding:.15em .5em}
+.hdr{display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:2px solid var(--ink);padding-bottom:.35em;font-family:var(--mono);font-size:.6em}
+.hdr .stage{font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.hdr .jobs{color:var(--faint)}
+h1{font-size:1.62em;font-weight:600;line-height:1.1;margin:.1em 0 0;letter-spacing:-.012em;text-wrap:balance}
+h1.big{font-size:2.4em}
+.body{min-height:0;display:flex;flex-direction:column;gap:.55em;justify-content:flex-start;overflow:hidden}
+.body.mid{justify-content:center}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-family:var(--mono);font-size:.56em;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mute);font-weight:600;padding:0 .55em .4em;border-bottom:1.5px solid var(--rule);vertical-align:bottom}
+td{padding:.44em .55em;border-bottom:1px solid var(--hair);vertical-align:top;font-size:.65em;line-height:1.35}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--fill)}
+table.dense td{font-size:.5em;padding:.26em .4em;line-height:1.28}
+table.dense th{font-size:.5em;padding:0 .45em .35em}
+table.dense td.exp{font-size:.53em;width:12%}
+table.dense td.dec{width:13%;font-size:.52em}
+.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+b.v{font-weight:600}
+td.exp{font-weight:600;font-size:.68em;width:15%}
+td.exp small{display:block;font-weight:400;font-family:var(--mono);font-size:.72em;color:var(--faint);line-height:1.3;margin-top:.15em}
+td.dec{font-weight:600;color:var(--accent);width:15%}
+td.dec.stop{color:var(--crit)} td.dec.go{color:var(--good)}
+.rowlab{font-family:var(--mono);font-size:.54em;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.two{display:grid;grid-template-columns:1fr 1.25fr;gap:1.4em;min-height:0}
+.two>div{min-height:0;display:flex;flex-direction:column;gap:.4em}
+svg{width:100%;height:auto;max-height:100%;display:block}
+.kv{width:100%;border-collapse:collapse}
+.kv td{padding:.24em .45em;border-bottom:1px solid var(--hair);font-size:.6em}
+.kv td:last-child{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
+.kv tr.hi td{background:var(--fill)}
+.kv tr.hi td:last-child{color:var(--accent)}
+.decbar{border-left:.28em solid var(--accent);background:var(--fill);padding:.45em .75em;font-size:.7em;font-weight:600}
+.decbar.stop{border-left-color:var(--crit)}
+.decbar em{font-style:normal;font-family:var(--mono);font-size:.72em;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:block;font-weight:600}
+.chain{font-family:var(--mono);font-size:.56em;line-height:1.75;background:var(--fill);padding:.5em .7em;border-left:.22em solid var(--crit)}
+.chain u{text-decoration:none;color:var(--crit);font-weight:600}
+.note{font-size:.53em;color:var(--faint);line-height:1.5;font-family:var(--mono)}
+.chip{font-family:var(--mono);font-size:.84em;font-weight:600;white-space:nowrap}
+.chip.ok{color:var(--good)} .chip.bad{color:var(--crit)} .chip.neu{color:var(--mute)}
+.flow{display:flex;gap:.5em;align-items:center;font-family:var(--mono);font-size:.72em;color:var(--ink)}
+.flow span{padding:.35em .8em;border:1.5px solid var(--rule);border-radius:.2em}
+.flow i{font-style:normal;color:var(--faint)}
+.meta{display:grid;grid-template-columns:repeat(4,auto);gap:.4em 2.2em;font-family:var(--mono);font-size:.62em;justify-content:start}
+.meta dt{color:var(--faint)} .meta dd{margin:0;font-weight:600}
+.foot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.5em;color:var(--faint);
+  border-top:1px solid var(--rule);padding-top:.4em}
+.simd{display:flex;height:1.5em;width:100%;overflow:hidden}
+.simd i{display:block;font-style:normal}
+.nav{position:absolute;bottom:.4em;right:.8em;font-family:var(--mono);font-size:.5em;color:var(--faint);display:flex;gap:.4em;align-items:center}
+.nav button{font:inherit;color:inherit;background:var(--fill);border:1px solid var(--rule);border-radius:.2em;cursor:pointer;padding:.1em .45em}
 .nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media print{
   body{height:auto;overflow:visible;display:block;background:#fff}
-  .deck{width:100%;aspect-ratio:auto;font-size:13pt}
-  .slide{display:grid!important;position:static;page-break-after:always;height:100vh;border:none}
+  .deck{width:100%;aspect-ratio:auto;font-size:12pt}
+  .slide{display:grid!important;position:static;page-break-after:always;height:100vh}
   .nav{display:none}
 }
-@media (prefers-reduced-motion:no-preference){.slide[data-on]{animation:f .18s ease-out}}
-@keyframes f{from{opacity:.55}to{opacity:1}}
 </style>
 <div class="deck">
 <section class="slide" data-on>
-<div class="eyebrow">2026 APAC HPC-AI &#183; NCI Gadi &#183; review 2026-09-10</div>
-<div class="hero">
+<div class="hdr"><span class="stage">2026 APAC HPC-AI &#183; progress review</span><span class="jobs">2026-09-10</span></div>
 <h1 class="big">OpenFOAM HPC Optimization Progress</h1>
-<div class="take">Controlled one-variable-at-a-time optimization.</div>
-<div class="funnel"><b>Baseline</b><i>&rarr;</i><b>Scaling</b><i>&rarr;</i><b>Decomposition</b><i>&rarr;</i><b>MPI placement</b><i>&rarr;</i><b>Compiler</b><i>&rarr;</i><b>Profiling</b></div>
-<div class="stats">
-<div class="stat"><b>65.3 M</b><span>cells &#183; occDrivAerStaticMesh, simpleFoam</span></div>
-<div class="stat"><b>12</b><span>validated experiments across SPR and CLX</span></div>
-<div class="stat"><b>2.140</b><span>s/step &#183; official 4-node SPR baseline</span></div>
+<div class="body mid">
+<div class="flow"><span>Scaling</span><i>&rarr;</i><span>Decomposition</span><i>&rarr;</i><span>MPI Placement</span><i>&rarr;</i><span>Compiler</span><i>&rarr;</i><span>Profiling</span></div>
+<dl class="meta">
+<dt>Case</dt><dd>occDrivAerStaticMesh</dd><dt>Cells</dt><dd>65,334,765</dd>
+<dt>Solver</dt><dd>simpleFoam</dd><dt>OpenFOAM</dt><dd>v2512</dd>
+<dt>MPI</dt><dd>OpenMPI 4.1.7</dd><dt>Numerics</dt><dd>fixedIter, endTime 150</dd>
+<dt>Platforms</dt><dd>Sapphire Rapids / Cascade Lake</dd><dt>Experiments</dt><dd>12 validated</dd>
+</dl>
+<div class="note">Every experiment below is one variable changed against a stated baseline.</div>
 </div>
-</div>
-<div class="foot"><span>OpenFOAM v2512 &#183; OpenMPI 4.1.7 &#183; fixedIter &#183; endTime 150</span><span>1 / 6</span></div>
+<div class="foot"><span>NCI Gadi &#183; project pm78</span><span>1 / 6</span></div>
 </section>
 <section class="slide">
-<div class="eyebrow">Stage 1 &#183; scaling</div>
-<h1>Observed Per-Step Scaling on Official Configurations</h1>
-<div class="body"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="var(--sans,system-ui),sans-serif">
-<line x1="120" y1="395.0" x2="865" y2="395.0" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
-<text x="106" y="401.0" font-size="18" fill="var(--mute,#5b6472)" text-anchor="end">0</text>
-<line x1="120" y1="332.5" x2="865" y2="332.5" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
-<text x="106" y="338.5" font-size="18" fill="var(--mute,#5b6472)" text-anchor="end">2</text>
-<line x1="120" y1="270.0" x2="865" y2="270.0" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
-<text x="106" y="276.0" font-size="18" fill="var(--mute,#5b6472)" text-anchor="end">4</text>
-<line x1="120" y1="207.5" x2="865" y2="207.5" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
-<text x="106" y="213.5" font-size="18" fill="var(--mute,#5b6472)" text-anchor="end">6</text>
-<line x1="120" y1="145.0" x2="865" y2="145.0" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
-<text x="106" y="151.0" font-size="18" fill="var(--mute,#5b6472)" text-anchor="end">8</text>
-<line x1="120" y1="395" x2="865" y2="395" stroke="var(--mute,#5b6472)" stroke-width="2"/>
-<line x1="120" y1="60" x2="120" y2="395" stroke="var(--mute,#5b6472)" stroke-width="2"/>
-<text x="34" y="228" font-size="19" fill="var(--mute,#5b6472)" transform="rotate(-90 34 228)" text-anchor="middle">avg seconds per step</text>
-<polyline points="170,119.2 430,260.7 750,328.1" fill="none" stroke="var(--accent,#0b4f9c)" stroke-width="5"/>
-<circle cx="170" cy="119.2" r="11" fill="var(--accent,#0b4f9c)"/>
-<text x="170" y="91.2" font-size="34" font-weight="700" fill="var(--ink,#12151c)" text-anchor="middle" font-family="var(--mono,monospace)">8.824</text>
-<text x="170" y="426" font-size="23" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle">1 node</text>
-<text x="170" y="452" font-size="17" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">104 ranks &#183; 40 steps</text>
-<circle cx="430" cy="260.7" r="11" fill="var(--accent,#0b4f9c)"/>
-<text x="430" y="232.7" font-size="34" font-weight="700" fill="var(--ink,#12151c)" text-anchor="middle" font-family="var(--mono,monospace)">4.296</text>
-<text x="430" y="426" font-size="23" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle">2 nodes</text>
-<text x="430" y="452" font-size="17" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">208 ranks &#183; 80 steps</text>
-<text x="430" y="480" font-size="21" font-weight="700" fill="var(--accent,#0b4f9c)" text-anchor="middle" font-family="var(--mono,monospace)">2.054&#215;</text>
-<circle cx="750" cy="328.1" r="11" fill="var(--accent,#0b4f9c)"/>
-<text x="750" y="300.1" font-size="34" font-weight="700" fill="var(--ink,#12151c)" text-anchor="middle" font-family="var(--mono,monospace)">2.140</text>
-<text x="750" y="426" font-size="23" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle">4 nodes</text>
-<text x="750" y="452" font-size="17" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">416 ranks &#183; 150 steps</text>
-<text x="750" y="480" font-size="21" font-weight="700" fill="var(--accent,#0b4f9c)" text-anchor="middle" font-family="var(--mono,monospace)">4.124&#215;</text>
-</svg>
-<div class="take">Per-step runtime decreases almost proportionally from 1 to 4 SPR nodes.</div>
-<div class="note">Official runs use different endTime values (40 / 80 / 150). Speedup is based on average seconds per step; &gt;100% efficiency should not be interpreted as a controlled superlinear-scaling result.</div>
+<div class="hdr"><span class="stage">Experiment results summary</span><span class="jobs">all validated experiments &#183; 2026-09-10</span></div>
+<h1>What we tested, what we measured, what we decided</h1>
+<div class="body"><table class="dense">
+<thead><tr><th>Experiment</th><th>Baseline</th><th>Change</th><th>Measured result</th><th>Improvement</th><th>Decision</th></tr></thead>
+<tbody><tr><td class="exp">Scaling<small>SPR &#183; GCC 8.5 + OpenMPI 4.1.7</small></td><td>1N / 104 ranks<br><b class="v n">8.824444</b> s/step</td><td>2N / 208 ranks<br>4N / 416 ranks</td><td><b class="v n">4.296500</b> &rarr; <b class="v n">2.139565</b> s/step</td><td><b class="v n">2.053868&#215;</b><br><b class="v n">4.124410&#215;</b></td><td class="dec ">Good &#8212; not a priority</td></tr><tr><td class="exp">Decomposition<small>SPR &#183; 4N / 416 ranks</small></td><td><span class="n">(16 13 2)</span><br><b class="v n">2.147363</b> s/step</td><td><span class="n">(26 8 2)</span></td><td><b class="v n">2.127211</b> s/step<br>repeat <b class="v n">2.118657</b></td><td>headline <b class="v n">0.94%</b><br>robust <b class="v n">0.13&ndash;0.22%</b></td><td class="dec stop">STOP TUPLE SEARCH</td></tr><tr><td class="exp">MPI placement<small>SPR &#183; 416 ranks</small></td><td>site-default OpenMPI placement</td><td>audit only, no change</td><td>1 rank / physical core, no SMT<br><span class="n">52/socket &#183; 13/NUMA</span></td><td>already compact</td><td class="dec stop">NO BINDING TUNING</td></tr><tr><td class="exp">ICC generic<small>CLX &#183; 4N / 192 ranks &#183; (16 6 2)</small></td><td>historical CLX GCC reference<br><b class="v n">5.144659</b> s/step</td><td>ICC Classic 2021.10 <span class="n">Opt</span> (<span class="n">-O3</span>)</td><td><b class="v n">5.281517</b> s/step</td><td><b class="v n">&minus;2.66%</b> (slower)</td><td class="dec stop">NOT A WIN</td></tr><tr><td class="exp">Architecture targeting<small>CLX &#183; ICC 2021.10</small></td><td>generic ICC: core libs<br><span class="n">ymm=0 / zmm=0</span></td><td><span class="n">-O3 -xCORE-AVX512</span></td><td>256-bit YMM across all 3 core libs<br><span class="chip bad">smoke SIGFPE</span></td><td>Performance not measured</td><td class="dec stop">PAUSE &#8212; FP-trap issue</td></tr><tr><td class="exp">Profiling<small>CLX &#183; ICC generic &#183; 25-step</small></td><td>full run <b class="v n">5.281517</b> s/step</td><td>perf counters, 4 representative ranks</td><td><b class="v n">5.246991</b> s/step (&minus;0.65%)<br>IPC <b class="v n">1.03</b> &#183; stalls <b class="v n">63.12%</b> &#183; L3 <b class="v n">33.64%</b></td><td>diagnostic &#8212; no runtime change</td><td class="dec go">MEMORY HIERARCHY NEXT</td></tr></tbody></table>
+<div class="note">Official scaling runs use different endTime values (40 / 80 / 150), so efficiency above 100% is not presented as controlled superlinear scaling. &#183; Static disassembly counts and runtime SIMD percentages are different kinds of evidence and are never interchanged.</div>
 </div>
-<div class="foot"><span>178153587 &#183; 178154724 &#183; 178149002 &#8212; OFFICIAL VALID</span><span>2 / 6</span></div>
+<div class="foot"><span>178153587 &#183; 178154724 &#183; 178149002 &#183; 178576776 &#183; 178577482 &#183; 178616881 &#183; 178623596 &#183; 178570241 &#183; 178640018 &#183; 178663697 &#183; 178677055</span><span>2 / 6</span></div>
 </section>
 <section class="slide">
-<div class="eyebrow">Stage 1&ndash;6 &#183; summary</div>
-<h1>Optimization Results at a Glance</h1>
-<div class="body"><table>
-<thead><tr><th>Area</th><th>What we tested</th><th>Quantitative result</th><th>Decision</th></tr></thead>
-<tbody><tr><td class="d">Scaling</td><td>1&rarr;2&rarr;4 SPR nodes</td><td class="n">8.824 &rarr; 4.297 &rarr; 2.140 s/step</td><td><span class="chip neu">Good observed per-step scaling</span></td></tr><tr><td class="d">Decomposition</td><td>(16 13 2) &rarr; (26 8 2)</td><td class="n">robust gain ~0.13&ndash;0.22%</td><td><span class="chip ok">Stop tuple search</span></td></tr><tr><td class="d">MPI placement</td><td>site default placement</td><td class="n">1 rank/core, no SMT</td><td><span class="chip ok">No tuning now</span></td></tr><tr><td class="d">Compiler</td><td>GCC reference &rarr; ICC generic</td><td class="n">ICC 2.66% slower</td><td><span class="chip bad">No ICC generic win</span></td></tr><tr><td class="d">Architecture targeting</td><td>generic &rarr; -xCORE-AVX512</td><td class="n">substantial 256-bit SIMD</td><td><span class="chip bad">SIGFPE compatibility issue</span></td></tr><tr><td class="d">Profiling</td><td>valid perf profile</td><td class="n">IPC&#8776;1.0; stalls 63.1%; L3 stalls 33.6%</td><td><span class="chip neu">Memory hierarchy first</span></td></tr></tbody></table></div>
-<div class="foot"><span>Full job IDs and status labels in results/experiment-index.md</span><span>3 / 6</span></div>
-</section>
-<section class="slide">
-<div class="eyebrow">Stage 3 &#183; decomposition</div>
-<h1>Why Decomposition Headroom Is Small</h1>
-<div class="body"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="var(--sans,system-ui),sans-serif">
-<text x="12" y="30" font-size="20" font-weight="700" fill="var(--mute,#5b6472)" letter-spacing="1.5">RUNTIME EFFECT</text>
-<text x="12" y="83" font-size="21" fill="var(--ink,#12151c)">headline (single pair of runs)</text>
-<rect x="392" y="60" width="403.6" height="30" fill="var(--mute,#5b6472)" rx="3"/>
-<text x="809.6" y="84" font-size="24" font-weight="700" fill="var(--mute,#5b6472)" font-family="var(--mono,monospace)">0.94%</text>
-<text x="12" y="153" font-size="21" fill="var(--ink,#12151c)">robust estimators</text>
-<rect x="392" y="130" width="76.1" height="30" fill="var(--accent,#0b4f9c)" rx="3"/>
-<text x="482.1" y="154" font-size="24" font-weight="700" fill="var(--accent,#0b4f9c)" font-family="var(--mono,monospace)">0.13–0.23%</text>
-<text x="12" y="223" font-size="21" fill="var(--ink,#12151c)">run-to-run scatter, SAME tuple</text>
-<rect x="392" y="200" width="172.9" height="30" fill="var(--crit,#a4161a)" rx="3"/>
-<text x="578.9" y="224" font-size="24" font-weight="700" fill="var(--crit,#a4161a)" font-family="var(--mono,monospace)">0.40%</text>
-<text x="12" y="296" font-size="19" fill="var(--crit,#a4161a)">Scatter for the same tuple exceeds the robust gain.</text>
-<line x1="12" y1="326" x2="888" y2="326" stroke="var(--rule,#dfe3ea)" stroke-width="2"/>
-<text x="12" y="360" font-size="20" font-weight="700" fill="var(--mute,#5b6472)" letter-spacing="1.5">PARTITION STRUCTURE</text>
-<text x="12" y="424" font-size="46" font-weight="700" fill="var(--good,#14683c)" font-family="var(--mono,monospace)">-4.7%</text>
-<text x="12" y="454" font-size="19" fill="var(--mute,#5b6472)">total interface faces</text>
-<text x="312" y="424" font-size="46" font-weight="700" fill="var(--good,#14683c)" font-family="var(--mono,monospace)">-12.1%</text>
-<text x="312" y="454" font-size="19" fill="var(--mute,#5b6472)">max faces on one rank</text>
-<text x="612" y="424" font-size="46" font-weight="700" fill="var(--good,#14683c)" font-family="var(--mono,monospace)">-9.6%</text>
-<text x="612" y="454" font-size="19" fill="var(--mute,#5b6472)">stdev of faces per rank</text>
-<text x="12" y="488" font-size="17" fill="var(--mute,#5b6472)">Structure improved measurably; runtime did not follow.</text>
-</svg>
-<div class="take">Partition quality improved structurally, but the runtime gain is now smaller than the noise between two runs of the same tuple.</div>
-</div>
-<div class="foot"><span>178576776 &#183; 178577482 &#183; 178616881 &#8212; CONTROLLED VALID</span><span>4 / 6</span></div>
-</section>
-<section class="slide">
-<div class="eyebrow">Stage 5&ndash;6 &#183; compiler and profiling</div>
-<h1>Compiler Experiment: SIMD Achieved, But Memory Stalls Appear More Important</h1>
-<div class="body"><div class="cols">
-<div class="col"><h3>ICC generic</h3><ul>
-<li>numerical libraries essentially scalar</li>
-<li>valid 65M screening run</li>
-<li><b>5.282 s/step</b> &#8212; 2.66% slower than the historical CLX GCC reference</li></ul></div>
-<div class="col"><h3>ICC OptAVX512</h3><ul>
-<li>substantial 256-bit YMM SIMD generated</li>
-<li>no 512-bit arithmetic at all</li>
-<li>GAMG smoke fails with SIGFPE</li></ul>
-<div class="mech">masked zero-fill tail load<br>&rarr; unmasked vdivpd<br>&rarr; inactive lane computes 0.0/0.0<br>&rarr; FE_INVALID under -fp-trap=common</div></div>
-<div class="col"><h3>Valid perf profile</h3>
-<div class="tiles">
-<div class="tile"><b>1.03</b><span>IPC &#183; rank 24 / node 0</span></div>
-<div class="tile"><b class="w">63.1%</b><span>cycles stalled &#183; rank 120 / node 2</span></div>
-<div class="tile"><b class="c">33.6%</b><span>cycles on L3-miss stalls &#183; rank 120</span></div>
-<div class="tile"><b>91.4%</b><span>LLC load miss &#183; rank 168 / node 3</span></div>
-<div class="tile"><b class="a">87.9%</b><span>FP elements scalar &#183; rank 72 / node 1</span></div>
+<div class="hdr"><span class="stage">Scaling and decomposition</span><span class="jobs">178153587 &#183; 178154724 &#183; 178149002 &#183; 178576776 &#183; 178577482 &#183; 178616881</span></div>
+<h1>Scaling is already good; decomposition headroom is nearly gone</h1>
+<div class="body"><div class="two">
+<div><div class="rowlab">Observed per-step scaling &#183; SPR</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 500" font-family="var(--sans,system-ui),sans-serif">
+<line x1="96" y1="390.0" x2="600" y2="390.0" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
+<text x="86" y="397.0" font-size="21" fill="var(--mute,#5b6472)" text-anchor="end" font-family="var(--mono,monospace)">0</text>
+<line x1="96" y1="327.5" x2="600" y2="327.5" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
+<text x="86" y="334.5" font-size="21" fill="var(--mute,#5b6472)" text-anchor="end" font-family="var(--mono,monospace)">2</text>
+<line x1="96" y1="265.0" x2="600" y2="265.0" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
+<text x="86" y="272.0" font-size="21" fill="var(--mute,#5b6472)" text-anchor="end" font-family="var(--mono,monospace)">4</text>
+<line x1="96" y1="202.5" x2="600" y2="202.5" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
+<text x="86" y="209.5" font-size="21" fill="var(--mute,#5b6472)" text-anchor="end" font-family="var(--mono,monospace)">6</text>
+<line x1="96" y1="140.0" x2="600" y2="140.0" stroke="var(--rule,#dfe3ea)" stroke-width="1"/>
+<text x="86" y="147.0" font-size="21" fill="var(--mute,#5b6472)" text-anchor="end" font-family="var(--mono,monospace)">8</text>
+<line x1="96" y1="390" x2="600" y2="390" stroke="var(--mute,#5b6472)" stroke-width="2"/>
+<line x1="96" y1="50" x2="96" y2="390" stroke="var(--mute,#5b6472)" stroke-width="2"/>
+<text x="26" y="220" font-size="21" fill="var(--mute,#5b6472)" transform="rotate(-90 26 220)" text-anchor="middle">avg seconds per step</text>
+<polyline points="150,114.2 330,255.7 520,323.1" fill="none" stroke="var(--accent,#0b4f9c)" stroke-width="5"/>
+<circle cx="150" cy="114.2" r="10" fill="var(--accent,#0b4f9c)"/>
+<text x="150" y="90.2" font-size="38" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle" font-family="var(--mono,monospace)">8.824</text>
+<text x="150" y="424" font-size="25" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle">1N</text>
+<text x="150" y="452" font-size="19" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">104 ranks</text>
+<text x="150" y="476" font-size="19" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">40 steps</text>
+<circle cx="330" cy="255.7" r="10" fill="var(--accent,#0b4f9c)"/>
+<text x="330" y="231.7" font-size="38" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle" font-family="var(--mono,monospace)">4.296</text>
+<text x="330" y="424" font-size="25" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle">2N</text>
+<text x="330" y="452" font-size="19" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">208 ranks</text>
+<text x="330" y="476" font-size="19" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">80 steps</text>
+<text x="330" y="289.7" font-size="23" font-weight="600" fill="var(--accent,#0b4f9c)" text-anchor="middle" font-family="var(--mono,monospace)">2.054&#215;</text>
+<circle cx="520" cy="323.1" r="10" fill="var(--accent,#0b4f9c)"/>
+<text x="520" y="299.1" font-size="38" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle" font-family="var(--mono,monospace)">2.140</text>
+<text x="520" y="424" font-size="25" font-weight="600" fill="var(--ink,#12151c)" text-anchor="middle">4N</text>
+<text x="520" y="452" font-size="19" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">416 ranks</text>
+<text x="520" y="476" font-size="19" fill="var(--mute,#5b6472)" text-anchor="middle" font-family="var(--mono,monospace)">150 steps</text>
+<text x="520" y="357.1" font-size="23" font-weight="600" fill="var(--accent,#0b4f9c)" text-anchor="middle" font-family="var(--mono,monospace)">4.124&#215;</text>
+</svg></div>
+<div><div class="rowlab">Decomposition A/B &#183; SPR 4N / 416 ranks</div>
+<table class="kv"><tbody><tr><td>Baseline <span class="n">(16 13 2)</span></td><td>2.147363 s/step</td></tr><tr><td>Candidate <span class="n">(26 8 2)</span></td><td>2.127211 s/step</td></tr><tr><td>Candidate repeat</td><td>2.118657 s/step</td></tr><tr><td>Headline gain</td><td>0.94%</td></tr><tr class=hi><td>Robust gain</td><td>0.13&ndash;0.22%</td></tr><tr class=hi><td>Same-tuple scatter</td><td>0.40%</td></tr><tr><td>Interface faces</td><td>&minus;4.73%</td></tr><tr><td>Max interface faces</td><td>&minus;12.1%</td></tr></tbody></table>
+<div class="decbar stop"><em>Decision</em>STOP TUPLE SEARCH &#8212; the robust gain is smaller than the scatter between two runs of the same tuple.</div>
 </div></div>
+<div class="note">Scaling: official runs use endTime 40 / 80 / 150; &gt;100% efficiency is not a controlled superlinear result. &#183; Decomposition arms are matched except for the hierarchical tuple.</div>
 </div>
-<div class="take">Wider SIMD is achievable, but memory-hierarchy stalls appear more important than arithmetic width.</div>
-<div class="note">Representative-rank evidence, not a cluster-wide proof. MPI wall-time fraction is not measured &#8212; perf cannot separate it, and OpenMPI busy-wait contributes cycles and instructions.</div>
-</div>
-<div class="foot"><span>178570241 &#183; 178640018 &#183; 178663697 &#183; 178677055</span><span>5 / 6</span></div>
+<div class="foot"><span>OFFICIAL VALID &#183; CONTROLLED VALID</span><span>3 / 6</span></div>
 </section>
 <section class="slide">
-<div class="eyebrow">Conclusion</div>
-<h1>Current Conclusion &amp; Next Step</h1>
-<div class="body"><div class="cols">
-<div class="col"><h3>Established</h3><ul>
-<li>strong scaling is already good</li>
-<li>decomposition headroom is small</li>
-<li>MPI placement is reasonable</li>
-<li>ICC generic is not faster</li>
-<li>architecture targeting adds SIMD</li>
-<li>memory-hierarchy stalls are substantial</li></ul></div>
-<div class="col"><h3>Unknown</h3><ul>
-<li>MPI wall-time fraction</li>
-<li>exact memory bandwidth saturation</li>
-<li>cross-socket / cross-NUMA variation</li>
-<li>whether a fixed AVX512 build would be faster end-to-end</li></ul></div>
-<div class="col"><h3>Next</h3><ul>
-<li><b>Memory / cache behaviour before further compiler tuning.</b></li>
-<li>Remaining allocation is low &#8212; preserve evidence and resume runtime profiling after allocation reset.</li>
-<li>ICC architecture targeting: paused, artifacts and provenance retained.</li></ul></div>
+<div class="hdr"><span class="stage">Compiler screening and architecture targeting</span><span class="jobs">178570241 &#183; 178640018 &#183; 178663697</span></div>
+<h1>Compiler Results</h1>
+<div class="body"><table>
+<thead><tr><th></th><th>GCC reference</th><th>ICC generic</th><th>ICC targeted</th></tr></thead>
+<tbody><tr><td class="exp">Compiler</td><td>GCC 8.5.0 (site module)</td><td>ICC Classic 2021.10.0</td><td>ICC Classic 2021.10.0</td></tr><tr><td class="exp">Flags</td><td><span class="n">site build, -O3</span></td><td><span class="n">-O3</span></td><td><span class="n">-O3 -xCORE-AVX512</span></td></tr><tr><td class="exp">Platform</td><td><span class="n">CLX &#183; 4N / 192 ranks &#183; (16 6 2)</span></td><td><span class="n">same</span></td><td><span class="n">same</span></td></tr><tr><td class="exp">Runtime</td><td><b class="v n">5.144659</b> s/step</td><td><b class="v n">5.281517</b> s/step</td><td><span class="chip bad">not valid &#8212; no run</span></td></tr><tr><td class="exp">vs reference</td><td>&#8212;</td><td><b class="v n">&minus;2.66%</b></td><td>&#8212;</td></tr><tr><td class="exp">SIMD in core libraries</td><td><span class="n">zmm=0 / ymm=0</span></td><td>mostly scalar<br><span class="n">ymm=0</span></td><td><span class="n">libfiniteVolume 31,615</span><br><span class="n">libOpenFOAM 17,550</span><br><span class="n">libincompTurbModels 2,465</span><br><span class="n">zmm=0</span></td></tr><tr><td class="exp">Correctness</td><td><span class="chip ok">valid</span></td><td><span class="chip ok">valid</span> <span class="n">178570241</span></td><td><span class="chip bad">SIGFPE smoke</span> <span class="n">178663697</span></td></tr><tr><td class="exp">Status</td><td><span class="chip neu">HISTORICAL CLX GCC REFERENCE</span></td><td><span class="chip neu">SCREENING VALID</span></td><td><span class="chip neu">BUILD VALID / DIAGNOSTIC FAIL</span></td></tr></tbody></table>
+<div class="chain">masked tail &rarr; zero-fill <span class="n">{%k1}{z}</span> &rarr; <u>unmasked vdivpd</u> &rarr; <u>0.0 / 0.0</u> &rarr; <u>FE_INVALID</u> &rarr; <span class="n">-fp-trap=common</span> &rarr; <u>SIGFPE</u><br>crash PC <span class="n">0x92d6fe</span> in <span class="n">Foam::GAMGSolver::scale()</span> &#183; a compiler/vectorization and FP-trap compatibility issue, not a physical-model numerical failure</div>
+<div class="note">GCC reference = median of 4 repeats, one retained slowdown outlier; not a controlled paired compiler baseline. Confidence MEDIUM. &#183; GCC <span class="n">zmm=0 / ymm=0</span> source: prior shipped-binary disassembly recorded in compiler-screening-summary.md, not a measurement from this session.</div>
 </div>
-<div class="take">Scaling and communication-layout tuning now show limited remaining headroom. Compiler architecture targeting successfully introduced SIMD, but runtime profiling indicates substantial memory-hierarchy stalls &#8212; so further ICC architecture targeting is not the current priority.</div>
+<div class="foot"><span>SCREENING VALID &#183; BUILD VALID &#183; DIAGNOSTIC FAIL</span><span>4 / 6</span></div>
+</section>
+<section class="slide">
+<div class="hdr"><span class="stage">Runtime profiling</span><span class="jobs">178677055 &#183; commit b6272eae &#183; PROFILING VALID</span></div>
+<h1>Runtime Profiling &#8212; ICC generic, 25-step diagnostic</h1>
+<div class="body"><div class="two">
+<div><div class="rowlab">Representative-rank counters</div>
+<table class="kv"><tbody><tr><td>IPC &#8212; rank 24 / node 0</td><td>1.030</td></tr><tr><td>IPC &#8212; rank 120 / node 2</td><td>0.989</td></tr><tr class=hi><td>Total stall fraction &#8212; rank 120</td><td>63.12%</td></tr><tr class=hi><td>L3-miss stalls / cycles &#8212; rank 120</td><td>33.64%</td></tr><tr class=hi><td>L3-miss share of stalls &#8212; rank 120</td><td>53.29%</td></tr><tr><td>LLC load miss rate &#8212; rank 168 / node 3</td><td>91.36%</td></tr><tr><td>Branch misses / instr &#8212; rank 168</td><td>0.206%</td></tr></tbody></table></div>
+<div><div class="rowlab">FP arithmetic elements by vector width &#183; rank 72 / node 1</div>
+<div class="simd"><i style="width:87.9%;background:var(--accent)"></i><i style="width:10.49%;background:color-mix(in srgb,var(--accent) 55%,var(--surface))"></i><i style="width:1.61%;background:color-mix(in srgb,var(--accent) 25%,var(--surface))"></i><i style="width:0.35%;background:var(--rule)"></i></div>
+<table class="kv"><tbody>
+<tr class="hi"><td>scalar</td><td>87.90%</td></tr>
+<tr><td>128-bit packed</td><td>10.49%</td></tr>
+<tr><td>256-bit packed</td><td>1.61%</td></tr>
+<tr><td>512-bit packed</td><td>0.00%</td></tr>
+</tbody></table>
+<div class="note">Retired FP arithmetic instruction events weighted by width &#8212; not FLOPs; FMA semantics differ.</div>
+<div class="decbar"><em>Decision</em>Representative samples indicate memory-hierarchy stalls are more important than arithmetic width.</div>
+</div></div>
+<div class="note">Solver check: 5.246991 s/step against the full-run reference 5.281517 s/step &#8212; difference &minus;0.65%. &#183; Caveat: MPI wall-time fraction not measured; the four sampled ranks all sit at core 24 / socket 1 / NUMA 2, so there is no socket 0 or NUMA 0/1 coverage, and counts are never combined across event groups.</div>
 </div>
-<div class="foot"><span>Evidence: /scratch/pm78/kj7183/openfoam_cpu &#183; commit b6272eae</span><span>6 / 6</span></div>
+<div class="foot"><span>endTime 25 &#183; 4 nodes / 192 ranks &#183; 45.01 SU</span><span>5 / 6</span></div>
+</section>
+<section class="slide">
+<div class="hdr"><span class="stage">Decision summary</span><span class="jobs">next technical area</span></div>
+<h1>Decision Summary</h1>
+<div class="body"><table>
+<thead><tr><th>Area</th><th>Evidence</th><th>Decision</th></tr></thead>
+<tbody><tr><td class="exp">Scaling</td><td><span class="n">8.824 &rarr; 4.297 &rarr; 2.140</span> s/step</td><td class="dec stop">Good; not priority</td></tr><tr><td class="exp">Decomposition</td><td>robust gain only <span class="n">~0.2%</span>; scatter <span class="n">0.40%</span></td><td class="dec stop">Stop</td></tr><tr><td class="exp">MPI placement</td><td>already <span class="n">1 rank/core</span>, no SMT</td><td class="dec stop">Stop</td></tr><tr><td class="exp">ICC generic</td><td><span class="n">2.66%</span> slower than GCC reference</td><td class="dec stop">Stop</td></tr><tr><td class="exp">Architecture targeting</td><td>256-bit SIMD generated, but smoke <span class="n">SIGFPE</span></td><td class="dec stop">Pause</td></tr><tr><td class="exp">Memory / cache</td><td><span class="n">63.12%</span> stalls; <span class="n">33.64%</span> L3 stalls</td><td class="dec go">NEXT</td></tr><tr><td class="exp">MPI time fraction</td><td>not measured &#8212; perf cannot separate it</td><td class="dec ">Later profiling</td></tr></tbody></table>
+<div class="decbar"><em>Main next step</em>MEMORY / CACHE BEHAVIOUR &#8212; before any further compiler tuning.</div>
+<div class="note">Remaining allocation is low, so the practical next action is to preserve evidence and resume runtime profiling after the allocation resets. ICC architecture targeting is paused, not abandoned: the runtime archive, binary hashes and SIGFPE root-cause analysis are retained.</div>
+</div>
+<div class="foot"><span>evidence: /scratch/pm78/kj7183/openfoam_cpu &#183; commit b6272eae</span><span>6 / 6</span></div>
 </section>
 <div class="nav"><button id="p" aria-label="Previous slide">&larr;</button><span id="c">1 / 6</span><button id="n" aria-label="Next slide">&rarr;</button></div>
 <script>
