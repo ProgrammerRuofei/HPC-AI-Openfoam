@@ -4,6 +4,10 @@
 set -euo pipefail
 
 : "${STACK_ID:?}" "${MODULE_LIST:?}" "${WM_COMPILER_VALUE:?}" "${OMPI_CC_VALUE:?}" "${OMPI_CXX_VALUE:?}"
+# Architecture targeting is a build variable. Default Opt so every previously
+# validated candidate (C1 generic included) resolves exactly as before.
+WM_COMPILE_OPTION_VALUE="${WM_COMPILE_OPTION_VALUE:-Opt}"
+EXPECT_COMPILE_FLAGS="${EXPECT_COMPILE_FLAGS:-}"
 AUTHORITATIVE_SOURCE=/apps/OpenFOAM/2512
 BUILD_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/${STACK_ID}"
 EVIDENCE_DIR="${BUILD_ROOT}/evidence/${STACK_ID}.${PBS_JOBID:?}"
@@ -45,6 +49,12 @@ echo "stack_id=$STACK_ID"; echo "authoritative_source=$AUTHORITATIVE_SOURCE"; ec
 IDENTITY_EVIDENCE="${EVIDENCE_DIR}/source-identity-v2.txt"
 printf 'identity_algorithm=%s\nexclusion=/platforms/\nexclusion=/ThirdParty-v2512/platforms/\nexclusion=/ThirdParty-v2512/build/\nexpected_regular_manifest_sha256=%s\nexpected_symlink_manifest_sha256=%s\nexpected_source_id_v2=%s\nexpected_symlink_entry_count=%s\n' "$IDENTITY_ALGORITHM" "$EXPECTED_REGULAR_MANIFEST_SHA256" "$EXPECTED_SYMLINK_MANIFEST_SHA256" "$EXPECTED_SOURCE_ID_V2" "$EXPECTED_SYMLINK_ENTRY_COUNT" > "$IDENTITY_EVIDENCE"
 module list 2>&1
+# The build node's own CPU is the authoritative record of what the generated
+# code must run on. lscpu alone omits the flag list, so read cpuinfo directly.
+grep -m1 'model name' /proc/cpuinfo | tee "${EVIDENCE_DIR}/build-node-cpu.txt"
+grep -m1 ^flags /proc/cpuinfo | tr ' ' '\n' | grep -i '^avx512' | sort \
+    | tee "${EVIDENCE_DIR}/build-node-avx512-flags.txt" | tr '\n' ' '; echo
+printf 'wm_compile_option=%s\n' "$WM_COMPILE_OPTION_VALUE"
 for tool in "$OMPI_CC_VALUE" "$OMPI_CXX_VALUE" mpicc mpicxx mpirun; do printf '%s=' "$tool"; command -v "$tool"; done
 "$OMPI_CC_VALUE" --version | head -n 2; "$OMPI_CXX_VALUE" --version | head -n 2; mpicc --showme:command; mpicxx --showme:command; mpicc --showme:link; mpirun --version | head -n 3
 write_regular_manifest "$AUTHORITATIVE_SOURCE" "${EVIDENCE_DIR}/authoritative-source-files.sha256"; write_symlink_manifest "$AUTHORITATIVE_SOURCE" "${EVIDENCE_DIR}/authoritative-symlink-files.nul"
@@ -90,9 +100,9 @@ test -d "${WORKTREE}/ThirdParty-v2512"; test ! -e "$THIRDPARTY_TREE"
 mv "${WORKTREE}/ThirdParty-v2512" "$THIRDPARTY_TREE"
 test -f "$THIRDPARTY_TREE/Allwmake"; test ! -e "${WORKTREE}/ThirdParty-v2512"
 bootstrap_api_info
-cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt; set -u
+cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB=SYSTEMOPENMPI "WM_COMPILE_OPTION=${WM_COMPILE_OPTION_VALUE}"; set -u
 printf 'WM_PROJECT_VERSION=%s\nFOAM_API=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\nFOAM_MPI=%s\nMPI_ARCH_PATH=%s\n' "$WM_PROJECT_VERSION" "$FOAM_API" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS" "$FOAM_MPI" "$MPI_ARCH_PATH"
-test "$WM_PROJECT_VERSION" = v2512; test "$FOAM_API" = "$EXPECTED_FOAM_API"; test "$WM_COMPILER" = "$WM_COMPILER_VALUE"; test "$WM_MPLIB" = SYSTEMOPENMPI; test "$FOAM_MPI" = sys-openmpi; test "$(command -v mpicc)" = /apps/openmpi/4.1.7/bin/mpicc
+test "$WM_PROJECT_VERSION" = v2512; test "$FOAM_API" = "$EXPECTED_FOAM_API"; test "$WM_COMPILER" = "$WM_COMPILER_VALUE"; test "$WM_MPLIB" = SYSTEMOPENMPI; test "$WM_COMPILE_OPTION" = "$WM_COMPILE_OPTION_VALUE"; test "$FOAM_MPI" = sys-openmpi; test "$(command -v mpicc)" = /apps/openmpi/4.1.7/bin/mpicc
 test "$WM_THIRD_PARTY_DIR" = "$THIRDPARTY_TREE"; test -f "$WM_THIRD_PARTY_DIR/Allwmake"; test -f "$WM_PROJECT_DIR/src/Allwmake"
 # The site tree ships no top-level Allwmake, so the per-directory steps are
 # driven here -- and wmake's own tools must come first. platforms/tools is
@@ -104,6 +114,22 @@ WMAKE_TOOLS="${WM_PROJECT_DIR}/platforms/tools/${WM_ARCH}${WM_COMPILER}"
 test -x "${WMAKE_TOOLS}/wmkdepend" || { echo "ERROR: wmkdepend absent in ${WMAKE_TOOLS}" >&2; exit 5; }
 printf 'wmake_tools=%s\n' "$WMAKE_TOOLS"; ls "$WMAKE_TOOLS"
 "${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?}"
+# Rule-file text is not proof. Count the flags in real compiler invocations.
+sync
+BUILD_LOG="${EVIDENCE_DIR}/build.log"
+{
+  printf 'wm_options=%s\n' "$WM_OPTIONS"
+  printf 'wm_compile_option=%s\n' "$WM_COMPILE_OPTION"
+  for f in -O3 -O2 -xCORE-AVX512 -xCORE-AVX2 -march= -mtune=; do
+      printf 'flag_occurrences %-16s = %s\n' "$f" "$(grep -c -- "$f" "$BUILD_LOG" || true)"
+  done
+} | tee "${EVIDENCE_DIR}/compile-flags.txt"
+# Each flag named in EXPECT_COMPILE_FLAGS must appear in a real invocation.
+for f in $EXPECT_COMPILE_FLAGS; do
+    n=$(grep -c -- "$f" "$BUILD_LOG" || true)
+    printf 'required_flag %s occurrences=%s\n' "$f" "$n"
+    test "$n" -gt 0 || { echo "ERROR: required compile flag $f never appeared" >&2; exit 7; }
+done
 BIN="${FOAM_APPBIN}/simpleFoam"; test -x "$BIN"; case "$(realpath "$BIN")" in "${WORKTREE}"/*) ;; *) echo 'ERROR: binary outside candidate worktree' >&2; exit 3;; esac
 file "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.file"; ldd "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.ldd"; grep -qi '/apps/openmpi/4.1.7' "${EVIDENCE_DIR}/simpleFoam.ldd"; sha256sum "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.sha256"
 tar -C "$JOBFS_ROOT" -czf "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" "OpenFOAM-v2512/etc" "OpenFOAM-v2512/platforms/${WM_OPTIONS}" ThirdParty-v2512/platforms

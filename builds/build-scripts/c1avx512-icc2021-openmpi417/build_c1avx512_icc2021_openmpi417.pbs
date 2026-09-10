@@ -1,0 +1,22 @@
+#!/bin/bash
+# C1-AVX512 build. Cascade Lake (normal queue) -- the same hardware the C1
+# generic screening ran on, so -xCORE-AVX512 targets the CPU that will execute it.
+#
+# Walltime is 02:00:00, not C1 generic's 03:00:00. PBS reserves against the
+# REQUESTED walltime, and at 48 cores 03:00 would hold 288 SU of a 336.93 SU
+# allocation. The C1 generic build took 01:26:52, so 02:00 keeps a 38% margin
+# while reserving 192 SU.
+#PBS -P pm78
+#PBS -q normal
+#PBS -N of2512_c1avx512_build
+#PBS -l ncpus=48
+#PBS -l mem=190GB
+#PBS -l jobfs=100GB
+#PBS -l walltime=02:00:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/c1avx512-icc2021-openmpi417/submit-logs/of2512_c1avx512_build.pbs.out
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?PBS_O_WORKDIR is required}"
+exec bash builds/build-scripts/c1avx512-icc2021-openmpi417/build_c1avx512_icc2021_openmpi417.sh
