@@ -1,0 +1,60 @@
+#!/bin/bash -l
+# One-node PALS launch and Cray MPICH library availability probe.
+# Run from the synchronized control repository; output goes to scripts/outputs/.
+# This checks library resolution and launcher startup, not MPI_Init or OpenFOAM.
+#PBS -N probe_cray_pals_1n_v2
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=128:mpiprocs=2:ompthreads=1:mem=440gb
+#PBS -l walltime=00:05:00
+#PBS -o /home/project/59000020/openfoam-isc26/control-repo/scripts/outputs/probe_cray_pals_1n_v2.o
+#PBS -e /home/project/59000020/openfoam-isc26/control-repo/scripts/outputs/probe_cray_pals_1n_v2.e
+
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?}"
+module purge
+module load aocc/5.0 gcc/11.2.0 cray-pals/1.1.6 libfabric/1.22.0
+MPICH_DIR=/opt/cray/pe/mpich/8.1.15/ofi/gnu/9.1
+
+printf '%s\n' '--- loaded modules ---'
+module list 2>&1
+printf 'LD_LIBRARY_PATH=%s\n' "${LD_LIBRARY_PATH:-<unset>}"
+printf 'MPICH_DIR=%s\n' "${MPICH_DIR}"
+printf '%s\n' '--- mpiexec path ---'
+which mpiexec
+printf '%s\n' 'Cray MPICH requested: 8.1.15 (MPICH_DIR path)'
+printf '%s\n' 'PALS requested: 1.1.6 (loaded module)'
+
+test -r "${MPICH_DIR}/lib/libmpi.so"
+printf '%s\n' '--- libmpi dependencies ---'
+if LDD_OUTPUT="$(ldd "${MPICH_DIR}/lib/libmpi.so" 2>&1)"; then
+    printf '%s\n' "${LDD_OUTPUT}"
+else
+    printf '%s\n' "${LDD_OUTPUT}"
+    printf '%s\n' 'libmpi dependency inspection failed' >&2
+    exit 2
+fi
+if grep -q 'not found' <<< "${LDD_OUTPUT}"; then
+    printf '%s\n' 'Unresolved Cray MPICH dependency' >&2
+    exit 2
+fi
+FABRIC_PATH="$(awk '$1 == "libfabric.so.1" && $2 == "=>" { print $3; exit }' <<< "${LDD_OUTPUT}")"
+if [[ -z "${FABRIC_PATH}" || ! -r "${FABRIC_PATH}" ]]; then
+    printf '%s\n' 'libfabric.so.1 path missing or unreadable' >&2
+    exit 2
+fi
+printf 'libfabric.so.1 resolved path=%s\n' "$(readlink -f "${FABRIC_PATH}")"
+
+printf '%s\n' '--- Cray MPICH / PALS versions ---'
+if [[ -x "${MPICH_DIR}/bin/mpichversion" ]]; then
+    if ! "${MPICH_DIR}/bin/mpichversion" 2>&1; then
+        printf '%s\n' 'Cray MPICH binary version command unavailable'
+    fi
+else
+    printf '%s\n' 'Cray MPICH binary version command unavailable'
+fi
+if ! mpiexec --version 2>&1; then
+    printf '%s\n' 'PALS mpiexec version command unavailable'
+fi
+
+mpiexec -n 2 --ppn 2 /bin/hostname
