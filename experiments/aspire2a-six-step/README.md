@@ -59,6 +59,13 @@ on 2026-10-06 that subsequent routine submissions should proceed without
 repeated approval pauses. This covers the deterministic harness repair;
 changes to scientific inputs or optimization strategy remain separate.
 
+V2 passed `bash -n` and report-validation checks against v1 and the historical
+KaHIP report; a missing-rank case was correctly rejected. Script SHA256:
+`13af7d2b153ce0a66510346ae0ea009ab139b6c4c99226b63b7ef61f21c196e8`.
+Committed as `03ff2e0ac7aa2ab707bb682e002ee317214e1e5f`, synchronized via the
+existing bare transport and submitted once as `25702468.pbs101`. First status:
+`Q` in `q5`, insufficient `node_pool`. Completion and correctness are pending.
+
 ## Evidence retrieval
 
 Retain raw outputs under this experiment's `outputs/` using the existing
