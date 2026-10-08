@@ -1,0 +1,162 @@
+#!/bin/bash
+# PROPOSED / NOT SUBMITTED
+# Fast 2-node Gadi decomposition-method screen for the 65M DrivAer case.
+# Required qsub variable: SCREEN_METHOD=hierarchical|scotch|kahip
+# This is a 40-step SCREEN, not an official scored result.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of2512_gadi_decomp_2n_v1
+#PBS -l ncpus=208
+#PBS -l mem=380GB
+#PBS -l walltime=00:45:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+set -euo pipefail
+
+METHOD=${SCREEN_METHOD:?submit with -v SCREEN_METHOD=hierarchical, scotch, or kahip}
+case "$METHOD" in
+    hierarchical|scotch|kahip) ;;
+    *) echo "ERROR: unsupported SCREEN_METHOD=$METHOD" >&2; exit 2 ;;
+esac
+
+SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+RUN_ROOT=/scratch/pm78/kj7183/openfoam_cpu/experiments/gadi-future-screening/decomposition-2n
+CASE="${RUN_ROOT}/cases/${METHOD}.${PBS_JOBID:?}"
+EVIDENCE="${RUN_ROOT}/evidence/${METHOD}.${PBS_JOBID}"
+NRANKS=208
+NNODES=2
+RANKS_PER_NODE=104
+ENDTIME=40
+NHIER='(8 13 2)'
+NHIER_REGEX='\(8 13 2\)'
+YBL=0.0450244
+
+EXPECTED_SHA_ALLRUN=2a02ec456ce880b2242d566da6c5b28fae1aa99218169260030cd53f5a662ec3
+EXPECTED_SHA_CASEDEF=1da44731f5f723c1b8471bee6c6186c6f402f63154f84cacd26bf27e30e6a6c6
+EXPECTED_SHA_CONTROLDICT_NOWRITE=ce4ec0f52bcc88eea8402b454940dc5aad1f31dea6441e7d98413b651427ef06
+EXPECTED_SHA_FVSCHEMES=064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3
+EXPECTED_SHA_FVSOLUTION=5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba
+EXPECTED_SHA_FVSOLUTION_FIXEDITER=5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba
+
+test ! -e "$CASE" || { echo "ERROR: refusing to reuse $CASE" >&2; exit 3; }
+mkdir -p "$CASE" "$EVIDENCE"
+exec > >(tee -a "$EVIDENCE/run.log") 2>&1
+
+preserve_evidence()
+{
+    rc=$?
+    set +e
+    find "$CASE/postProcessing" -name coefficient.dat -type f -exec cp -p {} "$EVIDENCE/" \; 2>/dev/null
+    printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"
+    return "$rc"
+}
+trap preserve_evidence EXIT
+
+printf 'classification=DECOMPOSITION SCREENING\nofficial_result=false\nmethod=%s\n' "$METHOD"
+
+echo '===== ALLOCATION GATES ====='
+sort -u "$PBS_NODEFILE" | tee "$EVIDENCE/nodes.txt"
+allocated_nodes=$(sort -u "$PBS_NODEFILE" | wc -l | tr -d ' ')
+slots_per_node=$(awk '{c[$0]++} END {for (h in c) print c[h]}' "$PBS_NODEFILE" | sort -u)
+test "$allocated_nodes" -eq "$NNODES"
+test "${PBS_NCPUS:?}" -eq "$NRANKS"
+test "$slots_per_node" = "$RANKS_PER_NODE"
+cp -p "$PBS_NODEFILE" "$EVIDENCE/pbs-nodefile.txt"
+
+echo '===== TOOLCHAIN FINGERPRINT ====='
+module purge
+module load OpenFOAM/2512
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+command -v simpleFoam decomposePar mpirun | tee "$EVIDENCE/executables.txt"
+simpleFoam -version 2>&1 | head -n 12 | tee "$EVIDENCE/simpleFoam.version"
+mpirun --version 2>&1 | head -n 3 | tee "$EVIDENCE/mpirun.version"
+gcc --version 2>&1 | head -n 1 | tee "$EVIDENCE/gcc.version"
+printf 'WM_PROJECT_VERSION=%s\nWM_COMPILER=%s\nWM_OPTIONS=%s\nWM_MPLIB=%s\nFOAM_MPI=%s\n' \
+    "${WM_PROJECT_VERSION:-UNSET}" "${WM_COMPILER:-UNSET}" "${WM_OPTIONS:-UNSET}" \
+    "${WM_MPLIB:-UNSET}" "${FOAM_MPI:-UNSET}" | tee "$EVIDENCE/foam-env.txt"
+ldd "$(command -v simpleFoam)" | tee "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+lscpu | grep -E 'Model name|Socket|Core|Thread|NUMA' | tee "$EVIDENCE/lscpu.txt"
+
+echo '===== AUTHORITATIVE WORKLOAD IDENTITY ====='
+cat > "$EVIDENCE/expected-workload.sha256" <<SHAEOF
+${EXPECTED_SHA_ALLRUN}  ${SOURCE_CASE}/Allrun.gadi
+${EXPECTED_SHA_CASEDEF}  ${SOURCE_CASE}/system/include/caseDefinition
+${EXPECTED_SHA_CONTROLDICT_NOWRITE}  ${SOURCE_CASE}/system/controlDict.noWrite
+${EXPECTED_SHA_FVSCHEMES}  ${SOURCE_CASE}/system/fvSchemes
+${EXPECTED_SHA_FVSOLUTION}  ${SOURCE_CASE}/system/fvSolution
+${EXPECTED_SHA_FVSOLUTION_FIXEDITER}  ${SOURCE_CASE}/system/fvSolution.fixedIter
+SHAEOF
+sha256sum -c "$EVIDENCE/expected-workload.sha256"
+
+echo '===== FRESH SCREENING CASE ====='
+cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$CASE/"
+cd "$CASE"
+test ! -e postProcessing
+! find . -maxdepth 1 -type d -name 'processor*' | grep -q .
+test -f constant/polyMesh/points
+cp system/controlDict.noWrite system/controlDict
+cp system/fvSolution.fixedIter system/fvSolution
+sed -i -E "s/^([[:space:]]*endTime[[:space:]]+)[0-9]+;/\1${ENDTIME};/" system/controlDict
+sed -i -E "s/^([[:space:]]*nCores[[:space:]]+)[0-9]+;/\1${NRANKS};/" system/include/caseDefinition
+sed -i -E "s/^([[:space:]]*decompositionMethod[[:space:]]+)[^;]+;/\1${METHOD};/" system/include/caseDefinition
+sed -i -E "s/^([[:space:]]*nHierarchical[[:space:]]+)\([^)]*\);/\1${NHIER};/" system/include/caseDefinition
+
+grep -E 'nCores|decompositionMethod|nHierarchical' system/include/caseDefinition | tee "$EVIDENCE/decomposition.txt"
+grep -E 'startFrom|startTime|endTime|deltaT' system/controlDict | tee "$EVIDENCE/controldict.txt"
+grep -Eq "^[[:space:]]*endTime[[:space:]]+${ENDTIME};" system/controlDict
+grep -Eq "^[[:space:]]*nCores[[:space:]]+${NRANKS};" system/include/caseDefinition
+grep -Eq "^[[:space:]]*decompositionMethod[[:space:]]+${METHOD};" system/include/caseDefinition
+grep -Eq "^[[:space:]]*nHierarchical[[:space:]]+${NHIER_REGEX};" system/include/caseDefinition
+cmp -s system/fvSolution system/fvSolution.fixedIter
+sha256sum system/controlDict system/fvSchemes system/fvSolution system/include/caseDefinition \
+    | tee "$EVIDENCE/effective-inputs.sha256"
+
+set +u
+. "${WM_PROJECT_DIR:?}/bin/tools/RunFunctions"
+set -u
+type restore0Dir | head -n 1
+
+echo '===== DECOMPOSITION AVAILABILITY / HARD GATE ====='
+if ! decomposePar -constant > "$EVIDENCE/10_decomposePar.log" 2>&1; then
+    echo "ERROR: decomposePar failed for method=$METHOD; solver will not run" >&2
+    tail -n 80 "$EVIDENCE/10_decomposePar.log" >&2
+    exit 20
+fi
+grep -aE 'method|cells|processor|interface|Number of processor' "$EVIDENCE/10_decomposePar.log" \
+    > "$EVIDENCE/decompose-summary.txt" || true
+restore0Dir -processor
+
+echo '===== DEFAULT PLACEMENT MANIFEST ====='
+mpirun -np "$NRANKS" bash -c '
+mask=$(awk "/Cpus_allowed_list/{print \$2}" /proc/self/status)
+cpu=$(ps -o psr= -p $$ | tr -d " ")
+nd=$(ls -d /sys/devices/system/cpu/cpu${cpu}/node* 2>/dev/null | head -n1)
+printf "%s,%s,%s,%s,%s\n" "$OMPI_COMM_WORLD_RANK" "$(hostname -s)" "$mask" "$cpu" "${nd##*node}"
+' | sort -t, -k1,1n > "$EVIDENCE/rank-placement.csv"
+test "$(wc -l < "$EVIDENCE/rank-placement.csv")" -eq "$NRANKS"
+
+echo '===== PREPARATION AND SOLVER ====='
+PAREX=(mpirun -np "$NRANKS")
+"${PAREX[@]}" renumberMesh -constant -overwrite -parallel > "$EVIDENCE/20_renumberMesh.log" 2>&1
+"${PAREX[@]}" potentialFoam -initialiseUBCs -parallel     > "$EVIDENCE/30_potentialFoam.log" 2>&1
+"${PAREX[@]}" applyBoundaryLayer -ybl "$YBL" -parallel  > "$EVIDENCE/40_applyBoundaryLayer.log" 2>&1
+"${PAREX[@]}" simpleFoam -parallel                        > "$EVIDENCE/simpleFoam.log" 2>&1
+
+echo '===== COMPLETION / CORRECTNESS GATES ====='
+SOLVER_LOG="$EVIDENCE/simpleFoam.log"
+grep -aEq "^Time = ${ENDTIME}[[:space:]]*$" "$SOLVER_LOG"
+grep -aFq 'Finalising parallel run' "$SOLVER_LOG"
+grep -aEq '^End$' "$SOLVER_LOG"
+! grep -aEqi '(^|[^[:alpha:]])(nan|inf)([^[:alpha:]]|$)|floating point|segmentation fault' "$SOLVER_LOG"
+grep -a 'Average wall-clock time per time step' "$SOLVER_LOG" | tail -n 1 | tee "$EVIDENCE/avg-step-time.txt"
+grep -aE 'ExecutionTime|ClockTime' "$SOLVER_LOG" | tail -n 1 | tee "$EVIDENCE/final-clocktime.txt"
+grep -a -A4 '^Statistics:' "$SOLVER_LOG" | tail -n 5 | tee "$EVIDENCE/statistics.txt"
+find postProcessing -name coefficient.dat -type f -print -exec cp -p {} "$EVIDENCE/" \;
+
+printf 'classification=DECOMPOSITION SCREENING\nofficial_result=false\npbs_jobid=%s\nnodes=%s\nranks=%s\nranks_per_node=%s\nmethod=%s\nhierarchical_tuple=%s\nendtime=%s\nlauncher=mpirun -np %s\nbinding=site-default\n' \
+    "$PBS_JOBID" "$NNODES" "$NRANKS" "$RANKS_PER_NODE" "$METHOD" "$NHIER" "$ENDTIME" "$NRANKS" \
+    > "$EVIDENCE/provenance.txt"
+echo DECOMPOSITION_SCREEN_PASS
+

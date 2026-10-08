@@ -1,0 +1,112 @@
+#!/bin/bash
+# PROPOSED / NOT SUBMITTED / HOLD (low priority)
+# One-node placement screen with a fixed hierarchical (4 13 2) partition.
+# Required qsub variable: SCREEN_PLACEMENT=default|core|numa13
+# This is a 40-step SCREEN, not an official scored result.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of2512_gadi_place_1n_v1
+#PBS -l ncpus=104
+#PBS -l mem=190GB
+#PBS -l walltime=00:45:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+set -euo pipefail
+
+PLACEMENT=${SCREEN_PLACEMENT:?submit with -v SCREEN_PLACEMENT=default, core, or numa13}
+case "$PLACEMENT" in
+    default) MAP_ARGS=() ;;
+    core)    MAP_ARGS=(--map-by core --bind-to core) ;;
+    numa13)  MAP_ARGS=(--map-by ppr:13:numa --bind-to core) ;;
+    *) echo "ERROR: unsupported SCREEN_PLACEMENT=$PLACEMENT" >&2; exit 2 ;;
+esac
+
+SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+RUN_ROOT=/scratch/pm78/kj7183/openfoam_cpu/experiments/gadi-future-screening/placement-1n
+CASE="${RUN_ROOT}/cases/${PLACEMENT}.${PBS_JOBID:?}"
+EVIDENCE="${RUN_ROOT}/evidence/${PLACEMENT}.${PBS_JOBID}"
+NRANKS=104
+NNODES=1
+ENDTIME=40
+NHIER='(4 13 2)'
+YBL=0.0450244
+
+EXPECTED_SHA_CASEDEF=1da44731f5f723c1b8471bee6c6186c6f402f63154f84cacd26bf27e30e6a6c6
+EXPECTED_SHA_CONTROLDICT_NOWRITE=ce4ec0f52bcc88eea8402b454940dc5aad1f31dea6441e7d98413b651427ef06
+EXPECTED_SHA_FVSCHEMES=064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3
+EXPECTED_SHA_FVSOLUTION_FIXEDITER=5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba
+
+test ! -e "$CASE" || { echo "ERROR: refusing to reuse $CASE" >&2; exit 3; }
+mkdir -p "$CASE" "$EVIDENCE"
+exec > >(tee -a "$EVIDENCE/run.log") 2>&1
+preserve_evidence() { rc=$?; set +e; find "$CASE/postProcessing" -name coefficient.dat -type f -exec cp -p {} "$EVIDENCE/" \; 2>/dev/null; printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"; return "$rc"; }
+trap preserve_evidence EXIT
+
+test "$(sort -u "$PBS_NODEFILE" | wc -l | tr -d ' ')" -eq "$NNODES"
+test "${PBS_NCPUS:?}" -eq "$NRANKS"
+cp -p "$PBS_NODEFILE" "$EVIDENCE/pbs-nodefile.txt"
+
+module purge
+module load OpenFOAM/2512
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+mpirun --version 2>&1 | head -n 3 | tee "$EVIDENCE/mpirun.version"
+ldd "$(command -v simpleFoam)" | tee "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+lscpu | tee "$EVIDENCE/lscpu.txt"
+numactl -H > "$EVIDENCE/numactl-H.txt" 2>&1 || true
+
+cd "$SOURCE_CASE"
+printf '%s  %s\n' "$EXPECTED_SHA_CASEDEF" system/include/caseDefinition > "$EVIDENCE/expected-workload.sha256"
+printf '%s  %s\n' "$EXPECTED_SHA_CONTROLDICT_NOWRITE" system/controlDict.noWrite >> "$EVIDENCE/expected-workload.sha256"
+printf '%s  %s\n' "$EXPECTED_SHA_FVSCHEMES" system/fvSchemes >> "$EVIDENCE/expected-workload.sha256"
+printf '%s  %s\n' "$EXPECTED_SHA_FVSOLUTION_FIXEDITER" system/fvSolution.fixedIter >> "$EVIDENCE/expected-workload.sha256"
+sha256sum -c "$EVIDENCE/expected-workload.sha256"
+
+cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$CASE/"
+cd "$CASE"
+test ! -e postProcessing
+cp system/controlDict.noWrite system/controlDict
+cp system/fvSolution.fixedIter system/fvSolution
+sed -i -E "s/^([[:space:]]*endTime[[:space:]]+)[0-9]+;/\1${ENDTIME};/" system/controlDict
+sed -i -E "s/^([[:space:]]*nCores[[:space:]]+)[0-9]+;/\1${NRANKS};/" system/include/caseDefinition
+sed -i -E 's/^([[:space:]]*decompositionMethod[[:space:]]+)[^;]+;/\1hierarchical;/' system/include/caseDefinition
+sed -i -E "s/^([[:space:]]*nHierarchical[[:space:]]+)\([^)]*\);/\1${NHIER};/" system/include/caseDefinition
+grep -Eq '^[[:space:]]*decompositionMethod[[:space:]]+hierarchical;' system/include/caseDefinition
+grep -Eq '^[[:space:]]*nHierarchical[[:space:]]+\(4 13 2\);' system/include/caseDefinition
+cmp -s system/fvSolution system/fvSolution.fixedIter
+sha256sum system/controlDict system/fvSchemes system/fvSolution system/include/caseDefinition | tee "$EVIDENCE/effective-inputs.sha256"
+
+set +u
+. "${WM_PROJECT_DIR:?}/bin/tools/RunFunctions"
+set -u
+decomposePar -constant > "$EVIDENCE/10_decomposePar.log" 2>&1
+restore0Dir -processor
+
+PAREX=(mpirun -np "$NRANKS" "${MAP_ARGS[@]}")
+printf '%q ' "${PAREX[@]}" | tee "$EVIDENCE/launcher.txt"; printf '\n' | tee -a "$EVIDENCE/launcher.txt"
+
+"${PAREX[@]}" bash -c '
+mask=$(awk "/Cpus_allowed_list/{print \$2}" /proc/self/status)
+cpu=$(ps -o psr= -p $$ | tr -d " ")
+nd=$(ls -d /sys/devices/system/cpu/cpu${cpu}/node* 2>/dev/null | head -n1)
+printf "%s,%s,%s,%s,%s\n" "$OMPI_COMM_WORLD_RANK" "$(hostname -s)" "$mask" "$cpu" "${nd##*node}"
+' | sort -t, -k1,1n > "$EVIDENCE/rank-placement.csv"
+test "$(wc -l < "$EVIDENCE/rank-placement.csv")" -eq "$NRANKS"
+
+"${PAREX[@]}" renumberMesh -constant -overwrite -parallel > "$EVIDENCE/20_renumberMesh.log" 2>&1
+"${PAREX[@]}" potentialFoam -initialiseUBCs -parallel     > "$EVIDENCE/30_potentialFoam.log" 2>&1
+"${PAREX[@]}" applyBoundaryLayer -ybl "$YBL" -parallel  > "$EVIDENCE/40_applyBoundaryLayer.log" 2>&1
+"${PAREX[@]}" simpleFoam -parallel                        > "$EVIDENCE/simpleFoam.log" 2>&1
+
+SOLVER_LOG="$EVIDENCE/simpleFoam.log"
+grep -aEq "^Time = ${ENDTIME}[[:space:]]*$" "$SOLVER_LOG"
+grep -aFq 'Finalising parallel run' "$SOLVER_LOG"
+grep -aEq '^End$' "$SOLVER_LOG"
+! grep -aEqi '(^|[^[:alpha:]])(nan|inf)([^[:alpha:]]|$)|floating point|segmentation fault' "$SOLVER_LOG"
+grep -a 'Average wall-clock time per time step' "$SOLVER_LOG" | tail -n 1 | tee "$EVIDENCE/avg-step-time.txt"
+find postProcessing -name coefficient.dat -type f -print -exec cp -p {} "$EVIDENCE/" \;
+
+printf 'classification=PLACEMENT SCREENING\nofficial_result=false\npbs_jobid=%s\nnodes=%s\nranks=%s\ndecomposition=hierarchical %s\nplacement=%s\nendtime=%s\n' \
+    "$PBS_JOBID" "$NNODES" "$NRANKS" "$NHIER" "$PLACEMENT" "$ENDTIME" > "$EVIDENCE/provenance.txt"
+echo PLACEMENT_SCREEN_PASS
