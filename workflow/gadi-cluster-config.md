@@ -230,3 +230,46 @@ dead transport and a finished job both produced empty output - it would have
 recorded a running job as complete. Any watcher must check the ssh exit status
 separately from the scheduler's answer, and report an unreachable cluster as
 **unknown**, never as an outcome.
+
+## Project storage and inode quota — observation 2026-09-09
+
+Planning observation only. **No cleanup action has been taken.**
+
+| Resource | Observed | Limit | Utilisation |
+| --- | --- | --- | --- |
+| `pm78` scratch storage | 165.05 GiB | 1.00 TiB | **16.1%** — healthy |
+| `pm78` scratch inodes | 184,906 | 202,000 (normal quota) | **91.54%** — high |
+| `pm78` scratch inodes | 184,906 | 212,100 (hard limit) | 87.18% |
+
+Headroom: **17,094** inodes to the normal quota, **27,194** to the hard limit.
+
+**Interpretation.** Storage capacity is not a constraint; inode count is. The
+binding resource is the *number of files*, not their size.
+
+**Why this matters here specifically.** A staged OpenFOAM v2512 source tree is
+192,042 regular files plus 10,976 symlinks — **203,018 inodes**, recorded by
+`SOURCE_ID_V2` in
+[`../results/s1-autonomous-debug-summary.md`](../results/s1-autonomous-debug-summary.md).
+That is roughly **12x the remaining scratch headroom**. A single source
+extraction onto `/scratch` would breach the quota outright.
+
+This is why the build and benchmark workflows stage into node-local
+`$PBS_JOBFS` rather than `/scratch`, and it is an argument for keeping that
+design rather than a convenience.
+
+**Practical rules until the quota position changes:**
+
+- Do not extract OpenFOAM source or ThirdParty trees onto `/scratch`; use
+  `$PBS_JOBFS`, which is node-local and not charged against this quota.
+- Do not create Python virtual environments or Conda prefixes on `/scratch` —
+  each is tens of thousands of small files.
+- Prefer archives (`.tar.gz`) to unpacked trees for anything retained between
+  jobs. The C1 runtime is already kept this way.
+- Case `processor*` directories are the other large inode consumer: a 416-way
+  decomposition creates 416 directories each holding several files. Remove old
+  run cases once their evidence has been extracted.
+- Check with `nci_account` / `lquota` before any workflow expected to create
+  many small files.
+
+No files have been deleted and no quota cleanup has been performed. Deciding
+what to reclaim is a separate, reviewed action.
