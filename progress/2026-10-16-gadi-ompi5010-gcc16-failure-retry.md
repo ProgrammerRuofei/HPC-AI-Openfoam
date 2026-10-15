@@ -277,3 +277,22 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181346473.gadi-pbs` once; first status `Q`, 208 CPUs,
 15-minute limit. `nci_account -P pm78` showed 87.00 SU used, 0 reserved,
 5.91 KSU available and scratch inodes 195.44K/202K.
+
+## Two-node staging evidence fix
+
+Job `181346473.gadi-pbs` completed `F`, `Exit_status=1`, walltime
+00:00:17, and 1.96 SU. PBS allocated two distinct SPR hosts
+`gadi-cpu-spr-0427` and `0428`. `pbsdsh -n 0` verified both archive hashes
+and completed staging on the first node, printing
+`STAGE_OMPI5010_NODE_PASS` to the PBS output. The script then checked an
+empty `tee` file and stopped before staging node 1 or launching MPI. The
+issue was that `pbsdsh` wrote child stdout directly to PBS output instead
+of the parent's pipe. Original stdout and
+`evidence/181346473.gadi-pbs/` are retained.
+
+The v2 node helper writes its own job-ID-specific marker in the shared
+evidence directory. The v2 PBS script waits for that marker after each
+`pbsdsh -n` call and verifies two distinct host names before MPI launch.
+Archive pins, compiler/MPI checks, UCX transport test, and science scope
+remain the same. Both v2 scripts passed local `bash -n` and use a new PBS
+stdout path.

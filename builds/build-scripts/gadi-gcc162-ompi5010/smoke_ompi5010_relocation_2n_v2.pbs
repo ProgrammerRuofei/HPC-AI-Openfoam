@@ -1,0 +1,81 @@
+#!/bin/bash
+# Verify archived GCC/Open MPI across two fresh Gadi SPR nodes via PBS TM and UCX.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of_ompi5010_reloc_2n_v2
+#PBS -l ncpus=208
+#PBS -l mem=32GB
+#PBS -l jobfs=8GB
+#PBS -l walltime=00:15:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_ompi5010_relocation_2n_v2.pbs.out
+set -euo pipefail
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+JOB_ID=${PBS_JOBID:?}
+JOBFS_ROOT="${PBS_JOBFS:?}/ompi5010-relocation-$JOB_ID"
+EVIDENCE="$STACK_ROOT/evidence/$JOB_ID"
+GCC_PREFIX="$JOBFS_ROOT/gcc-16.2.0"
+MPI_PREFIX="$JOBFS_ROOT/openmpi-5.0.10"
+STAGER="$PBS_O_WORKDIR/builds/build-scripts/gadi-gcc162-ompi5010/stage_ompi5010_node_v2.sh"
+test "${PBS_NCPUS:?}" -eq 208
+test ! -e "$EVIDENCE"
+test -f "$STAGER"
+mkdir -p "$EVIDENCE"
+exec > >(tee "$EVIDENCE/ompi-relocation-2n.log") 2>&1
+sort -u "$PBS_NODEFILE" | tee "$EVIDENCE/nodes.txt"
+test "$(sort -u "$PBS_NODEFILE" | wc -l)" -eq 2
+test "$(awk '{n[$0]++} END {for (h in n) print n[h]}' "$PBS_NODEFILE" | sort -u)" = 104
+module purge
+module load ucx/1.18.1 ucc/1.4.4
+module list 2>&1
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+for idx in 0 1; do
+    /opt/pbs/default/bin/pbsdsh -n "$idx" -s -- /bin/bash "$STAGER" "$JOBFS_ROOT" "$GCC_ARCHIVE" "$MPI_ARCHIVE" "$GCC_SHA" "$MPI_SHA" "$EVIDENCE/stage-node-$idx.log"
+    test -s "$EVIDENCE/stage-node-$idx.log"
+    grep -q 'STAGE_OMPI5010_NODE_PASS' "$EVIDENCE/stage-node-$idx.log"
+done
+test "$(grep -h STAGE_OMPI5010_NODE_PASS "$EVIDENCE"/stage-node-*.log | sed -E 's/.*host=([^ ]+).*/\1/' | sort -u | wc -l)" -eq 2
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export OMPI_CC="$GCC_PREFIX/bin/gcc" OMPI_CXX="$GCC_PREFIX/bin/g++"
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+gcc --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+mpicc --showme:command | grep -Fx "$GCC_PREFIX/bin/gcc"
+prte_info | tee "$EVIDENCE/prte-info.txt"
+grep -Eq 'MCA ras: pbs' "$EVIDENCE/prte-info.txt"
+grep -Eq 'MCA plm: tm' "$EVIDENCE/prte-info.txt"
+cat > "$EVIDENCE/mpi-smoke.c" <<'C_EOF'
+#include <mpi.h>
+#include <stdio.h>
+#include <unistd.h>
+int main(int argc, char **argv) {
+    int rank, size;
+    char host[256];
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    gethostname(host, sizeof host);
+    host[sizeof host - 1] = 0;
+    printf("OMPI5010_CROSS_NODE rank=%d size=%d host=%s\n", rank, size, host);
+    MPI_Finalize();
+    return size == 2 ? 0 : 1;
+}
+C_EOF
+mpicc "$EVIDENCE/mpi-smoke.c" -o "$EVIDENCE/mpi-smoke"
+ldd "$EVIDENCE/mpi-smoke" | tee "$EVIDENCE/mpi-smoke.ldd"
+! grep -Fq 'not found' "$EVIDENCE/mpi-smoke.ldd"
+grep -F "$MPI_PREFIX/lib/libmpi.so" "$EVIDENCE/mpi-smoke.ldd"
+mpirun --prefix "$MPI_PREFIX" --map-by ppr:1:node --mca pml ucx -np 2 "$EVIDENCE/mpi-smoke" \
+    | tee "$EVIDENCE/mpi-smoke.txt"
+grep -Eq '^OMPI5010_CROSS_NODE rank=0 size=2 host=' "$EVIDENCE/mpi-smoke.txt"
+grep -Eq '^OMPI5010_CROSS_NODE rank=1 size=2 host=' "$EVIDENCE/mpi-smoke.txt"
+test "$(sed -nE 's/^OMPI5010_CROSS_NODE rank=[01] size=2 host=([^ ]+)$/\1/p' "$EVIDENCE/mpi-smoke.txt" | sort -u | wc -l)" -eq 2
+echo OMPI5010_RELOCATION_2N_PASS
