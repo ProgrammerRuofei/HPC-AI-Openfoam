@@ -1,7 +1,7 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
 Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 first build failed on a documented GCC 16 inline issue;
-upstream-patched retry prepared.** See
+upstream-patched retry `181344546.gadi-pbs` submitted.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 

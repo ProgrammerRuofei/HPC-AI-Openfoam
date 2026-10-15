@@ -30,8 +30,24 @@ The PBS stdout has a distinct `build_ompi5010_v2.pbs.out` path; new evidence
 and runtime archive paths include the new PBS job ID. This repair is limited
 to MPI; the OpenFOAM scientific inputs are unchanged.
 
-## Next check
+## Retry submission and next check
 
-After syncing the reviewed commit to Gadi, submit the v2 PBS script once.
-Record the returned job ID, terminal PBS status and SU, MPI components,
-two-rank smoke, archive SHA-256, and a separate fresh-job relocation test.
+Commit `71dd3c4e2b3c6e1928e1c4930a8232be59a78564` was pushed to GitHub
+and Gadi. The Gadi control checkout was fast-forwarded to that commit. Both
+remote scripts passed `bash -n`, and their SHA-256 matched the local files:
+`9ab00c071ae13f8201c9b03256c587f51a273ab1b40673b1bedb7b5c7b49db21`
+for the shell script and
+`8ac16999b46a31c89b22034e48f38774d7a04661077ef878e67862a9bfa3682b`
+for PBS. Pre-existing untracked remote experiment files were preserved.
+
+The exact submission was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_ompi5010_v2.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/build_ompi5010_v2.pbs'
+```
+
+`qsub` returned `181344546.gadi-pbs` once. Its first `qstat -f` showed `Q`,
+32 CPUs and a 2-hour limit. `nci_account -P pm78` showed 49.90 SU used, 0
+reserved and 5.95 KSU available; scratch inode usage was 195.28K/202K.
+Check terminal PBS status and SU, MPI components, two-rank smoke, archive
+SHA-256, and a separate fresh-job relocation test.
