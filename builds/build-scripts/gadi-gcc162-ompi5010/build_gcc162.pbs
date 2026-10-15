@@ -1,0 +1,17 @@
+#!/bin/bash
+# Build GCC 16.2.0 from a verified source archive on one Gadi SPR node.
+# Submit from the control repository after review and Git synchronization.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of_gcc162_spr
+#PBS -l ncpus=104
+#PBS -l mem=400GB
+#PBS -l jobfs=150GB
+#PBS -l walltime=06:00:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_gcc162.pbs.out
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?PBS_O_WORKDIR is required}"
+exec bash builds/build-scripts/gadi-gcc162-ompi5010/build_gcc162.sh
