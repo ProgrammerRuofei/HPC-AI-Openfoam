@@ -314,3 +314,20 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181346532.gadi-pbs` once; first status `Q`, 208 CPUs,
 15-minute limit. `nci_account -P pm78` showed 88.97 SU used, 0 reserved,
 5.91 KSU available and scratch inodes 195.47K/202K.
+
+## Two-node v2 failure and corrected task index
+
+Job `181346532.gadi-pbs` completed `F`, `Exit_status=1`, walltime
+00:00:20, and 2.31 SU. PBS allocated distinct SPR hosts
+`gadi-cpu-spr-0641` and `0647`. The first stage marker records a
+successful unpack on `0641`; no marker for the other host and no MPI
+smoke exist. The original stdout and `evidence/181346532.gadi-pbs/`
+remain untouched. `pbsdsh -n 1` addressed the second task slot on the
+first 104-core node, where the unique `$PBS_JOBFS` tree already existed;
+the helper's no-overwrite gate correctly exited 1. This is a task-index
+error, not an MPI transport result.
+
+The v3 script targets task indices 0 and 104, checks that `PBS_NODEFILE`
+lines 1 and 105 name different hosts, and requires each direct marker to
+match its expected host. The archive pins and all MPI/UCX gates remain
+unchanged. `bash -n` passed; v3 uses a new stdout path and job-ID evidence.

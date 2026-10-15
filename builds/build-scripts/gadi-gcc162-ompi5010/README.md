@@ -104,3 +104,9 @@ SPR hosts before building the OpenFOAM candidate.
 Job `181346473.gadi-pbs` used 1.96 SU and stopped after staging the first
 node because `pbsdsh` output bypassed the parent's `tee`. The v2 scripts
 write and verify unique per-node marker files before MPI launch.
+
+Job `181346532.gadi-pbs` used 2.31 SU and again stopped before MPI.
+`pbsdsh -n 1` selects the second task slot on the first node, not the
+second node, so the no-overwrite gate rejected duplicate staging. The
+v3 PBS script uses slots 0 and 104 and verifies host mapping against
+`PBS_NODEFILE` before launch. Original evidence is retained.
