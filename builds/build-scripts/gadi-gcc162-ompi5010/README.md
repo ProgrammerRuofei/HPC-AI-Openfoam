@@ -1,7 +1,7 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
 Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 first build failed on a documented GCC 16 inline issue;
-two GCC 16 compatibility attempts failed; v3 compiled MPI but failed a PRRTE probe syntax gate; v4 archive retained; fresh-job relocation smoke found missing TM plugin load; relocation prefix fix prepared after diagnostic `181346266.gadi-pbs`.** See
+two GCC 16 compatibility attempts failed; v3 compiled MPI but failed a PRRTE probe syntax gate; v4 archive retained; fresh-job relocation smoke found missing TM plugin load; three-prefix relocation test `181346315.gadi-pbs` submitted.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 

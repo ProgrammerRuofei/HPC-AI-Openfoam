@@ -221,3 +221,19 @@ The first smoke set only `OPAL_PREFIX`. The v3 smoke sets all three to the
 new job-local installation, retaining the same archive hashes, compiler,
 module and component gates, and two-rank UCX program. It passed local
 `bash -n` and uses a new PBS stdout/evidence path.
+
+## Three-prefix relocation submission
+
+Commit `39f39923d60df51e78e0d71af9690b0a985c8cb3` was pushed to GitHub
+and Gadi and the checkout fast-forwarded. Local and remote `bash -n` passed;
+script SHA-256 matched
+`adb2d2b506921d817d637f1288a5f00632ad30e8f3d7908657b9b7f8cb066497`.
+The exact submission command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_ompi5010_relocation_1n_v3.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_ompi5010_relocation_1n_v3.pbs'
+```
+
+`qsub` returned `181346315.gadi-pbs` once; initial status `Q`.
+`nci_account -P pm78` showed 86.96 SU used, 0 reserved, 5.91 KSU
+available and scratch inodes 195.42K/202K.
