@@ -492,3 +492,19 @@ The first failing gate was `! grep 'not found' simpleFoam.ldd`; no
 The v3 script sources the exact archived runtime first, checks
 `WM_PROJECT_DIR`, then evaluates `ldd`; it uses new stdout/evidence paths
 and passed `bash -n`. No source, science input, or archive changes.
+
+## Tutorial smoke v3 submission
+
+Commit `635d9b80abdb259cf2d9bae27e66e8a554ffc992` was pushed to GitHub
+and Gadi; the remote checkout fast-forwarded. Both `bash -n` checks
+passed, and the v3 script SHA-256 matched:
+`8423b7b826364cf36bc10ce3c324f45b2c077ce47c9a52549b9fa393b72f8f5a`.
+The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_openfoam_v2512_v3.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_openfoam_v2512_v3.pbs'
+```
+
+`qsub` returned `181359431.gadi-pbs` once; initial status `Q`, 5 CPUs,
+20-minute cap. Account usage was 186.16 SU, 0 reserved, 5.81 KSU
+available; scratch inodes 195.61K/202K.
