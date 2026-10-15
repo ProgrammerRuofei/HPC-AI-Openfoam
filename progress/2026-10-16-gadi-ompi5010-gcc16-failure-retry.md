@@ -296,3 +296,21 @@ evidence directory. The v2 PBS script waits for that marker after each
 Archive pins, compiler/MPI checks, UCX transport test, and science scope
 remain the same. Both v2 scripts passed local `bash -n` and use a new PBS
 stdout path.
+
+## Two-node v2 submission
+
+Commit `50e25bb5e1fd6515437301358ddf627bfbc004b4` was pushed to GitHub
+and Gadi and the Gadi checkout fast-forwarded. Both v2 scripts passed
+local/remote `bash -n` and matched SHA-256
+`9aba6a2adf727cc8e6d87fa8d76faaedff5ed57f1ca37742b564011534feb8ec`
+for the node helper and
+`51b35ba9be950c975e930cb622166b3e5fb052e65f1568bb41fa97b68d59fcf1`
+for PBS. The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_ompi5010_relocation_2n_v2.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_ompi5010_relocation_2n_v2.pbs'
+```
+
+`qsub` returned `181346532.gadi-pbs` once; first status `Q`, 208 CPUs,
+15-minute limit. `nci_account -P pm78` showed 88.97 SU used, 0 reserved,
+5.91 KSU available and scratch inodes 195.47K/202K.
