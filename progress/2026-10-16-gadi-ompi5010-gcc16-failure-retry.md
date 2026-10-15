@@ -534,3 +534,28 @@ outside the fixed solver/decomposition workload and remains documented.
 The retry uses `build_openfoam_v2512_scotch_v2.pbs` with a unique PBS stdout
 path and job-ID-keyed evidence and archive paths. A new fresh-job Scotch
 smoke is required before the four-node baseline.
+
+## Corrected Scotch build submission
+
+The repair was reviewed with `git diff`, `git diff --check`, and `bash -n`.
+Commit `a1df21ee79079da83e412ab23a68aa1bb887fa8f` was pushed to GitHub
+and the Gadi remote; the Gadi checkout fast-forwarded. Local and remote
+SHA-256 values matched for the PBS file
+(`8d1a56bb47571d351f35f689f303dc13c4830751bb6c617ee3687df94565d23b`),
+wrapper (`0067beca4877ff2ec9115f2eeb710aa25673c0ef822ea3023217c63758ba10be`),
+and common builder (`dd41e1b2858de9c085f41717748302e6ccfa7e364a89533a7b5bf2d73c117588`).
+Before submission `nci_account -P pm78` showed 186.28 SU used,
+5.81 KSU available, 229 GiB scratch and 195.63K/202K scratch inodes.
+The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_openfoam_v2512_scotch_v2.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/build_openfoam_v2512_scotch_v2.pbs'
+```
+
+`qsub` returned **`181360543.gadi-pbs` once**. This is a 48-CPU,
+190-GB, 100-GB JOBFS, four-hour-cap normalsr build. Its distinct PBS stdout
+is `toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_openfoam_v2512_scotch_v2.pbs.out`;
+build evidence and runtime archive will have the new job ID. Acceptance
+requires PBS `Exit_status=0`, `SCOTCH_BUILD_PASS`, `BUILD_VALIDATION_PASS`,
+GCC/MPI/source identity and private MPI link checks, a verified archive, and
+a later fresh-job Scotch tutorial smoke.
