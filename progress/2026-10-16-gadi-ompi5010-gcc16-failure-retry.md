@@ -186,3 +186,19 @@ PBS stdout path, new job-ID evidence, and the same pinned archives. The new
 script passed `bash -n`. The goal is to determine whether a missing library
 or another plugin-loading issue prevents TM from appearing; this is required
 before a two-node launch.
+
+## TM diagnostic submission
+
+Commit `3e7bdafb20b5a94f37c8c45e2207ebb3e387a6f4` was pushed to GitHub
+and Gadi, the control checkout fast-forwarded, remote `bash -n` passed, and
+script SHA-256 matched local
+`720e31c9ae717591d1bb964eb780e9ecbb486227f441f615fb0426a04c069b12`.
+The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_ompi5010_relocation_1n_v2.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_ompi5010_relocation_1n_v2.pbs'
+```
+
+`qsub` returned `181346266.gadi-pbs` once; first status `Q`.
+`nci_account -P pm78` showed 86.92 SU used, 0 reserved, 5.91 KSU
+available and scratch inodes 195.39K/202K.
