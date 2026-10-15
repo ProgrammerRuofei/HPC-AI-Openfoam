@@ -508,3 +508,29 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181359431.gadi-pbs` once; initial status `Q`, 5 CPUs,
 20-minute cap. Account usage was 186.16 SU, 0 reserved, 5.81 KSU
 available; scratch inodes 195.61K/202K.
+
+## Scotch failure in fresh-job v3 smoke and isolated rebuild
+
+The v3 tutorial smoke `181359431.gadi-pbs` finished with PBS `Exit_status=1`,
+43 seconds and **0.12 SU**. GCC/MPI/OpenFOAM archive hashes and the
+`simpleFoam` private MPI link passed; `blockMesh` ran. The first actual
+application error is in
+`toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/smoke.181359431.gadi-pbs/decomposePar.log`:
+`Attempted to use <scotch> without the scotchDecomp library loaded`, followed
+by the dummy Scotch stub. No solver or four-node case ran. Its PBS stdout,
+run log, decomposition log and exit status are retained.
+
+The original build log at
+`evidence/gadi-gcc162-ompi5010-of2512.181351226.gadi-pbs/build.log`
+shows Scotch 6.1.0 failing in `module.h` while GCC 16.2 compiles `arch.c`:
+an unprototyped function-pointer declaration is interpreted under GCC's
+new C23 default and rejected as an incompatible pointer type. A new build
+job will first verify the authoritative `OPENFOAM_SOURCE_ID_V2`, then change
+only its copied `ThirdParty-v2512/etc/makeFiles/scotch/Makefile.inc.Linux.shlib`
+in JOBFS by appending `CFLAGS += -std=gnu17`. The source under `/apps` and
+scientific case are unchanged. The job now gates on real `libscotch.so` and
+`libscotchDecomp.so` before archiving. The independent ADIOS2 failure is
+outside the fixed solver/decomposition workload and remains documented.
+The retry uses `build_openfoam_v2512_scotch_v2.pbs` with a unique PBS stdout
+path and job-ID-keyed evidence and archive paths. A new fresh-job Scotch
+smoke is required before the four-node baseline.

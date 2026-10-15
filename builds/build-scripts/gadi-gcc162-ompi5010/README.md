@@ -1,6 +1,6 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
-Status: **GCC 16.2 and Open MPI 5.0.10 archives passed one-node relocation and two-node UCX transport; OpenFOAM v2512 build prepared.** See
+Status: **GCC 16.2 and Open MPI 5.0.10 passed two-node UCX transport; OpenFOAM v2512 links correctly, but Scotch requires a corrected build.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 
@@ -143,6 +143,14 @@ reported errors despite `Allwmake` returning success. A fresh-job
 `pitzDaily_fused` smoke with Scotch decomposition is required before this
 archive can be considered a four-node candidate. The tutorial smoke is
 not an official competition result and preserves the 65M case untouched.
+
+The fresh-job smoke `181359431.gadi-pbs` (0.12 SU) confirmed that Scotch
+decomposition reaches only the dummy stub. The original build's Scotch 6.1.0
+compile fails under GCC 16's C23 default. `build_openfoam_v2512_scotch_v2.pbs`
+uses `-std=gnu17` for the copied Scotch makefile in JOBFS, requires real
+Scotch and scotchDecomp libraries, and writes a new job-ID-keyed archive.
+The original archive and smoke evidence remain available. The corrected
+archive still needs a fresh-job tutorial smoke before any four-node run.
 
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It

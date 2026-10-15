@@ -116,6 +116,14 @@ fi
 test -d "${WORKTREE}/ThirdParty-v2512"; test ! -e "$THIRDPARTY_TREE"
 mv "${WORKTREE}/ThirdParty-v2512" "$THIRDPARTY_TREE"
 test -f "$THIRDPARTY_TREE/Allwmake"; test ! -e "${WORKTREE}/ThirdParty-v2512"
+if [ "${GCC16_SCOTCH_C17_WORKAROUND:-0}" = 1 ]; then
+    test "$WM_COMPILER_VALUE" = Gcc
+    SCOTCH_RULE="$THIRDPARTY_TREE/etc/makeFiles/scotch/Makefile.inc.Linux.shlib"
+    test -f "$SCOTCH_RULE"
+    printf '\n# Scotch 6.1.0 uses pre-C23 unprototyped function pointers.\nCFLAGS += -std=gnu17\n' >> "$SCOTCH_RULE"
+    grep -Fxq 'CFLAGS += -std=gnu17' "$SCOTCH_RULE"
+    printf 'gcc16_scotch_c17_workaround=enabled\nscotch_rule=%s\n' "$SCOTCH_RULE" | tee -a "$IDENTITY_EVIDENCE"
+fi
 bootstrap_api_info
 cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB=SYSTEMOPENMPI "WM_COMPILE_OPTION=${WM_COMPILE_OPTION_VALUE}"; set -u
 printf 'WM_PROJECT_VERSION=%s\nFOAM_API=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\nFOAM_MPI=%s\nMPI_ARCH_PATH=%s\n' "$WM_PROJECT_VERSION" "$FOAM_API" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS" "$FOAM_MPI" "$MPI_ARCH_PATH"
@@ -131,6 +139,11 @@ WMAKE_TOOLS="${WM_PROJECT_DIR}/platforms/tools/${WM_ARCH}${WM_COMPILER}"
 test -x "${WMAKE_TOOLS}/wmkdepend" || { echo "ERROR: wmkdepend absent in ${WMAKE_TOOLS}" >&2; exit 5; }
 printf 'wmake_tools=%s\n' "$WMAKE_TOOLS"; ls "$WMAKE_TOOLS"
 "${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?}"
+if [ "${GCC16_SCOTCH_C17_WORKAROUND:-0}" = 1 ]; then
+    test -f "$FOAM_EXT_LIBBIN/libscotch.so" || { echo 'ERROR: Scotch library absent' >&2; exit 8; }
+    test -f "$FOAM_LIBBIN/libscotchDecomp.so" || { echo 'ERROR: real scotchDecomp library absent' >&2; exit 8; }
+    printf 'SCOTCH_BUILD_PASS\n' | tee -a "$IDENTITY_EVIDENCE"
+fi
 # Rule-file text is not proof. Count the flags in real compiler invocations.
 sync
 BUILD_LOG="${EVIDENCE_DIR}/build.log"

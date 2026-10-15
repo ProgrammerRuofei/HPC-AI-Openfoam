@@ -25,4 +25,5 @@ export WM_COMPILER_VALUE=Gcc
 export OMPI_CC_VALUE="$PRIVATE_GCC_PREFIX/bin/gcc"
 export OMPI_CXX_VALUE="$PRIVATE_GCC_PREFIX/bin/g++"
 export WM_COMPILE_OPTION_VALUE=Opt
+export GCC16_SCOTCH_C17_WORKAROUND=1
 exec bash builds/build-scripts/common/build_openfoam_v2512_openmpi.sh
