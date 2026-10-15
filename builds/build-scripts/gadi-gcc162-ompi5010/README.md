@@ -1,7 +1,7 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
 Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 first build failed on a documented GCC 16 inline issue;
-upstream-patched retry `181344546.gadi-pbs` submitted.** See
+two GCC 16 compatibility attempts failed; v3 retry prepared with OpenSHMEM disabled.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 
@@ -71,3 +71,8 @@ removes `__opal_attribute_always_inline__` only from `mca_part_persist_start`.
 This changes Open MPI's build input, not OpenFOAM or its scientific workload.
 The retry has a distinct PBS stdout path; evidence and archives are named by
 new job ID.
+
+Build `181344546.gadi-pbs` used 11.36 SU and passed the first fix, then
+failed in unused OpenSHMEM initialization. The v3 script adds
+`--disable-oshmem` per Open MPI documentation. See the progress record for
+the first error, preserved logs, and job IDs.

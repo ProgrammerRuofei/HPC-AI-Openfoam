@@ -51,3 +51,21 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 reserved and 5.95 KSU available; scratch inode usage was 195.28K/202K.
 Check terminal PBS status and SU, MPI components, two-rank smoke, archive
 SHA-256, and a separate fresh-job relocation test.
+
+## Second failure and targeted v3 repair
+
+The first patched retry, `181344546.gadi-pbs`, completed `F`,
+`Exit_status=2`, walltime 00:10:39, and 11.36 SU. It passed the prior
+`part/persist` failure and reached OpenSHMEM, where GCC 16 rejected
+`mca_memheap_base_map = {{{{0}}}}` in
+`oshmem/mca/memheap/base/memheap_base_frame.c:38` with
+`braces around scalar initializer`. Original logs remain at
+`submit-logs/build_ompi5010_v2.pbs.out` and
+`evidence/181344546.gadi-pbs/build_ompi5010.log`; no archive was produced.
+
+OpenSHMEM is not required by this OpenFOAM MPI workload. The v3 retry adds
+only Open MPI's documented `--disable-oshmem` configure option, retaining
+the upstream `part/persist` fix, UCX, UCC, PBS TM, GCC 16.2, and all
+checksum gates. [Open MPI's configure documentation](https://docs.open-mpi.org/en/v5.0.5/installing-open-mpi/configure-cli-options/oshmem.html)
+describes this option. The v3 PBS stdout path is unique, and eventual evidence
+and archive names include the new job ID. The v2 files and logs remain intact.
