@@ -1,7 +1,7 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
-Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 build
-submitted as `181344373.gadi-pbs` (result pending).** See
+Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 first build failed on a documented GCC 16 inline issue;
+upstream-patched retry prepared.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 
@@ -41,7 +41,7 @@ immutable and a repeated attempt must use a new job-specific filename.
 
 ## Remaining gates
 
-1. Complete and verify Open MPI build `181344373.gadi-pbs`: `Exit_status=0`,
+1. Run and verify the upstream-patched Open MPI build retry: `Exit_status=0`,
    UCX 1.18.1, UCC 1.4.4, PBS TM, two-rank MPI smoke, archive/hash and SU.
 2. Validate the Open MPI archive after relocation in a separate PBS job.
 3. Build OpenFOAM v2512 against that exact MPI and verify `ldd`/wrapper paths.
@@ -53,3 +53,21 @@ No previous hierarchical benchmark is scheduled for repetition. The team's
 valid site-build result `178149002.gadi-pbs` (2.139565 s/step) is the initial
 absolute reference, with the caveat that the first candidate changes several
 factors at once.
+
+## Open MPI 5.0.10 GCC 16 build failure and repair
+
+Build `181344373.gadi-pbs` finished with `Exit_status=2` after 10:45 and
+charged 11.47 SU. The first relevant compiler error was
+`mca_part_persist_start: inlining failed ... max-inline-insns-single limit reached`
+in `ompi/mca/part/persist/part_persist.h`. The original output remains in
+`submit-logs/build_ompi5010.pbs.out` and
+`evidence/181344373.gadi-pbs/build_ompi5010.log`. This exact GCC 16 /
+Open MPI 5.0.10 failure is tracked upstream in
+[open-mpi/ompi#13847](https://github.com/open-mpi/ompi/issues/13847).
+The retry script applies the one-line upstream fix from
+[commit aa024ac](https://github.com/open-mpi/ompi/commit/aa024ac73d624611cfe3af6f541b5d28dedf07bb)
+to a checksum-verified source copy within the new job's `$PBS_JOBFS`; it
+removes `__opal_attribute_always_inline__` only from `mca_part_persist_start`.
+This changes Open MPI's build input, not OpenFOAM or its scientific workload.
+The retry has a distinct PBS stdout path; evidence and archives are named by
+new job ID.
