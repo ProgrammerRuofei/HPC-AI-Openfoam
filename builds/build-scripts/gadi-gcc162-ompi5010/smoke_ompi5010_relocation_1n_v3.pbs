@@ -1,0 +1,78 @@
+#!/bin/bash
+# Fresh-job validation of the retained GCC 16.2 / Open MPI 5.0.10 archives.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of_ompi5010_reloc_1n_v3
+#PBS -l ncpus=4
+#PBS -l mem=16GB
+#PBS -l jobfs=8GB
+#PBS -l walltime=00:20:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_ompi5010_relocation_1n_v3.pbs.out
+set -euo pipefail
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+JOB_ID=${PBS_JOBID:?}
+JOBFS_ROOT="${PBS_JOBFS:?}/ompi5010-relocation-$JOB_ID"
+EVIDENCE="$STACK_ROOT/evidence/$JOB_ID"
+GCC_PREFIX="$JOBFS_ROOT/gcc-16.2.0"
+MPI_PREFIX="$JOBFS_ROOT/openmpi-5.0.10"
+test "${PBS_NCPUS:?}" -eq 4
+test ! -e "$JOBFS_ROOT"; test ! -e "$EVIDENCE"
+printf '%s  %s\n' "$GCC_SHA" "$GCC_ARCHIVE" | sha256sum -c -
+printf '%s  %s\n' "$MPI_SHA" "$MPI_ARCHIVE" | sha256sum -c -
+mkdir -p "$JOBFS_ROOT" "$EVIDENCE"
+exec > >(tee "$EVIDENCE/ompi-relocation.log") 2>&1
+printf 'job_id=%s\njobfs=%s\n' "$JOB_ID" "$PBS_JOBFS"
+grep -m1 'model name' /proc/cpuinfo
+module purge
+module load ucx/1.18.1 ucc/1.4.4
+module list 2>&1
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+tar -xzf "$GCC_ARCHIVE" -C "$JOBFS_ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$JOBFS_ROOT"
+test -x "$GCC_PREFIX/bin/gcc"; test -x "$GCC_PREFIX/bin/g++"
+test -x "$MPI_PREFIX/bin/mpicc"; test -x "$MPI_PREFIX/bin/mpirun"
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export OMPI_CC="$GCC_PREFIX/bin/gcc" OMPI_CXX="$GCC_PREFIX/bin/g++"
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+gcc --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+g++ --version | head -n 1 | grep -Fx 'g++ (GCC) 16.2.0'
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+mpicc --showme:command | grep -Fx "$GCC_PREFIX/bin/gcc"
+ompi_info --param pml ucx | tee "$EVIDENCE/pml-ucx.txt"
+ompi_info --param coll ucc | tee "$EVIDENCE/coll-ucc.txt"
+prte_info | tee "$EVIDENCE/prte-info.txt"
+grep -Eq 'MCA pml: ucx' "$EVIDENCE/pml-ucx.txt"
+grep -Eq 'MCA coll: ucc' "$EVIDENCE/coll-ucc.txt"
+grep -Eq 'MCA ras: pbs' "$EVIDENCE/prte-info.txt"
+grep -Eq 'MCA plm: tm' "$EVIDENCE/prte-info.txt"
+cat > "$JOBFS_ROOT/mpi-smoke.c" <<'C_EOF'
+#include <mpi.h>
+#include <stdio.h>
+int main(int argc, char **argv) {
+    int rank, size;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    printf("OMPI5010_RELOC_RANK_%d_OF_%d\n", rank, size);
+    MPI_Finalize();
+    return size == 2 ? 0 : 1;
+}
+C_EOF
+mpicc "$JOBFS_ROOT/mpi-smoke.c" -o "$JOBFS_ROOT/mpi-smoke"
+ldd "$JOBFS_ROOT/mpi-smoke" | tee "$EVIDENCE/mpi-smoke.ldd"
+! grep -Fq 'not found' "$EVIDENCE/mpi-smoke.ldd"
+grep -F "$MPI_PREFIX/lib/libmpi.so" "$EVIDENCE/mpi-smoke.ldd"
+mpirun --mca pml ucx -np 2 "$JOBFS_ROOT/mpi-smoke" | tee "$EVIDENCE/mpi-smoke.txt"
+grep -Fx OMPI5010_RELOC_RANK_0_OF_2 "$EVIDENCE/mpi-smoke.txt"
+grep -Fx OMPI5010_RELOC_RANK_1_OF_2 "$EVIDENCE/mpi-smoke.txt"
+printf 'gcc_prefix=%s\nmpi_prefix=%s\n' "$GCC_PREFIX" "$MPI_PREFIX"
+echo OMPI5010_RELOCATION_1N_PASS

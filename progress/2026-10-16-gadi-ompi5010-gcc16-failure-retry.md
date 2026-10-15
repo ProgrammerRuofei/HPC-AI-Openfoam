@@ -202,3 +202,22 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181346266.gadi-pbs` once; first status `Q`.
 `nci_account -P pm78` showed 86.92 SU used, 0 reserved, 5.91 KSU
 available and scratch inodes 195.39K/202K.
+
+## Prefix-root cause and v3 relocation fix
+
+Diagnostic `181346266.gadi-pbs` completed `F`, `Exit_status=213`, in
+00:00:18 and 0.04 SU. The TM plugin's `ldd` showed `libpbs.so.0` from
+`/opt/pbs/default/lib`, relocated `libprrte` and `libpmix`, and no missing
+libraries. The diagnostic `prte_info --show-failed` option itself stopped
+with an unregistered-option error; crucially, its error handler attempted
+to load help files from the *original* build-job prefix
+`/jobfs/181346004.gadi-pbs/ompi5010-build/install/openmpi-5.0.10`.
+This identifies an incomplete relocation environment. The original stdout
+and `evidence/181346266.gadi-pbs/plm-tm.ldd` are retained.
+
+[Open MPI's relocation guidance](https://www.open-mpi.org/video/general/easybuild_tech_talks_01_OpenMPI_part3_20200805.pdf)
+explicitly requires `OPAL_PREFIX`, `PMIX_PREFIX`, and `PRTE_PREFIX` together.
+The first smoke set only `OPAL_PREFIX`. The v3 smoke sets all three to the
+new job-local installation, retaining the same archive hashes, compiler,
+module and component gates, and two-rank UCX program. It passed local
+`bash -n` and uses a new PBS stdout/evidence path.
