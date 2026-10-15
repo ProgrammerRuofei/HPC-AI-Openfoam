@@ -143,3 +143,8 @@ reported errors despite `Allwmake` returning success. A fresh-job
 `pitzDaily_fused` smoke with Scotch decomposition is required before this
 archive can be considered a four-node candidate. The tutorial smoke is
 not an official competition result and preserves the 65M case untouched.
+
+Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
+unpacking because its functionObject SHA-256 literal was truncated. It
+is not a Scotch result. The v2 script pins the full verified hash and
+uses new stdout/evidence paths; the original failure output is retained.

@@ -448,3 +448,17 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 available; scratch inodes 195.57K/202K. Await Scotch decomposition,
 private MPI runtime, coded functionObject, solver completion, PBS status,
 and SU receipt before classifying this archive.
+
+## Tutorial smoke hash transcription failure
+
+Job `181358016.gadi-pbs` finished `F`, `Exit_status=1`, walltime 3 s,
+0.01 SU. The GCC, MPI, and OpenFOAM archive hashes passed, then
+`sha256sum -c` rejected the functionObject checksum line as malformed.
+The first error was a shortened 58-character `FO_SHA` constant in the
+local PBS script, not a software or Scotch error. It failed before JOBFS
+staging, decomposition, or solver launch; the original PBS stdout remains
+at `submit-logs/smoke_openfoam_v2512.pbs.out`. The v2 script restores the
+confirmed full 64-hex SHA-256
+`0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08`,
+uses a new PBS stdout path, and passed `bash -n` and five-hash length checks.
+All other runtime and tutorial gates are unchanged.
