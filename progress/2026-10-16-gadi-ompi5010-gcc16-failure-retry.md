@@ -376,3 +376,28 @@ OpenFOAM v2512 with `WM_COMPILER=Gcc`, `WM_MPLIB=SYSTEMOPENMPI`, stock
 SHA-256-verified runtime archive. No scientific workload input or solver
 source is changed. Script review and local syntax checks precede Git sync
 and submission; no OpenFOAM build job ID exists yet.
+
+## OpenFOAM v2512 build submission
+
+Commit `0427f02129e697365419c19633f713107da1e896` was pushed to GitHub
+and Gadi. The remote control checkout fast-forwarded; all three scripts
+passed local and remote `bash -n`, and local/remote SHA-256 matched:
+`9fb4b73e39bbac9a070c4b6d8e6e7a0a31c2fff5d51484bf60cd3e87053ce312`
+(common helper),
+`ffed6f4d16e5bf3e12770a505a3df15ab21da106cf7916dc53986627009baf2b`
+(PBS), and
+`d6bc69824475b6f18b11d1a506c7b5d47d4acc2e45cd3ec1813afbf8410f3823`
+(wrapper). Pre-existing untracked Gadi experiment files were left untouched.
+The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_openfoam_v2512.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/build_openfoam_v2512.pbs'
+```
+
+`qsub` returned `181351226.gadi-pbs` once; initial status `Q`, 48 CPUs,
+190 GB memory, 100 GB JOBFS, four-hour limit. `nci_account -P pm78`
+showed 95.44 SU used, 0 reserved, 5.90 KSU available and scratch inodes
+195.53K/202K. Await build completion, validate `Exit_status=0`,
+`BUILD_VALIDATION_PASS`, source identity, GCC/MPI versions, `simpleFoam`
+linkage, runtime archive/hash and SU; then run a fresh-job smoke before
+four-node work.
