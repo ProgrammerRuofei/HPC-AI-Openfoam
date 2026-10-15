@@ -166,3 +166,23 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181346158.gadi-pbs` once. First status was `Q`, 4 CPUs,
 20-minute limit. `nci_account -P pm78` showed 86.88 SU used, 0 reserved,
 5.91 KSU available and scratch inodes 195.36K/202K.
+
+## First relocation result and focused plugin diagnostic
+
+Fresh-job relocation `181346158.gadi-pbs` completed `F`, `Exit_status=1`,
+walltime 00:00:18, and 0.04 SU. Both pinned archives unpacked in the new
+`$PBS_JOBFS`; GCC 16.2, `mpirun` 5.0.10, UCX, UCC, and `ras: pbs` were
+observed. The acceptance gate stopped because `plm: tm` was absent from the
+relocated `prte_info` output. No MPI application was launched by this job.
+Original logs are retained under `submit-logs/smoke_ompi5010_relocation_1n.pbs.out`
+and `evidence/181346158.gadi-pbs/`.
+
+The retained archive contains `lib/prte/prte_mca_plm_tm.so`. A read-only
+inspection of its `.la` metadata found a PBS library dependency and original
+build-prefix references; this does not by itself identify the runtime failure.
+The revised one-node diagnostic adds `ldd` for the TM plugin and PRRTE's
+failed-component report before the same acceptance gate. It uses a distinct
+PBS stdout path, new job-ID evidence, and the same pinned archives. The new
+script passed `bash -n`. The goal is to determine whether a missing library
+or another plugin-loading issue prevents TM from appearing; this is required
+before a two-node launch.
