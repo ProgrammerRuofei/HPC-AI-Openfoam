@@ -462,3 +462,19 @@ confirmed full 64-hex SHA-256
 `0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08`,
 uses a new PBS stdout path, and passed `bash -n` and five-hash length checks.
 All other runtime and tutorial gates are unchanged.
+
+## Corrected tutorial smoke submission
+
+Commit `68e0c28f936a745c9ee78a4c691ce4e4bfaae650` was pushed to GitHub
+and Gadi; the remote checkout fast-forwarded. Local and remote `bash -n`
+passed, and script SHA-256 matched:
+`ce68a93b8c2d42c3ba8196b7b9f6d1f232c9578bdcd5a094d5867f859a8bc0d1`.
+The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_openfoam_v2512_v2.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_openfoam_v2512_v2.pbs'
+```
+
+`qsub` returned `181358755.gadi-pbs` once; initial status `Q`, 5 CPUs,
+20-minute cap. Account usage was 186.06 SU, 0 reserved, 5.81 KSU
+available; scratch inodes 195.59K/202K.
