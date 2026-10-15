@@ -125,3 +125,28 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181346004.gadi-pbs` once; initial status was `Q`, 32 CPUs,
 2-hour walltime. `nci_account -P pm78` showed 73.58 SU used, 0 reserved,
 5.93 KSU available and scratch inodes 195.33K/202K.
+
+## Retained v4 archive and relocation test
+
+Job `181346004.gadi-pbs` completed `F`, `Exit_status=1`, walltime 00:12:28,
+13.30 SU. It built and installed Open MPI 5.0.10; `mpicc` used GCC 16.2,
+`MCA pml: ucx` and `MCA coll: ucc` appeared, and `prte_info` showed both
+`MCA ras: pbs` and `MCA plm: tm`. The v4 acceptance gate expected the older
+`ras: tm` name, so it stopped before the two-rank smoke. Original logs remain
+in `submit-logs/build_ompi5010_v4.pbs.out` and
+`evidence/181346004.gadi-pbs/build_ompi5010.log`.
+
+The retained archive is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz`.
+Its SHA-256 is
+`8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6`;
+`sha256sum -c` passed. The archive is a *build artifact pending runtime
+acceptance*, not a validated best build. There is no reason to repeat the
+completed compilation solely for the mislabeled PBS RAS gate.
+
+The new `smoke_ompi5010_relocation_1n.pbs` script validates the retained
+archive in a fresh `$PBS_JOBFS`: pinned GCC/MPI hashes, relocated compiler
+wrappers, MPI 5.0.10, UCX/UCC, actual PBS RAS and TM launcher components,
+relocated `libmpi` linkage, and a two-rank UCX program. It passed local
+`bash -n`. A later two-node smoke remains necessary to verify cross-node
+launch before the OpenFOAM baseline.

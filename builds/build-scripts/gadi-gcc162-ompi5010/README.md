@@ -1,7 +1,7 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
 Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 first build failed on a documented GCC 16 inline issue;
-two GCC 16 compatibility attempts failed; v3 compiled MPI but failed a PRRTE probe syntax gate; v4 job `181346004.gadi-pbs` submitted.** See
+two GCC 16 compatibility attempts failed; v3 compiled MPI but failed a PRRTE probe syntax gate; v4 archive retained; fresh-job relocation smoke prepared.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 
@@ -81,3 +81,8 @@ Build `181345046.gadi-pbs` used 12.32 SU. The install and version/UCX/UCC
 checks passed; the `prte_info --param ras tm` command was invalid. The v4
 script uses the documented plain `prte_info` probe and retains an archive
 before acceptance smoke tests. See the progress record.
+
+Build `181346004.gadi-pbs` used 13.30 SU and retained a SHA-256-verified
+Open MPI archive. The installed PRRTE reported `ras: pbs` and `plm: tm`;
+the script's obsolete `ras: tm` expectation caused `Exit_status=1` before
+the MPI smoke. The archive requires fresh-job and cross-node validation.
