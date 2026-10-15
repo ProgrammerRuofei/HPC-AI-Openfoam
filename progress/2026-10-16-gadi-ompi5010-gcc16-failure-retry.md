@@ -401,3 +401,32 @@ showed 95.44 SU used, 0 reserved, 5.90 KSU available and scratch inodes
 `BUILD_VALIDATION_PASS`, source identity, GCC/MPI versions, `simpleFoam`
 linkage, runtime archive/hash and SU; then run a fresh-job smoke before
 four-node work.
+
+## First OpenFOAM build result and runtime probe
+
+Job `181351226.gadi-pbs` finished `F`, `Exit_status=0`, walltime
+00:56:38, 90.61 SU, peak memory 161.86 GB, JOBFS 6.28 GB. It matched
+both authoritative and staged `OPENFOAM_SOURCE_ID_V2`
+`5e43349d5b302beb354e4e0d9842ff8148cfed069fb0f1a224616df6021c18db`,
+built `linux64GccDPInt32Opt` with actual `-O3`, and produced a
+`simpleFoam` binary with SHA-256
+`81e33ca312323d87cef5852c07ba98bec24775fe4cb9a44681da64fcb4776154`.
+`ldd` resolved its `libmpi.so.40` to the private Open MPI 5.0.10 tree.
+The full runtime archive and `.sha256` are at
+`toolchain-screening/gadi-gcc162-ompi5010-of2512/runtime-archive/`;
+archive SHA-256 is
+`3ee887a1ade68784a4b84343aba3aef8158e126aa8765257269ec1360e98906a`,
+and `sha256sum -c` passed. `BUILD_VALIDATION_PASS` appeared.
+
+The same build log reports ThirdParty Scotch C compilation errors (the
+first is incompatible function-pointer prototypes in `module.h` with GCC
+16) and ADIOS2's bundled yaml-cpp missing `uint16_t`/`uint32_t` types.
+`ThirdParty-v2512/Allwmake` treats these components as optional and
+returned success, so the PBS exit code alone does **not** certify Scotch.
+Original raw log and PBS receipt are retained. A fresh-job 5-rank
+`pitzDaily_fused` tutorial smoke will test the exact archived runtime,
+`decomposePar` with Scotch, MPI launch, coded wall-clock functionObject,
+and solver completion. This tutorial check has `official_result=false`
+and does not alter the fixed 65M case. Its script pins archive, binary,
+and functionObject hashes; it passed local `bash -n`. A Scotch failure
+will trigger a targeted build repair before any four-node run.

@@ -135,3 +135,11 @@ codeStream) with a verified SHA-256. It verifies authoritative and staged
 source. The initial GCC candidate uses stock `WM_COMPILE_OPTION=Opt`
 (`-O3`) and no additional vector-width flags. A fresh-job run check is
 required before a four-node benchmark.
+
+The first OpenFOAM build `181351226.gadi-pbs` exited 0 in 56:38 for
+90.61 SU and produced a verified full runtime archive with the private
+MPI-linked `simpleFoam`. ThirdParty's optional Scotch and ADIOS2 builds
+reported errors despite `Allwmake` returning success. A fresh-job
+`pitzDaily_fused` smoke with Scotch decomposition is required before this
+archive can be considered a four-node candidate. The tutorial smoke is
+not an official competition result and preserves the 65M case untouched.
