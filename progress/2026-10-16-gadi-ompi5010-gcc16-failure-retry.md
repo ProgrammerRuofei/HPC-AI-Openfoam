@@ -69,3 +69,20 @@ the upstream `part/persist` fix, UCX, UCC, PBS TM, GCC 16.2, and all
 checksum gates. [Open MPI's configure documentation](https://docs.open-mpi.org/en/v5.0.5/installing-open-mpi/configure-cli-options/oshmem.html)
 describes this option. The v3 PBS stdout path is unique, and eventual evidence
 and archive names include the new job ID. The v2 files and logs remain intact.
+
+## v3 submission
+
+Commit `67bc71e903bd8db7d3cb9de8441f15ba21566a73` was pushed to GitHub
+and Gadi. The Gadi control checkout fast-forwarded to it; both v3 scripts
+passed remote `bash -n`, and the script SHA-256 matched local values
+`b798890cacb36e9d3497f2d89b4dbf1a1c334a7a9ac560db63b03ea6d82c630e`
+and `8ac7af7957d95f0d7c06cd86c7aff5ab4937f5e15b75663161383d88d833dfc7`.
+Existing untracked remote experiment files were preserved. The exact command:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_ompi5010_v3.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/build_ompi5010_v3.pbs'
+```
+
+`qsub` returned `181345046.gadi-pbs` once; first status was `Q`, 32 CPUs,
+2-hour walltime. `nci_account -P pm78` showed 61.26 SU used, 0 reserved,
+5.94 KSU available, scratch inodes 195.30K/202K.
