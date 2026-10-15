@@ -430,3 +430,21 @@ and solver completion. This tutorial check has `official_result=false`
 and does not alter the fixed 65M case. Its script pins archive, binary,
 and functionObject hashes; it passed local `bash -n`. A Scotch failure
 will trigger a targeted build repair before any four-node run.
+
+## Fresh-job Scotch/tutorial smoke submission
+
+Commit `aba8100eaebe3b73dc59c06238923df285b7edd7` was pushed to GitHub
+and Gadi, the remote checkout fast-forwarded, `bash -n` passed on both
+hosts, and script SHA-256 matched:
+`e722b465b8936ff5008ee678c6b110128ec35a044ed64cb8a02cafd26fccd09f`.
+The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_openfoam_v2512.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_openfoam_v2512.pbs'
+```
+
+`qsub` returned `181358016.gadi-pbs` once; initial status `Q`, 5 CPUs,
+20-minute cap. Account usage was 186.05 SU, 0 reserved, 5.81 KSU
+available; scratch inodes 195.57K/202K. Await Scotch decomposition,
+private MPI runtime, coded functionObject, solver completion, PBS status,
+and SU receipt before classifying this archive.
