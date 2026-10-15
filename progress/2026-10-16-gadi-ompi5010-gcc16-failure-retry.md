@@ -347,3 +347,18 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181350909.gadi-pbs` once; first status `Q`, 208 CPUs,
 15-minute limit. `nci_account -P pm78` showed 91.28 SU used, 0 reserved,
 5.91 KSU available and scratch inodes 195.50K/202K.
+
+## Two-node Open MPI acceptance
+
+Job `181350909.gadi-pbs` completed `F`, `Exit_status=0`, walltime
+00:00:36, and 4.16 SU. It passed `OMPI5010_RELOCATION_2N_PASS`.
+Each SPR host independently verified and unpacked the pinned GCC and Open MPI
+archives into its own new `$PBS_JOBFS`: `gadi-cpu-spr-0505` and `0506`.
+The two UCX MPI ranks printed `OMPI5010_CROSS_NODE` on these distinct
+hosts. `ldd` resolved `libmpi.so.40` from the relocated Open MPI 5.0.10
+tree, with no missing libraries; `prte_info` showed `ras: pbs` and
+`plm: tm`. The raw files are under `evidence/181350909.gadi-pbs/` and
+`submit-logs/smoke_ompi5010_relocation_2n_v3.pbs.out`. The benign UCX
+warnings concern unused module environment variables; both ranks exited
+normally. Stage 1 is accepted; next is an OpenFOAM v2512 build with this
+verified GCC/MPI archive pair.

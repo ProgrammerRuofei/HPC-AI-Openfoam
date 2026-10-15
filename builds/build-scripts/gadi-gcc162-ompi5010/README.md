@@ -110,3 +110,9 @@ Job `181346532.gadi-pbs` used 2.31 SU and again stopped before MPI.
 second node, so the no-overwrite gate rejected duplicate staging. The
 v3 PBS script uses slots 0 and 104 and verifies host mapping against
 `PBS_NODEFILE` before launch. Original evidence is retained.
+
+Job `181350909.gadi-pbs` passed (`Exit_status=0`, 36 s, 4.16 SU): both
+SPR nodes staged pinned archives, PBS RAS/TM components were present,
+`libmpi.so.40` resolved from the relocated runtime, and two UCX MPI ranks
+ran on distinct hosts. `OMPI5010_RELOCATION_2N_PASS` marks this stack ready
+for the OpenFOAM v2512 build. See the progress record and retained raw logs.
