@@ -86,3 +86,24 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181345046.gadi-pbs` once; first status was `Q`, 32 CPUs,
 2-hour walltime. `nci_account -P pm78` showed 61.26 SU used, 0 reserved,
 5.94 KSU available, scratch inodes 195.30K/202K.
+
+## Third failure and v4 acceptance repair
+
+Job `181345046.gadi-pbs` completed `F`, `Exit_status=255`, after 00:11:33
+and charged 12.32 SU. The compilation and installation completed; output
+confirmed `mpirun (Open MPI) 5.0.10`, the GCC 16.2 wrapper, and both
+`MCA pml: ucx` and `MCA coll: ucc`. The failure was the validation command
+`prte_info --param ras tm`: PRRTE rejected the second argument `tm`. The
+original output remains at `submit-logs/build_ompi5010_v3.pbs.out` and
+`evidence/181345046.gadi-pbs/build_ompi5010.log`. This was a validation
+script error after compilation, not an MPI build failure; the v3 script
+created no archive because its archiving step followed the failed check.
+
+The [Open MPI PBS/Torque guide](https://docs.open-mpi.org/en/v5.0.1/launching-apps/tm.html)
+specifies `prte_info | grep ras` and the expected `MCA ras: tm` component.
+The v4 retry changes the probe to plain `prte_info`, with an explicit
+`MCA ras: tm` grep gate. It also archives the installed tree under the
+unique new job ID before smoke checks, so a subsequent acceptance-script
+error cannot discard a completed compilation. `OMPI5010_BUILD_ARCHIVE_PASS`
+remains conditional on all gates, including the two-rank MPI smoke. Both
+v4 scripts passed local `bash -n`; the v3 scripts and logs remain intact.

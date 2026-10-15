@@ -1,7 +1,7 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
 Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 first build failed on a documented GCC 16 inline issue;
-two GCC 16 compatibility attempts failed; v3 retry `181345046.gadi-pbs` submitted with OpenSHMEM disabled.** See
+two GCC 16 compatibility attempts failed; v3 compiled MPI but failed a PRRTE probe syntax gate; v4 repair prepared.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 
@@ -76,3 +76,8 @@ Build `181344546.gadi-pbs` used 11.36 SU and passed the first fix, then
 failed in unused OpenSHMEM initialization. The v3 script adds
 `--disable-oshmem` per Open MPI documentation. See the progress record for
 the first error, preserved logs, and job IDs.
+
+Build `181345046.gadi-pbs` used 12.32 SU. The install and version/UCX/UCC
+checks passed; the `prte_info --param ras tm` command was invalid. The v4
+script uses the documented plain `prte_info` probe and retains an archive
+before acceptance smoke tests. See the progress record.
