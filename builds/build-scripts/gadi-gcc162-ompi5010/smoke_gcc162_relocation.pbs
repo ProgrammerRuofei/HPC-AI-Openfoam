@@ -3,7 +3,7 @@
 # Submit from the synchronized Gadi control repository after review.
 #PBS -P pm78
 #PBS -q normalsr
-#PBS -N of_gcc162_reloc
+#PBS -N of_gcc162_reloc_v2
 #PBS -l ncpus=1
 #PBS -l mem=8GB
 #PBS -l jobfs=10GB
@@ -11,13 +11,13 @@
 #PBS -l storage=scratch/pm78
 #PBS -l wd
 #PBS -j oe
-#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_gcc162_relocation.pbs.out
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_gcc162_relocation_v2.pbs.out
 set -euo pipefail
 
 STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
 SOURCE_JOB=181342083.gadi-pbs
 ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.$SOURCE_JOB.tar.gz"
-ARCHIVE_SHA256=1149c0d97412ae3741cc18d60f233cdd3dd8cf535b714
+ARCHIVE_SHA256=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
 JOB_ID=${PBS_JOBID:?PBS_JOBID is required}
 JOBFS_ROOT="${PBS_JOBFS:?PBS_JOBFS is required}/gcc162-relocation-$JOB_ID"
 PREFIX="$JOBFS_ROOT/gcc-16.2.0"
