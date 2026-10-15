@@ -150,3 +150,19 @@ wrappers, MPI 5.0.10, UCX/UCC, actual PBS RAS and TM launcher components,
 relocated `libmpi` linkage, and a two-rank UCX program. It passed local
 `bash -n`. A later two-node smoke remains necessary to verify cross-node
 launch before the OpenFOAM baseline.
+
+## One-node relocation submission
+
+Commit `1b757fcf8f6e7a63c938083ef1b13ae32e06be90` was pushed to GitHub
+and Gadi and the Gadi checkout fast-forwarded. The script passed local and
+remote `bash -n`; SHA-256 was
+`bed0de549c854ec7843cf4d7e0ee206a300fdd4b592af57c8f9708e35c6ed328`
+on both. The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_ompi5010_relocation_1n.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_ompi5010_relocation_1n.pbs'
+```
+
+`qsub` returned `181346158.gadi-pbs` once. First status was `Q`, 4 CPUs,
+20-minute limit. `nci_account -P pm78` showed 86.88 SU used, 0 reserved,
+5.91 KSU available and scratch inodes 195.36K/202K.
