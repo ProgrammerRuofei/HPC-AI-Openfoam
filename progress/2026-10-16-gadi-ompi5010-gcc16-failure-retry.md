@@ -107,3 +107,21 @@ unique new job ID before smoke checks, so a subsequent acceptance-script
 error cannot discard a completed compilation. `OMPI5010_BUILD_ARCHIVE_PASS`
 remains conditional on all gates, including the two-rank MPI smoke. Both
 v4 scripts passed local `bash -n`; the v3 scripts and logs remain intact.
+
+## v4 submission
+
+Commit `1b3d22be4e8184ce59ea0842ed9d280e73096c5c` was pushed to GitHub
+and Gadi. The Gadi control checkout fast-forwarded, both v4 scripts passed
+remote `bash -n`, and SHA-256 matched local values
+`331b8d79fb3de397ce6e953018bb91223fffaca946988180f5936e66a4d1a67d`
+for the shell script and
+`c0c83a293eda72df1743668e98a9c38921c2d206f77891d039e7a99419045eec`
+for PBS. The exact submission was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_ompi5010_v4.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/build_ompi5010_v4.pbs'
+```
+
+`qsub` returned `181346004.gadi-pbs` once; initial status was `Q`, 32 CPUs,
+2-hour walltime. `nci_account -P pm78` showed 73.58 SU used, 0 reserved,
+5.93 KSU available and scratch inodes 195.33K/202K.
