@@ -259,3 +259,21 @@ relocated `libmpi` linkage, and two UCX ranks on different hosts. It uses
 unique job-ID evidence, a unique stdout path, and a 15-minute limit. Both
 scripts passed `bash -n`. This checks the launch/transport needed before a
 416-rank OpenFOAM run without spending on a full solver job.
+
+## Two-node transport submission
+
+Commit `aad648a1661ed174f8f60794897af32ed3ff83f2` was pushed to GitHub
+and Gadi; the Gadi control checkout fast-forwarded. Both scripts passed
+local and remote `bash -n` and matched local/remote SHA-256:
+`1677d0156820e1127037c9b8659a067e14b00167edf8c78cb12710c6b974ebee`
+for node staging and
+`ea022d029a1a9857e8864f7c1bcf231a8dbb5e00927ddfd82896aab9b7b03b44`
+for PBS. The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_ompi5010_relocation_2n.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_ompi5010_relocation_2n.pbs'
+```
+
+`qsub` returned `181346473.gadi-pbs` once; first status `Q`, 208 CPUs,
+15-minute limit. `nci_account -P pm78` showed 87.00 SU used, 0 reserved,
+5.91 KSU available and scratch inodes 195.44K/202K.
