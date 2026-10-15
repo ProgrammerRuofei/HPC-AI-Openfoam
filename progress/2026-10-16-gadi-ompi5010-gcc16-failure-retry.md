@@ -331,3 +331,19 @@ The v3 script targets task indices 0 and 104, checks that `PBS_NODEFILE`
 lines 1 and 105 name different hosts, and requires each direct marker to
 match its expected host. The archive pins and all MPI/UCX gates remain
 unchanged. `bash -n` passed; v3 uses a new stdout path and job-ID evidence.
+
+## Two-node v3 submission
+
+Commit `d78db9c` was pushed to GitHub and Gadi. The Gadi checkout
+fast-forwarded; local and remote `bash -n` passed and the v3 script
+SHA-256 matched on both hosts:
+`baf43c532d2a352962c0d4921f4f27ee4bb406045d9047d5f25a38caa4a8737b`.
+The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_ompi5010_relocation_2n_v3.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_ompi5010_relocation_2n_v3.pbs'
+```
+
+`qsub` returned `181350909.gadi-pbs` once; first status `Q`, 208 CPUs,
+15-minute limit. `nci_account -P pm78` showed 91.28 SU used, 0 reserved,
+5.91 KSU available and scratch inodes 195.50K/202K.
