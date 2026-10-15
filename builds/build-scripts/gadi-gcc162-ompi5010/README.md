@@ -148,3 +148,9 @@ Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It
 is not a Scotch result. The v2 script pins the full verified hash and
 uses new stdout/evidence paths; the original failure output is retained.
+
+Tutorial smoke v2 `181358755.gadi-pbs` used 0.11 SU. It passed all
+archive and binary hashes but ran `ldd` before sourcing the runtime's
+`etc/bashrc`, so OpenFOAM libraries were unresolved. This is a probe
+ordering error, not a Scotch result. v3 activates the runtime before
+linkage inspection; original evidence is retained.

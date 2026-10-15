@@ -478,3 +478,17 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181358755.gadi-pbs` once; initial status `Q`, 5 CPUs,
 20-minute cap. Account usage was 186.06 SU, 0 reserved, 5.81 KSU
 available; scratch inodes 195.59K/202K.
+
+## Tutorial smoke v2 environment-order failure
+
+Job `181358755.gadi-pbs` finished `F`, `Exit_status=1`, walltime 38 s,
+0.11 SU. All four input SHA-256 checks passed; the runtime and binary
+unpacked, and the binary checksum passed. The script called `ldd` before
+sourcing the archived OpenFOAM `etc/bashrc`, so its library search path
+lacked `libfiniteVolume.so`, `libOpenFOAM.so`, `libPstream.so`, and peers.
+The first failing gate was `! grep 'not found' simpleFoam.ldd`; no
+`decomposePar` or solver ran. Original evidence remains under
+`evidence/smoke.181358755.gadi-pbs/` and the v2 PBS stdout is retained.
+The v3 script sources the exact archived runtime first, checks
+`WM_PROJECT_DIR`, then evaluates `ldd`; it uses new stdout/evidence paths
+and passed `bash -n`. No source, science input, or archive changes.
