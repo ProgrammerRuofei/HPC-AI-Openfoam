@@ -1,7 +1,6 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
-Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 first build failed on a documented GCC 16 inline issue;
-two GCC 16 compatibility attempts failed; v3 compiled MPI but failed a PRRTE probe syntax gate; v4 archive retained; fresh-job relocation smoke found missing TM plugin load; one-node relocation passed; two-node staging capture failure recorded; v2 smoke `181346532.gadi-pbs` submitted.** See
+Status: **GCC 16.2 and Open MPI 5.0.10 archives passed one-node relocation and two-node UCX transport; OpenFOAM v2512 build prepared.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 
@@ -116,3 +115,23 @@ SPR nodes staged pinned archives, PBS RAS/TM components were present,
 `libmpi.so.40` resolved from the relocated runtime, and two UCX MPI ranks
 ran on distinct hosts. `OMPI5010_RELOCATION_2N_PASS` marks this stack ready
 for the OpenFOAM v2512 build. See the progress record and retained raw logs.
+
+## Stage 2: OpenFOAM v2512 build candidate
+
+`build_openfoam_v2512.pbs` uses a Gadi `normalsr` SPR node with 48 CPUs,
+190 GB memory, 100 GB JOBFS, and a four-hour limit. This bounds the
+worst-case queue charge at about 384 SU at 2 SU per core-hour; the prior
+C1 OpenFOAM build completed in 1:26:52 and used 97.5 GB memory and 5.01 GB
+JOBFS, but its timing is not a prediction for GCC 16. The exact GCC/MPI
+archives are SHA-256 checked and unpacked only into this job's JOBFS.
+
+The shared build helper retains its previous site-Open-MPI behavior when
+private-prefix variables are unset. For this candidate it exports the
+three relocation prefixes, uses the archived GCC wrappers, checks
+`simpleFoam` against relocated `libmpi.so.40`, and packages a full
+OpenFOAM/ThirdParty runtime (including `META-INFO` and source needed for
+codeStream) with a verified SHA-256. It verifies authoritative and staged
+`OPENFOAM_SOURCE_ID_V2` before build and does not change mesh or solver
+source. The initial GCC candidate uses stock `WM_COMPILE_OPTION=Opt`
+(`-O3`) and no additional vector-width flags. A fresh-job run check is
+required before a four-node benchmark.

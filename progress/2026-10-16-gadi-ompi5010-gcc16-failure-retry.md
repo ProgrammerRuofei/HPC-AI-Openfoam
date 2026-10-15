@@ -362,3 +362,17 @@ tree, with no missing libraries; `prte_info` showed `ras: pbs` and
 warnings concern unused module environment variables; both ranks exited
 normally. Stage 1 is accepted; next is an OpenFOAM v2512 build with this
 verified GCC/MPI archive pair.
+
+## OpenFOAM build preparation
+
+Prepared `build_openfoam_v2512.pbs` and its wrapper for a single SPR node
+on `normalsr`: 48 CPUs, 190 GB memory, 100 GB JOBFS, four-hour cap. The
+existing common helper gained conditional private GCC/MPI prefix support;
+its old site-MPI path is unchanged. The wrapper pins and verifies the
+accepted GCC 16.2 and Open MPI 5.0.10 archive hashes, then builds
+OpenFOAM v2512 with `WM_COMPILER=Gcc`, `WM_MPLIB=SYSTEMOPENMPI`, stock
+`WM_COMPILE_OPTION=Opt`, UCX 1.18.1, and UCC 1.4.4. The helper verifies
+`OPENFOAM_SOURCE_ID_V2`, real `simpleFoam` linkage, and a complete
+SHA-256-verified runtime archive. No scientific workload input or solver
+source is changed. Script review and local syntax checks precede Git sync
+and submission; no OpenFOAM build job ID exists yet.

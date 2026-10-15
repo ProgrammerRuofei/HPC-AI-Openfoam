@@ -25,6 +25,15 @@ EXPECTED_API_INFO_SHA256=d03cf08cf48ab523323a8849439b2f1073df920e29e969f51f18856
 
 module purge
 module load ${MODULE_LIST}
+# Private archives are unpacked by the candidate wrapper in this job's JOBFS.
+if test -n "${PRIVATE_MPI_PREFIX:-}"; then
+    : "${PRIVATE_GCC_PREFIX:?}"
+    test -x "$PRIVATE_GCC_PREFIX/bin/gcc"
+    test -x "$PRIVATE_MPI_PREFIX/bin/mpicc"
+    export OPAL_PREFIX="$PRIVATE_MPI_PREFIX" PMIX_PREFIX="$PRIVATE_MPI_PREFIX" PRTE_PREFIX="$PRIVATE_MPI_PREFIX"
+    export PATH="$PRIVATE_MPI_PREFIX/bin:$PRIVATE_GCC_PREFIX/bin:$PATH"
+    export LD_LIBRARY_PATH="$PRIVATE_MPI_PREFIX/lib:$PRIVATE_GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+fi
 export OMPI_CC="$OMPI_CC_VALUE" OMPI_CXX="$OMPI_CXX_VALUE"
 for tool in "$OMPI_CC_VALUE" "$OMPI_CXX_VALUE" mpicc mpicxx mpirun rsync tar sha256sum perl; do command -v "$tool" >/dev/null; done
 test -d "$AUTHORITATIVE_SOURCE"; test -d "$PBS_JOBFS"; test ! -e "$JOBFS_ROOT"; test ! -e "$WORKTREE"
@@ -57,6 +66,14 @@ grep -m1 ^flags /proc/cpuinfo | tr ' ' '\n' | grep -i '^avx512' | sort \
 printf 'wm_compile_option=%s\n' "$WM_COMPILE_OPTION_VALUE"
 for tool in "$OMPI_CC_VALUE" "$OMPI_CXX_VALUE" mpicc mpicxx mpirun; do printf '%s=' "$tool"; command -v "$tool"; done
 "$OMPI_CC_VALUE" --version | head -n 2; "$OMPI_CXX_VALUE" --version | head -n 2; mpicc --showme:command; mpicxx --showme:command; mpicc --showme:link; mpirun --version | head -n 3
+if test -n "${PRIVATE_MPI_PREFIX:-}"; then
+    "$OMPI_CC_VALUE" --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+    "$OMPI_CXX_VALUE" --version | head -n 1 | grep -Fx 'g++ (GCC) 16.2.0'
+    mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+    mpicc --showme:command | grep -Fx "$OMPI_CC_VALUE"
+    test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+    test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+fi
 write_regular_manifest "$AUTHORITATIVE_SOURCE" "${EVIDENCE_DIR}/authoritative-source-files.sha256"; write_symlink_manifest "$AUTHORITATIVE_SOURCE" "${EVIDENCE_DIR}/authoritative-symlink-files.nul"
 auth_r=$(sha256sum "${EVIDENCE_DIR}/authoritative-source-files.sha256" | awk '{print $1}'); auth_s=$(sha256sum "${EVIDENCE_DIR}/authoritative-symlink-files.nul" | awk '{print $1}')
 verify authoritative_regular_manifest "$EXPECTED_REGULAR_MANIFEST_SHA256" "$auth_r"; verify authoritative_symlink_manifest "$EXPECTED_SYMLINK_MANIFEST_SHA256" "$auth_s"; verify authoritative_source_id_v2 "$EXPECTED_SOURCE_ID_V2" "$(source_id_v2 "$auth_r" "$auth_s")"
@@ -102,7 +119,7 @@ test -f "$THIRDPARTY_TREE/Allwmake"; test ! -e "${WORKTREE}/ThirdParty-v2512"
 bootstrap_api_info
 cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB=SYSTEMOPENMPI "WM_COMPILE_OPTION=${WM_COMPILE_OPTION_VALUE}"; set -u
 printf 'WM_PROJECT_VERSION=%s\nFOAM_API=%s\nWM_COMPILER=%s\nWM_MPLIB=%s\nWM_OPTIONS=%s\nFOAM_MPI=%s\nMPI_ARCH_PATH=%s\n' "$WM_PROJECT_VERSION" "$FOAM_API" "$WM_COMPILER" "$WM_MPLIB" "$WM_OPTIONS" "$FOAM_MPI" "$MPI_ARCH_PATH"
-test "$WM_PROJECT_VERSION" = v2512; test "$FOAM_API" = "$EXPECTED_FOAM_API"; test "$WM_COMPILER" = "$WM_COMPILER_VALUE"; test "$WM_MPLIB" = SYSTEMOPENMPI; test "$WM_COMPILE_OPTION" = "$WM_COMPILE_OPTION_VALUE"; test "$FOAM_MPI" = sys-openmpi; test "$(command -v mpicc)" = /apps/openmpi/4.1.7/bin/mpicc
+test "$WM_PROJECT_VERSION" = v2512; test "$FOAM_API" = "$EXPECTED_FOAM_API"; test "$WM_COMPILER" = "$WM_COMPILER_VALUE"; test "$WM_MPLIB" = SYSTEMOPENMPI; test "$WM_COMPILE_OPTION" = "$WM_COMPILE_OPTION_VALUE"; test "$FOAM_MPI" = sys-openmpi; test "$(command -v mpicc)" = "${PRIVATE_MPI_PREFIX:-/apps/openmpi/4.1.7}/bin/mpicc"
 test "$WM_THIRD_PARTY_DIR" = "$THIRDPARTY_TREE"; test -f "$WM_THIRD_PARTY_DIR/Allwmake"; test -f "$WM_PROJECT_DIR/src/Allwmake"
 # The site tree ships no top-level Allwmake, so the per-directory steps are
 # driven here -- and wmake's own tools must come first. platforms/tools is
@@ -131,7 +148,21 @@ for f in $EXPECT_COMPILE_FLAGS; do
     test "$n" -gt 0 || { echo "ERROR: required compile flag $f never appeared" >&2; exit 7; }
 done
 BIN="${FOAM_APPBIN}/simpleFoam"; test -x "$BIN"; case "$(realpath "$BIN")" in "${WORKTREE}"/*) ;; *) echo 'ERROR: binary outside candidate worktree' >&2; exit 3;; esac
-file "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.file"; ldd "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.ldd"; grep -qi '/apps/openmpi/4.1.7' "${EVIDENCE_DIR}/simpleFoam.ldd"; sha256sum "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.sha256"
-tar -C "$JOBFS_ROOT" -czf "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" "OpenFOAM-v2512/etc" "OpenFOAM-v2512/platforms/${WM_OPTIONS}" ThirdParty-v2512/platforms
+file "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.file"
+ldd "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.ldd"
+if test -n "${PRIVATE_MPI_PREFIX:-}"; then
+    grep -F "$PRIVATE_MPI_PREFIX/lib/libmpi.so" "${EVIDENCE_DIR}/simpleFoam.ldd"
+    ! grep -Fq 'not found' "${EVIDENCE_DIR}/simpleFoam.ldd"
+else
+    grep -qi '/apps/openmpi/4.1.7' "${EVIDENCE_DIR}/simpleFoam.ldd"
+fi
+sha256sum "$BIN" | tee "${EVIDENCE_DIR}/simpleFoam.sha256"
+if test -n "${PRIVATE_MPI_PREFIX:-}"; then
+    # The private runtime needs source/META-INFO for fresh-job codeStream use.
+    tar -C "$JOBFS_ROOT" -czf "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" OpenFOAM-v2512 ThirdParty-v2512
+else
+    tar -C "$JOBFS_ROOT" -czf "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" "OpenFOAM-v2512/etc" "OpenFOAM-v2512/platforms/${WM_OPTIONS}" ThirdParty-v2512/platforms
+fi
 sha256sum "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz" | tee "${RUNTIME_DIR}/${STACK_ID}.${PBS_JOBID}.tar.gz.sha256"
+if test -n "${PRIVATE_MPI_PREFIX:-}"; then ( cd "$RUNTIME_DIR"; sha256sum -c "${STACK_ID}.${PBS_JOBID}.tar.gz.sha256"; ); fi
 echo BUILD_VALIDATION_PASS
