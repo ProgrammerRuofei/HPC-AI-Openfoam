@@ -1,7 +1,7 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
 Status: **GCC 16.2 built and relocation-validated; Open MPI 5.0.10 first build failed on a documented GCC 16 inline issue;
-two GCC 16 compatibility attempts failed; v3 compiled MPI but failed a PRRTE probe syntax gate; v4 archive retained; fresh-job relocation smoke found missing TM plugin load; three-prefix relocation test `181346315.gadi-pbs` submitted.** See
+two GCC 16 compatibility attempts failed; v3 compiled MPI but failed a PRRTE probe syntax gate; v4 archive retained; fresh-job relocation smoke found missing TM plugin load; one-node relocation passed; two-node transport smoke prepared.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 
@@ -95,3 +95,8 @@ failed-component report before any cross-node job.
 The diagnostic cost 0.04 SU. Its plugin `ldd` resolved all libraries, while
 PRRTE/PMIx error output still referenced the old build-job prefix. The
 next smoke sets `OPAL_PREFIX`, `PMIX_PREFIX`, and `PRTE_PREFIX` together.
+
+Job `181346315.gadi-pbs` passed in 18 s / 0.04 SU, including GCC/MPI
+versions, UCX/UCC, PBS RAS/TM, relocated `libmpi`, and both local ranks.
+The two-node smoke next checks PBS launch and UCX transport between distinct
+SPR hosts before building the OpenFOAM candidate.

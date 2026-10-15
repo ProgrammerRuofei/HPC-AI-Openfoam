@@ -237,3 +237,25 @@ ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/tool
 `qsub` returned `181346315.gadi-pbs` once; initial status `Q`.
 `nci_account -P pm78` showed 86.96 SU used, 0 reserved, 5.91 KSU
 available and scratch inodes 195.42K/202K.
+
+## One-node relocation passed; two-node transport gate prepared
+
+Job `181346315.gadi-pbs` completed `F`, `Exit_status=0`, walltime
+00:00:18, and 0.04 SU. `OMPI5010_RELOCATION_1N_PASS` appeared. In the new
+`$PBS_JOBFS`, GCC/G++ 16.2.0 and `mpirun` 5.0.10 were confirmed; UCX/UCC,
+`ras: pbs`, and `plm: tm` were present. `ldd` resolved the test executable's
+`libmpi.so.40` from the relocated MPI tree with no missing libraries. Both
+UCX-launched ranks printed their expected markers. The original evidence is
+under `evidence/181346315.gadi-pbs/` and the PBS receipt is
+`submit-logs/smoke_ompi5010_relocation_1n_v3.pbs.out`. The retained MPI
+archive's SHA-256 remains
+`8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6`.
+
+The next gate uses two SPR nodes and 208 allocated cores but only two MPI
+ranks. `stage_ompi5010_node.sh` verifies and unpacks both pinned archives
+into each node's own `$PBS_JOBFS` through PBS `pbsdsh`; the PBS script then
+checks two distinct node names, GCC/MPI versions, PBS RAS/TM components,
+relocated `libmpi` linkage, and two UCX ranks on different hosts. It uses
+unique job-ID evidence, a unique stdout path, and a 15-minute limit. Both
+scripts passed `bash -n`. This checks the launch/transport needed before a
+416-rank OpenFOAM run without spending on a full solver job.
