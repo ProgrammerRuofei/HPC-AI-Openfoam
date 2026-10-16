@@ -702,3 +702,26 @@ job-ID-keyed evidence will be under
 Acceptance requires PBS `Exit_status=0`, the script pass marker, 150 steps,
 Cd in band, a coded step time, correct 416-rank host map and full preparation
 logs. The result has not yet been measured.
+
+## First four-node Scotch baseline result
+
+Job `181368883.gadi-pbs` finished with PBS `Exit_status=0`, walltime
+00:16:19, `GCC162_OMPI5010_OF2512_SCOTCH_4N_PASS`, and script exit 0.
+The four SPR nodes were `gadi-cpu-spr-0080/0081/0083/0084`, each with
+104 MPI ranks. Scotch decomposition completed in 213.94 seconds. All
+four preparation logs ended normally; `simpleFoam` reached `Time = 150`,
+emitted `End` and `Finalising parallel run`. The coded average wall-clock
+time was **1.991194389201344 s/step**; final Cd was
+**0.29187594927465327**, inside the 0.27–0.30 gate. PBS peak memory was
+315,117,540 KB and JOBFS 50,641,586 KB. The initial SU estimate from
+allocated cores and measured walltime is **226.26 SU**; `nci_account`
+still held the full 832 SU reservation immediately after PBS completed,
+so the posted charge needs a later check.
+
+The older site-module hierarchical four-node baseline measured
+2.139565188 s/step, Cd 0.2823068404. The new combined GCC/MPI/Scotch
+stack is about 6.93% faster per step, with Cd 0.00957 higher but still
+within the declared acceptance band. The difference cannot be attributed
+to one build or decomposition setting from this comparison alone. A repeat
+with the same new stack is warranted to check stability. Detailed results
+are in `results/gadi-gcc162-ompi5010-scotch/run-registry.md`.
