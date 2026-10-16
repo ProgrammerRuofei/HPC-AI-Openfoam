@@ -636,3 +636,22 @@ scratch. The script validates rank-to-host placement, four distinct SPR
 nodes, pinned archives, source hashes, copied mesh bytes, full chain,
 150 steps, coded timing and Cd. A small symlink-layout smoke will check
 the novel file layout before this four-node job is submitted.
+
+## JOBFS symlink-layout smoke submission
+
+The v5 script passed local and remote `bash -n`; commit
+`9438594bae295718b37da0d06b8a76fb684a358b` was pushed to GitHub and
+Gadi, and the remote checkout fast-forwarded. Local/remote script SHA-256
+matched `6e2f8b60f668b0d3933c144ae7be3a166d4a0e537523e01fc69639b23f9b5bb0`.
+`nci_account -P pm78` showed 275.95 SU used, 5.72 KSU available and
+195.69K/202K scratch inodes. The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_openfoam_v2512_v5.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_openfoam_v2512_v5.pbs'
+```
+
+`qsub` returned **`181368402.gadi-pbs` once**, 5 CPUs, 20-minute cap.
+It is a tutorial-only validation of a shared scratch case resolving its
+processor directories through symlinks to local JOBFS. The original
+scientific 65M case is not changed or run. Four-node submission waits for
+this layout test to pass or for its documented repair.
