@@ -675,3 +675,30 @@ shared dictionaries, 416 symlinks, stage tar files, logs, and Cd evidence
 use scratch. This avoids the approximately 8,818 scratch files of the older
 uncollated baseline when only about 6.3K project inodes are available.
 The cross-node form still requires the actual four-node job to validate it.
+
+## Four-node Scotch baseline submission
+
+The three four-node scripts passed local and Gadi `bash -n`; the relevant
+local diff was reviewed and `git diff --check` passed. Commit `a96c8ae`
+was pushed to GitHub and Gadi, and the Gadi checkout fast-forwarded.
+Local and remote SHA-256 values match for the PBS script
+(`fdb212365043d8a2315d7e17b1b72a615dfea97d432d39b2cbbca2a40226f8ac`),
+runtime helper (`4214cdc59bf18176701b3c1e40570c179afaf04a584acc3381b00623ad8c131f`),
+and processor helper (`2caa257b7ede430a638b97eed8a2b88e91f4b019cd9a828e0bcb05b1f9a2fa2e`).
+Before submission pm78 had 276.08 SU used, 5.72 KSU available, and
+195.71K/202K scratch inodes. The exact scheduler command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_scotch_v1.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/run_baseline_4n_scotch_v1.pbs'
+```
+
+`qsub` returned **`181368883.gadi-pbs` once**. Initial PBS state was Q on
+`normalsr-exec`, with four nodes, 104 CPUs/node, 416 MPI ranks, 760 GB total
+memory, 100 GB JOBFS and a one-hour cap (832 SU at the full walltime).
+The distinct PBS stdout is
+`toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_scotch_v1.pbs.out`;
+job-ID-keyed evidence will be under
+`toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-scotch/181368883.gadi-pbs/evidence/`.
+Acceptance requires PBS `Exit_status=0`, the script pass marker, 150 steps,
+Cd in band, a coded step time, correct 416-rank host map and full preparation
+logs. The result has not yet been measured.
