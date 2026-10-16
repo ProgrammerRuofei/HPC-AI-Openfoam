@@ -74,3 +74,35 @@ build job was submitted, and the Gadi branch/checkout remains at the
 preceding synced commit `e77080b`. Resume the pending Gadi branch push,
 fast-forward, script hash/syntax check and one `qsub` only after the user
 restores that existing SSH control connection.
+
+## Connection restored and ICX build submitted
+
+The user restored the existing `gadi-comp` connection. A read-only check
+reached `gadi-login-09.gadi.nci.org.au`; the Gadi checkout was at
+`e77080b` with the same unrelated pre-existing untracked files. NCI
+posted the ICX/MPI probe at **0.04 SU** (`Used` 732.57 SU, `Reserved`
+0, `Avail` 5.27 KSU). The local branch remained clean at `c49bea6`.
+
+The branch was pushed to the Gadi remote and the checkout fast-forwarded
+to `c49bea6f228d0c561ddbdc107f851b0ee64b80c6`. Remote `bash -n`
+passed for the common helper, ICX wrapper, and ICX PBS script; their
+SHA-256 values matched local values, respectively
+`520eecff363768d65e336d572c0a51a7469240fe00bf1d8e23ad670f13a34a90`,
+`68b81e2ff331b1e2bdfd4b30dfb9ce356c671d6b5ad5249703e1dc15995afcf1`,
+and `5809c70be5689f79489ca108e710447a56cd5a1a41ab6b57277f310e27860ac3`.
+The build was submitted once with:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = c49bea6f228d0c561ddbdc107f851b0ee64b80c6; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/build_openfoam_v2512.pbs.out; qsub builds/build-scripts/gadi-icx20253-ompi5010/build_openfoam_v2512.pbs'
+```
+
+PBS returned **`181387300.gadi-pbs`**. It requests one `normalsr` SPR
+node, 48 CPUs, 190 GB RAM, 100 GB JOBFS, and four hours maximum. Stdout:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/build_openfoam_v2512.pbs.out`.
+Job-keyed build evidence is expected under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/evidence/gadi-icx20253-ompi5010-of2512.181387300.gadi-pbs/`.
+Wait for PBS `Exit_status=0`, `SCOTCH_BUILD_PASS`, `BUILD_VALIDATION_PASS`,
+SOURCE_ID_V2, ICX/OMPI versions, private `libmpi` linkage and matching
+runtime-archive `.sha256`; then record actual SU and perform a fresh-job
+5-rank tutorial smoke test. Keep all failure evidence and use a new path
+on any corrected retry. Do not interpret SSH failure as PBS outcome.
