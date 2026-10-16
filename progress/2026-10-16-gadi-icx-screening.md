@@ -178,3 +178,21 @@ smoke script adapted from the successful GCC smoke is at
 `builds/build-scripts/gadi-icx20253-ompi5010/smoke_openfoam_v2512_v1.pbs`.
 It pins the archive and binary hashes, expects `WM_COMPILER=Icx`, uses
 the same coded wall-clock functionObject and requires solver `End`.
+
+The smoke script passed local and Gadi `bash -n`; SHA-256
+`bd669b7afc8732ad5cb216ade9758f50844f4e2282817e4975403a0f9f189000`
+matched in both checkouts. Commit `ae16765` was pushed to GitHub/Gadi
+and the Gadi checkout fast-forwarded. One submission returned
+**`181399119.gadi-pbs`** (initial state Q):
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; git merge --ff-only codex/gadi-gcc162-build; test "$(git rev-parse HEAD)" = ae1676529258e1830641f72fb1521d0f99bb48ce; bash -n builds/build-scripts/gadi-icx20253-ompi5010/smoke_openfoam_v2512_v1.pbs; sha256sum builds/build-scripts/gadi-icx20253-ompi5010/smoke_openfoam_v2512_v1.pbs; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/smoke_openfoam_v2512_v1.pbs.out; qsub builds/build-scripts/gadi-icx20253-ompi5010/smoke_openfoam_v2512_v1.pbs'
+```
+
+This requests one SPR `normalsr` node, five CPUs, 16 GB RAM, 12 GB
+JOBFS and 20 minutes maximum. Output is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/smoke_openfoam_v2512_v1.pbs.out`, with job-ID
+evidence under `.../gadi-icx20253-ompi5010-of2512/evidence/smoke.181399119.gadi-pbs/`.
+Require PBS exit 0, `OF2512_ICX20253_OMPI5010_SMOKE_PASS`, verified
+archive/binary hashes, Scotch decomposition, five-rank UCX `simpleFoam`,
+coded timing, `End` and actual SU before any four-node run.
