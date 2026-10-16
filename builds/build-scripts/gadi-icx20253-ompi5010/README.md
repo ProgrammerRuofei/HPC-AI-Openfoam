@@ -26,7 +26,16 @@ The low-cost compatibility probe `181382175.gadi-pbs` passed with ICX
 2025.3.2, private Open MPI 5.0.10, and two UCX ranks; actual charge
 was 0.04 SU. The first ICX OpenFOAM build is
 **`181387300.gadi-pbs`**, submitted with one SPR node, 48 CPUs,
-190 GB RAM, 100 GB JOBFS and a four-hour limit. Its outcome and
-actual SU are pending. Raw logs and job-keyed evidence remain on Gadi;
+190 GB RAM, 100 GB JOBFS and a four-hour limit. It failed after 49:27
+and cost 79.12 SU. The first fatal error was an ICX/CGAL 4.14.3 header
+in optional `surfaceBooleanFeatures` (`Halfedge_around_*` has no
+`base` member). No valid runtime archive came from that job.
+
+The v2 retry builds all source libraries, then only the six benchmark
+executables: `blockMesh`, `decomposePar`, `renumberMesh`,
+`potentialFoam`, `applyBoundaryLayer`, `simpleFoam`. Each has a hard
+presence gate, as do the real Scotch libraries. This avoids compiling
+unused CGAL utilities while preserving the scored science workload.
+Raw logs and job-keyed evidence remain on Gadi;
 submission and result details are in
 `progress/2026-10-16-gadi-icx-screening.md`.

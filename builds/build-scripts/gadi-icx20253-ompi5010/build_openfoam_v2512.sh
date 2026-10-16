@@ -23,4 +23,5 @@ export WM_COMPILER_VALUE=Icx
 export OMPI_CC_VALUE=icx OMPI_CXX_VALUE=icpx
 export WM_COMPILE_OPTION_VALUE=Opt
 export SCOTCH_C17_WORKAROUND=1
+export APPLICATION_BUILD_MODE=benchmark-required
 exec bash builds/build-scripts/common/build_openfoam_v2512_openmpi.sh

@@ -106,3 +106,33 @@ SOURCE_ID_V2, ICX/OMPI versions, private `libmpi` linkage and matching
 runtime-archive `.sha256`; then record actual SU and perform a fresh-job
 5-rank tutorial smoke test. Keep all failure evidence and use a new path
 on any corrected retry. Do not interpret SSH failure as PBS outcome.
+
+## First ICX OpenFOAM build failure and corrected retry
+
+Build `181387300.gadi-pbs` finished with PBS `Exit_status=2`, walltime
+00:49:27, and a posted **79.12 SU** charge (pm78 `Used` rose from
+732.57 to 811.69 SU; 5.19 KSU available). Source-ID V2, ICX 2025.3.2,
+Open MPI 5.0.10, and staged source identity passed. The first fatal
+compiler errors in `build.log` are CGAL 4.14.3's
+`boost/graph/iterator.h` reporting `no member named 'base'` for
+`Halfedge_around_*_iterator<Graph>` while `applications/Allwmake`
+compiled the optional `surfaceBooleanFeatures` utility. The earlier
+Scotch install messages marked `Error 1 (ignored)` were not the fatal
+error; real `libscotch.so` was compiled, but the full build terminated
+before final Scotch and runtime archive validation. The raw 13 MB
+`build.log`, source manifests, PBS stdout and job ID remain untouched
+under the original job-keyed evidence directory. No valid ICX runtime
+archive or timing result is claimed from this attempt.
+
+The correction keeps the authoritative OpenFOAM source, ThirdParty
+source, compiler, MPI, modules and build flags unchanged. Instead of
+building unrelated optional CGAL tools, the ICX wrapper selects a
+`benchmark-required` application subset after building ThirdParty and
+all source libraries. The six required executables are `blockMesh`,
+`decomposePar`, `renumberMesh`, `potentialFoam`, `applyBoundaryLayer`,
+and `simpleFoam`; each is built and hard-gated. The old GCC full-build
+path remains unchanged. The distinct retry script is
+`builds/build-scripts/gadi-icx20253-ompi5010/build_openfoam_v2512_v2.pbs`
+with unique PBS stdout. It must be validated, committed, synced and
+submitted as a new job; it has not been submitted at the time of this
+record.

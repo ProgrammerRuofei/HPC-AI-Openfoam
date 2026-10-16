@@ -146,7 +146,28 @@ test "$WM_THIRD_PARTY_DIR" = "$THIRDPARTY_TREE"; test -f "$WM_THIRD_PARTY_DIR/Al
 WMAKE_TOOLS="${WM_PROJECT_DIR}/platforms/tools/${WM_ARCH}${WM_COMPILER}"
 test -x "${WMAKE_TOOLS}/wmkdepend" || { echo "ERROR: wmkdepend absent in ${WMAKE_TOOLS}" >&2; exit 5; }
 printf 'wmake_tools=%s\n' "$WMAKE_TOOLS"; ls "$WMAKE_TOOLS"
-"${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?}"
+"${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?}"
+"${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?}"
+if [ "${APPLICATION_BUILD_MODE:-all}" = benchmark-required ]; then
+    test "$WM_COMPILER_VALUE" = Icx
+    # This benchmark needs six executables. ICX/CGAL 4.14.3 fails while
+    # compiling unrelated optional surface tools; do not mutate that source.
+    for app in \
+        applications/utilities/mesh/generation/blockMesh \
+        applications/utilities/parallelProcessing/decomposePar \
+        applications/utilities/mesh/manipulation/renumberMesh \
+        applications/solvers/basic/potentialFoam \
+        applications/utilities/preProcessing/applyBoundaryLayer \
+        applications/solvers/incompressible/simpleFoam; do
+        ( cd "$WM_PROJECT_DIR/$app" && wmake -j "${PBS_NCPUS:?}" )
+    done
+    for app in blockMesh decomposePar renumberMesh potentialFoam applyBoundaryLayer simpleFoam; do
+        test -x "$FOAM_APPBIN/$app" || { echo "ERROR: benchmark executable absent: $app" >&2; exit 8; }
+        printf 'BENCHMARK_APP_PASS %s\n' "$app" | tee -a "$IDENTITY_EVIDENCE"
+    done
+else
+    "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?}"
+fi
 if [ "${SCOTCH_C17_WORKAROUND:-${GCC16_SCOTCH_C17_WORKAROUND:-0}}" = 1 ]; then
     test -f "$FOAM_EXT_LIBBIN/libscotch.so" || { echo 'ERROR: Scotch library absent' >&2; exit 8; }
     test -f "$FOAM_LIBBIN/libscotchDecomp.so" || { echo 'ERROR: real scotchDecomp library absent' >&2; exit 8; }
