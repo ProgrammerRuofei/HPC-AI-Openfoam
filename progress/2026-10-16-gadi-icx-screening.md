@@ -196,3 +196,13 @@ evidence under `.../gadi-icx20253-ompi5010-of2512/evidence/smoke.181399119.gadi-
 Require PBS exit 0, `OF2512_ICX20253_OMPI5010_SMOKE_PASS`, verified
 archive/binary hashes, Scotch decomposition, five-rank UCX `simpleFoam`,
 coded timing, `End` and actual SU before any four-node run.
+
+While the smoke queued, the four-node ICX script and per-node staging
+helpers were prepared locally from the two successful GCC runs. The
+reviewed diff changes only stack identity, ICX module/compiler/platform,
+archive and binary hashes, evidence paths and pass marker. The seven
+scientific-input SHA-256 gates, 416-rank layout, Scotch decomposition,
+150-step control, solver sequence, Cd gate and JOBFS processor layout
+remain identical. These scripts are **not authorization to skip the
+fresh-job smoke gate**; submit the four-node run only if that smoke
+passes and after Git/remote syntax and hash checks.

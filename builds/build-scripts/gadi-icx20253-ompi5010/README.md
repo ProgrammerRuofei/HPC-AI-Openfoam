@@ -50,3 +50,11 @@ the `simpleFoam` SHA-256 is
 The fresh-job smoke uses `smoke_openfoam_v2512_v1.pbs` to check actual
 Scotch decomposition, five-rank ICX/Open MPI runtime, coded timing and
 solver completion before any scored four-node run.
+
+The controlled four-node script `run_baseline_4n_scotch_v1.pbs` and
+two staging helpers are prepared for the fixed 65M case. They use four
+SPR nodes, 416 ranks (104/node), Scotch and 150 steps, with identical
+scientific-input hashes and preparation chain to the GCC baseline.
+They must not be submitted until the five-rank smoke passes. The
+comparison controls and acceptance criteria are documented in
+`planning/gadi-icx20253-controlled-comparison.md`.
