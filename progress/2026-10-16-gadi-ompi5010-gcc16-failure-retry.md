@@ -744,3 +744,8 @@ the request is four nodes, 416 CPUs and one-hour maximum. This is a
 repeatability run with the same build and Scotch setting, not a new
 optimisation decision. Its evidence directory is job-ID-keyed under
 `baseline-4n-scotch/181371071.gadi-pbs/evidence/`.
+
+NCI subsequently posted the first job's **226.26 SU** charge: pm78 usage
+rose from 276.08 to 502.34 SU, matching the walltime-based estimate.
+The earlier 832 SU reservation was released; 5.50 KSU remained available
+while the repeat queued.
