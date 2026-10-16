@@ -136,3 +136,23 @@ path remains unchanged. The distinct retry script is
 with unique PBS stdout. It must be validated, committed, synced and
 submitted as a new job; it has not been submitted at the time of this
 record.
+
+The corrected files passed local `bash -n`/diff checks, were committed as
+`5478309`, pushed to GitHub and Gadi, and the Gadi checkout fast-forwarded
+to `5478309c797793bc779d87ce988e77997a34043e`. Remote `bash -n`
+passed and SHA-256 values matched the local common helper, ICX wrapper,
+and v2 PBS script: `3681d846ac7d3cd1dd125290708b529cad9cc9f49feb800d406fb33d9d9ea772`,
+`7dbf63e7c16a0b52d2379429f4ef3d6350d1af14fd60b7506c9896cfaca2f01b`,
+`933151427dfda19eb4cc24b94c014174206a93c8f1d9755df4b25a8039740bc6`.
+The new submission was made once with:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = 5478309c797793bc779d87ce988e77997a34043e; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/build_openfoam_v2512_v2.pbs.out; qsub builds/build-scripts/gadi-icx20253-ompi5010/build_openfoam_v2512_v2.pbs'
+```
+
+PBS returned **`181392981.gadi-pbs`**. It has the same one-node,
+48-CPU, 190-GB RAM, 100-GB JOBFS, four-hour maximum request, but a new
+stdout at `.../gadi-icx20253-ompi5010/submit-logs/build_openfoam_v2512_v2.pbs.out`
+and unique job-ID evidence. It is pending validation; do not call the
+ICX build successful until all six apps, Scotch, source identity,
+private MPI linkage, archive/hash, and PBS exit are checked.
