@@ -63,3 +63,12 @@ Fresh-job tutorial smoke `181399119.gadi-pbs` passed with real Scotch,
 five UCX ranks, private MPI linkage, coded timing and solver `End`;
 PBS exit 0, 55 seconds, 0.15 SU. This satisfies the runtime gate but
 does not provide a scored 65M timing.
+
+The first scored ICX comparison was submitted once as
+`181399707.gadi-pbs` using `run_baseline_4n_scotch_v1.pbs` after local
+and remote syntax/hash checks. Initial PBS state: Q. It requests
+four SPR nodes with 104 ranks each, 416 ranks total, 760 GB RAM,
+100 GB JOBFS and a one-hour limit; Scotch and 150 steps use the same
+fixed input hashes and solver chain as the GCC controlled baseline.
+The result and actual SU are pending. See the progress report for the
+exact command and evidence paths.

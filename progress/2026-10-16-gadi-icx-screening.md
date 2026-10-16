@@ -222,3 +222,33 @@ Evidence is under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/evidence/smoke.181399119.gadi-pbs/`.
 The prepared ICX four-node script may now undergo final Git/hash,
 scientific-input and budget checks before a single submission.
+
+## Controlled four-node ICX submission
+
+The three ICX four-node scripts passed local and Gadi `bash -n` and SHA-256
+comparison after Gadi fast-forwarded to commit
+`a1ab68592e2a559e9189e9a7612d48b4c74b1ba8`. The account had
+5.10 KSU available and zero reserved before submission; the job's
+one-hour maximum would reserve at most 832 SU. Scratch had about 4.87K
+inodes free, so the proven per-node JOBFS processor-symlink layout is
+required. The seven fixed scientific-input hash gates and the GCC run's
+416-rank/Scotch/150-step preparation sequence remain identical.
+
+One `qsub` returned **`181399707.gadi-pbs`**. The initial `qstat -f`
+showed state Q in `normalsr-exec`, four 104-core chunks, 416 MPI ranks,
+760 GB total RAM, 100 GB JOBFS, and a one-hour walltime limit. Exact
+submission command:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = a1ab68592e2a559e9189e9a7612d48b4c74b1ba8; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_baseline_4n_scotch_v1.pbs.out; qsub builds/build-scripts/gadi-icx20253-ompi5010/run_baseline_4n_scotch_v1.pbs'
+```
+
+PBS stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_baseline_4n_scotch_v1.pbs.out`;
+job evidence is under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/baseline-4n-scotch/181399707.gadi-pbs/evidence/`.
+Require PBS Exit_status=0, the four-node pass marker, four distinct SPR
+hosts with 104 ranks each, all preparation and solver `End` markers,
+`Time = 150`, coded seconds/step, Cd in 0.27--0.30, and actual SU.
+Compare only then with the two controlled GCC runs at 1.991194389 and
+1.988625920 s/step (both Cd 0.291875949). Scientific result pending.
