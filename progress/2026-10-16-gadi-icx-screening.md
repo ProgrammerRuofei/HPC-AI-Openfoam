@@ -45,3 +45,22 @@ build is needed. Do not rebuild UCX merely because its module is reused.
 After this gate, build OpenFOAM v2512 with ICX, confirm real Scotch and
 MPI linkage, run a small tutorial, and only then compare the unchanged
 four-node 416-rank Scotch 150-step workload with the GCC baseline.
+
+## Probe result and ICX OpenFOAM build preparation
+
+Job `181382175.gadi-pbs` finished with PBS `Exit_status=0`, 20 seconds
+walltime, and `ICX20253_OMPI5010_ABI_SMOKE_PASS`. The node was an Intel
+Xeon Platinum 8470Q (SPR). The log confirms ICX/ICPX 2025.3.2,
+Open MPI 5.0.10, `mpicc` using `icx`, `mpicxx` using `icpx`, linkage to
+the job-local private `libmpi.so.40`, no missing dynamic libraries, and
+both MPI ranks running with `--mca pml ucx`. The `nci_account` reading
+immediately after completion still showed 2.67 SU reserved and 732.53 SU
+used; the final posted charge remains to be checked.
+
+The next build keeps the same authoritative OpenFOAM source and source-ID
+verification, private MPI archive, UCX/UCC modules, `Opt` setting, and
+real Scotch validation. It changes the compiler to the available ICX
+2025.3.2, selects `WM_COMPILER=Icx`, and stores output under a distinct
+ICX stack ID. The existing GCC build path remains supported by the common
+helper. The build script and PBS request are in
+`builds/build-scripts/gadi-icx20253-ompi5010/`.

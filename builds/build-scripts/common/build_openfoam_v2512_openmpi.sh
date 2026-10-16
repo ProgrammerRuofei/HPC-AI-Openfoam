@@ -67,10 +67,18 @@ printf 'wm_compile_option=%s\n' "$WM_COMPILE_OPTION_VALUE"
 for tool in "$OMPI_CC_VALUE" "$OMPI_CXX_VALUE" mpicc mpicxx mpirun; do printf '%s=' "$tool"; command -v "$tool"; done
 "$OMPI_CC_VALUE" --version | head -n 2; "$OMPI_CXX_VALUE" --version | head -n 2; mpicc --showme:command; mpicxx --showme:command; mpicc --showme:link; mpirun --version | head -n 3
 if test -n "${PRIVATE_MPI_PREFIX:-}"; then
-    "$OMPI_CC_VALUE" --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
-    "$OMPI_CXX_VALUE" --version | head -n 1 | grep -Fx 'g++ (GCC) 16.2.0'
+    case "$WM_COMPILER_VALUE" in
+        Gcc)
+            "$OMPI_CC_VALUE" --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+            "$OMPI_CXX_VALUE" --version | head -n 1 | grep -Fx 'g++ (GCC) 16.2.0' ;;
+        Icx)
+            "$OMPI_CC_VALUE" --version | head -n 1 | grep -F '2025.3.2'
+            "$OMPI_CXX_VALUE" --version | head -n 1 | grep -F '2025.3.2' ;;
+        *) echo "ERROR: unvalidated private-MPI compiler $WM_COMPILER_VALUE" >&2; exit 4 ;;
+    esac
     mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
     mpicc --showme:command | grep -Fx "$OMPI_CC_VALUE"
+    mpicxx --showme:command | grep -Fx "$OMPI_CXX_VALUE"
     test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
     test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
 fi
@@ -116,13 +124,13 @@ fi
 test -d "${WORKTREE}/ThirdParty-v2512"; test ! -e "$THIRDPARTY_TREE"
 mv "${WORKTREE}/ThirdParty-v2512" "$THIRDPARTY_TREE"
 test -f "$THIRDPARTY_TREE/Allwmake"; test ! -e "${WORKTREE}/ThirdParty-v2512"
-if [ "${GCC16_SCOTCH_C17_WORKAROUND:-0}" = 1 ]; then
-    test "$WM_COMPILER_VALUE" = Gcc
+if [ "${SCOTCH_C17_WORKAROUND:-${GCC16_SCOTCH_C17_WORKAROUND:-0}}" = 1 ]; then
+    case "$WM_COMPILER_VALUE" in Gcc|Icx) ;; *) exit 4;; esac
     SCOTCH_RULE="$THIRDPARTY_TREE/etc/makeFiles/scotch/Makefile.inc.Linux.shlib"
     test -f "$SCOTCH_RULE"
     printf '\n# Scotch 6.1.0 uses pre-C23 unprototyped function pointers.\nCFLAGS += -std=gnu17\n' >> "$SCOTCH_RULE"
     grep -Fxq 'CFLAGS += -std=gnu17' "$SCOTCH_RULE"
-    printf 'gcc16_scotch_c17_workaround=enabled\nscotch_rule=%s\n' "$SCOTCH_RULE" | tee -a "$IDENTITY_EVIDENCE"
+    printf 'scotch_c17_workaround=enabled\nscotch_rule=%s\n' "$SCOTCH_RULE" | tee -a "$IDENTITY_EVIDENCE"
 fi
 bootstrap_api_info
 cd "$WORKTREE"; set +u; . etc/bashrc "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB=SYSTEMOPENMPI "WM_COMPILE_OPTION=${WM_COMPILE_OPTION_VALUE}"; set -u
@@ -139,7 +147,7 @@ WMAKE_TOOLS="${WM_PROJECT_DIR}/platforms/tools/${WM_ARCH}${WM_COMPILER}"
 test -x "${WMAKE_TOOLS}/wmkdepend" || { echo "ERROR: wmkdepend absent in ${WMAKE_TOOLS}" >&2; exit 5; }
 printf 'wmake_tools=%s\n' "$WMAKE_TOOLS"; ls "$WMAKE_TOOLS"
 "${WM_THIRD_PARTY_DIR}/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/src/Allwmake" -j "${PBS_NCPUS:?}"; "${WM_PROJECT_DIR}/applications/Allwmake" -j "${PBS_NCPUS:?}"
-if [ "${GCC16_SCOTCH_C17_WORKAROUND:-0}" = 1 ]; then
+if [ "${SCOTCH_C17_WORKAROUND:-${GCC16_SCOTCH_C17_WORKAROUND:-0}}" = 1 ]; then
     test -f "$FOAM_EXT_LIBBIN/libscotch.so" || { echo 'ERROR: Scotch library absent' >&2; exit 8; }
     test -f "$FOAM_LIBBIN/libscotchDecomp.so" || { echo 'ERROR: real scotchDecomp library absent' >&2; exit 8; }
     printf 'SCOTCH_BUILD_PASS\n' | tee -a "$IDENTITY_EVIDENCE"
