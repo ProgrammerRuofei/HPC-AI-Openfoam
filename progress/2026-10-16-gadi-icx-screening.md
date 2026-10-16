@@ -64,3 +64,13 @@ real Scotch validation. It changes the compiler to the available ICX
 ICX stack ID. The existing GCC build path remains supported by the common
 helper. The build script and PBS request are in
 `builds/build-scripts/gadi-icx20253-ompi5010/`.
+
+The prepared build was committed as `5d35bfd` and pushed to GitHub.
+The subsequent push to the Gadi remote failed because the existing SSH
+control connection broke; a separate read-only `ssh -o BatchMode=yes
+-o ConnectTimeout=8 gadi-comp 'hostname'` returned `Permission denied`.
+This was an access failure, not a PBS or build result. No ICX OpenFOAM
+build job was submitted, and the Gadi branch/checkout remains at the
+preceding synced commit `e77080b`. Resume the pending Gadi branch push,
+fast-forward, script hash/syntax check and one `qsub` only after the user
+restores that existing SSH control connection.
