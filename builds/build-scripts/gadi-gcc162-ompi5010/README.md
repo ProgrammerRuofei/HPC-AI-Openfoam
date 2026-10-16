@@ -176,6 +176,13 @@ node in JOBFS, check all 416 rank-to-host placements, and retain full-chain
 logs and Cd in a job-ID-keyed scratch evidence directory. The four-node
 job itself is needed to validate cross-node file access and benchmark time.
 
+The first four-node job `181368883.gadi-pbs` passed the full chain and
+150-step solver: 1.991194389 s/step, final Cd 0.2918759493, PBS walltime
+16:19. Four SPR nodes each carried 104 ranks. The same build and Scotch
+script are being repeated in `181371071.gadi-pbs` before naming a best
+build. See `results/gadi-gcc162-ompi5010-scotch/run-registry.md` for the
+measurements and the comparison to the older site-module baseline.
+
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It
 is not a Scotch result. The v2 script pins the full verified hash and

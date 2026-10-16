@@ -7,6 +7,7 @@ unchanged. The copied case uses 416 ranks and Scotch decomposition.
 | Run | PBS job | Nodes / ranks | Steps | Avg wall-clock/step | Final Cd | PBS walltime | SU | Status |
 | --- | --- | --- | ---: | ---: | ---: | --- | ---: | --- |
 | First GCC16 Scotch baseline | `181368883.gadi-pbs` | 4 / 416 | 150 | **1.991194389 s** | **0.2918759493** | 00:16:19 | ~226.26 pending NCI posting | Valid completed run; repeat pending |
+| Same-build Scotch repeat | `181371071.gadi-pbs` | 4 / 416 | pending | pending | pending | pending | pending | Submitted; initial Q |
 
 The first run had PBS `Exit_status=0`, script
 `GCC162_OMPI5010_OF2512_SCOTCH_4N_PASS`, four distinct SPR nodes with

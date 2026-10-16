@@ -725,3 +725,22 @@ within the declared acceptance band. The difference cannot be attributed
 to one build or decomposition setting from this comparison alone. A repeat
 with the same new stack is warranted to check stability. Detailed results
 are in `results/gadi-gcc162-ompi5010-scotch/run-registry.md`.
+
+## Same-build four-node repeat submission
+
+Commit `6b0822d` records the first result in GitHub and Gadi. The Gadi
+checkout fast-forwarded, and the unchanged four-node PBS script retained
+SHA-256 `fdb212365043d8a2315d7e17b1b72a615dfea97d432d39b2cbbca2a40226f8ac`.
+Its syntax passed again. NCI had not yet posted the first job's charge and
+still showed the 832 SU reservation; 4.89 KSU remained available.
+The same script was submitted once with a distinct PBS stdout:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_scotch_v1_repeat1.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_scotch_v1_repeat1.pbs.out builds/build-scripts/gadi-gcc162-ompi5010/run_baseline_4n_scotch_v1.pbs'
+```
+
+`qsub` returned **`181371071.gadi-pbs`**. Initial PBS state was Q;
+the request is four nodes, 416 CPUs and one-hour maximum. This is a
+repeatability run with the same build and Scotch setting, not a new
+optimisation decision. Its evidence directory is job-ID-keyed under
+`baseline-4n-scotch/181371071.gadi-pbs/evidence/`.
