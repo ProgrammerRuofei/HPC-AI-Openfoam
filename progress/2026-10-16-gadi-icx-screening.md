@@ -206,3 +206,19 @@ scientific-input SHA-256 gates, 416-rank layout, Scotch decomposition,
 remain identical. These scripts are **not authorization to skip the
 fresh-job smoke gate**; submit the four-node run only if that smoke
 passes and after Git/remote syntax and hash checks.
+
+## Fresh-job runtime smoke result
+
+Job `181399119.gadi-pbs` completed with PBS `Exit_status=0`, script
+`pbs_exit_status=0`, walltime 00:00:55 and **0.15 SU**. The archived
+OpenFOAM and `simpleFoam` hashes passed, `libmpi.so.40` resolved to
+the private Open MPI 5.0.10 unpacked in fresh JOBFS, and real Scotch
+decomposed `pitzDaily_fused` into five domains. Five UCX ranks completed
+`simpleFoam`; the coded timer printed an average of
+0.003550377736842106 s/step, followed by `End` and `Finalising parallel
+run`. The log contains `OF2512_ICX20253_OMPI5010_SMOKE_PASS`.
+This is a tutorial smoke only; its timing is not a scored 65M result.
+Evidence is under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/evidence/smoke.181399119.gadi-pbs/`.
+The prepared ICX four-node script may now undergo final Git/hash,
+scientific-input and budget checks before a single submission.

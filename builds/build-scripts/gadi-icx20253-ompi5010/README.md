@@ -58,3 +58,8 @@ scientific-input hashes and preparation chain to the GCC baseline.
 They must not be submitted until the five-rank smoke passes. The
 comparison controls and acceptance criteria are documented in
 `planning/gadi-icx20253-controlled-comparison.md`.
+
+Fresh-job tutorial smoke `181399119.gadi-pbs` passed with real Scotch,
+five UCX ranks, private MPI linkage, coded timing and solver `End`;
+PBS exit 0, 55 seconds, 0.15 SU. This satisfies the runtime gate but
+does not provide a scored 65M timing.
