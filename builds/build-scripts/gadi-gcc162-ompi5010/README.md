@@ -1,6 +1,6 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
-Status: **GCC 16.2 and Open MPI 5.0.10 passed two-node UCX transport; OpenFOAM v2512 links correctly, but Scotch requires a corrected build.** See
+Status: **GCC 16.2 and Open MPI 5.0.10 passed two-node UCX transport; corrected OpenFOAM v2512 build passed real Scotch checks and awaits fresh-job runtime smoke.** See
 `progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
 evidence, and the exact scope of each stage.
 
@@ -151,6 +151,13 @@ uses `-std=gnu17` for the copied Scotch makefile in JOBFS, requires real
 Scotch and scotchDecomp libraries, and writes a new job-ID-keyed archive.
 The original archive and smoke evidence remain available. The corrected
 archive still needs a fresh-job tutorial smoke before any four-node run.
+
+The corrected build `181360543.gadi-pbs` passed with real Scotch and
+scotchDecomp libraries, private MPI-linked `simpleFoam`, source identity,
+and a verified full archive in 55:57 for 89.52 SU. The archive hash is
+`64cd075a385938f0c9ac0c478066349e5bb198f5fa8cd80cc3ed61fb12286281`.
+`smoke_openfoam_v2512_v4.pbs` pins this artifact for an independent
+five-rank Scotch tutorial validation.
 
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It

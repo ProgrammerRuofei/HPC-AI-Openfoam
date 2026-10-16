@@ -559,3 +559,28 @@ build evidence and runtime archive will have the new job ID. Acceptance
 requires PBS `Exit_status=0`, `SCOTCH_BUILD_PASS`, `BUILD_VALIDATION_PASS`,
 GCC/MPI/source identity and private MPI link checks, a verified archive, and
 a later fresh-job Scotch tutorial smoke.
+
+## Corrected Scotch build result and v4 smoke preparation
+
+Job `181360543.gadi-pbs` completed with PBS `Exit_status=0`, walltime
+00:55:57, **89.52 SU**, peak memory 142.1 GB and JOBFS 6.28 GB. Both
+`SCOTCH_BUILD_PASS` and `BUILD_VALIDATION_PASS` appear in its build log.
+The authoritative and staged `OPENFOAM_SOURCE_ID_V2` equal
+`5e43349d5b302beb354e4e0d9842ff8148cfed069fb0f1a224616df6021c18db`;
+GCC/G++ 16.2.0 and Open MPI 5.0.10 passed version gates; the
+`simpleFoam` link resolves `libmpi.so.40` from this job's private MPI.
+The real Scotch and scotchDecomp libraries passed explicit file gates.
+The new full runtime archive is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/runtime-archive/gadi-gcc162-ompi5010-of2512.181360543.gadi-pbs.tar.gz`,
+SHA-256 `64cd075a385938f0c9ac0c478066349e5bb198f5fa8cd80cc3ed61fb12286281`;
+its `.sha256` file exists and `sha256sum -c` passed. `simpleFoam` SHA-256
+is `b3b992619ea5b9805fe1c549d2dafafe6cba88411bd152f7b1eb50081fc867c5`.
+ADIOS2's optional yaml-cpp compile error is still present; no ADIOS2
+component is used in this smoke or the prescribed simpleFoam case.
+
+`smoke_openfoam_v2512_v4.pbs` pins this new archive and binary. It reuses
+the validated v3 environment order and retains GCC/MPI/functionObject
+hashes, five-rank tutorial copy, Scotch decomposition, private MPI
+launch, coded timing function and End checks. It has a distinct PBS stdout
+and job-ID-keyed evidence; the fixed 65M case is untouched. Pass is required
+before this build can be a four-node baseline candidate.
