@@ -584,3 +584,23 @@ hashes, five-rank tutorial copy, Scotch decomposition, private MPI
 launch, coded timing function and End checks. It has a distinct PBS stdout
 and job-ID-keyed evidence; the fixed 65M case is untouched. Pass is required
 before this build can be a four-node baseline candidate.
+
+## Corrected build v4 tutorial smoke submission
+
+Commit `509d30776e80e39848b21983096603e98dd2ba86` was pushed to GitHub
+and Gadi; the remote control checkout fast-forwarded. Local and remote
+SHA-256 of `smoke_openfoam_v2512_v4.pbs` matched
+`289b641e35691ae378e40743ac56e14a09f84ee043f67512b9a51f1284fd3f47`.
+Both local and Gadi `bash -n` checks passed. Before submission the project
+showed 275.80 SU used and 5.72 KSU available. The exact scheduler command:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_openfoam_v2512_v4.pbs.out && cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_openfoam_v2512_v4.pbs'
+```
+
+`qsub` returned **`181366491.gadi-pbs` once**, 5 CPUs and a 20-minute cap.
+Acceptance requires PBS `Exit_status=0`,
+`OF2512_GCC162_OMPI5010_SMOKE_PASS`, verified archive/binary hashes,
+actual Scotch decomposition, five-rank private-MPI `simpleFoam` completion,
+coded timing marker, and SU receipt. This tutorial job is not a scored
+65M-case result.
