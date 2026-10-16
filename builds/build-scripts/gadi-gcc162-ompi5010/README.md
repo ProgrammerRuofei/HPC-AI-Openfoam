@@ -1,14 +1,19 @@
 # Gadi SPR GCC 16.2 / Open MPI 5.0.10 candidate
 
-Status: **GCC 16.2 and Open MPI 5.0.10 passed two-node UCX transport; corrected OpenFOAM v2512 build passed real Scotch checks and awaits fresh-job runtime smoke.** See
-`progress/2026-10-16-gadi-gcc162-relocation-ompi-submitted.md` for job IDs,
-evidence, and the exact scope of each stage.
+Status: **GCC 16.2, Open MPI 5.0.10, real Scotch and OpenFOAM v2512
+passed cross-job validation and two complete four-node, 416-rank,
+150-step runs.** See
+`results/gadi-gcc162-ompi5010-scotch/run-registry.md` for the full
+configuration and measurements, and
+`progress/2026-10-16-gadi-ompi5010-gcc16-failure-retry.md` for job IDs,
+failures, fixes, evidence and SU.
 
 This candidate targets `normalsr` (Sapphire Rapids, 104 physical cores/node).
-The first build stage produced a private GCC 16.2.0 archive. Open MPI 5.0.10,
-OpenFOAM v2512, MPI runtime relocation, and the 416-rank Scotch benchmark
-remain separate reviewed stages; no existing binary is called the team's best
-build.
+The staged work produced private GCC 16.2.0, Open MPI 5.0.10 and
+OpenFOAM v2512 archives. The 416-rank Scotch candidate has two validated
+full-case measurements. It is the current validated candidate; the
+compiler, MPI and decomposition changes have not been isolated in a
+one-factor comparison.
 
 ## Stage 1: GCC 16.2.0
 
@@ -177,11 +182,12 @@ logs and Cd in a job-ID-keyed scratch evidence directory. The four-node
 job itself is needed to validate cross-node file access and benchmark time.
 
 The first four-node job `181368883.gadi-pbs` passed the full chain and
-150-step solver: 1.991194389 s/step, final Cd 0.2918759493, PBS walltime
-16:19. Four SPR nodes each carried 104 ranks. The same build and Scotch
-script are being repeated in `181371071.gadi-pbs` before naming a best
-build. See `results/gadi-gcc162-ompi5010-scotch/run-registry.md` for the
-measurements and the comparison to the older site-module baseline.
+150-step solver: 1.991194389 s/step, Cd 0.2918759493, 226.26 SU.
+Its same-build repeat `181371071.gadi-pbs` also passed: 1.988625920
+s/step, the same final Cd, 230.19 SU. Each used four SPR nodes with
+104 ranks/node. See `results/gadi-gcc162-ompi5010-scotch/run-registry.md`
+for the exact software, MPI placement, decomposition, scientific case,
+and comparison to the older site-module baseline.
 
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It

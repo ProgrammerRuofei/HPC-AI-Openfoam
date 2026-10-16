@@ -749,3 +749,29 @@ NCI subsequently posted the first job's **226.26 SU** charge: pm78 usage
 rose from 276.08 to 502.34 SU, matching the walltime-based estimate.
 The earlier 832 SU reservation was released; 5.50 KSU remained available
 while the repeat queued.
+
+## Repeat result and three-stage completion
+
+The repeat `181371071.gadi-pbs` finished with PBS `Exit_status=0`, script
+exit 0 and `GCC162_OMPI5010_OF2512_SCOTCH_4N_PASS`. It used four SPR
+nodes (`gadi-cpu-spr-0073/0074/0080/0081`), 104 ranks each. Scotch
+decomposition completed in 214.2 seconds. All four preparation steps
+ended normally; `simpleFoam` reached `Time = 150`, printed the coded
+average wall-clock metric, `End`, and `Finalising parallel run`.
+The repeat measured **1.988625920348993 s/step**, final
+**Cd 0.29187594927465327**, PBS walltime **00:16:36**, peak memory
+311,242,392 KB, and JOBFS 50,641,586 KB. NCI posted **230.19 SU**:
+usage rose from 502.34 to 732.53 SU, with 5.27 KSU remaining.
+The two same-configuration step times differ by about 0.13% of their
+mean; final Cd agrees to the displayed precision.
+
+All three authorized stages are now validated: GCC/Open MPI cross-job and
+cross-node transport; OpenFOAM v2512 with real Scotch and private MPI;
+and two complete four-node, 416-rank, 150-step Scotch runs. The mean of
+the new two-run timing is **1.989910155 s/step**, about **7.00%** below
+the older site-module/hierarchical reference's 2.139565188 s/step.
+Both new Cd values are within the declared 0.27–0.30 band. The
+multi-setting comparison does not isolate which compiler, MPI or
+decomposition change caused the improvement. The exact configuration
+comparison, run IDs and evidence paths are in
+`results/gadi-gcc162-ompi5010-scotch/run-registry.md`.
