@@ -85,5 +85,7 @@ The user requested cancellation before the repeat completed and set a
 new rule: obtain explicit permission before any future repeat job.
 `qdel 181402435.gadi-pbs` succeeded after the job had started. PBS
 final state F, exit 271, walltime 00:02:04; there is no repeat timing
-or Cd. Actual SU posting remains to be checked. The 416-core runtime
-implies about 28.66 SU under the standard charge formula.
+or Cd. The 416-core runtime implies about 28.66 SU under the standard
+charge formula. NCI later released the 832 SU reservation; the rounded
+aggregate used display rose from 1.12 to 1.15 KSU, consistent with the
+calculated charge but not precise enough to reveal exact per-job SU.

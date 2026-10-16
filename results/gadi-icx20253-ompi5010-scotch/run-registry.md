@@ -12,7 +12,7 @@ SHA-256 gates are enforced in the PBS script.
 | Run | PBS job | Compiler for OpenFOAM | MPI / UCX / UCC | Average wall-clock per step | Final Cd | PBS walltime | SU | Status |
 | --- | --- | --- | --- | ---: | ---: | --- | ---: | --- |
 | ICX first | `181399707.gadi-pbs` | ICX 2025.3.2 `Opt` | Private Open MPI 5.0.10 / 1.18.1 / 1.4.4 | **1.976664844 s** | **0.2918761744** | 00:16:30 | **228.80 calculated** | Valid completed run |
-| ICX same-build repeat | `181402435.gadi-pbs` | Same | Same | No result | No result | 00:02:04 | Pending NCI posting | Cancelled at user request; PBS exit 271 |
+| ICX same-build repeat | `181402435.gadi-pbs` | Same | Same | No result | No result | 00:02:04 | About 28.66 calculated | Cancelled at user request; PBS exit 271 |
 | GCC control 1 | `181368883.gadi-pbs` | GCC 16.2.0 `Opt` | Same | 1.991194389 s | 0.2918759493 | 00:16:19 | 226.26 posted | Valid completed run |
 | GCC control 2 | `181371071.gadi-pbs` | GCC 16.2.0 `Opt` | Same | 1.988625920 s | 0.2918759493 | 00:16:36 | 230.19 posted | Valid completed repeat |
 
@@ -48,6 +48,8 @@ state F, `Exit_status=271` and 00:02:04 walltime, so this is **not** a
 completed scientific repeat. A queued job cancelled before starting
 would have no runtime charge; this job may incur a charge for the time
 it ran. At 416 cores and 2 SU/core-hour, 124 seconds corresponds to
-about 28.66 SU; actual NCI posting is pending. The first account check
-still showed the 832 SU reservation and no separately visible charge.
+about 28.66 SU. The first account check still showed the 832 SU
+reservation; a later check showed it released and aggregate usage rise
+from 1.12 to 1.15 KSU. NCI rounds that display to 0.01 KSU, so the
+exact per-job posted amount is not visible from this account report.
 No further repeat will be submitted without the user's permission.

@@ -298,9 +298,12 @@ ssh -o BatchMode=yes gadi-comp 'qdel 181402435.gadi-pbs'
 It returned success. Subsequent `qstat -xf` shows final state F,
 `Exit_status=271`, and 00:02:04 walltime. No scientific result is
 claimed for this cancelled job. At 416 allocated cores and 2
-SU/core-hour, its runtime corresponds to about **28.66 SU**; the exact
-posted charge is pending. Immediately after cancellation,
+SU/core-hour, its runtime corresponds to about **28.66 SU**. Immediately
+after cancellation,
 `nci_account -P pm78` still displayed 832 SU reserved and 1.12 KSU
-used, reflecting accounting lag and rounded KSU display. A read-only
-follow-up will confirm reservation release and record the actual SU.
+used, reflecting accounting lag and rounded KSU display. A later
+read-only check showed `Used: 1.15 KSU`, `Reserved: 0.00 SU`, and
+`Avail: 4.85 KSU`. This is consistent with about 28.66 SU incurred
+before cancellation, but the account report rounds in 0.01 KSU and
+does not expose an exact per-job posted charge.
 Do not submit any further repeat job without explicit user permission.
