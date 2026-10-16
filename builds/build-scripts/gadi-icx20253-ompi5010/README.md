@@ -70,5 +70,13 @@ and remote syntax/hash checks. Initial PBS state: Q. It requests
 four SPR nodes with 104 ranks each, 416 ranks total, 760 GB RAM,
 100 GB JOBFS and a one-hour limit; Scotch and 150 steps use the same
 fixed input hashes and solver chain as the GCC controlled baseline.
-The result and actual SU are pending. See the progress report for the
-exact command and evidence paths.
+See the progress report for the exact command and evidence paths.
+
+The first run finished with PBS exit 0 and the four-node pass marker:
+1.976664843872483 s/step, Cd 0.29187617440389690, 00:16:30 walltime,
+228.80 SU calculated from NCI's 416-core charging formula. Four SPR
+hosts each carried 104 ranks; the full chain reached `Time = 150` and
+all `End` markers. The 0.666% apparent gain over the two-run GCC mean
+needs replication. An identical-script repeat `181402435.gadi-pbs`
+was submitted with a unique PBS stdout and job-keyed output; its
+initial state was Q. See the result registry for provenance.

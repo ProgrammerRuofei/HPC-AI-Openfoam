@@ -4,8 +4,11 @@
 
 Compare the available ICX 2025.3.2 OpenFOAM v2512 build with the
 validated GCC 16.2.0 build on the same Gadi Sapphire Rapids workload.
-The ICX build job is `181387300.gadi-pbs`; no ICX timing result exists
-until that build and a separate runtime smoke pass. The other team's
+The successful ICX build is `181392981.gadi-pbs` and the separate
+runtime smoke is `181399119.gadi-pbs`. The first four-node ICX result
+is `181399707.gadi-pbs` at 1.976664844 s/step, Cd 0.2918761744;
+a same-build repeat `181402435.gadi-pbs` is pending because the first
+run is only 0.666% faster than the GCC two-run mean. The other team's
 ICX 2026.1 result is context only: that module was unavailable on Gadi
 when inspected. Existing Open MPI 5.0.10 plus UCX 1.18.1 and UCC 1.4.4
 is retained so the measured change is primarily the OpenFOAM compiler.

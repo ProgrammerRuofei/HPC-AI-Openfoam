@@ -252,3 +252,34 @@ hosts with 104 ranks each, all preparation and solver `End` markers,
 `Time = 150`, coded seconds/step, Cd in 0.27--0.30, and actual SU.
 Compare only then with the two controlled GCC runs at 1.991194389 and
 1.988625920 s/step (both Cd 0.291875949). Scientific result pending.
+
+## First ICX scored result and same-build repeat
+
+Job `181399707.gadi-pbs` completed with PBS `Exit_status=0`, 00:16:30
+walltime and `ICX20253_OMPI5010_OF2512_SCOTCH_4N_PASS`. The four
+Xeon Platinum 8470Q hosts `0514/0517/0532/0534` each hosted exactly
+104 ranks. The original seven scientific input hash checks, all three
+runtime archive checks, private `libmpi.so.40`, Scotch decomposition,
+the full preparation chain and all five `End` markers passed. The solver
+reached `Time = 150` and `Finalising parallel run`, with no fatal error.
+The coded mean is **1.976664843872483 s/step**; final Cd is
+**0.29187617440389690**, within 0.27--0.30. The 416-core, 990-second
+charge computes to **228.80 SU**. NCI's post-job total displayed
+1.12 KSU used, zero reserved, and 4.88 KSU available, rounded at KSU
+precision. Evidence and full configuration are recorded in
+`results/gadi-icx20253-ompi5010-scotch/run-registry.md`.
+
+The first ICX time is about 0.666% faster than the 1.989910155 s/step
+GCC two-run mean. Because that margin could be timing noise, a
+same-build repeat was submitted with the identical reviewed script and
+unique stdout. Command:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = 590081f76bbbc68fdda7cf5b9c4a64b668120988; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_baseline_4n_scotch_v1_repeat1.pbs.out; /opt/pbs/default/bin/qsub -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_baseline_4n_scotch_v1_repeat1.pbs.out builds/build-scripts/gadi-icx20253-ompi5010/run_baseline_4n_scotch_v1.pbs'
+```
+
+PBS returned **`181402435.gadi-pbs`**, initially Q in
+`normalsr-exec`, with four nodes, 416 cores/ranks, and one-hour maximum.
+The repeat's job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/baseline-4n-scotch/181402435.gadi-pbs/evidence/`.
+It has not yet produced a scientific result.
