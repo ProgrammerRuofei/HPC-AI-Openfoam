@@ -156,3 +156,25 @@ stdout at `.../gadi-icx20253-ompi5010/submit-logs/build_openfoam_v2512_v2.pbs.ou
 and unique job-ID evidence. It is pending validation; do not call the
 ICX build successful until all six apps, Scotch, source identity,
 private MPI linkage, archive/hash, and PBS exit are checked.
+
+## Corrected ICX build result and runtime smoke preparation
+
+Job `181392981.gadi-pbs` finished with PBS `Exit_status=0`, walltime
+00:52:05, **83.33 SU**. All six `BENCHMARK_APP_PASS` markers,
+`SCOTCH_BUILD_PASS`, `BUILD_VALIDATION_PASS`, authoritative and staged
+`OPENFOAM_SOURCE_ID_V2` equality, ICX 2025.3.2, Open MPI 5.0.10,
+`WM_OPTIONS=linux64IcxDPInt32Opt`, and job-local private `libmpi.so.40`
+linkage passed. The runtime archive is 836 MB at
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz`.
+Its SHA-256 is `a832416d47a1a26cc2a02ef0c69eb09dbf142043d619ed22ece37d96b029dfcd`;
+`sha256sum -c` passed. The `simpleFoam` binary SHA-256 is
+`7cc4af8c576eba1e97ba16a767fca5843293c391b71a3904a596b3981d2913e4`.
+NCI `Used` rose from 811.69 to 895.02 SU, confirming the posted
+83.33 SU charge; `Avail` is 5.10 KSU before the next job.
+
+The candidate is a validated **build**, not yet a validated runtime or
+performance result. A separate five-core `pitzDaily_fused` Scotch/UCX
+smoke script adapted from the successful GCC smoke is at
+`builds/build-scripts/gadi-icx20253-ompi5010/smoke_openfoam_v2512_v1.pbs`.
+It pins the archive and binary hashes, expects `WM_COMPILER=Icx`, uses
+the same coded wall-clock functionObject and requires solver `End`.

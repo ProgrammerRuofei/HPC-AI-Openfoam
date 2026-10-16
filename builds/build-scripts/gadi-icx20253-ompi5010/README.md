@@ -39,3 +39,14 @@ unused CGAL utilities while preserving the scored science workload.
 Raw logs and job-keyed evidence remain on Gadi;
 submission and result details are in
 `progress/2026-10-16-gadi-icx-screening.md`.
+
+The retry `181392981.gadi-pbs` passed all six application gates,
+real Scotch, source identity, private MPI linkage and archive integrity
+with PBS exit 0. It took 52:05 and cost 83.33 SU. The 836 MB runtime
+archive SHA-256 is
+`a832416d47a1a26cc2a02ef0c69eb09dbf142043d619ed22ece37d96b029dfcd`;
+the `simpleFoam` SHA-256 is
+`7cc4af8c576eba1e97ba16a767fca5843293c391b71a3904a596b3981d2913e4`.
+The fresh-job smoke uses `smoke_openfoam_v2512_v1.pbs` to check actual
+Scotch decomposition, five-rank ICX/Open MPI runtime, coded timing and
+solver completion before any scored four-node run.
