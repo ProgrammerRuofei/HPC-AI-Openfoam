@@ -159,6 +159,13 @@ and a verified full archive in 55:57 for 89.52 SU. The archive hash is
 `smoke_openfoam_v2512_v4.pbs` pins this artifact for an independent
 five-rank Scotch tutorial validation.
 
+The fresh-job v4 smoke `181366491.gadi-pbs` passed Scotch decomposition,
+private MPI-linked five-rank `simpleFoam`, coded timing, and normal parallel
+completion in 51 seconds for 0.14 SU. The next low-cost v5 smoke tests
+processor directories on JOBFS reached through symlinks in a shared
+scratch case, matching the planned four-node layout while keeping inode
+usage below the remaining project allocation.
+
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It
 is not a Scotch result. The v2 script pins the full verified hash and

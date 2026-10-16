@@ -604,3 +604,35 @@ Acceptance requires PBS `Exit_status=0`,
 actual Scotch decomposition, five-rank private-MPI `simpleFoam` completion,
 coded timing marker, and SU receipt. This tutorial job is not a scored
 65M-case result.
+
+## Corrected v4 smoke result and four-node storage design
+
+The v4 tutorial smoke `181366491.gadi-pbs` completed with PBS
+`Exit_status=0`, walltime 51 seconds, and **0.14 SU**. Its archive and binary
+hashes passed. `decomposePar.log` shows `Decomposition method scotch [5]`,
+`Finished decomposition`, and `End`; `simpleFoam.ldd` resolves the private
+Open MPI 5.0.10 library. The five-rank solver log shows the coded average
+wall-clock metric, `End`, and `Finalising parallel run`.
+`OF2512_GCC162_OMPI5010_SMOKE_PASS` and `pbs_exit_status=0` are retained
+under `evidence/smoke.181366491.gadi-pbs/`. This validates the repaired
+Scotch build in a fresh job. It remains a tutorial, not the scored result.
+
+The official Gadi SPR baseline `178149002.gadi-pbs` used four 104-core
+Sapphire Rapids nodes, 416 ranks, the full preparation chain, 150 steps,
+2.139565 s/step and Cd 0.28231 with hierarchical `(16 13 2)`.
+The authoritative case hashes still match those in
+`experiments/gadi-4n-decomp/run_baseline_16x13x2.pbs`; the fixed mesh,
+`fvSchemes`, and `fvSolution.fixedIter` will be copied without alteration.
+Only `nCores=416` and `decompositionMethod=scotch` are changed in the copied
+`caseDefinition`. The code/solver source is pinned by the accepted build.
+
+Scratch reports about 195.69K of 202K allocated inodes, while the prior
+four-node uncollated case contains 8,818 files. The new four-node script
+keeps processor directories in each SPR node's JOBFS and presents them
+through 416 symlinks in a shared scratch case. It stages four tar archives
+of decomposed initial processor data (one tar per 104-rank node), and keeps
+the shared dictionaries, coded functionObject output, logs and Cd on
+scratch. The script validates rank-to-host placement, four distinct SPR
+nodes, pinned archives, source hashes, copied mesh bytes, full chain,
+150 steps, coded timing and Cd. A small symlink-layout smoke will check
+the novel file layout before this four-node job is submitted.
