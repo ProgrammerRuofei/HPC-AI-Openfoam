@@ -80,3 +80,10 @@ all `End` markers. The 0.666% apparent gain over the two-run GCC mean
 needs replication. An identical-script repeat `181402435.gadi-pbs`
 was submitted with a unique PBS stdout and job-keyed output; its
 initial state was Q. See the result registry for provenance.
+
+The user requested cancellation before the repeat completed and set a
+new rule: obtain explicit permission before any future repeat job.
+`qdel 181402435.gadi-pbs` succeeded after the job had started. PBS
+final state F, exit 271, walltime 00:02:04; there is no repeat timing
+or Cd. Actual SU posting remains to be checked. The 416-core runtime
+implies about 28.66 SU under the standard charge formula.

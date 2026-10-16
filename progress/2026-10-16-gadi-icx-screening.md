@@ -283,3 +283,24 @@ PBS returned **`181402435.gadi-pbs`**, initially Q in
 The repeat's job-keyed evidence will be under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/baseline-4n-scotch/181402435.gadi-pbs/evidence/`.
 It has not yet produced a scientific result.
+
+## User-requested repeat cancellation
+
+The user clarified that future repeat jobs require prior permission
+and requested cancellation to avoid further SU. Read-only `qstat -f`
+found `181402435.gadi-pbs` had already entered R, with 00:01:18
+runtime at the first check. The authorized cancellation command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'qdel 181402435.gadi-pbs'
+```
+
+It returned success. Subsequent `qstat -xf` shows final state F,
+`Exit_status=271`, and 00:02:04 walltime. No scientific result is
+claimed for this cancelled job. At 416 allocated cores and 2
+SU/core-hour, its runtime corresponds to about **28.66 SU**; the exact
+posted charge is pending. Immediately after cancellation,
+`nci_account -P pm78` still displayed 832 SU reserved and 1.12 KSU
+used, reflecting accounting lag and rounded KSU display. A read-only
+follow-up will confirm reservation release and record the actual SU.
+Do not submit any further repeat job without explicit user permission.
