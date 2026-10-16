@@ -166,6 +166,16 @@ processor directories on JOBFS reached through symlinks in a shared
 scratch case, matching the planned four-node layout while keeping inode
 usage below the remaining project allocation.
 
+The v5 symlink-layout smoke `181368402.gadi-pbs` passed in 49 seconds
+(about 0.13 SU): real Scotch decomposition, five-rank private-MPI
+`simpleFoam`, coded timing, and normal completion. This validates the
+layout on one node. `run_baseline_4n_scotch_v1.pbs` and its two
+`stage_4n_*_node.sh` helpers extend it to four SPR nodes. They pin the
+accepted archives and source hashes, keep 104 processor directories per
+node in JOBFS, check all 416 rank-to-host placements, and retain full-chain
+logs and Cd in a job-ID-keyed scratch evidence directory. The four-node
+job itself is needed to validate cross-node file access and benchmark time.
+
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It
 is not a Scotch result. The v2 script pins the full verified hash and

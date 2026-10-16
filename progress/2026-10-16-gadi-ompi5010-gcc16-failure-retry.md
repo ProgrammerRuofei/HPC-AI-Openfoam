@@ -655,3 +655,23 @@ It is a tutorial-only validation of a shared scratch case resolving its
 processor directories through symlinks to local JOBFS. The original
 scientific 65M case is not changed or run. Four-node submission waits for
 this layout test to pass or for its documented repair.
+
+## JOBFS symlink-layout smoke result and four-node readiness
+
+Job `181368402.gadi-pbs` finished with PBS `Exit_status=0` in 49 seconds,
+about **0.13 SU** (5 CPUs on normalsr at 2 SU/core-hour). Its independent
+evidence includes `pbs_exit_status=0` and
+`OF2512_GCC162_JOBFS_SYMLINK_SMOKE_PASS`. Scotch decomposition ended
+successfully, the five-rank private-MPI solver emitted the coded timing
+metric and `End`, and `simpleFoam.ldd` resolved `libmpi.so.40` in the
+job's private Open MPI. The job used a scratch case with five processor
+symlinks into node-local JOBFS, validating the layout on one node only.
+
+The planned four-node job pins the accepted GCC, MPI, and OpenFOAM archives,
+verifies authoritative input hashes, changes only the copied case's rank
+count and decomposition method, and gates four 104-rank node mappings before
+the full chain. Each node receives its own processor data in JOBFS; only
+shared dictionaries, 416 symlinks, stage tar files, logs, and Cd evidence
+use scratch. This avoids the approximately 8,818 scratch files of the older
+uncollated baseline when only about 6.3K project inodes are available.
+The cross-node form still requires the actual four-node job to validate it.
