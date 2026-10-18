@@ -219,6 +219,15 @@ exists. The original `realtime-preflight.log` is empty and preserved under
 the job-keyed evidence directory. See the 2026-10-19 progress report for
 the evidence boundary; another four-node run requires separate approval.
 
+The bounded one-node timer diagnosis `181521525.gadi-pbs` completed in one
+minute for **0.13 SU**. Both `REALTIME@f20` and `REALTIME@50000` timed out
+after eight seconds when profiling `/bin/sleep 1`; both completed on a
+CPU-active `seq` command. CPUTIME on `sleep` also completed. This isolates
+the four-node stall to the REALTIME-on-sleep preflight rather than the
+`@f20` spelling alone. The job did not run OpenFOAM. Its six-row matrix and
+raw measurement archive are under the job-keyed evidence directory; a new
+solver profile remains subject to separate review and approval.
+
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It
 is not a Scotch result. The v2 script pins the full verified hash and

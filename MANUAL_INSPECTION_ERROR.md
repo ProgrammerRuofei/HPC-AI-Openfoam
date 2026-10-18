@@ -119,7 +119,8 @@ records to determine the rank signal-7 cause.
 
 ## Gadi HPCToolkit timer preflight stalled before GCC/Scotch solver
 
-- **Status:** `AUTHORIZED_FOR_DIAGNOSIS`
+- **Status:** `USER_ACTION_REQUIRED` — low-cost cause isolation complete;
+  any further OpenFOAM profile requires new review and approval.
 - **Recorded:** 2026-10-19
 - **Workflow:** `builds/build-scripts/gadi-gcc162-ompi5010/profile_baseline_4n_scotch_v1.pbs`
 - **Attempt / PBS job:** unscored 4N profile / `181520909.gadi-pbs`
@@ -161,3 +162,33 @@ each constrained by `timeout -k 2s 8s`. The script is
 It reproduces the same archived runtime environment, writes unique logs, and
 does not run OpenFOAM or authorize another four-node profile. Update this
 case after the diagnostic returns; preserve both jobs' original evidence.
+
+### One-node timer diagnosis outcome — 2026-10-19
+
+The single approved PBS job `181521525.gadi-pbs` ended `F`,
+`Exit_status=0`, 1:00 walltime, **0.13 SU** on SPR node `0562`. The script
+verified the same GCC, MPI and OpenFOAM archive SHA256 values and private
+MPI linkage, then completed all six bounded tests:
+
+| Target | Timer specification | Exit | Elapsed |
+| --- | --- | ---: | ---: |
+| `sleep 1` | `CPUTIME@f20` | 0 | 2 s |
+| `sleep 1` | `CPUTIME@50000` | 0 | 1 s |
+| `sleep 1` | `REALTIME@f20` | 124 (timeout) | 8 s |
+| `sleep 1` | `REALTIME@50000` | 124 (timeout) | 8 s |
+| bounded CPU-active `seq` | `REALTIME@f20` | 0 | 1 s |
+| bounded CPU-active `seq` | `REALTIME@50000` | 0 | 1 s |
+
+Both REALTIME spellings timed out only with `sleep`, whereas the same
+profiler and environment completed on `seq`. This isolates the operational
+stall to REALTIME profiling of the sleeping preflight target. The installed
+help still documents numeric microsecond periods for timer sources, so a
+future script should use `@50000`; the matrix rules out the `@f20` spelling
+as a sufficient explanation of this hang. The internal interrupted-syscall
+mechanism is plausible from HPCToolkit documentation but was not directly
+traced. Original logs, status matrix, and measurement tar are preserved at
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/hpctoolkit-timer-diag.181521525.gadi-pbs/`.
+
+No further four-node run was submitted. A future profile needs a separately
+reviewed script without the REALTIME-on-sleep preflight, bounded startup,
+and a small OpenFOAM sampling smoke before requesting 416 ranks.

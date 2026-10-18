@@ -93,3 +93,9 @@ PBS recorded `Exit_status=271`, 26:04 walltime and **361.46 SU**. There is
 no diagnostic timing, Cd or profiler database from this attempt, and it
 does not enter the scored comparison above. Detailed evidence and paths are
 in `progress/2026-10-19-gadi-baseline-runtime-evidence-profile.md`.
+
+The follow-up one-node diagnostic `181521525.gadi-pbs` used four CPUs and
+0.13 SU. Its six bounded tests show that REALTIME sampling of `/bin/sleep 1`
+times out with both frequency and numeric-period notation, while REALTIME
+sampling of a CPU-active command and CPUTIME sampling of `sleep` complete.
+This is a profiler-preflight diagnosis, not an OpenFOAM run or a new score.

@@ -2,7 +2,7 @@
 
 Status: historical evidence reviewed; one-node UCX/UCC diagnostic completed;
 four-node profile cancelled after timer-preflight stall; bounded one-node
-HPCToolkit timer diagnosis approved.
+HPCToolkit timer diagnosis completed and operational stall isolated.
 
 ## Historical jobs and evidence boundary
 
@@ -205,3 +205,50 @@ log. This distinguishes event syntax from a sleep/signal interaction without
 another 416-rank run. Raw measurements will be packaged into one archive.
 The installed `hpcrun --help` explicitly limits `@f` notation to Linux perf
 events; whether this explains the old stall remains to be tested.
+
+## One-node timer diagnosis submission and result
+
+The reviewed script was committed as `7c46a6299275706290c37c15acc7794bb2cbce49`,
+pushed to GitHub and Gadi, and fast-forwarded into the Gadi control checkout.
+Local and remote `bash -n` passed; the script SHA256 matched at both sites:
+`f039ace97c7181c77f4b8b409698e612353e3cc85ccf05a9ad09d1283635fe31`.
+The unrelated remote untracked `experiments/` files were preserved. The
+single submission command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = 7c46a6299275706290c37c15acc7794bb2cbce49; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/diagnose_hpctoolkit_timers_1n_v1.pbs.out; /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/diagnose_hpctoolkit_timers_1n_v1.pbs'
+```
+
+PBS returned `181521525.gadi-pbs`, then `F`, `Exit_status=0`, walltime
+`00:01:00`, and **0.13 SU** in the independent stdout resource summary. It
+ran on `gadi-cpu-spr-0562` with four allocated CPUs. All pinned archive and
+binary hashes, module checks and private MPI linkage passed. The job's
+evidence directory is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/hpctoolkit-timer-diag.181521525.gadi-pbs/`;
+its unique stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/diagnose_hpctoolkit_timers_1n_v1.pbs.out`.
+`matrix.tsv` SHA256 is
+`08b1bdc75c67a57ae83ac3e4a0c08d75e684ae74ec4b2b5bf307cfc122439c8a`;
+the measurements tar SHA256 is
+`7107c8a449cd8efbae714a308954858c15b98e79e057b36843cb873ef580683d`.
+
+| Program | HPCToolkit event | Exit code | Elapsed |
+| --- | --- | ---: | ---: |
+| `sleep 1` | `CPUTIME@f20` | 0 | 2 s |
+| `sleep 1` | `CPUTIME@50000` | 0 | 1 s |
+| `sleep 1` | `REALTIME@f20` | 124 (timeout) | 8 s |
+| `sleep 1` | `REALTIME@50000` | 124 (timeout) | 8 s |
+| CPU-active `seq` | `REALTIME@f20` | 0 | 1 s |
+| CPU-active `seq` | `REALTIME@50000` | 0 | 1 s |
+
+This controlled matrix reproduced the old preflight stall with `sleep`
+regardless of timer spelling, while REALTIME on an active process finished.
+Thus the operational cause was choosing `/bin/sleep` as the REALTIME
+profiler preflight target; `@f20` alone is not a sufficient cause. The
+installed help and official HPCToolkit manual recommend numeric microsecond
+periods for timer events, so future code should also use `@50000`. A precise
+internal explanation, such as repeated interruption of `sleep`'s syscall,
+remains an inference rather than directly observed process evidence. No
+OpenFOAM profile or scored run resulted, and no four-node retry is authorized
+or submitted. The next safe gate is a bounded 5-rank OpenFOAM sampling smoke
+with numeric CPUTIME only, followed by a separately approved four-node plan.
