@@ -23,6 +23,20 @@ unchanged. The copied case uses 416 ranks and Scotch decomposition.
 | Scientific case | Fixed 65M mesh, `simpleFoam`, `fvSchemes`, `fvSolution.fixedIter`; 150 steps | Same fixed scientific inputs and 150 steps; copied case changes only rank count and decomposition method |
 | Preparation | Serial `decomposePar`, then 416-rank `renumberMesh`, `potentialFoam`, `applyBoundaryLayer`, `simpleFoam` | Same full chain; each processor directory is in node-local JOBFS and visible through a scratch symlink |
 
+### Runtime communication-library evidence boundary
+
+Both scored runs recorded `ucx/1.18.1` and `ucc/1.4.4` in `modules.txt`.
+Their `simpleFoam.ldd` files resolve private `libmpi.so.40` from the job's
+Open MPI 5.0.10 archive and `libucc.so.1` from
+`/apps/ucc/1.4.4/lib/libucc.so.1`, but resolve `libucp.so.0` from
+`/usr/lib64/libucp.so.0`. They did not record that loaded UCX library's own
+version or SHA256, and did not log the selected MPI collective component.
+Thus the **effective UCX version in these historical jobs is unknown**, and
+the presence of UCC does not establish that UCC handled collectives. The
+module versions above describe the loaded modules, not proved effective
+runtime versions. A later two-rank diagnostic can establish the current
+matching environment, not retroactively identify the historical library.
+
 Here “older official baseline” means the previously validated reference
 under the site's default software stack. “New baseline” is the first
 completed run of the GCC16/MPI5/Scotch candidate. The repeat uses the
