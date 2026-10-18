@@ -104,3 +104,26 @@ full OpenFOAM binary. The PBS-derived usage is
 `4 CPUs × 44 s × 2 SU/core-hour / 3600 = 0.0978 SU`, about 0.10 SU;
 `nci_account` has cleared the 1.33 SU reservation but reports used SU only
 to 0.01 KSU, too coarse to independently confirm this tiny debit.
+
+## Approved four-node diagnostic profile design
+
+The user approved **one** four-node profile after reviewing the proposed
+changes. `profile_baseline_4n_scotch_v1.pbs` copies the validated Scotch
+baseline script. All archive and source hashes, case copy, mesh comparison,
+`fvSchemes`, `fvSolution.fixedIter`, 416-rank placement, preparation commands,
+Scotch decomposition and 150 solver steps remain the same. A new
+`profile-4n-scotch/<jobid>/` path and unique stdout isolate the diagnostic.
+The walltime request is 40 minutes, bounding 416 CPUs at 2 SU/core-hour to
+554.67 SU; prior unprofiled runs used about 226-230 SU. The profile cost and
+solver timing are not competition scores.
+
+Only solver ranks 0, 52, 104, 156, 208, 260, 312 and 364 are sampled by
+HPCToolkit 2021 at 20 Hz `CPUTIME`; all 416 ranks still participate in the
+unchanged solver. A one-second `REALTIME` event preflight in JOBFS adds the
+wall-clock sampling metric only if supported. Each node packages its two
+rank directories into one scratch archive via `stage_4n_hpctoolkit_node.sh`.
+The head node merges eight measurement directories in JOBFS, optionally
+runs `hpcstruct`, runs `hpcprof -M stats`, and writes one compressed database
+archive. Raw archives remain available if symbolization fails. The script
+still requires full-chain `End`, `Time = 150`, rank mapping, Cd 0.27-0.30 and
+a diagnostic pass marker. No scored repeat is authorized by this approval.

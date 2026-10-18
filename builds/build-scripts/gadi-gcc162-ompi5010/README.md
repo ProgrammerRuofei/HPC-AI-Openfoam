@@ -201,6 +201,14 @@ recorded the system `libucp` path but neither its version nor UCC selection;
 their exact historical effective UCX version must remain unknown. See
 `progress/2026-10-19-gadi-baseline-runtime-evidence-profile.md`.
 
+The approved `profile_baseline_4n_scotch_v1.pbs` is a diagnostic copy of the
+validated 4N Scotch script. It keeps the same pinned stack and scientific
+inputs, runs 416 ranks for 150 steps, and samples only eight solver ranks
+with HPCToolkit. The request is capped at 40 minutes/554.67 SU; its sampled
+solver time is not a new scored result. `stage_4n_hpctoolkit_node.sh` packages
+each node's measurement files into one scratch archive before local
+`hpcprof` analysis. See the linked progress report for provenance and result.
+
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It
 is not a Scotch result. The v2 script pins the full verified hash and
