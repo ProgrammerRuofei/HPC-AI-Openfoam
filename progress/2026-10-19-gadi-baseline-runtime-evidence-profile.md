@@ -1,6 +1,7 @@
 # Gadi GCC/Scotch baseline runtime evidence and profiling
 
-Status: historical evidence reviewed; one-node diagnostic approved and locally prepared.
+Status: historical evidence reviewed; one-node diagnostic completed; four-node
+profile pending separate script review and approval.
 
 ## Historical jobs and evidence boundary
 
@@ -76,5 +77,30 @@ stdout is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/diagnose_ucx_ucc_hpctoolkit_1n_v1.pbs.out`;
 job-keyed evidence will be under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/ucx-ucc-diag.181520734.gadi-pbs/`.
-Exit status, runtime versions, UCC selection, profiler compatibility and
-actual SU are pending. Do not submit another diagnostic on an unknown result.
+PBS reached `F` with `Exit_status=0`, script
+`UCX_UCC_HPCTOOLKIT_1N_DIAG_PASS`, and 44 seconds walltime. Both MPI ranks
+ran on `gadi-cpu-spr-0524` and had one allowed CPU each (observed CPU 26 and
+27). After `MPI_Init`, each reported `/usr/lib64/libucp.so.0` and
+`ucp_get_version_string() = 1.21.0`; that file's SHA256 was
+`c5f993ab980f2bc736fe34cfb933acd6fb4d767444f6d64c3326766908277abc`.
+The UCC library at `/apps/ucc/1.4.4/lib/libucc.so.1` hashed to
+`04701fddce814d1d1a9bf8a3b4e997a0b7826f0a4220ce24d9dfb3427aa67abb`.
+Private MPI and OpenFOAM archive/binary SHA256 checks passed.
+
+`coll-ucc-info.txt` reports `coll_ucc_enable = 0` from the default, and
+`mpi-runtime.txt` shows UCC disqualified with priority -1. Other collective
+components, including `hcoll` and `tuned`, were enabled; this diagnostic
+does not establish which routine served each OpenFOAM collective. Thus UCC
+was installed and linked but **not selected in this matching two-rank
+environment**. The old baseline jobs lack this verbose runtime evidence,
+so their collective selection remains historically unproven.
+
+The HPCToolkit 2021 `hpcrun` two-rank trial returned success and generated
+rank-specific `.hpcrun` files (the first rank log recorded 12 samples),
+archived as `hpctoolkit-smoke.tar.gz`. Its log also contains a non-fatal
+`hpcfnbounds` DSO mapping warning. This supports a carefully bounded solver
+sampling run but does not yet prove successful source attribution for the
+full OpenFOAM binary. The PBS-derived usage is
+`4 CPUs × 44 s × 2 SU/core-hour / 3600 = 0.0978 SU`, about 0.10 SU;
+`nci_account` has cleared the 1.33 SU reservation but reports used SU only
+to 0.01 KSU, too coarse to independently confirm this tiny debit.

@@ -189,6 +189,18 @@ s/step, the same final Cd, 230.19 SU. Each used four SPR nodes with
 for the exact software, MPI placement, decomposition, scientific case,
 and comparison to the older site-module baseline.
 
+The approved one-node runtime diagnostic `181520734.gadi-pbs` passed in
+44 seconds (`Exit_status=0`). Its two ranks, using the same pinned archives
+and module/OpenFOAM environment, actually loaded `/usr/lib64/libucp.so.0`
+reporting UCX 1.21.0, SHA256
+`c5f993ab980f2bc736fe34cfb933acd6fb4d767444f6d64c3326766908277abc`.
+UCC 1.4.4 was linked but its Open MPI collective component was disabled by
+default and disqualified at runtime. HPCToolkit 2021 produced two-rank
+sampling files, with a non-fatal DSO mapping warning. The old scored jobs
+recorded the system `libucp` path but neither its version nor UCC selection;
+their exact historical effective UCX version must remain unknown. See
+`progress/2026-10-19-gadi-baseline-runtime-evidence-profile.md`.
+
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It
 is not a Scotch result. The v2 script pins the full verified hash and

@@ -37,6 +37,14 @@ module versions above describe the loaded modules, not proved effective
 runtime versions. A later two-rank diagnostic can establish the current
 matching environment, not retroactively identify the historical library.
 
+That diagnostic, `181520734.gadi-pbs`, completed successfully in a fresh
+one-node job. With the same archives, modules, and OpenFOAM `bashrc` order,
+both ranks loaded `/usr/lib64/libucp.so.0` reporting **UCX 1.21.0** and
+SHA256 `c5f993ab980f2bc736fe34cfb933acd6fb4d767444f6d64c3326766908277abc`.
+`coll_ucc_enable` was the default `0`, and verbose MPI selection disqualified
+UCC. This establishes the **current matching environment**, not the exact
+historical binary version or collective choice during the scored jobs.
+
 Here “older official baseline” means the previously validated reference
 under the site's default software stack. “New baseline” is the first
 completed run of the GCC16/MPI5/Scotch candidate. The repeat uses the
