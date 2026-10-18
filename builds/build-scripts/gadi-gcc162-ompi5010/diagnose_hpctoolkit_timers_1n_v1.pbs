@@ -1,0 +1,105 @@
+#!/bin/bash
+# Isolate the HPCToolkit timer preflight that stalled four-node job 181520909.
+# Input: pinned GCC/MPI/OpenFOAM archives; output: job-keyed diagnostic logs.
+# This does not run the scientific case or change shared software.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N gcc162_hpc_timer_1n
+#PBS -l ncpus=4
+#PBS -l mem=16GB
+#PBS -l jobfs=12GB
+#PBS -l walltime=00:06:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/diagnose_hpctoolkit_timers_1n_v1.pbs.out
+set -euo pipefail
+
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+OF_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+OF_ARCHIVE="$OF_ROOT/runtime-archive/gadi-gcc162-ompi5010-of2512.181360543.gadi-pbs.tar.gz"
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+OF_SHA=64cd075a385938f0c9ac0c478066349e5bb198f5fa8cd80cc3ed61fb12286281
+BIN_SHA=b3b992619ea5b9805fe1c549d2dafafe6cba88411bd152f7b1eb50081fc867c5
+ROOT="${PBS_JOBFS:?}/gcc162-hpctimer-diag-${PBS_JOBID:?}"
+EVIDENCE="$OF_ROOT/evidence/hpctoolkit-timer-diag.${PBS_JOBID}"
+GCC_PREFIX="$ROOT/gcc-16.2.0"
+MPI_PREFIX="$ROOT/openmpi-5.0.10"
+FOAM_ROOT="$ROOT/OpenFOAM-v2512"
+HPCRUN=/apps/hpctoolkit/2021.05.15/bin/hpcrun
+
+test "${PBS_NCPUS:?}" -eq 4
+test ! -e "$ROOT"; test ! -e "$EVIDENCE"
+test -x "$HPCRUN"
+command -v timeout; command -v seq
+for item in "$GCC_SHA $GCC_ARCHIVE" "$MPI_SHA $MPI_ARCHIVE" "$OF_SHA $OF_ARCHIVE"; do
+    read -r hash file <<< "$item"
+    printf '%s  %s\n' "$hash" "$file" | sha256sum -c -
+done
+mkdir -p "$ROOT/profiles" "$EVIDENCE"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+trap 'rc=$?; printf "pbs_script_rc=%s\n" "$rc" > "$EVIDENCE/exit-status.txt"' EXIT
+printf 'diagnostic_only=true\njob_id=%s\nfailed_parent=181520909.gadi-pbs\n' "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
+
+# Recreate the old job's modules and private runtime before the timer tests.
+module purge
+module load ucx/1.18.1 ucc/1.4.4
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+tar -xzf "$GCC_ARCHIVE" -C "$ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$ROOT"
+tar -xzf "$OF_ARCHIVE" -C "$ROOT"
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export OMPI_CC="$GCC_PREFIX/bin/gcc" OMPI_CXX="$GCC_PREFIX/bin/g++"
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+gcc --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+BIN="$FOAM_ROOT/platforms/linux64GccDPInt32Opt/bin/simpleFoam"
+printf '%s  %s\n' "$BIN_SHA" "$BIN" | sha256sum -c -
+set +u
+. "$FOAM_ROOT/etc/bashrc" WM_COMPILER=Gcc WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+set -u
+test "$WM_PROJECT_DIR" = "$FOAM_ROOT"
+ldd "$BIN" > "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/simpleFoam.ldd"
+"$HPCRUN" --version > "$EVIDENCE/hpcrun-version.txt" 2>&1
+"$HPCRUN" --help > "$EVIDENCE/hpcrun-help.txt" 2>&1
+
+# Each invocation has its own output directory and an 8-second TERM / 2-second
+# KILL ceiling. A timeout is diagnostic data, not a reason to skip later tests.
+printf 'test\tevent\tprogram\trc\telapsed_s\thpcrun_files\n' > "$EVIDENCE/matrix.tsv"
+run_test() {
+    local label=$1 event=$2 program=$3
+    local start finish rc count
+    start=$(date +%s)
+    set +e
+    if [ "$program" = sleep ]; then
+        timeout -k 2s 8s "$HPCRUN" -e "$event" -o "$ROOT/profiles/$label" /bin/sleep 1 > "$EVIDENCE/$label.log" 2>&1
+    else
+        timeout -k 2s 8s "$HPCRUN" -e "$event" -o "$ROOT/profiles/$label" /bin/bash -c '/bin/seq 1 5000000 >/dev/null' > "$EVIDENCE/$label.log" 2>&1
+    fi
+    rc=$?
+    set -e
+    finish=$(date +%s)
+    count=0
+    if test -d "$ROOT/profiles/$label"; then
+        count=$(find "$ROOT/profiles/$label" -type f -name '*.hpcrun' | wc -l)
+    fi
+    printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$label" "$event" "$program" "$rc" "$((finish-start))" "$count" | tee -a "$EVIDENCE/matrix.tsv"
+}
+run_test sleep-cputime-f20 CPUTIME@f20 sleep
+run_test sleep-cputime-period CPUTIME@50000 sleep
+run_test sleep-realtime-f20 REALTIME@f20 sleep
+run_test sleep-realtime-period REALTIME@50000 sleep
+run_test seq-realtime-f20 REALTIME@f20 seq
+run_test seq-realtime-period REALTIME@50000 seq
+test "$(wc -l < "$EVIDENCE/matrix.tsv")" -eq 7
+tar -czf "$EVIDENCE/hpctoolkit-measurements.tar.gz" -C "$ROOT" profiles
+test -s "$EVIDENCE/hpctoolkit-measurements.tar.gz"
+echo GCC162_HPCTOOLKIT_TIMER_DIAG_COMPLETE

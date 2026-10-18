@@ -1,7 +1,8 @@
 # Gadi GCC/Scotch baseline runtime evidence and profiling
 
-Status: historical evidence reviewed; one-node diagnostic completed; four-node
-profile pending separate script review and approval.
+Status: historical evidence reviewed; one-node UCX/UCC diagnostic completed;
+four-node profile cancelled after timer-preflight stall; bounded one-node
+HPCToolkit timer diagnosis approved.
 
 ## Historical jobs and evidence boundary
 
@@ -189,3 +190,18 @@ resource summary in the unique stdout. A future attempt would need a
 separately reviewed script, a bounded profiler preflight, and explicit
 approval for another 416-rank job. Do not treat the successful two-rank
 CPUTIME-only test as validation of this REALTIME preflight.
+
+## Bounded timer diagnosis preparation
+
+The user approved a separate, non-scored one-node diagnostic after seeing
+the proposed script difference. It requests four CPUs, 16 GB memory, 12 GB
+JOBFS, and six minutes (at most 0.8 SU at 2 SU/core-hour), retaining the
+same pinned GCC/MPI/OpenFOAM archives and module environment. Six individual
+HPCToolkit invocations compare `@f20` with the documented numeric 50,000
+microsecond period for CPUTIME and REALTIME on `/bin/sleep 1`, and compare
+both REALTIME spellings on a bounded CPU-active `seq` command. Each invocation
+has an eight-second TERM plus two-second KILL limit and independent result
+log. This distinguishes event syntax from a sleep/signal interaction without
+another 416-rank run. Raw measurements will be packaged into one archive.
+The installed `hpcrun --help` explicitly limits `@f` notation to Linux perf
+events; whether this explains the old stall remains to be tested.

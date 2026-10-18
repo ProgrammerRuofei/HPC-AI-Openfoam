@@ -116,3 +116,48 @@ The repeated failure still establishes a recurring parallel-finalisation
 problem in this workflow, but it cannot alone prove an invariant failure of an
 identical initial case state. Platform support would need PBS/PALS server-side
 records to determine the rank signal-7 cause.
+
+## Gadi HPCToolkit timer preflight stalled before GCC/Scotch solver
+
+- **Status:** `AUTHORIZED_FOR_DIAGNOSIS`
+- **Recorded:** 2026-10-19
+- **Workflow:** `builds/build-scripts/gadi-gcc162-ompi5010/profile_baseline_4n_scotch_v1.pbs`
+- **Attempt / PBS job:** unscored 4N profile / `181520909.gadi-pbs`
+- **Scope:** Gadi `normalsr`, four Sapphire Rapids nodes, 416 ranks; fixed
+  GCC 16.2.0/Open MPI 5.0.10/OpenFOAM v2512/Scotch scientific case.
+
+### Observed error and evidence
+
+The source and archive hashes, private MPI linkage, Scotch decomposition,
+four-host 104-rank mapping, `renumberMesh`, `potentialFoam`, and
+`applyBoundaryLayer` all passed. The subsequent
+`hpcrun -e REALTIME@f20 /bin/sleep 1` preflight left an empty log for over
+15 minutes. `profile-events.txt` and `simpleFoam.log` were never created.
+The user approved cancelling the non-progressing job. PBS reported `F`,
+`Exit_status=271` (SIGTERM), 26:04 walltime, and 361.46 SU. Original evidence
+is in `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/profile-4n-scotch/181520909.gadi-pbs/evidence/`; the
+PBS resource summary is in the job's unique stdout under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/`.
+
+### Suspected cause and unresolved questions
+
+The installed HPCToolkit 2021.05.15 `hpcrun --help` says `@f` frequency
+notation is for Linux perf events, whereas `CPUTIME` and `REALTIME` are
+timer events with numeric periods. This makes `REALTIME@f20` a likely
+configuration error. HPCToolkit also documents that REALTIME sampling can
+disrupt programs that do not handle interrupted syscalls; the test target
+was `/bin/sleep`. Neither mechanism has been isolated by the old job's empty
+log, so the internal hang cause remains unconfirmed. A previous two-rank
+`CPUTIME@f20` trial completed; that does not validate REALTIME or the full
+solver profile.
+
+### Authorized next diagnosis
+
+The user approved one new low-cost, unscored diagnostic after reviewing its
+proposed diff: one Gadi SPR node, four CPUs, six-minute PBS cap (0.8 SU at
+2 SU/core-hour), with six independent HPCToolkit timer/program combinations,
+each constrained by `timeout -k 2s 8s`. The script is
+`builds/build-scripts/gadi-gcc162-ompi5010/diagnose_hpctoolkit_timers_1n_v1.pbs`.
+It reproduces the same archived runtime environment, writes unique logs, and
+does not run OpenFOAM or authorize another four-node profile. Update this
+case after the diagnostic returns; preserve both jobs' original evidence.
