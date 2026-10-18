@@ -51,3 +51,30 @@ diagnostic run of the unchanged GCC/Scotch scientific workload. It will
 sample representative ranks only if HPCToolkit passes the small test, and
 its local script diff, resource ceiling, and expected outputs will be shown
 before submission. It is not an additional scored repeat.
+
+## Small diagnostic submission
+
+The approved script and evidence note were committed as
+`5d046613eac86a27eda5957cdb3c78ab6be2abcc` and pushed to the isolated
+`codex/gadi-gcc162-build` branch on GitHub and Gadi. The Gadi checkout was
+fast-forwarded to that commit. GitHub SSH authentication from Gadi itself
+failed, so the local checkout pushed directly to the `gadi` Git remote;
+there was no PBS or cluster SSH failure. The unrelated untracked Gadi
+`experiments/` paths remain untouched. Script SHA256 on both checkouts:
+`28e1ae2d75c4b376d0cd0938e7481c6b9802021c02ac740729b70f45d27047f9`.
+Local and remote `bash -n` and unique stdout/archive prechecks passed.
+
+The single submission command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = 5d046613eac86a27eda5957cdb3c78ab6be2abcc; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/diagnose_ucx_ucc_hpctoolkit_1n_v1.pbs.out; /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/diagnose_ucx_ucc_hpctoolkit_1n_v1.pbs'
+```
+
+PBS returned `181520734.gadi-pbs`. The immediate `qstat -f` showed `Q`,
+`normalsr-exec`, one node, four CPUs and 10-minute walltime. Its unique
+stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/diagnose_ucx_ucc_hpctoolkit_1n_v1.pbs.out`;
+job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/ucx-ucc-diag.181520734.gadi-pbs/`.
+Exit status, runtime versions, UCC selection, profiler compatibility and
+actual SU are pending. Do not submit another diagnostic on an unknown result.
