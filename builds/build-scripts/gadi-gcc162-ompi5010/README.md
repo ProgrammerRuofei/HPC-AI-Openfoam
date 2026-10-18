@@ -209,6 +209,16 @@ solver time is not a new scored result. `stage_4n_hpctoolkit_node.sh` packages
 each node's measurement files into one scratch archive before local
 `hpcprof` analysis. See the linked progress report for provenance and result.
 
+Profile attempt `181520909.gadi-pbs` was cancelled with the user's
+authorization after its HPCToolkit `REALTIME@f20` one-second preflight made
+no progress for over 15 minutes. PBS final status was `Exit_status=271`
+(`SIGTERM`), 26:04 walltime, **361.46 SU**. All four nodes had 104 ranks;
+Scotch and the three MPI preparation applications ended normally. The
+solver and sampling database never started, so no profile or scored result
+exists. The original `realtime-preflight.log` is empty and preserved under
+the job-keyed evidence directory. See the 2026-10-19 progress report for
+the evidence boundary; another four-node run requires separate approval.
+
 Tutorial smoke `181358016.gadi-pbs` used 0.01 SU and stopped before
 unpacking because its functionObject SHA-256 literal was truncated. It
 is not a Scotch result. The v2 script pins the full verified hash and

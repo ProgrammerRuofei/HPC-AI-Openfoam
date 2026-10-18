@@ -154,5 +154,38 @@ PBS returned `181520909.gadi-pbs`; initial `qstat -f` showed `Q` in
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/profile_baseline_4n_scotch_v1.pbs.out`.
 The job-keyed evidence path is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/profile-4n-scotch/181520909.gadi-pbs/evidence/`.
-PBS exit, scientific checks, sampling database and actual charge are pending.
-Do not submit another 416-rank run without separate approval.
+## Four-node profile outcome and cancellation
+
+The job started on four Xeon Platinum 8470Q SPR nodes (`0565`–`0568`),
+each with 104 ranks. PBS ultimately reported `F`, `Exit_status=271`
+(`SIGTERM`), walltime `00:26:04`, and **361.46 SU** in its independent
+stdout resource summary. `nci_account` subsequently cleared the reservation
+and displayed 1.70 KSU used (rounded from the pre-job 1.34 KSU). The user
+approved `qdel 181520909.gadi-pbs` after the HPCToolkit preflight stopped
+making progress; the cancellation was to avoid spending the full 554.67 SU
+walltime ceiling. The only cancellation command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'qdel 181520909.gadi-pbs'
+```
+
+The pinned source and archive SHA256 checks passed. `simpleFoam.ldd` resolved
+the private MPI library. Scotch decomposition, `renumberMesh`,
+`potentialFoam`, and `applyBoundaryLayer` each logged `End`, and
+`rank-host-map.txt` records 104 ranks on each of the four allocated nodes.
+The first unresolved operation was
+`hpcrun -e REALTIME@f20 -o "$LOCAL_ROOT/realtime-preflight" /bin/sleep 1`.
+Its `realtime-preflight.log` remained empty from 03:58:27 AEDT until
+cancellation at 04:13:45 AEDT; `profile-events.txt` and `simpleFoam.log`
+were never created. This localizes the stall to the REALTIME preflight;
+the exact internal cause of the HPCToolkit hang remains unproven. The
+script's `exit-status.txt` says `script_exit_rc=0` because the EXIT trap ran
+after SIGTERM; PBS `Exit_status=271` and the absence of solver/profile
+outputs are decisive. No 150-step solver time, Cd or profile database was
+produced, and this is **not** a scored run.
+
+Original logs remain at the job-keyed evidence path above, with the PBS
+resource summary in the unique stdout. A future attempt would need a
+separately reviewed script, a bounded profiler preflight, and explicit
+approval for another 416-rank job. Do not treat the successful two-rank
+CPUTIME-only test as validation of this REALTIME preflight.

@@ -80,3 +80,16 @@ reference but inside the predeclared 0.27–0.30 band. Because compiler,
 MPI and decomposition all changed, this comparison does not isolate the
 cause of the gain. This is a validated current candidate, not a claim
 that every possible build/decomposition has been tested.
+
+## Unscored diagnostic profile attempt
+
+PBS job `181520909.gadi-pbs` used the same GCC 16.2.0, private Open MPI
+5.0.10, `ucx/1.18.1` and `ucc/1.4.4` loaded modules, OpenFOAM v2512,
+four SPR nodes, 416 ranks (104/node), Scotch decomposition, and unchanged
+scientific inputs. It was intended to sample eight ranks over 150 steps,
+but never started `simpleFoam`: HPCToolkit 2021's `REALTIME@f20` preflight
+stalled after the full preparation chain. The user authorized cancellation.
+PBS recorded `Exit_status=271`, 26:04 walltime and **361.46 SU**. There is
+no diagnostic timing, Cd or profiler database from this attempt, and it
+does not enter the scored comparison above. Detailed evidence and paths are
+in `progress/2026-10-19-gadi-baseline-runtime-evidence-profile.md`.
