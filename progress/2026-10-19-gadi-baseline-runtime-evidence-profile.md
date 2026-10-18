@@ -127,3 +127,32 @@ runs `hpcstruct`, runs `hpcprof -M stats`, and writes one compressed database
 archive. Raw archives remain available if symbolization fails. The script
 still requires full-chain `End`, `Time = 150`, rank mapping, Cd 0.27-0.30 and
 a diagnostic pass marker. No scored repeat is authorized by this approval.
+
+## Four-node profile submission
+
+The approved profile script, node archive helper, and documentation were
+committed as `10d7e8e17ae0e882b3713cf2ae4dfc0d986d1694`, pushed to the
+isolated branch on GitHub and Gadi, and fast-forwarded into the Gadi control
+checkout. The script and helper SHA256 values matched locally and remotely:
+
+- `profile_baseline_4n_scotch_v1.pbs`:
+  `4533207541c82989f73015f854231d5faf527b46ce6d6e8ca6539763264749c5`
+- `stage_4n_hpctoolkit_node.sh`:
+  `375bf4e471ee9316b4f63794d2e2a527235ca72f9359888e2f89754f5eb86cd6`
+
+Local and remote `bash -n`, static scientific-control comparison, unique
+stdout and account prechecks passed. `nci_account -P pm78` showed 4.66 KSU
+available and zero reserved SU before submission. The single qsub command:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = 10d7e8e17ae0e882b3713cf2ae4dfc0d986d1694; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/profile_baseline_4n_scotch_v1.pbs.out; /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/profile_baseline_4n_scotch_v1.pbs'
+```
+
+PBS returned `181520909.gadi-pbs`; initial `qstat -f` showed `Q` in
+`normalsr-exec`, 4 nodes/416 CPUs, 760 GB memory, 100 GB JOBFS, and a
+40-minute limit. Unique stdout:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/profile_baseline_4n_scotch_v1.pbs.out`.
+The job-keyed evidence path is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/profile-4n-scotch/181520909.gadi-pbs/evidence/`.
+PBS exit, scientific checks, sampling database and actual charge are pending.
+Do not submit another 416-rank run without separate approval.
