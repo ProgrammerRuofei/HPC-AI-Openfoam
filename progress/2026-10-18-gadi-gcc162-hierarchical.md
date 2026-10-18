@@ -67,3 +67,25 @@ four SPR hosts each with 104 ranks, all five chain `End` markers, `Time = 150`,
 normal MPI finalisation, coded average seconds/step, Cd sanity and actual SU.
 Record the full configuration and result in `results/` and the build README.
 No same-build repeat is authorized by this approval.
+
+## Submitted job
+
+On 2026-10-18, local commit `883cee76f8fef2b5a8460ac11e74b9819d443984`
+was pushed to GitHub and Gadi. The Gadi checkout fast-forwarded from
+`6d8787a` to the same commit; the reviewed script SHA256 on both sides was
+`e18164e4f3043e45cbe6972f7619e605a7838ce0c612e48961ab92d9621390f7`.
+The existing unrelated remote untracked paths under `experiments/` were
+preserved. The single submission command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = 883cee76f8fef2b5a8460ac11e74b9819d443984; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_v1.pbs.out; /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/run_baseline_4n_hierarchical_v1.pbs'
+```
+
+PBS returned `181519873.gadi-pbs`. The immediate `qstat -f` showed Q in
+`normalsr-exec`, `select=4:ncpus=104:mpiprocs=104`, `ncpus=416`, and one-hour
+walltime. The unique stdout path is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_v1.pbs.out`.
+Job-keyed evidence will be in
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical/181519873.gadi-pbs/evidence/`.
+Result and actual charge are pending. Do not submit a repeat without new user
+approval.
