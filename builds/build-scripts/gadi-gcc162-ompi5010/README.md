@@ -244,3 +244,11 @@ A separately approved, non-scored five-rank tutorial smoke is prepared in
 `CPUTIME@50000`, has a 120-second solver timeout and ten-minute PBS limit,
 and validates solver completion plus raw samples for every rank. Its unique
 output paths preserve the earlier HPCToolkit failure evidence.
+
+The approved CPUTIME OpenFOAM tutorial smoke `181585812.gadi-pbs` passed
+PBS `Exit_status=0`, Scotch decomposition, five-rank `simpleFoam` through
+20 steps and `End`, with nonzero rank-specific `.hpcrun` samples. It used
+one SPR node, 5 CPUs, 1:10 walltime and 0.19 SU. The raw profile archive
+and solver log are preserved under the job-keyed evidence directory; see
+`progress/2026-10-19-gadi-baseline-runtime-evidence-profile.md`. The short
+tutorial is not a representative scientific profile or competition score.

@@ -2,7 +2,8 @@
 
 Status: historical evidence reviewed; one-node UCX/UCC diagnostic completed;
 four-node profile cancelled after timer-preflight stall; bounded one-node
-HPCToolkit timer diagnosis completed and operational stall isolated.
+HPCToolkit timer diagnosis completed, operational stall isolated, and
+five-rank OpenFOAM CPUTIME smoke completed.
 
 ## Historical jobs and evidence boundary
 
@@ -271,4 +272,49 @@ no 65M scientific input or scored baseline is modified or rerun.
 Local `bash -n` and static comparison of source/archive hashes, tutorial
 controls, Scotch preparation and solver checks passed. The reviewed script
 SHA256 is `24353aed593493903dad32736d2c5b845def9c07aac7f33a4e6bf32736a50f59`.
-PBS submission and results are pending Git synchronization and remote checks.
+The approved submission and result are recorded below.
+
+## Five-rank OpenFOAM CPUTIME smoke result
+
+The reviewed script was committed as `a9779c5a09f91edc51724e3ac434cb385f1c73a7`,
+pushed to GitHub and Gadi, and fast-forwarded into the Gadi checkout.
+Remote `bash -n` passed and its SHA256 matched the local value
+`24353aed593493903dad32736d2c5b845def9c07aac7f33a4e6bf32736a50f59`.
+The unrelated untracked Gadi `experiments/` paths were preserved. The one
+submission command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; test "$(git rev-parse HEAD)" = a9779c5a09f91edc51724e3ac434cb385f1c73a7; test "$(sha256sum builds/build-scripts/gadi-gcc162-ompi5010/smoke_hpctoolkit_openfoam_1n_v1.pbs | cut -d " " -f 1)" = 24353aed593493903dad32736d2c5b845def9c07aac7f33a4e6bf32736a50f59; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_hpctoolkit_openfoam_1n_v1.pbs.out; /opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/smoke_hpctoolkit_openfoam_1n_v1.pbs'
+```
+
+PBS returned `181585812.gadi-pbs`. It ran on one Sapphire Rapids node
+`gadi-cpu-spr-0036` with five CPUs/ranks and ended `F`, `Exit_status=0`,
+`00:01:10` walltime and **0.19 SU** (independent PBS stdout). The pinned
+GCC 16.2.0, Open MPI 5.0.10 and OpenFOAM v2512 archive/binary hashes and
+private `libmpi.so.40` link passed. The module labels were `ucx/1.18.1` and
+`ucc/1.4.4`; this job did not measure the effective loaded UCX version or
+collective selection. The `pitzDaily_fused` tutorial used Scotch, five
+ranks and 20 time steps. `blockMesh` and `decomposePar` passed; the solver
+logged `Time = 20`, coded average wall-clock time per step, `End`, and
+`Finalising parallel run`. The diagnostic marker was
+`GCC162_HPCTOOLKIT_OPENFOAM_1N_SMOKE_PASS`. This is not a scored run.
+
+Five rank-specific `simpleFoam` HPCToolkit logs each report nonzero
+`CPUTIME@50000` samples: rank 0 recorded 3 and ranks 1–4 recorded 227
+each, with zero reported sample anomalies. Rank 0's coded function object
+compiled during the run; its profile also contains compiler subprocesses.
+These tiny, uneven tutorial profiles establish startup/termination and
+raw-data capture, not representative hotspot fractions for the fixed 65M
+case or validated source attribution. The measurement archive passed
+`sha256sum -c` with SHA256
+`c9fef4adf1b3a19126688c6602277d593981875f5efab4c31dbf7d131020ead0`;
+`log.simpleFoam` SHA256 is
+`3c1839efe80d26421b7e09d1f31b5327af2c74861b4899aa1cca1c9cdb4085eb`.
+Raw evidence is under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/hpctoolkit-openfoam-smoke.181585812.gadi-pbs/`;
+unique stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_hpctoolkit_openfoam_1n_v1.pbs.out`.
+
+No new four-node job was submitted. Any next 416-rank profile needs a
+separately reviewed diff and authorization under `AGENTS.md`, with
+`REALTIME`-on-`sleep` removed and a cost ceiling.

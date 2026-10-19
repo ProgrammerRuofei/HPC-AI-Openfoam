@@ -99,3 +99,9 @@ The follow-up one-node diagnostic `181521525.gadi-pbs` used four CPUs and
 times out with both frequency and numeric-period notation, while REALTIME
 sampling of a CPU-active command and CPUTIME sampling of `sleep` complete.
 This is a profiler-preflight diagnosis, not an OpenFOAM run or a new score.
+
+The separate five-rank HPCToolkit tutorial smoke `181585812.gadi-pbs`
+completed with `Exit_status=0` and 0.19 SU. `CPUTIME@50000` generated
+nonzero `simpleFoam` samples on all five ranks, and the Scotch tutorial
+solver reached step 20 and `End`. This is profiler compatibility evidence
+only; it does not enter the four-node 65M score comparison.
