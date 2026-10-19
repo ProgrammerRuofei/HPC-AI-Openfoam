@@ -342,3 +342,24 @@ all pinned hashes, reconstructs the runtime in JOBFS, runs bounded
 single database archive. It does not run OpenFOAM or modify the 65M case.
 PBS and database results must be assessed before any separately authorized
 four-node profile; the prior four-node approval is exhausted.
+
+The reviewed script passed local and remote `bash -n`; its SHA-256 is
+`6c3752246b75d8ce9bd2447a3929d030c7cba209b73b55a3cd0e1420029ff640`.
+Commit `c598cd269417ae8d5cf95d60c8a62d8044dfd9bc` was pushed to the
+isolated `codex/gadi-gcc162-build` branch on GitHub and Gadi. The Gadi
+control checkout remains on its original `main`; the reviewed script was
+materialized from the verified branch under the unique path
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/postprocess_hpctoolkit_smoke_1n_v1.submitted.pbs`.
+The unrelated untracked Gadi `experiments/` files were preserved. The
+single submission command was:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'set -e; cd /scratch/pm78/kj7183/openfoam_cpu/control-repo; p=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/postprocess_hpctoolkit_smoke_1n_v1.submitted.pbs; test "$(sha256sum "$p" | cut -d " " -f1)" = 6c3752246b75d8ce9bd2447a3929d030c7cba209b73b55a3cd0e1420029ff640; test ! -e /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/postprocess_hpctoolkit_smoke_1n_v1.pbs.out; /opt/pbs/default/bin/qsub "$p"'
+```
+
+PBS returned `181623287.gadi-pbs`; initial `qstat -f` showed `Q` in
+`normalsr-exec`, one node, two CPUs, 16 GB RAM, 20 GB JOBFS and a
+ten-minute walltime. Unique stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/postprocess_hpctoolkit_smoke_1n_v1.pbs.out`;
+job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/hpctoolkit-postprocess.181623287.gadi-pbs/`.
