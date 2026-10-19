@@ -252,3 +252,11 @@ one SPR node, 5 CPUs, 1:10 walltime and 0.19 SU. The raw profile archive
 and solver log are preserved under the job-keyed evidence directory; see
 `progress/2026-10-19-gadi-baseline-runtime-evidence-profile.md`. The short
 tutorial is not a representative scientific profile or competition score.
+
+One separately approved follow-up is
+`postprocess_hpctoolkit_smoke_1n_v1.pbs`. It analyzes only the preserved
+five-rank measurement archive on one SPR node (2 CPUs, ten minutes, at most
+0.67 SU). Bounded `hpcstruct` and `hpcprof` reconstruct the old JOBFS
+load-map prefix against hash-checked runtime archives. The test establishes
+whether the samples can yield a usable function/source database before any
+new four-node profiling request. It is not a solver run or scored repeat.

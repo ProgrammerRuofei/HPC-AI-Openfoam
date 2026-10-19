@@ -318,3 +318,27 @@ unique stdout is
 No new four-node job was submitted. Any next 416-rank profile needs a
 separately reviewed diff and authorization under `AGENTS.md`, with
 `REALTIME`-on-`sleep` removed and a cost ceiling.
+
+## Archived five-rank profile inspection and approved postprocessing
+
+After the user restored the existing `gadi-comp` control connection,
+read-only inspection reconfirmed the measurement archive SHA-256
+`c9fef4adf1b3a19126688c6602277d593981875f5efab4c31dbf7d131020ead0`.
+Rank 1–4 `simpleFoam` logs each report 227 `CPUTIME@50000` samples and no
+sample errors; rank 0's primary `simpleFoam` process has only three samples
+and a later rank-0 process has zero. The logs contain a DSO mapping warning
+for `(null)` on the nonzero-sample processes. The `.hpcrun` load map embeds
+the former `/jobfs/181585812.gadi-pbs/gcc162-hpctoolkit-openfoam-181585812.gadi-pbs`
+prefix, which no longer exists. The installed `hpcprof --help` documents
+`-R old=new` replacement for load-map and source paths. This inspection
+confirms raw capture, not function or source attribution.
+
+The user separately approved one small PBS postprocessing job after seeing
+its proposed diff: one `normalsr` node, two CPUs, 16 GB RAM, 20 GB JOBFS,
+ten-minute limit, at most 0.67 SU at two SU/core-hour. The script
+`postprocess_hpctoolkit_smoke_1n_v1.pbs` reads the existing archive, checks
+all pinned hashes, reconstructs the runtime in JOBFS, runs bounded
+`hpcstruct` and `hpcprof -M stats -R old=new` on ranks 1–4, and saves a
+single database archive. It does not run OpenFOAM or modify the 65M case.
+PBS and database results must be assessed before any separately authorized
+four-node profile; the prior four-node approval is exhausted.
