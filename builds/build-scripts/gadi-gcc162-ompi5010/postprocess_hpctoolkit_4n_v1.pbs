@@ -1,0 +1,162 @@
+#!/bin/bash
+# Analyze the completed four-node raw HPCToolkit diagnostic on one SPR node.
+# Select only solver profiles: rank 0 also sampled many coded-function children.
+# This job does not run OpenFOAM and does not create a competition score.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N gcc162_4n_postproc
+#PBS -l ncpus=2
+#PBS -l mem=16GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:10:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/postprocess_hpctoolkit_4n_v1.pbs.out
+set -euo pipefail
+
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+OF_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512
+INPUT="$OF_ROOT/profile-4n-scotch-v2/181627666.gadi-pbs"
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+OF_ARCHIVE="$OF_ROOT/runtime-archive/gadi-gcc162-ompi5010-of2512.181360543.gadi-pbs.tar.gz"
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+OF_SHA=64cd075a385938f0c9ac0c478066349e5bb198f5fa8cd80cc3ed61fb12286281
+BIN_SHA=b3b992619ea5b9805fe1c549d2dafafe6cba88411bd152f7b1eb50081fc867c5
+ROOT="${PBS_JOBFS:?}/gcc162-hpctoolkit-4n-postprocess-${PBS_JOBID:?}"
+EVIDENCE="$OF_ROOT/evidence/hpctoolkit-4n-postprocess.${PBS_JOBID}"
+TOOL=/apps/hpctoolkit/2021.05.15/bin
+OLD_ROOT=/jobfs/181627666.gadi-pbs/of2512-gcc162-profile-4n-181627666.gadi-pbs
+FOAM_ROOT="$ROOT/OpenFOAM-v2512"
+BIN="$FOAM_ROOT/platforms/linux64GccDPInt32Opt/bin/simpleFoam"
+
+test "${PBS_NNODES:?}" -eq 1
+test "${PBS_NCPUS:?}" -eq 2
+test ! -e "$ROOT"; test ! -e "$EVIDENCE"
+test -x "$TOOL/hpcstruct"; test -x "$TOOL/hpcprof"
+command -v timeout
+for item in "$GCC_SHA $GCC_ARCHIVE" "$MPI_SHA $MPI_ARCHIVE" "$OF_SHA $OF_ARCHIVE"; do
+    read -r hash file <<< "$item"
+    printf '%s  %s\n' "$hash" "$file" | sha256sum -c -
+done
+cat > "${PBS_JOBFS}/expected-profile.sha256" <<EOF
+34353a3502cdf3607f50c47ef786a9b6b000de00a3e3b9cc07ddca0eed751eb3  $INPUT/profile-raw/node-0.tar.gz
+2252eed42379060e912d1e78d0a3533a98a9479db5f663980fc4fc7d9e5a2bb4  $INPUT/profile-raw/node-104.tar.gz
+814e57b9aa338d7daef34e47d433279b12e4152a430a194a142da4bdb55e4783  $INPUT/profile-raw/node-208.tar.gz
+5efc63b76990d5783dfb73ca1c5b24a2533c690227c9ff499704dcacf89474e4  $INPUT/profile-raw/node-312.tar.gz
+EOF
+sha256sum -c "${PBS_JOBFS}/expected-profile.sha256"
+mkdir -p "$ROOT" "$EVIDENCE"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+preserve() {
+    rc=$?; set +e
+    printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"
+    return "$rc"
+}
+trap preserve EXIT
+
+printf 'source_job=181627666.gadi-pbs\nprofile_type=diagnostic-not-scored\nmetric=CPUTIME@50000\n' > "$EVIDENCE/provenance.txt"
+cp "${PBS_JOBFS}/expected-profile.sha256" "$EVIDENCE/expected-profile.sha256"
+tar -xzf "$GCC_ARCHIVE" -C "$ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$ROOT"
+tar -xzf "$OF_ARCHIVE" -C "$ROOT"
+mkdir "$ROOT/raw"
+for first in 0 104 208 312; do
+    tar -xzf "$INPUT/profile-raw/node-$first.tar.gz" -C "$ROOT/raw"
+done
+printf '%s  %s\n' "$BIN_SHA" "$BIN" | sha256sum -c -
+printf 'rank\tsamples\tprofile\n' > "$EVIDENCE/selected-profiles.tsv"
+profiles=()
+for rank in 0 52 104 156 208 260 312 364; do
+    dir="$ROOT/raw/hpctoolkit-rank-$rank"
+    test -d "$dir"
+    best_count=-1; best_log=
+    while IFS= read -r -d '' log; do
+        count=$(sed -n 's/.*SUMMARY: samples: \([0-9][0-9]*\).*/\1/p' "$log" | tail -n 1)
+        if [[ "$count" =~ ^[0-9]+$ ]] && (( count > best_count )); then
+            best_count=$count; best_log=$log
+        fi
+    done < <(find "$dir" -maxdepth 1 -type f -name 'simpleFoam*.log' -print0)
+    test "$best_count" -ge 1000
+    profile="${best_log%.log}.hpcrun"
+    test -s "$profile"
+    printf '%s\t%s\t%s\n' "$rank" "$best_count" "$(basename "$profile")" >> "$EVIDENCE/selected-profiles.tsv"
+    profiles+=("$profile")
+done
+test "${#profiles[@]}" -eq 8
+
+if timeout -k 5s 180s "$TOOL/hpcstruct" -j 2 -o "$ROOT/simpleFoam.hpcstruct" "$BIN" > "$EVIDENCE/hpcstruct.log" 2>&1 \
+    && test -s "$ROOT/simpleFoam.hpcstruct"; then
+    struct_args=(-S "$ROOT/simpleFoam.hpcstruct")
+    printf 'hpcstruct=pass\n' >> "$EVIDENCE/provenance.txt"
+else
+    struct_args=()
+    printf 'hpcstruct=failed-or-timed-out\n' >> "$EVIDENCE/provenance.txt"
+fi
+timeout -k 5s 240s "$TOOL/hpcprof" -M stats \
+    -R "$OLD_ROOT=$ROOT" -I "$FOAM_ROOT/+" "${struct_args[@]}" \
+    -o "$ROOT/hpcprof-db" "${profiles[@]}" \
+    > "$EVIDENCE/hpcprof.log" 2>&1
+test -s "$ROOT/hpcprof-db/experiment.xml"
+python3 - "$ROOT/hpcprof-db/experiment.xml" "$EVIDENCE" <<'PY'
+import csv
+import pathlib
+import sys
+import xml.etree.ElementTree as ET
+from collections import defaultdict
+
+source, output = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
+root = ET.parse(source).getroot()
+metric_names = {e.get('i'): e.get('n', '') for e in root.findall('.//MetricTable/Metric')}
+exclusive_ids = {i for i, name in metric_names.items()
+                 if 'CPUTIME' in name and name.endswith(':Sum (E)')}
+if not exclusive_ids:
+    raise RuntimeError('No exclusive CPUTIME sum metric in hpcprof database')
+procedures = {e.get('i'): e.get('n', '') for e in root.findall('.//ProcedureTable/Procedure')}
+modules = {e.get('i'): pathlib.Path(e.get('n', '')).name
+           for e in root.findall('.//LoadModuleTable/LoadModule')}
+by_procedure = defaultdict(float)
+by_module = defaultdict(float)
+for frame in root.iter('PF'):
+    seconds = sum(float(m.get('v', '0')) for m in frame.findall('M')
+                  if m.get('n') in exclusive_ids)
+    if seconds <= 0:
+        continue
+    name = procedures.get(frame.get('n'), '<unresolved procedure>')
+    module = modules.get(frame.get('lm'), '<unresolved module>')
+    by_procedure[(module, name)] += seconds
+    by_module[module] += seconds
+total = sum(by_procedure.values())
+if total <= 0:
+    raise RuntimeError('No procedure-attributed exclusive CPUTIME')
+for filename, header, rows in (
+    ('top-procedures.tsv', ('module', 'procedure', 'exclusive_cpu_seconds',
+                            'share_of_attributed_percent'),
+     ((module, name, value, 100 * value / total)
+      for (module, name), value in sorted(by_procedure.items(),
+                                          key=lambda item: -item[1])[:50])),
+    ('top-modules.tsv', ('module', 'exclusive_cpu_seconds',
+                         'share_of_attributed_percent'),
+     ((module, value, 100 * value / total)
+      for module, value in sorted(by_module.items(),
+                                  key=lambda item: -item[1]))),
+):
+    with (output / filename).open('w', newline='') as stream:
+        writer = csv.writer(stream, delimiter='\t')
+        writer.writerow(header)
+        writer.writerows(rows)
+(output / 'analysis-boundary.txt').write_text(
+    f'exclusive_metric_ids={",".join(sorted(exclusive_ids, key=int))}\n'
+    f'procedure_attributed_cpu_seconds={total:.6f}\n'
+    'shares_use_only_procedure-attributed CPUTIME; they are not walltime, '
+    'MPI waiting, or network-transfer fractions\n'
+)
+PY
+test -s "$EVIDENCE/top-procedures.tsv"
+tar -czf "$EVIDENCE/hpcprof-db.tar.gz" -C "$ROOT" hpcprof-db
+test -s "$EVIDENCE/hpcprof-db.tar.gz"
+sha256sum "$EVIDENCE/hpcprof-db.tar.gz" > "$EVIDENCE/hpcprof-db.sha256"
+printf 'database_bytes=%s\n' "$(stat -c %s "$EVIDENCE/hpcprof-db.tar.gz")" >> "$EVIDENCE/provenance.txt"
+echo HPCTOOLKIT_4N_POSTPROCESS_PASS
