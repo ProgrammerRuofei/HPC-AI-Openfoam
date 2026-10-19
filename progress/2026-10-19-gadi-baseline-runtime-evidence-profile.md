@@ -363,3 +363,33 @@ ten-minute walltime. Unique stdout is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/postprocess_hpctoolkit_smoke_1n_v1.pbs.out`;
 job-keyed evidence will be under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/hpctoolkit-postprocess.181623287.gadi-pbs/`.
+
+## Five-rank profile database result
+
+PBS job `181623287.gadi-pbs` finished `F`, `Exit_status=0`, on SPR node
+`gadi-cpu-spr-0315`, with 2 CPUs, 1:25 walltime and **0.15 SU** in the
+independent PBS stdout. Peak memory was 9.41 GB and JOBFS 6.28 GB.
+All four archive hashes and the `simpleFoam` binary hash matched. The
+script emitted `HPCTOOLKIT_SMOKE_POSTPROCESS_1N_PASS`; `hpcstruct` and
+`hpcprof -M stats` completed, and the database tar passed SHA-256 check:
+`89ea21f309e94bde6636d6731966c882311fba314446c7e7cbfc299f0178bfe5`.
+The DB is in the job-keyed evidence path above and contains
+`experiment.xml` plus `experiment.dtd`.
+
+Read-only parsing of `experiment.xml` found 21 load modules and 95 named
+procedures, including 33 `Foam::` procedures and MPI wait/barrier paths.
+This proves function-level correlation is available despite the raw
+measurement DSO warning. It found **zero OpenFOAM source-file paths**;
+20 of 26 file entries are explicitly `unknown file`. `hpcprof.log` also
+contains 27 nonfatal BFD/DWARF warnings. The existing optimized binary
+therefore supports a limited function/library-level profile, not verified
+OpenFOAM source-line attribution. This short `pitzDaily_fused` sample is
+not representative of the fixed 65M case and does not measure MPI waiting
+time: its event is CPU-time sampling only.
+
+No new four-node profile was submitted. A proposed v2 would remove the
+known-bad REALTIME-on-sleep preflight, use `CPUTIME@50000` on eight ranks,
+save raw measurements before separate postprocessing, and request at most
+35 minutes for 416 CPUs (maximum **485.33 SU** at two SU/core-hour).
+The user must review the full v2 diff and separately approve its one
+four-node submission; this small-job approval does not cover it.

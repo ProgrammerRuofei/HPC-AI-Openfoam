@@ -260,3 +260,12 @@ five-rank measurement archive on one SPR node (2 CPUs, ten minutes, at most
 load-map prefix against hash-checked runtime archives. The test establishes
 whether the samples can yield a usable function/source database before any
 new four-node profiling request. It is not a solver run or scored repeat.
+
+Postprocessing `181623287.gadi-pbs` passed (`Exit_status=0`) in 1:25 for
+**0.15 SU**. Hash-checked runtime and archived samples produced a verified
+HPCToolkit database (SHA-256
+`89ea21f309e94bde6636d6731966c882311fba314446c7e7cbfc299f0178bfe5`).
+The database names OpenFOAM and MPI procedures but contains no OpenFOAM
+source-file paths; source-line attribution is not established. BFD/DWARF
+warnings were nonfatal. See the 2026-10-19 progress report for raw paths
+and the boundary on interpreting the short tutorial profile.

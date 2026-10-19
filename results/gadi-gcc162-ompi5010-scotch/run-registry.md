@@ -105,3 +105,11 @@ completed with `Exit_status=0` and 0.19 SU. `CPUTIME@50000` generated
 nonzero `simpleFoam` samples on all five ranks, and the Scotch tutorial
 solver reached step 20 and `End`. This is profiler compatibility evidence
 only; it does not enter the four-node 65M score comparison.
+
+The archived tutorial samples were postprocessed in job
+`181623287.gadi-pbs`: one SPR node, two CPUs, 1:25 and **0.15 SU**,
+`Exit_status=0`. `hpcstruct` and `hpcprof` produced a SHA-256-checked
+database with named OpenFOAM/MPI procedures, but no OpenFOAM source-file
+paths. It validates limited function-level profiling, not full-case CPU
+hotspots, MPI waiting time, or source-line attribution. It adds no scored
+result.
