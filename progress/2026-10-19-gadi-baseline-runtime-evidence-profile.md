@@ -505,6 +505,12 @@ communication settings. The eight per-profile CPU totals are 301.87 seconds
 for the first metric and 313.19–313.61 seconds for the other seven. This
 does not establish whole-job rank balance: only 8 of 416 ranks were sampled,
 and rank 0 has different coded-function activity.
+Read-only inspection of the preserved database shows Gauss-Seidel smoothing
+as the largest named procedure in each of the eight metric groups. The
+MPI/UCX/HCOLL module share ranges from roughly 14.0% to 18.4% by group,
+while HCOLL alone ranges from about 4.5% to 11.1%. This spread merits a
+rank-aware communication/wait check; the database's metric-group order was
+not independently validated as a rank map, so no particular rank is blamed.
 
 `CPUTIME` cannot separate useful communication work from spin waiting,
 blocked MPI wait, or network transfer. Loaded UCX/UCC module names and
