@@ -252,3 +252,23 @@ remains an inference rather than directly observed process evidence. No
 OpenFOAM profile or scored run resulted, and no four-node retry is authorized
 or submitted. The next safe gate is a bounded 5-rank OpenFOAM sampling smoke
 with numeric CPUTIME only, followed by a separately approved four-node plan.
+
+## Approved five-rank OpenFOAM CPUTIME smoke preparation
+
+The user approved one follow-up diagnostic after reviewing the local diff.
+`smoke_hpctoolkit_openfoam_1n_v1.pbs` copies the previously successful
+`pitzDaily_fused` Scotch tutorial smoke with the same GCC 16.2.0, Open MPI
+5.0.10, OpenFOAM v2512 archives, pinned SHA256 values, five ranks, and
+20-step tutorial control. It replaces the unprofiled solver command with
+HPCToolkit 2021.05.15 `CPUTIME@50000` on each of five ranks, under a
+120-second TERM plus five-second KILL timeout. The job requests one
+`normalsr` node, five CPUs, 16 GB memory, 12 GB JOBFS, and ten minutes
+(maximum 1.67 SU at 2 SU/core-hour). It writes unique PBS stdout and
+job-keyed logs, validates solver `End` and the coded timer, checks nonempty
+per-rank `.hpcrun` files, and archives raw samples. It is diagnostic only;
+no 65M scientific input or scored baseline is modified or rerun.
+
+Local `bash -n` and static comparison of source/archive hashes, tutorial
+controls, Scotch preparation and solver checks passed. The reviewed script
+SHA256 is `24353aed593493903dad32736d2c5b845def9c07aac7f33a4e6bf32736a50f59`.
+PBS submission and results are pending Git synchronization and remote checks.

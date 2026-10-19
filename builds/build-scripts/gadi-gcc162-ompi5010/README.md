@@ -238,3 +238,9 @@ archive and binary hashes but ran `ldd` before sourcing the runtime's
 `etc/bashrc`, so OpenFOAM libraries were unresolved. This is a probe
 ordering error, not a Scotch result. v3 activates the runtime before
 linkage inspection; original evidence is retained.
+
+A separately approved, non-scored five-rank tutorial smoke is prepared in
+`smoke_hpctoolkit_openfoam_1n_v1.pbs`. It profiles `simpleFoam` with
+`CPUTIME@50000`, has a 120-second solver timeout and ten-minute PBS limit,
+and validates solver completion plus raw samples for every rank. Its unique
+output paths preserve the earlier HPCToolkit failure evidence.
