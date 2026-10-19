@@ -461,3 +461,58 @@ therefore do not directly measure solver samples. No full-case `hpcprof`
 analysis or source-line attribution is claimed. Any parsing work requires a
 separate approved job or read-only inspection of these preserved archives.
 There was no repeat submission.
+
+## Approved four-node profile postprocessing and CPU hotspots
+
+The user separately approved one low-cost postprocessing job, including
+publishing its script and result record to the existing isolated GitHub/Gadi
+branch. No further 416-rank run or repeat was approved. The reviewed
+`postprocess_hpctoolkit_4n_v1.pbs` script (SHA-256
+`dd62c75cfa2f8352b8d52bffba1bdc2ce8d32a2d99ee9e962b65a4e30cdb9ab2`)
+passed local `bash -n`, embedded Python compilation, synthetic XML parsing,
+and diff review. Commit `782e78ae1aed17ab6aa3f5295bc537508372fa08`
+was pushed to both isolated branches. Gadi `main` and unrelated untracked
+files were left intact. The branch commit, remote script hash, `bash -n`, and
+unique stdout path were checked before one `qsub` of
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/postprocess_hpctoolkit_4n_v1.submitted.pbs`.
+The returned job ID was **`181629095.gadi-pbs`**.
+
+The analysis requested `pm78`, `normalsr`, one SPR node, two CPUs, 16 GB
+memory, 20 GB JOBFS, and 10 minutes. PBS reports **Exit_status=0**, 1:26
+walltime, 10.05 GB peak memory, 6.32 GB JOBFS, and **0.15 SU**. Its
+`HPCTOOLKIT_4N_POSTPROCESS_PASS` marker, selected profiles, logs, tables,
+database archive, and checksum are preserved in
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/hpctoolkit-4n-postprocess.181629095.gadi-pbs/`.
+The `hpcprof-db.tar.gz` SHA-256 is
+`e904bb217c341b326c3d4ea1b2639748fd21851506dc54304bc1f2dd714ade60`
+and `sha256sum -c` passed. The eight selected main `simpleFoam` profiles
+have 5,049–5,246 samples each; rank 0's many coded-function child profiles
+were excluded. The database preserves function and module names. Its only
+source file is generated `foamConfig.Cver.cc`; BFD/DWARF warnings were
+nonfatal, so solver source-line attribution is **not** established.
+
+Across these eight sampled ranks, the parser attributes 2,496.11 seconds of
+exclusive `CPUTIME` to procedures. Shares below use that denominator,
+**not** 416-rank walltime. OpenFOAM executable/libraries account for about
+72.63%; MPI/UCX/HCOLL libraries about 16.76%, including HCOLL modules
+about 8.00%; and libc about 9.18%. The top procedures are
+`GaussSeidelSmoother::smooth` 16.01%, `lduMatrix::residual` 11.39%,
+`lduMatrix::Amul` 6.22%, and libc `memmove` 5.93%. HCOLL collective-progress
+functions and MPI/UCX progress functions also appear. This points first to
+linear-system work and associated memory traffic as CPU-active hotspots;
+it also justifies examining collective/progress behavior before changing
+communication settings. The eight per-profile CPU totals are 301.87 seconds
+for the first metric and 313.19–313.61 seconds for the other seven. This
+does not establish whole-job rank balance: only 8 of 416 ranks were sampled,
+and rank 0 has different coded-function activity.
+
+`CPUTIME` cannot separate useful communication work from spin waiting,
+blocked MPI wait, or network transfer. Loaded UCX/UCC module names and
+library paths do not prove the effective UCX version in the old solver job;
+it remains **unknown**. HCOLL appears in the sampled stack, while no UCC
+library appears in the attributed module table. These are observations,
+not evidence that UCC was selected or that forcing UCC would improve the
+case. The next decision should use this profile to prioritize controlled
+solver/build experiments, and a separate MPI-wait/collective measurement
+would be needed to quantify communication delay. No further PBS job was
+submitted under this postprocessing approval.

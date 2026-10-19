@@ -284,3 +284,13 @@ timing was 1.988370329 s/step and Cd 0.2918759493.
 Treat this as a non-scored diagnostic; no repeat or profile parsing job is
 included in its approval. See the 2026-10-19 progress report for exact
 submission, archive hashes, and the evidence boundary.
+
+The later, separately approved `postprocess_hpctoolkit_4n_v1.pbs` analyzed
+those raw profiles on one SPR node with two CPUs, without running the solver.
+Job `181629095.gadi-pbs` passed (`Exit_status=0`) in 1:26 for **0.15 SU**.
+Its hash-checked database (`e904bb217c341b326c3d4ea1b2639748fd21851506dc54304bc1f2dd714ade60`)
+and module/procedure tables are under the job-keyed evidence path in the
+2026-10-19 progress report. The largest sampled CPU hotspots are Gauss-Seidel
+smoothing, `lduMatrix` operations, and `memmove`; HCOLL and MPI/UCX progress
+also appear. See the results registry for percentages and interpretation
+limits. No new 416-rank run was submitted.

@@ -128,3 +128,16 @@ Diagnostic timing was **1.988370329 s/step** with final **Cd
 third scored baseline. Raw samples await separate analysis; CPUTIME alone
 does not quantify MPI waiting or network transfer. Full paths and archive
 hashes are in the 2026-10-19 progress report. There was no repeat job.
+
+The separately approved postprocessing job `181629095.gadi-pbs` completed
+with PBS `Exit_status=0`, pass marker, 1:26 walltime and **0.15 SU**. It
+analyzed the eight main solver profiles from `181627666` without another
+OpenFOAM run. The checksum-verified HPCToolkit database is in the job-keyed
+evidence directory named in the 2026-10-19 progress report. Of 2,496.11
+procedure-attributed exclusive CPU seconds, OpenFOAM executable/libraries
+account for about 72.63%, MPI/UCX/HCOLL libraries about 16.76%, and libc
+about 9.18%. Top procedures: Gauss-Seidel smoothing 16.01%, matrix residual
+11.39%, matrix multiply 6.22%, and `memmove` 5.93%. HCOLL collective
+progress is visible. These are sampled CPU shares on 8 of 416 ranks, not
+walltime, MPI-wait, or network fractions. Source-line mapping and effective
+UCX/UCC selection for the historical solver run remain unproven.
