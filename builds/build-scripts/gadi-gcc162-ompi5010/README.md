@@ -269,3 +269,18 @@ The database names OpenFOAM and MPI procedures but contains no OpenFOAM
 source-file paths; source-line attribution is not established. BFD/DWARF
 warnings were nonfatal. See the 2026-10-19 progress report for raw paths
 and the boundary on interpreting the short tutorial profile.
+
+The separately approved four-node raw diagnostic is
+`profile_baseline_4n_scotch_v2.pbs` with
+`stage_4n_hpctoolkit_node_v2.sh`. It keeps the pinned GCC 16.2/Open MPI
+5.0.10/OpenFOAM v2512 Scotch 416-rank, 150-step case, samples two ranks per
+SPR node with `CPUTIME@50000`, and saves only raw profiles. The solver has a
+15-minute timeout; the PBS request has a 30-minute ceiling (416 SU maximum).
+Commit `52f94a5` was pushed to GitHub and Gadi after explicit approval.
+The single submission returned `181627666.gadi-pbs` and finished with PBS
+`Exit_status=0`, raw-profile pass marker, all 150 steps, and four verified
+node archives. It used 16:43 and **231.80 SU**; instrumented diagnostic
+timing was 1.988370329 s/step and Cd 0.2918759493.
+Treat this as a non-scored diagnostic; no repeat or profile parsing job is
+included in its approval. See the 2026-10-19 progress report for exact
+submission, archive hashes, and the evidence boundary.

@@ -393,3 +393,71 @@ save raw measurements before separate postprocessing, and request at most
 35 minutes for 416 CPUs (maximum **485.33 SU** at two SU/core-hour).
 The user must review the full v2 diff and separately approve its one
 four-node submission; this small-job approval does not cover it.
+
+## Approved four-node raw sampling submission
+
+The user reviewed the v2 script change and approved **one** four-node raw
+sampling job. They separately approved pushing its scripts to the established
+`git@github.com:ProgrammerRuofei/HPC-AI-Openfoam.git` repository after an
+automatic approval check rejected the earlier GitHub push. No repeat or
+postprocessing job is authorized by these approvals.
+
+The v2 script retains the pinned GCC 16.2.0, Open MPI 5.0.10, OpenFOAM v2512,
+UCX/UCC module requests, four SPR nodes with 104 ranks each, Scotch
+decomposition, fixed case hashes, preparation chain, and 150 solver steps.
+It removes the previously hung `REALTIME` preflight, samples ranks
+0,52,104,156,208,260,312,364 with `CPUTIME@50000`, caps the solver launch at
+900 seconds, checks solver completion and Cd, and archives only nonempty raw
+`.hpcrun` measurements with SHA-256. It does not run `hpcstruct` or `hpcprof`
+inside the four-node job. The request is 416 CPUs, 760 GB memory, 100 GB
+JOBFS per node, and 30 minutes in `normalsr`, at most **416 SU** at the stated
+2 SU/core-hour rate. This is diagnostic, not a competition result.
+
+The two scripts passed local `bash -n` and diff review and were committed as
+`52f94a558f4b3a58078553fb87b255232079ac70` on the isolated branch,
+then pushed to GitHub and Gadi. The Gadi control checkout remained on `main`;
+the scripts were materialized from the verified branch to unique files under
+`.../gadi-gcc162-ompi5010/submit-logs/`. Remote `bash -n`, exact SHA-256,
+and unchanged existing runtime/processor helpers passed. Script SHA-256:
+`3ddffb8d8b3fce2b170746a810ad0e07224450d854614583ba28e7fce5522df2`;
+profile staging helper SHA-256:
+`6edbea64952b03ac191838df735be213e185be2a64047f1f26257eaca4c472fe`.
+The unrelated untracked Gadi `experiments/` files were preserved. Before
+submission `nci_account -P pm78` showed 4.30 KSU available, zero reserved SU,
+and scratch 199.10K of 202K inodes used.
+
+After checking the unique stdout path was absent, a single `qsub` of
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/profile_baseline_4n_scotch_v2.submitted.pbs`
+returned **`181627666.gadi-pbs`**. Initial `qstat -f` showed `Q` in
+`normalsr-exec` with 416 CPUs and the 30-minute limit. Its unique PBS stdout
+is `.../submit-logs/profile_baseline_4n_scotch_v2.pbs.out`, and job-keyed
+evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/profile-4n-scotch-v2/181627666.gadi-pbs/evidence/`.
+The job finished with PBS `job_state=F`, `Exit_status=0`, and
+`GCC162_OMPI5010_OF2512_SCOTCH_4N_RAW_PROFILE_PASS`. PBS reports
+**00:16:43 walltime and 231.80 SU**, with 300.59 GB peak memory and
+21.99 GB JOBFS. The four SPR hosts were `0132`, `0137`, `0138`, and `0139`,
+with exactly 104 of the 416 ranks per host. Scotch `decomposePar`,
+`renumberMesh`, `potentialFoam`, `applyBoundaryLayer`, and `simpleFoam` each
+ended normally; solver `Time = 150`, coded average **1.988370328637583
+s/step**, and final **Cd = 0.29187594927465327**. The profiler run is
+unscored; its timing must not replace either uninstrumented GCC baseline.
+The sampled eight ranks and binding policy beyond the explicit
+`--map-by ppr:104:node` were not separately traced.
+
+Four raw profile archives passed `sha256sum -c`:
+
+| Node-rank range | SHA-256 | Size |
+| --- | --- | --- |
+| 0–103 | `34353a3502cdf3607f50c47ef786a9b6b000de00a3e3b9cc07ddca0eed751eb3` | 139 KB |
+| 104–207 | `2252eed42379060e912d1e78d0a3533a98a9479db5f663980fc4fc7d9e5a2bb4` | 93 KB |
+| 208–311 | `814e57b9aa338d7daef34e47d433279b12e4152a430a194a142da4bdb55e4783` | 98 KB |
+| 312–415 | `5efc63b76990d5783dfb73ca1c5b24a2533c690227c9ff499704dcacf89474e4` | 98 KB |
+
+Each archive contains both selected rank directories and nonempty
+`.hpcrun` files. The first node's archive also contains numerous rank-0
+child-process profiles from coded-function execution; raw file counts
+therefore do not directly measure solver samples. No full-case `hpcprof`
+analysis or source-line attribution is claimed. Any parsing work requires a
+separate approved job or read-only inspection of these preserved archives.
+There was no repeat submission.

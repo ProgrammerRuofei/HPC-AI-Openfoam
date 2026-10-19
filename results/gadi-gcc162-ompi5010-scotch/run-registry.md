@@ -113,3 +113,18 @@ database with named OpenFOAM/MPI procedures, but no OpenFOAM source-file
 paths. It validates limited function-level profiling, not full-case CPU
 hotspots, MPI waiting time, or source-line attribution. It adds no scored
 result.
+
+The separately approved raw four-node sampling job `181627666.gadi-pbs`
+completed with `Exit_status=0` and
+`GCC162_OMPI5010_OF2512_SCOTCH_4N_RAW_PROFILE_PASS`. It used the same pinned
+GCC 16.2.0/Open MPI 5.0.10/OpenFOAM v2512 archives, requested
+`ucx/1.18.1` and `ucc/1.4.4` modules, 4 SPR nodes × 104 ranks, Scotch, the
+unchanged ~65M `occDrivAerStaticMesh` scientific controls, and 150 steps.
+Eight ranks were sampled with HPCToolkit `CPUTIME@50000`; the other ranks
+ran normally. All four preparation/solver logs ended, the rank map had 104
+ranks per host, and four raw profile archives passed SHA-256 verification.
+Diagnostic timing was **1.988370329 s/step** with final **Cd
+0.2918759493**; PBS used **16:43 and 231.80 SU**. These numbers are not a
+third scored baseline. Raw samples await separate analysis; CPUTIME alone
+does not quantify MPI waiting or network transfer. Full paths and archive
+hashes are in the 2026-10-19 progress report. There was no repeat job.
