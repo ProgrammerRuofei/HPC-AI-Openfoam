@@ -522,3 +522,19 @@ case. The next decision should use this profile to prioritize controlled
 solver/build experiments, and a separate MPI-wait/collective measurement
 would be needed to quantify communication delay. No further PBS job was
 submitted under this postprocessing approval.
+
+
+## mpiP 3.6 compatibility smoke, first attempt
+
+The approved one-node five-CPU, 15-minute mpiP smoke `181635700.gadi-pbs`
+ended with PBS `Exit_status=2` after 0:52 and **0.14 SU**. Pinned
+source/GCC/Open MPI archive checks and tool versions passed. The first fatal
+error occurred during mpiP wrapper generation: Gadi `/bin/python` is a
+blocking shim (`#!/usr/local/bin/python`), so mpiP was not built and no MPI
+probe or OpenFOAM solver ran. Original `make.log`, `run.log`, PBS stdout and
+`exit-status.txt` remain at
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/mpip36-smoke.181635700.gadi-pbs/`.
+The separately approved v2 script selects verified `/bin/python3` (3.6.8)
+for configure and make, retains the scientific and MPI settings, and uses
+a new stdout and job-keyed evidence path. The original attempt is not
+interpreted as a mpiP/Open MPI compatibility result.

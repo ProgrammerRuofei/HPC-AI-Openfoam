@@ -294,3 +294,9 @@ and module/procedure tables are under the job-keyed evidence path in the
 smoothing, `lduMatrix` operations, and `memmove`; HCOLL and MPI/UCX progress
 also appear. See the results registry for percentages and interpretation
 limits. No new 416-rank run was submitted.
+
+
+The first mpiP 3.6 smoke `181635700.gadi-pbs` failed in wrapper
+generation because Gadi `/bin/python` is a blocking shim (0.14 SU); no MPI
+probe or solver ran. `build_smoke_mpip36_1n_v2.pbs` uses `/bin/python3` for
+configure/make and has a unique stdout. See the 2026-10-19 progress report.

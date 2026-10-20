@@ -1,0 +1,145 @@
+#!/bin/bash
+# Build mpiP 3.6 privately and test it with the pinned GCC/Open MPI/OpenFOAM stack.
+# This one-node diagnostic is not a scored run and does not change the science case.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N gcc162_mpip36_smoke
+#PBS -l ncpus=5
+#PBS -l mem=16GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:15:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_smoke_mpip36_1n_v2.pbs.out
+set -euo pipefail
+
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+OF_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512
+SOURCE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/source/mpiP-3.6.0-gadi-profile.tar.gz
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+OF_ARCHIVE="$OF_ROOT/runtime-archive/gadi-gcc162-ompi5010-of2512.181360543.gadi-pbs.tar.gz"
+SOURCE_SHA=b8433569b4f8cf4a5f42b23d6108df76eb80e3632a0389331bb7368679196de9
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+OF_SHA=64cd075a385938f0c9ac0c478066349e5bb198f5fa8cd80cc3ed61fb12286281
+BIN_SHA=b3b992619ea5b9805fe1c549d2dafafe6cba88411bd152f7b1eb50081fc867c5
+FO_FILE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/FOwallClockTimeStatistics
+FO_SHA=0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08
+ROOT="${PBS_JOBFS:?}/gcc162-mpip36-smoke-${PBS_JOBID:?}"
+EVIDENCE="$OF_ROOT/evidence/mpip36-smoke.${PBS_JOBID}"
+GCC_PREFIX="$ROOT/gcc-16.2.0"
+MPI_PREFIX="$ROOT/openmpi-5.0.10"
+FOAM_ROOT="$ROOT/OpenFOAM-v2512"
+MPIP_SRC="$ROOT/mpiP-3.6.0"
+CASE="$ROOT/pitzDaily_fused"
+LIB="$MPIP_SRC/libmpiP.so"
+
+test "${PBS_NNODES:?}" -eq 1
+test "${PBS_NCPUS:?}" -eq 5
+test ! -e "$ROOT"; test ! -e "$EVIDENCE"
+command -v timeout
+for item in "$SOURCE_SHA $SOURCE" "$GCC_SHA $GCC_ARCHIVE" "$MPI_SHA $MPI_ARCHIVE" "$OF_SHA $OF_ARCHIVE" "$FO_SHA $FO_FILE"; do
+    read -r hash file <<< "$item"
+    printf '%s  %s\n' "$hash" "$file" | sha256sum -c -
+done
+mkdir -p "$ROOT" "$EVIDENCE" "$ROOT/probe-reports" "$ROOT/tutorial-reports"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+preserve() {
+    rc=$?; set +e
+    test -f "$CASE/log.simpleFoam" && cp -p "$CASE/log.simpleFoam" "$EVIDENCE/"
+    if test -d "$ROOT/probe-reports"; then
+        tar -czf "$EVIDENCE/mpiP-reports.tar.gz" -C "$ROOT" probe-reports tutorial-reports
+        sha256sum "$EVIDENCE/mpiP-reports.tar.gz" > "$EVIDENCE/mpiP-reports.sha256"
+    fi
+    printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"
+    return "$rc"
+}
+trap preserve EXIT
+
+module purge
+module load ucx/1.18.1 ucc/1.4.4 libunwind/1.2.1
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+tar -xzf "$GCC_ARCHIVE" -C "$ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$ROOT"
+tar -xzf "$OF_ARCHIVE" -C "$ROOT"
+tar -xzf "$SOURCE" -C "$ROOT"
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export OMPI_CC="$GCC_PREFIX/bin/gcc" OMPI_CXX="$GCC_PREFIX/bin/g++"
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+gcc --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+mpicc --showme:command | grep -Fx "$GCC_PREFIX/bin/gcc"
+
+cd "$MPIP_SRC"
+PYTHON=/bin/python3 CC="$MPI_PREFIX/bin/mpicc" CFLAGS='-O2 -std=gnu17 -fPIC' ./configure \
+    --prefix="$ROOT/mpiP-install" --with-libunwind=/apps/libunwind/1.2.1 \
+    > "$EVIDENCE/configure.log" 2>&1
+make PYTHON=/bin/python3 -j1 > "$EVIDENCE/make.log" 2>&1
+test -s "$LIB"
+ldd "$LIB" | tee "$EVIDENCE/mpiP.ldd"
+! grep -Fq 'not found' "$EVIDENCE/mpiP.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/mpiP.ldd"
+sha256sum "$LIB" > "$EVIDENCE/libmpiP.sha256"
+
+cat > "$ROOT/mpi_probe.c" <<'EOF'
+#include <mpi.h>
+#include <stdio.h>
+int main(int argc, char **argv) {
+    int rank = -1, sum = -1;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0 && sum == 1) puts("MPI_PROBE_PASS");
+    MPI_Finalize();
+    return sum == 1 ? 0 : 2;
+}
+EOF
+mpicc "$ROOT/mpi_probe.c" -o "$ROOT/mpi_probe"
+ldd "$ROOT/mpi_probe" | tee "$EVIDENCE/mpi_probe.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/mpi_probe.ldd"
+export MPIP="-f $ROOT/probe-reports -k 2 -p -y"
+timeout -k 5s 45s mpirun --mca pml ucx -np 2 /usr/bin/env \
+    LD_PRELOAD="$LIB" "$ROOT/mpi_probe" > "$EVIDENCE/mpi_probe.log" 2>&1
+grep -Fq MPI_PROBE_PASS "$EVIDENCE/mpi_probe.log"
+grep -R -Fq 'MPI Time (seconds)' "$ROOT/probe-reports"
+
+BIN="$FOAM_ROOT/platforms/linux64GccDPInt32Opt/bin/simpleFoam"
+test -x "$BIN"
+printf '%s  %s\n' "$BIN_SHA" "$BIN" | sha256sum -c -
+set +u
+. "$FOAM_ROOT/etc/bashrc" WM_COMPILER=Gcc WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+set -u
+test "$WM_OPTIONS" = linux64GccDPInt32Opt
+test "$(command -v mpicc)" = "$MPI_PREFIX/bin/mpicc"
+ldd "$BIN" | tee "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/simpleFoam.ldd"
+cp -a /apps/OpenFOAM/2512/tutorials/incompressible/simpleFoam/pitzDaily_fused "$CASE"
+cd "$CASE"
+cp -p "$FO_FILE" system/FOwallClockTimeStatistics
+sed -i -E 's/^(method[[:space:]]+)hierarchical;/\1scotch;/' system/decomposeParDict
+grep -Eq '^method[[:space:]]+scotch;' system/decomposeParDict
+printf '\nfunctions\n{\n    #include "FOwallClockTimeStatistics"\n}\n' >> system/controlDict
+sed -i -E 's/^(endTime[[:space:]]+)[0-9]+;/\120;/' system/controlDict
+blockMesh > "$EVIDENCE/blockMesh.log" 2>&1
+decomposePar > "$EVIDENCE/decomposePar.log" 2>&1
+grep -Eiq 'scotch|finished decomposition' "$EVIDENCE/decomposePar.log"
+export MPIP="-f $ROOT/tutorial-reports -k 2 -p -y"
+timeout -k 5s 180s mpirun --mca pml ucx -np 5 /usr/bin/env \
+    LD_PRELOAD="$LIB" "$BIN" -parallel > log.simpleFoam 2>&1
+cp -p log.simpleFoam "$EVIDENCE/"
+grep -Fq 'Finalising parallel run' log.simpleFoam
+grep -aEq '^End$' log.simpleFoam
+grep -R -Fq 'MPI Time (seconds)' "$ROOT/tutorial-reports"
+if grep -Eq 'FOAM FATAL|MPI_ABORT|Segmentation fault' log.simpleFoam; then exit 8; fi
+
+tar -czf "$EVIDENCE/mpiP-runtime.tar.gz" -C "$MPIP_SRC" libmpiP.so
+sha256sum "$EVIDENCE/mpiP-runtime.tar.gz" > "$EVIDENCE/mpiP-runtime.sha256"
+printf 'official_result=false\nsource=mpiP-3.6.0\nranks=2+5\ndecomposition=scotch\nsolver_steps=20\n' > "$EVIDENCE/provenance.txt"
+echo GCC162_OMPI5010_MPIP36_1N_SMOKE_PASS
