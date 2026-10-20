@@ -538,3 +538,24 @@ The separately approved v2 script selects verified `/bin/python3` (3.6.8)
 for configure and make, retains the scientific and MPI settings, and uses
 a new stdout and job-keyed evidence path. The original attempt is not
 interpreted as a mpiP/Open MPI compatibility result.
+
+
+## mpiP 3.6 smoke v2 submission
+
+The user approved one corrected one-node retry. Script
+`build_smoke_mpip36_1n_v2.pbs` changes only the unique stdout path and
+selects `/bin/python3` for mpiP configure/make. `bash -n` and `git diff
+--check` passed; script SHA-256 is
+`57aa96b444950fcb75ae596f4800f2ec91c8c5e1b9714767889bf1d29f844af6`.
+Commit `2a1a982e1258c05c74af235f024ea680d75b6243` was pushed to the
+isolated GitHub and Gadi branches. The Gadi branch and submitted-copy hash
+matched, and the source archive SHA-256 remained
+`b8433569b4f8cf4a5f42b23d6108df76eb80e3632a0389331bb7368679196de9`.
+Gadi control checkout `main` and unrelated untracked files were preserved.
+The one `qsub` returned **`181691060.gadi-pbs`**; initial PBS state was Q.
+Resources: pm78 normalsr, one SPR node, five CPUs, 16 GB memory, 20 GB
+JOBFS, 15-minute limit (2.5 SU request ceiling). Submitted copy and unique
+stdout are under the existing `gadi-gcc162-ompi5010/submit-logs/` directory;
+job-keyed evidence will be under
+`gadi-gcc162-ompi5010-of2512/evidence/mpip36-smoke.181691060.gadi-pbs/`.
+Completion, actual SU, and mpiP compatibility are pending PBS evidence.
