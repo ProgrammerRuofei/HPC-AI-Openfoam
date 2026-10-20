@@ -584,3 +584,23 @@ compatibility issue, not evidence of solver MPI communication behavior.
 The approval covered one v2 retry, now exhausted; no further job was
 submitted. A new patch and job would require separate diff review and
 approval under `AGENTS.md`.
+
+
+## Approved mpiP 3.6 smoke v3 plan
+
+Read-only inspection of the pinned mpiP 3.6.0 source archive found the
+conflicting `MPI_Pready_list` declaration in
+`mpi.partitioned.protos.txt`. The archive's `configure.ac` explicitly
+provides `--disable-mpi-partitioned`; its `mpi.protos.txt.in` then omits
+that wrapper group. This keeps the ordinary MPI point-to-point and
+collective wrappers needed for the bottleneck check while avoiding the
+Open MPI 5.0.10 partitioned-call signature conflict.
+
+After the user reviewed the exact two-line v3 change and approved one
+more low-cost job, `build_smoke_mpip36_1n_v3.pbs` was created with a new
+stdout path and that configure option. The previously pinned source,
+compiler/MPI/OpenFOAM archives, two-rank probe, five-rank tutorial, and
+resource request are otherwise unchanged. Local `bash -n` and diff checks
+passed. Script SHA-256:
+`2c2d3462230ed6083776c2aef6c4c4a184450adc95bfd3f7ce17cbcc5cd525b6`.
+The v3 result is pending; no inference about MPI wait is made yet.
