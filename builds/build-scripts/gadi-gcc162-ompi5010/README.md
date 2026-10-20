@@ -300,3 +300,11 @@ The first mpiP 3.6 smoke `181635700.gadi-pbs` failed in wrapper
 generation because Gadi `/bin/python` is a blocking shim (0.14 SU); no MPI
 probe or solver ran. `build_smoke_mpip36_1n_v2.pbs` uses `/bin/python3` for
 configure/make and has a unique stdout. See the 2026-10-19 progress report.
+
+
+The one approved v2 mpiP smoke `181691060.gadi-pbs` exited 2 in 0:53
+(about 0.15 SU by requested CPUs and walltime). Python wrapper generation
+passed; generated `MPI_Pready_list` has a `const int *` argument that
+conflicts with the pinned Open MPI 5.0.10 header's `int *`. The shared
+mpiP library and MPI/OpenFOAM probes were not reached. Raw evidence is
+retained; see the progress report. No further mpiP run was submitted.

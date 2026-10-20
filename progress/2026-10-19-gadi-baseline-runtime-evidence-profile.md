@@ -559,3 +559,28 @@ stdout are under the existing `gadi-gcc162-ompi5010/submit-logs/` directory;
 job-keyed evidence will be under
 `gadi-gcc162-ompi5010-of2512/evidence/mpip36-smoke.181691060.gadi-pbs/`.
 Completion, actual SU, and mpiP compatibility are pending PBS evidence.
+
+
+## mpiP 3.6 smoke v2 result
+
+PBS job **`181691060.gadi-pbs`** finished on SPR node
+`gadi-cpu-spr-0720` with `Exit_status=2`, 0:53 walltime, five CPUs,
+9,525,784 KB peak memory and 6,748,046,686 bytes peak JOBFS. At the
+previously verified normalsr rate of two SU per core-hour, the walltime
+implies about **0.15 SU**; `nci_account -P pm78` only exposes aggregate
+rounded project usage (1.94 KSU used, 0 reserved, 4.06 KSU available),
+so it does not independently establish a more precise per-job debit.
+
+Original `configure.log`, `make.log`, `run.log`, `exit-status.txt`, module
+list, and PBS stdout remain at the job-keyed evidence path. The v2
+`/bin/python3` setting passed wrapper generation. The **first fatal
+compile error** is in generated `mpiP-wrappers.c`: mpiP 3.6 declares
+`MPI_Pready_list(int, const int *, MPI_Request)`, while the pinned Open
+MPI 5.0.10 `mpi.h` declares `MPI_Pready_list(int, int *, MPI_Request)`.
+GCC reports `conflicting types for 'MPI_Pready_list'` at generated line
+9325, then make exits 2. No `libmpiP.so`, 2-rank MPI probe, or 5-rank
+OpenFOAM solve was produced. This is a mpiP/Open MPI API signature
+compatibility issue, not evidence of solver MPI communication behavior.
+The approval covered one v2 retry, now exhausted; no further job was
+submitted. A new patch and job would require separate diff review and
+approval under `AGENTS.md`.
