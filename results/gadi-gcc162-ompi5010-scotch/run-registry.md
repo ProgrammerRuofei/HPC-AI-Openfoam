@@ -154,3 +154,17 @@ That timing is not a 65M-cell solver bottleneck. PBS used 1:57 and five
 CPUs (approximately 0.33 SU by the established rate). No four-node
 PMPI diagnostic or scored repeat was run. Detailed evidence is in the
 2026-10-19 progress report.
+
+
+The unscored PMPI v2 compatibility test `181705417.gadi-pbs` passed on
+one `normalsr` SPR node (five CPUs, 1:59, about 0.33 SU by allocation). It
+used GCC 16.2.0, private Open MPI 5.0.10, site UCX 1.18.1/UCC 1.4.4,
+OpenFOAM v2512, and a five-rank 20-step Scotch `pitzDaily_fused` tutorial
+after a two-rank UCX probe. All seven rank reports contain full-run and
+ten-second-window data whose counts and durations reconcile exactly. The
+tutorial's roughly 64.767-second barrier on ranks 1–4 is startup waiting
+for rank 0 to compile the coded function object. This validates diagnostic
+collection, not the 65M-cell scientific solver's MPI or network fraction.
+Profiler library SHA-256:
+`dbe725d1ee8e07746ff18d0179ef4f02b24962cc0c3311a8aecb22bef1e88b79`.
+Raw evidence and precise SU caveat are in the 2026-10-19 progress report.

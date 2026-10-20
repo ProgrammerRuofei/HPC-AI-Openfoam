@@ -723,3 +723,46 @@ PMPI call timing detects rank-asymmetric waiting but also shows why
 start-up must be separated from the 150-step scientific solve. It cannot
 by itself attribute this barrier duration to network transfer. No
 four-node job was submitted under the low-cost smoke authorization.
+
+
+## Windowed C-only PMPI smoke submitted
+
+The user authorized autonomous low-cost tests and repair/retry of the C-only
+PMPI approach. `pmpi_timing_v2.c` adds per-rank 10-second counters alongside
+the existing full-run counters, with calls assigned by start time since
+`MPI_Init`. This separates tutorial startup synchronization from later
+solver windows; call duration still includes waiting and cannot establish
+network-transfer time. `smoke_pmpi_timing_1n_v2.pbs` retains the one SPR node,
+five CPUs, 16 GB, 20 GB JOBFS, 15-minute (at most 2.5 SU) tutorial test.
+Local stub-header C syntax, shell syntax, embedded Python syntax, and
+`git diff --check` passed.
+
+Commit `2e958344fbd406c23c443c71b4e6f0797335f792` was pushed to the
+GitHub and Gadi isolated branches. Gadi materialized the immutable source
+and PBS script from that exact branch ref in the designated `submit-logs`
+directory; their SHA-256 values were respectively
+`b3e8f31868cce92284048b896d6339fc0b01d0b8b900eef3e28409207790ccd0`
+and `1ee5a57853146eddd7cc9b5491754c868f81840faf7b889a32389789d579cc94`.
+Remote `bash -n` passed. One qsub returned **`181705417.gadi-pbs`**. It finished on `gadi-cpu-spr-0036` with `job_state=F`, `Exit_status=0`,
+1:59 PBS walltime, 5 CPUs, 11,164,708 KB peak memory and 6,752,251,911
+bytes peak JOBFS. At 2 SU/core-hour the observed allocation implies about
+**0.33 SU**; NCI reported only rounded project-level usage and a 2.50 SU
+reservation, so a precise job-specific debit remains unobserved. Its job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/pmpi-timing-v2-smoke.181705417.gadi-pbs/`; its independent
+stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_pmpi_timing_1n_v2.pbs.out`.
+
+Validation passed: `GCC162_OMPI5010_PMPI_TIMING_V2_1N_SMOKE_PASS`,
+`PMPI_BUCKET_REPORT_PASS` for both the two-rank UCX probe (4 calls) and the
+five-rank Scotch tutorial (193,840 calls), exact per-rank bucket count and
+duration reconciliation, private MPI linkage, profiler library SHA-256
+`dbe725d1ee8e07746ff18d0179ef4f02b24962cc0c3311a8aecb22bef1e88b79`,
+and solver `Time = 20` / `End`. The tutorial reports have five summaries
+and five bucket files. Ranks 1–4 each spent about 64.767 seconds in a
+single `MPI_Barrier` that began in the 0-second bucket; rank 0's barrier
+began after 60 seconds and was negligible. This ties the large wait to
+start-up synchronization while rank 0 compiled the coded function object.
+The later solver window exists, but the 20-step tutorial cannot establish
+the 65M-cell scientific solver's MPI fraction. No four-node PMPI job was
+submitted or authorized. The next high-SU diagnostic needs a separately
+reviewed concrete diff and approval.

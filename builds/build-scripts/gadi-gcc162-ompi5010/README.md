@@ -336,3 +336,18 @@ output. Tutorial rank 0 compiled the coded function object for about
 64 seconds while ranks 1–4 waited in one `MPI_Barrier`. This is startup
 waiting, not scientific solver or network timing. See the progress report
 for exact evidence.
+
+
+Windowed PMPI v2 smoke `181705417.gadi-pbs` was submitted once from
+commit `2e95834` and passed with PBS `Exit_status=0` in 1:59 on five
+CPUs (about 0.33 SU estimated from allocation). It adds 10-second
+per-rank call windows and verifies exact reconciliation with full-run
+counters on the same two-rank probe and five-rank, 20-step Scotch tutorial.
+See the 2026-10-19 progress report for source/script SHA-256 and evidence
+paths. The two-rank UCX probe and five-rank
+20-step Scotch tutorial passed, and every ten-second call bucket reconciled
+exactly with its per-rank total. The profiler library SHA-256 was
+`dbe725d1ee8e07746ff18d0179ef4f02b24962cc0c3311a8aecb22bef1e88b79`.
+The first bucket contains a 64.767-second startup barrier on ranks 1–4;
+this is not the scientific solver's MPI fraction. See the progress report.
+The exact NCI per-job debit was not available from rounded account output.
