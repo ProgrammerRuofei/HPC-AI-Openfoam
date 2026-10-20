@@ -670,3 +670,21 @@ the private mpicc; checks private libmpi linkage; then runs a two-rank
 Allreduce/Barrier probe and the existing five-rank, 20-step Scotch
 `pitzDaily_fused` tutorial. It checks per-rank CSV reports and solver
 `End`. This is non-scored, and no 416-rank profiler job is authorized.
+
+
+## C-only PMPI timing smoke submission
+
+Commit `5f47b7df9fd3901dd1e75184ef2a9fb9f84fbd0c` was pushed to the
+isolated GitHub and Gadi branches. The Gadi branch head matched the local
+commit, and materialized source/script SHA-256 values were respectively
+`311577465685d7086a2bca1653ba2f583a4f3ca3332c882e85efdad4903a00e5`
+and `28020d504666fb55d3abad26245455862a21d7d5f3f5bb420e46f56a1e749492`.
+The submitted script passed `bash -n`; unique submitted files and stdout
+were checked before creation. One `qsub` of
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_pmpi_timing_1n_v1.submitted.pbs`
+returned **`181704658.gadi-pbs`**, initially queued. Resources are one
+SPR node, 5 CPUs, 16 GB, 20 GB JOBFS, 15 minutes on pm78 normalsr. The
+Gadi control checkout stayed on `main` and its unrelated untracked files
+were preserved. Job-keyed evidence is expected under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/pmpi-timing-smoke.181704658.gadi-pbs/`.
+Result and actual SU are pending PBS evidence.
