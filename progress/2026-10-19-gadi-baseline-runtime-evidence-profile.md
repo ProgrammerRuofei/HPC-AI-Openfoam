@@ -604,3 +604,21 @@ resource request are otherwise unchanged. Local `bash -n` and diff checks
 passed. Script SHA-256:
 `2c2d3462230ed6083776c2aef6c4c4a184450adc95bfd3f7ce17cbcc5cd525b6`.
 The v3 result is pending; no inference about MPI wait is made yet.
+
+
+## mpiP 3.6 smoke v3 submission
+
+The reviewed and approved v3 script was committed as
+`3df4ebbec95fb13e72a84a21b0eefcc09b3da58e`, pushed to the isolated
+GitHub and Gadi branches, and compared against the remote branch head.
+The immutable submitted copy matched script SHA-256
+`2c2d3462230ed6083776c2aef6c4c4a184450adc95bfd3f7ce17cbcc5cd525b6`;
+`bash -n` passed, and the unique stdout path did not exist before submission.
+Exactly one `qsub` of
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/build_smoke_mpip36_1n_v3.submitted.pbs`
+returned **`181694279.gadi-pbs`**, initially Q. It requests pm78
+`normalsr`, one SPR node, five CPUs, 16 GB memory, 20 GB JOBFS and a
+15-minute walltime (2.5 SU request ceiling). New job-keyed evidence is
+expected under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/mpip36-smoke.181694279.gadi-pbs/`.
+Completion and actual SU remain pending PBS evidence.
