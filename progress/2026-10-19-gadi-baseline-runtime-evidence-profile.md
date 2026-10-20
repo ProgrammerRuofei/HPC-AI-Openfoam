@@ -647,3 +647,26 @@ merely skipping the Fortran object is not a verified fix. No libmpiP,
 MPI probe, or OpenFOAM solver run was produced. No further job was
 submitted under the one-job v3 approval. MPI wait/collective timing
 remains unmeasured.
+
+
+## C-only PMPI timing, low-cost validation plan
+
+The user authorized a C-only PMPI timing alternative and autonomous
+low-cost smoke repair/retry, with no permission for a four-node run.
+`pmpi_timing.c` interposes 14 selected C MPI point-to-point, wait/test,
+and collective calls and writes one CSV per rank at `MPI_Finalize`. It
+records call count, cumulative monotonic-clock duration, and maximum
+duration. It does not intercept every MPI routine and cannot equate call
+duration with network transfer time. It uses the pinned C MPI interface
+and has no Fortran dependency. The profiler was syntax-checked locally
+with a minimal MPI declaration stub; exact-header compilation still
+requires a PBS compute-node check.
+
+`smoke_pmpi_timing_1n_v1.pbs` requests pm78 normalsr, one SPR node, five
+CPUs, 16 GB memory, 20 GB JOBFS, and at most 15 minutes (2.5 SU request
+ceiling). It hash-checks the existing GCC16.2/Open MPI5.0.10/OpenFOAM
+v2512 archives and the profiler source; builds the shared library with
+the private mpicc; checks private libmpi linkage; then runs a two-rank
+Allreduce/Barrier probe and the existing five-rank, 20-step Scotch
+`pitzDaily_fused` tutorial. It checks per-rank CSV reports and solver
+`End`. This is non-scored, and no 416-rank profiler job is authorized.

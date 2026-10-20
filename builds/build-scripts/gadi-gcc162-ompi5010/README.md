@@ -317,3 +317,11 @@ partitioned wrappers resolved the `MPI_Pready_list` compile conflict;
 `fortran_vars.f` include of `mpif-config.h`, absent because this private
 Open MPI was configured with `--disable-mpi-fortran`. No MPI probe or
 solver ran. Raw evidence is preserved; see the progress report.
+
+
+`pmpi_timing.c` and `smoke_pmpi_timing_1n_v1.pbs` are a C-only
+alternative to mpiP for the same private Open MPI. The small smoke
+measures 14 selected MPI call types on a two-rank probe and five-rank
+Scotch tutorial, with per-rank CSV output. MPI call duration includes
+waiting and progress and is not a direct measurement of network
+transfer time. It is not a scored case or permission for a four-node run.
