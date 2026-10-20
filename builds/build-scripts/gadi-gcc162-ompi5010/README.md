@@ -325,3 +325,14 @@ measures 14 selected MPI call types on a two-rank probe and five-rank
 Scotch tutorial, with per-rank CSV output. MPI call duration includes
 waiting and progress and is not a direct measurement of network
 transfer time. It is not a scored case or permission for a four-node run.
+
+
+C-only PMPI timing smoke `181704658.gadi-pbs` passed (`Exit_status=0`):
+private MPI linkage, two-rank UCX probe, five-rank Scotch tutorial through
+20 steps, seven per-rank CSVs and SHA-256-verified profiler library.
+PBS walltime was 1:57 on five cores, or about 0.33 SU by the established
+rate; the per-job charge was not separately visible in rounded account
+output. Tutorial rank 0 compiled the coded function object for about
+64 seconds while ranks 1–4 waited in one `MPI_Barrier`. This is startup
+waiting, not scientific solver or network timing. See the progress report
+for exact evidence.

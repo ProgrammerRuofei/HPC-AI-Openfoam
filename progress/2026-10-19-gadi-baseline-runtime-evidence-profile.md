@@ -688,3 +688,38 @@ Gadi control checkout stayed on `main` and its unrelated untracked files
 were preserved. Job-keyed evidence is expected under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/pmpi-timing-smoke.181704658.gadi-pbs/`.
 Result and actual SU are pending PBS evidence.
+
+
+## C-only PMPI timing smoke result and interpretation
+
+PBS job **`181704658.gadi-pbs`** finished on `gadi-cpu-spr-0503` with
+`Exit_status=0`, 1:57 allocated walltime, five CPUs, 11,325,852 KB
+peak memory and 6,752,251,181 bytes peak JOBFS. At the previously
+verified normalsr rate of two SU per core-hour, this implies about
+**0.33 SU**; the project account reported only rounded aggregate usage
+and temporarily still showed the 2.50 SU reservation, so an exact
+job-specific debit was not observable. The job emitted
+`GCC162_OMPI5010_PMPI_TIMING_1N_SMOKE_PASS`. The profiler shared library
+linked to the relocated private `libmpi.so.40`, and its archived SHA-256
+`58916f17351013881dc32af672f97ff5def696a4d624ff6d4297836e8a792301`
+passed `sha256sum -c`.
+
+The two-rank UCX probe passed `MPI_PROBE_PASS` and produced two valid rank
+CSVs, each with one timed `MPI_Allreduce` and one `MPI_Barrier`. The
+five-rank Scotch `pitzDaily_fused` tutorial reached `Time = 20`,
+`Finalising parallel run`, coded wall-clock output and `End`. Five rank
+CSVs each contained all 14 selected call categories and a positive
+post-init elapsed time; the validator counted 193,840 intercepted calls.
+The raw CSVs, full solver/preparation/build logs, independent PBS stdout,
+modules, linker traces, binary and checksum are preserved under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/pmpi-timing-smoke.181704658.gadi-pbs/`.
+
+The tutorial is not scientific bottleneck evidence. Its rank 0 spent
+roughly 64 seconds building the coded wall-clock function object. Ranks
+1–4 each recorded about 64.185 seconds in a *single* `MPI_Barrier` while
+waiting for rank 0; rank 0's corresponding barrier took about 0.014 ms.
+The solver's 20 time steps then finished quickly. This demonstrates that
+PMPI call timing detects rank-asymmetric waiting but also shows why
+start-up must be separated from the 150-step scientific solve. It cannot
+by itself attribute this barrier duration to network transfer. No
+four-node job was submitted under the low-cost smoke authorization.

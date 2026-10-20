@@ -141,3 +141,16 @@ about 9.18%. Top procedures: Gauss-Seidel smoothing 16.01%, matrix residual
 progress is visible. These are sampled CPU shares on 8 of 416 ranks, not
 walltime, MPI-wait, or network fractions. Source-line mapping and effective
 UCX/UCC selection for the historical solver run remain unproven.
+
+
+The unscored C-only PMPI compatibility smoke `181704658.gadi-pbs` passed
+with PBS `Exit_status=0`. It used the pinned GCC 16.2/Open MPI 5.0.10/
+UCX 1.18.1/UCC 1.4.4/OpenFOAM v2512 stack on one SPR node, a two-rank
+probe, and a five-rank 20-step Scotch tutorial. The source and runtime
+library hashes were verified. It intercepted 14 MPI call types and wrote
+seven per-rank CSVs. About 64 seconds of one startup `MPI_Barrier` on
+nonzero ranks corresponded to rank 0 compiling a coded function object.
+That timing is not a 65M-cell solver bottleneck. PBS used 1:57 and five
+CPUs (approximately 0.33 SU by the established rate). No four-node
+PMPI diagnostic or scored repeat was run. Detailed evidence is in the
+2026-10-19 progress report.
