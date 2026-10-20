@@ -308,3 +308,12 @@ passed; generated `MPI_Pready_list` has a `const int *` argument that
 conflicts with the pinned Open MPI 5.0.10 header's `int *`. The shared
 mpiP library and MPI/OpenFOAM probes were not reached. Raw evidence is
 retained; see the progress report. No further mpiP run was submitted.
+
+
+The separately approved v3 mpiP smoke `181694279.gadi-pbs` exited 2
+after 0:56 (about 0.16 SU by allocated CPUs and walltime). Disabling
+partitioned wrappers resolved the `MPI_Pready_list` compile conflict;
+`mpiP-wrappers.c` compiled. The next fatal error was mpiP's required
+`fortran_vars.f` include of `mpif-config.h`, absent because this private
+Open MPI was configured with `--disable-mpi-fortran`. No MPI probe or
+solver ran. Raw evidence is preserved; see the progress report.

@@ -622,3 +622,28 @@ returned **`181694279.gadi-pbs`**, initially Q. It requests pm78
 expected under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/mpip36-smoke.181694279.gadi-pbs/`.
 Completion and actual SU remain pending PBS evidence.
+
+
+## mpiP 3.6 smoke v3 result
+
+The one approved job **`181694279.gadi-pbs`** ran on SPR node
+`gadi-cpu-spr-0720` and finished with PBS `Exit_status=2` after 0:56,
+five CPUs, 7,678,264 KB peak memory and 5,781,451,767 bytes peak JOBFS.
+At the verified normalsr rate of two SU per core-hour, this implies about
+**0.16 SU**; PBS does not report a job-specific SU field and the project
+account command is rounded. Raw `configure.log`, `make.log`, `run.log`,
+`exit-status.txt`, module list, and PBS stdout remain in the unique v3
+job evidence path.
+
+The v3 flag worked: configure reports `MPI-Partitioned support: no`,
+`mpiP-wrappers.c` compiled, and the previous `MPI_Pready_list` conflict
+did not recur. The **first fatal error** is now `fortran_vars.f` compiling
+through `mpifort`: `mpif.h:56: Error: Can't open included file
+'mpif-config.h'`. The pinned Open MPI 5.0.10 archive contains `mpif.h`
+and `mpifort` but no `mpif-config.h`; the recorded Open MPI build script
+used `--disable-mpi-fortran`. mpiP's normal C shared-library target still
+compiles `fortran_vars.o`, and `mpiPi.c` calls `fortran_vars` at init, so
+merely skipping the Fortran object is not a verified fix. No libmpiP,
+MPI probe, or OpenFOAM solver run was produced. No further job was
+submitted under the one-job v3 approval. MPI wait/collective timing
+remains unmeasured.
