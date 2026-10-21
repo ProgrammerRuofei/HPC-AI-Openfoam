@@ -394,5 +394,15 @@ peers remain separate. It writes peer CSVs only at finalize. The companion
 probe plus two profiled and two unprofiled five-rank, 20-step Scotch tutorial
 runs. It records solver step time and launcher walltime overhead. This is
 not a scored or four-node diagnostic. The reviewed source/script were
-submitted once as `181921800.gadi-pbs` (initial state Q); its final result
-will be recorded in `progress/2026-10-22-gadi-pmpi-peer-counter.md`.
+submitted once as `181921800.gadi-pbs`. PBS finished with `Exit_status=1`,
+3:13 walltime and **0.54 SU**. The deterministic two-rank probe and all four
+five-rank tutorial solves completed; all ten instrumented rank report sets
+were written with zero datatype-size errors. The first failed assertion was
+coverage: OpenFOAM used a non-world communicator for all 91,816 point-to-
+point calls in each profiled tutorial run, and v1 intentionally aggregated
+those calls rather than assuming communicator-local ranks equal world ranks.
+The preliminary tutorial solver-step ratio was 1.05108, while full launcher
+walltime was strongly startup-confounded. Preserve all evidence; a new
+communicator-translation design and separately reviewed small retry are
+required before any four-node proposal. Details and paths are in
+`progress/2026-10-22-gadi-pmpi-peer-counter.md`.

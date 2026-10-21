@@ -75,8 +75,47 @@ checkout returned **`181921800.gadi-pbs`**; initial `qstat -f` showed `Q`,
 job-keyed evidence is under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/pmpi-peer-v1-smoke.181921800.gadi-pbs/`.
 
-Next: inspect PBS final state/exit, probe exact counts/bytes, five-rank
-Scotch/solver completion, all peer reports, observed overhead ratios, and
-actual SU. Preserve any failure evidence before considering a correction.
-A four-node peer-counter diagnostic requires a separate decision after this
-overhead and coverage evidence is reviewed.
+## Terminal result and first real failure
+
+`/opt/pbs/default/bin/qstat -xf 181921800.gadi-pbs` reported state F,
+`Exit_status=1`, and 3:13 walltime. The independent PBS stdout accounting
+receipt reports **0.54 SU**, 5 CPUs and 10.82 GB used memory. The job ran on
+`gadi-cpu-spr-0503`. The two-rank UCX probe passed exact per-peer and
+requested-byte assertions, including duplicated-communicator traffic.
+All four five-rank, 20-step Scotch tutorial solves reached normal `End`,
+each with a final coded wall-clock statistic. Both instrumented solves wrote
+all five summary, 10-second bucket and peer CSV files, with zero datatype
+size errors. The two instrumented solves had exactly matching point-to-point
+counts and requested payload bytes: 45,904 Isend and 45,904 Irecv calls,
+15,716,080 requested bytes in each direction, plus four Send and four Recv
+calls (288 requested bytes in each direction). Their full PMPI summary counts
+agree exactly with the peer-counter aggregate counts.
+
+The script correctly stopped at the **first coverage failure**: every one of
+those 91,816 point-to-point calls per instrumented tutorial run was on a
+non-`MPI_COMM_WORLD` communicator. The initial v1 design intentionally
+aggregates such traffic as `other_comm` and therefore cannot identify the
+remote world rank for the OpenFOAM solver. The assertion was:
+`('P1', {'world': 0, 'other_comm': 91816,
+'unresolved_world_peer': 0})`. This is an instrumentation-scope failure,
+not a solver, MPI launch, Scotch, or scientific-correctness failure. The
+original job ID, stdout, run log and reports remain preserved; the failed
+attempt must not be relabelled PASS or resubmitted unchanged.
+
+For preliminary overhead context, unprofiled tutorial solver-step times were
+0.0039799504 and 0.0037713692 s/step; instrumented times were 0.0040656167
+and 0.0040816411 s/step, a mean ratio of **1.05108**. This 20-step tutorial
+is too short to establish four-node overhead. Launcher walltime was about
+6.7 s unprofiled versus about 66.1 s instrumented (ratio **9.85466**),
+dominated by startup and dynamicCode compilation in each copied case; the
+reason for the extra startup time is not yet isolated. The script exited
+before writing its overhead summary, so these ratios were computed read-only
+from the preserved TSV and solver logs.
+
+Next: design and locally validate a communicator-to-world-rank translation
+cache, using MPI group translation once per communicator rather than per
+message; preserve separate accounting for intercommunicators, unmappable
+ranks, and wildcard receives. Then show the concrete v2 source/PBS diff and
+obtain approval for any distinct low-cost retry under `AGENTS.md`. Only a
+passing, low-overhead small test can justify proposing a separately approved
+four-node diagnostic. No extra job has been submitted.
