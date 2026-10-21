@@ -1,0 +1,15 @@
+#!/bin/bash
+# Third unprofiled A/B/C block in counterbalanced order C, A, B.
+# Submit from the ASPIRE2A control-repo root; evidence uses a unique PBS ID.
+#PBS -N of_abc_block3_v1
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=4:ncpus=128:mpiprocs=128:mem=400gb
+#PBS -l place=scatter
+#PBS -l walltime=06:00:00
+#PBS -o /home/project/59000020/openfoam-isc26/control-repo/experiments/aspire2a-scotch-abc/outputs/scotch_abc_block3_v1.o
+#PBS -e /home/project/59000020/openfoam-isc26/control-repo/experiments/aspire2a-scotch-abc/outputs/scotch_abc_block3_v1.e
+set -euo pipefail
+cd /home/project/59000020/openfoam-isc26/control-repo
+export RUN_MODE=full BLOCK=3
+bash experiments/aspire2a-scotch-abc/run_scotch_abc_v1.sh
