@@ -351,3 +351,14 @@ exactly with its per-rank total. The profiler library SHA-256 was
 The first bucket contains a 64.767-second startup barrier on ranks 1–4;
 this is not the scientific solver's MPI fraction. See the progress report.
 The exact NCI per-job debit was not available from rounded account output.
+
+The separately approved `profile_baseline_4n_pmpi_v1.pbs` and two node
+helpers preserve the validated 65M-cell, 416-rank, 150-step Scotch setup
+while timing 14 C MPI call types in 10-second windows. They build the
+hash-pinned interposer on each node's JOBFS and archive 104 rank reports
+per node into four scratch files. This is a diagnostic, not a scored run.
+Commit `66b229d` was pushed to isolated GitHub and Gadi branches after
+local review; one submission returned `181868687.gadi-pbs` (initially Q).
+The 30-minute, 416-core request has an approximately 416 SU ceiling.
+See `progress/2026-10-21-gadi-pmpi-4n-diagnostic.md` for hashes, exact
+paths, and completion criteria. No automatic repeat is authorized.
