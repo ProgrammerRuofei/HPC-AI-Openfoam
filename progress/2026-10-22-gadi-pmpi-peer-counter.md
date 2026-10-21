@@ -127,3 +127,23 @@ ranks, and wildcard receives. Then show the concrete v2 source/PBS diff and
 obtain approval for any distinct low-cost retry under `AGENTS.md`. Only a
 passing, low-overhead small test can justify proposing a separately approved
 four-node diagnostic. No extra job has been submitted.
+
+## Approved v2 translation smoke preparation
+
+The user approved **one** new single-node v2 smoke after the proposed
+communicator translation and test scope were shown. This does not authorize
+a four-node run. `pmpi_peer_counter_v2.c` caches intracommunicator local-rank
+to world-rank translations from `PMPI_Group_translate_ranks`, invalidates the
+cache on `MPI_Comm_free`, and retains `other_comm`/unresolved accounting for
+unmappable peers. Message wrappers still update memory only; CSV output is
+at finalization. The map lookup has a thread-local fast path and a mutex
+only on first encounter/free. Requested receive bytes remain posted capacity.
+
+`smoke_pmpi_peer_counter_1n_v2.pbs` keeps one SPR node, 5 CPUs, 16 GB,
+20 GB JOBFS, and a 15-minute request (ceiling ~2.5 SU). Its two-rank UCX
+probe verifies direct, duplicated, and reversed-rank communicators. Four
+five-rank Scotch tutorial solves compare the old v2 timing interposer with
+the new peer counter on the same 20-step workload, checking all five reports,
+100% world-peer translation of point-to-point calls, normal solver `End`,
+and incremental timing. This small run is diagnostic only. The new source
+and PBS file passed local C/mock-MPI, Bash, and embedded Python syntax checks.

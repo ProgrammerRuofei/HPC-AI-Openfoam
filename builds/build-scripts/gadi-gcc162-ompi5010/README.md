@@ -406,3 +406,11 @@ walltime was strongly startup-confounded. Preserve all evidence; a new
 communicator-translation design and separately reviewed small retry are
 required before any four-node proposal. Details and paths are in
 `progress/2026-10-22-gadi-pmpi-peer-counter.md`.
+
+The separately approved v2 smoke uses `pmpi_peer_counter_v2.c` to cache
+communicator-local to world-rank translations. It keeps nontranslatable peers
+separate and invalidates translations on `MPI_Comm_free`. The matching
+`smoke_pmpi_peer_counter_1n_v2.pbs` verifies a reordered two-rank communicator
+and compares five-rank Scotch tutorial timing against the existing v2 timing
+interposer. It requests one SPR node, 5 CPUs and 15 minutes, with no change
+to the fixed competition workload and no four-node run authorization.
