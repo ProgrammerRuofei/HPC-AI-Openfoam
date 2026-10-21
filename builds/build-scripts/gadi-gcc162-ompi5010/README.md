@@ -371,3 +371,11 @@ helpers under home rather than the Gadi control checkout. Read-only path
 checks confirmed this first failure. No solver/profile result was produced.
 The original PBS stdout is preserved. A corrected four-node retry requires
 a new reviewed script, unique paths, and user approval.
+
+The user approved one corrected v2 attempt. Its only functional change is
+to resolve the two existing node helpers from the confirmed absolute Gadi
+control checkout; it also uses unique v2 outputs. Script commit `d5c4bf2`
+and SHA-256 are recorded in the 2026-10-21 progress report. Gadi accepted
+one job, `181908113.gadi-pbs`, initially Q with the correct
+`PBS_O_WORKDIR=/scratch/pm78/kj7183/openfoam_cpu/control-repo`. Result and
+actual SU are pending; no further four-node retry is authorized.

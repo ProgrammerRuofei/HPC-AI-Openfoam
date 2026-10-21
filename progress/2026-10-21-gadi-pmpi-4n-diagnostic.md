@@ -93,3 +93,39 @@ Proposed correction: make the two established helper paths independent of
 and submit a new immutable script from that checkout. A new four-node job
 requires a separately reviewed diff and explicit user approval. Do not
 resubmit `181868687.gadi-pbs` or reuse its stdout/evidence path.
+
+## Approved v2 retry submitted once
+
+The user separately approved one corrected four-node attempt after seeing
+the exact helper-path diff and the approximately 416 SU request ceiling.
+`profile_baseline_4n_pmpi_v2.pbs` replaces the two `$PBS_O_WORKDIR` helper
+paths with the confirmed absolute Gadi control-repo paths. It uses unique
+v2 job, stdout, scratch and JOBFS paths. The science input, compiler/MPI,
+four SPR nodes × 104 ranks, Scotch, 150 steps, memory, JOBFS and 30-minute
+request are unchanged. The v2 script passed local `bash -n`, exact source
+and helper SHA-256 checks, and an assertion that no other script content
+changed from v1. Commit `d5c4bf26c3fd6dfba16746c555071440b75b4d2b` was
+pushed to the isolated GitHub and Gadi branches.
+
+Remote read-only preflight confirmed the Gadi branch ref, that the old node
+helpers in the control checkout exactly matched the branch copies, the
+existing immutable PMPI source and helper hashes, 6.06 KSU available, and
+unused v2 output paths. Gadi materialized the v2 PBS script from that ref;
+SHA-256 was
+`2927da8270bacc31b998b4bfce3d6b739a0041633ae3a0d3ed26b820d70b606e`,
+and remote `bash -n` passed.
+
+One command submitted it **from inside the control checkout**:
+
+```sh
+ssh -o BatchMode=yes gadi-comp 'cd /scratch/pm78/kj7183/openfoam_cpu/control-repo && /opt/pbs/default/bin/qsub /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/profile_baseline_4n_pmpi_v2.submitted.pbs'
+```
+
+The command returned **`181908113.gadi-pbs`**. Initial `qstat -f` showed Q,
+416 CPUs, 30 minutes, and `PBS_O_WORKDIR` correctly set to the control
+checkout. Independent stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/profile_baseline_4n_pmpi_v2.pbs.out`;
+job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/profile-4n-pmpi-v2/181908113.gadi-pbs/evidence/`.
+Actual exit status, profiler reports, Cd and SU are pending. No further
+four-node retry is authorized.
