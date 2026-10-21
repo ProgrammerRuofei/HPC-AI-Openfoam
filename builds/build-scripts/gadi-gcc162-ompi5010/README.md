@@ -393,5 +393,6 @@ peers remain separate. It writes peer CSVs only at finalize. The companion
 15 minutes (2.5 SU requested ceiling), and checks a deterministic two-rank
 probe plus two profiled and two unprofiled five-rank, 20-step Scotch tutorial
 runs. It records solver step time and launcher walltime overhead. This is
-not a scored or four-node diagnostic. Its submission and result are recorded
-in `progress/2026-10-22-gadi-pmpi-peer-counter.md`.
+not a scored or four-node diagnostic. The reviewed source/script were
+submitted once as `181921800.gadi-pbs` (initial state Q); its final result
+will be recorded in `progress/2026-10-22-gadi-pmpi-peer-counter.md`.

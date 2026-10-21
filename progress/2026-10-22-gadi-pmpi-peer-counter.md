@@ -50,7 +50,33 @@ five-rank, 20-step Scotch tutorial solves (U1/P1/U2/P2) check report
 completeness, source linkage, and profiled versus unprofiled solver-step and
 launcher walltime ratios. The result is diagnostic, not competition-scored.
 
-Local syntax and diff review, commit/push, immutable remote materialization,
-PBS submission, final exit and actual SU remain to be recorded below. A
-four-node peer-counter diagnostic requires a separate decision after this
+Local mock-header C syntax, Bash syntax, embedded Python syntax, source hash,
+and staged whitespace review passed. Commit
+`aa96fad0253ed191fb7fe809af5f195d6f545612` was pushed to both the
+GitHub and Gadi `codex/gadi-gcc162-build` branch refs and checked with
+`git ls-remote`. Local Git could not refresh its remote-tracking refs because
+the shared primary checkout's `.git` refs are read-only to this worktree;
+this did not affect either remote branch, and both refs were verified.
+
+The Gadi control checkout remained on `main`. Immutable source and PBS copies
+were materialized from the approved branch commit under the confirmed scratch
+submit-logs directory, without overwriting existing files. Their hashes are:
+
+| Submitted file | SHA-256 |
+| --- | --- |
+| `pmpi_peer_counter_v1.submitted.c` | `ae997a4b1c51884b0954470ebf7ffb62b254741a86d1e4c0b9f1f3ca6feaa974` |
+| `smoke_pmpi_peer_counter_1n_v1.submitted.pbs` | `22d9a10fe45d78352492727c053703a4fd369d7366d3ead5ca7bf01d0355797c` |
+
+Gadi `sha256sum -c` and `bash -n` passed. The independent PBS stdout path
+was confirmed unused. One non-interactive `qsub` from the Gadi control
+checkout returned **`181921800.gadi-pbs`**; initial `qstat -f` showed `Q`,
+5 CPUs and 15 minutes. The stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_pmpi_peer_counter_1n_v1.pbs.out`;
+job-keyed evidence is under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/pmpi-peer-v1-smoke.181921800.gadi-pbs/`.
+
+Next: inspect PBS final state/exit, probe exact counts/bytes, five-rank
+Scotch/solver completion, all peer reports, observed overhead ratios, and
+actual SU. Preserve any failure evidence before considering a correction.
+A four-node peer-counter diagnostic requires a separate decision after this
 overhead and coverage evidence is reviewed.
