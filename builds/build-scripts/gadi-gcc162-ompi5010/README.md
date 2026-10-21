@@ -414,3 +414,13 @@ separate and invalidates translations on `MPI_Comm_free`. The matching
 and compares five-rank Scotch tutorial timing against the existing v2 timing
 interposer. It requests one SPR node, 5 CPUs and 15 minutes, with no change
 to the fixed competition workload and no four-node run authorization.
+The single approved run `181922750.gadi-pbs` finished with PBS exit 0 in
+5:05 and consumed **0.85 SU**. The two-rank reordered-communicator probe
+passed; both peer-counter tutorial solves attributed all 91,816 point-to-point
+calls to world ranks, with zero `other_comm` or unresolved calls. All four
+20-step tutorial solves ended normally. Relative to the old timing interposer,
+the new counter's mean launcher-time ratio was 0.997647 and coded solver-step
+ratio 0.985577. These small-sample ratios show no measurable extra cost here,
+not a performance improvement or a four-node overhead estimate. The job's
+independent stdout and keyed evidence remain under the established Gadi
+scratch directories; see the corresponding `progress/` report.

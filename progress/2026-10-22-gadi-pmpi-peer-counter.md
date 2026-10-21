@@ -168,3 +168,30 @@ Independent stdout:
 Job-keyed evidence will be under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/pmpi-peer-v2-smoke.181922750.gadi-pbs/`.
 No result or SU charge is inferred while it remains queued.
+
+## V2 terminal result
+
+PBS `qstat -xf 181922750.gadi-pbs` reached **F**, `Exit_status=0`.
+The independent NCI receipt records **0.85 SU**, 5:05 walltime, 5 requested
+CPUs, 10.85 GB peak memory and 6.31 GB JOBFS use. The job ran on one SPR
+node, `gadi-cpu-spr-0481`. The script's exit trap recorded `script_exit_rc=0`
+and `GCC162_OMPI5010_PMPI_PEER_V2_1N_SMOKE_PASS`.
+
+The deterministic two-rank UCX probe passed exact call/byte assertions for
+world, duplicated and rank-reordered communicators. All four five-rank
+Scotch tutorial runs reached normal `End`. Each peer-counter run produced
+five timing, bucket and peer reports with zero datatype-size errors. Each
+had **91,816 point-to-point calls**, all attributed to world peers;
+`other_comm=0` and unresolved=0. The old timing-control runs wrote five
+timing and bucket reports each. In P1, Isend and Irecv each totaled 45,904
+calls and 15,716,080 requested bytes; four Send and four Recv calls each
+requested 288 bytes. Per-rank neighbor sets in the five-rank tutorial were:
+rank 0→{1,2,3,4}; 1→{0}; 2→{0,3}; 3→{0,2,4}; 4→{0,3}.
+
+The mean launcher-time ratio (peer counter / existing timing interposer) was
+**0.997647**; the coded solver-step ratio was **0.985577**, from 20-step
+tests. These ratios show no measurable incremental overhead in this small
+check, but their variance and startup cost cannot resolve sub-percent effects
+or establish four-node overhead. They are not competition performance scores.
+The counter now has the required peer mapping coverage for a separately
+approved four-node diagnostic; none was submitted here.
