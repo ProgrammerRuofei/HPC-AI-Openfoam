@@ -102,6 +102,14 @@ not a solver, MPI launch, Scotch, or scientific-correctness failure. The
 original job ID, stdout, run log and reports remain preserved; the failed
 attempt must not be relabelled PASS or resubmitted unchanged.
 
+Read-only inspection of the authoritative v2512 source at
+`/apps/OpenFOAM/2512/src/Pstream/mpi/UPstream.C` explains this observation:
+the default `noInitialCommDup_` is false, and the base communicator is built
+with `MPI_Comm_dup(MPI_COMM_WORLD, &mpiNewComm)` (around lines 274 and 809).
+Passing `-mpi-no-comm-dup` merely to make v1 count peers would change the
+runtime communication setup being diagnosed. A translation cache is the
+appropriate instrumentation fix.
+
 For preliminary overhead context, unprofiled tutorial solver-step times were
 0.0039799504 and 0.0037713692 s/step; instrumented times were 0.0040656167
 and 0.0040816411 s/step, a mean ratio of **1.05108**. This 20-step tutorial
