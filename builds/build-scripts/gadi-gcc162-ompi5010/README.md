@@ -376,6 +376,22 @@ The user approved one corrected v2 attempt. Its only functional change is
 to resolve the two existing node helpers from the confirmed absolute Gadi
 control checkout; it also uses unique v2 outputs. Script commit `d5c4bf2`
 and SHA-256 are recorded in the 2026-10-21 progress report. Gadi accepted
-one job, `181908113.gadi-pbs`, initially Q with the correct
-`PBS_O_WORKDIR=/scratch/pm78/kj7183/openfoam_cpu/control-repo`. Result and
-actual SU are pending; no further four-node retry is authorized.
+one job, `181908113.gadi-pbs`, with the correct
+`PBS_O_WORKDIR=/scratch/pm78/kj7183/openfoam_cpu/control-repo`. It passed
+with PBS exit 0, four nodes × 104 ranks, 150 steps, Cd
+0.29187594927465327, diagnostic 1.993566906751678 s/step, and 246.83 SU.
+The complete PMPI reports and job evidence are preserved. The 416-rank
+surface/Waitall table and exact rank-neighbor face table were extracted
+without a new PBS job; see `results/gadi-gcc162-ompi5010-scotch/`.
+
+The user separately approved one low-cost PMPI peer-counter smoke. The new
+`pmpi_peer_counter_v1.c` retains the v2 timing report and adds in-memory
+per-world-peer call and requested-payload counters for Isend, Irecv, Send,
+Recv, and both sides of Sendrecv. Other communicators and unresolved world
+peers remain separate. It writes peer CSVs only at finalize. The companion
+`smoke_pmpi_peer_counter_1n_v1.pbs` requests one SPR node, five CPUs and
+15 minutes (2.5 SU requested ceiling), and checks a deterministic two-rank
+probe plus two profiled and two unprofiled five-rank, 20-step Scotch tutorial
+runs. It records solver step time and launcher walltime overhead. This is
+not a scored or four-node diagnostic. Its submission and result are recorded
+in `progress/2026-10-22-gadi-pmpi-peer-counter.md`.
