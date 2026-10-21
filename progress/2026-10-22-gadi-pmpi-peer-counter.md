@@ -147,3 +147,24 @@ the new peer counter on the same 20-step workload, checking all five reports,
 100% world-peer translation of point-to-point calls, normal solver `End`,
 and incremental timing. This small run is diagnostic only. The new source
 and PBS file passed local C/mock-MPI, Bash, and embedded Python syntax checks.
+
+The reviewed files were committed as `f3dc28c1ee8e663da4e0892e4e0d0d2e6e2a00dc`
+and pushed to both GitHub and Gadi isolated branch refs. The Gadi control
+checkout remained on `main`, including its unrelated untracked files.
+Immutable submitted copies were materialized from the verified branch ref
+under the established scratch submit-logs directory. Gadi SHA-256 checks
+and `bash -n` passed:
+
+| Submitted file | SHA-256 |
+| --- | --- |
+| `pmpi_peer_counter_v2.submitted.c` | `632093108e2adb7c78d1ce5264fc07628ac12e89ac0930ccb3fd424d2ec8ddd1` |
+| `smoke_pmpi_peer_counter_1n_v2.submitted.pbs` | `7698de9bf3bb4197aaf57fd01ca6d93097484116a091e1a5e3264183dceaf3e6` |
+
+The existing timing-control source independently passed its pinned SHA-256
+check. One `qsub` from the Gadi control checkout returned **181922750.gadi-pbs**.
+Initial `qstat -f` showed `Q`, `normalsr-exec`, 5 CPUs and 15 minutes.
+Independent stdout:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_pmpi_peer_counter_1n_v2.pbs.out`.
+Job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/evidence/pmpi-peer-v2-smoke.181922750.gadi-pbs/`.
+No result or SU charge is inferred while it remains queued.
