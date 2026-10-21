@@ -362,3 +362,12 @@ local review; one submission returned `181868687.gadi-pbs` (initially Q).
 The 30-minute, 416-core request has an approximately 416 SU ceiling.
 See `progress/2026-10-21-gadi-pmpi-4n-diagnostic.md` for hashes, exact
 paths, and completion criteria. No automatic repeat is authorized.
+
+The first attempt `181868687.gadi-pbs` actually finished with PBS
+`Exit_status=1` after two seconds and **0.46 SU**, before creating the
+job-keyed evidence directory. `PBS_O_WORKDIR` was the remote home because
+the absolute-path `qsub` ran there; the preflight looked for existing node
+helpers under home rather than the Gadi control checkout. Read-only path
+checks confirmed this first failure. No solver/profile result was produced.
+The original PBS stdout is preserved. A corrected four-node retry requires
+a new reviewed script, unique paths, and user approval.

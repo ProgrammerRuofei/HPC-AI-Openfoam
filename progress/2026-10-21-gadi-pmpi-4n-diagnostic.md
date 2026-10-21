@@ -63,3 +63,33 @@ per-step time, and actual SU. Separate startup from solver windows before
 interpreting MPI call durations; those durations include waiting and do not
 equal network-transfer time. Preserve all failure evidence, and do not
 automatically repeat a four-node job.
+
+## First attempt stopped before preparation
+
+After the user requested a status check, the existing `gadi-comp` control
+socket had expired. The user restored it; the renewed non-interactive check
+returned `Master running`. PBS then reported `181868687.gadi-pbs` in state
+`F` with `Exit_status=1` and two seconds of walltime. The independent PBS
+stdout contains the accounting receipt but no script log. It reports
+**0.46 SU**, 10.25 MB memory used, no JOBFS use, and four allocated SPR
+nodes. The job-keyed evidence directory was not created, so the failure
+occurred before `mkdir -p "$EVIDENCE"`; no preparation chain, MPI program,
+`simpleFoam`, Cd, or profiling report ran.
+
+The first failing preflight is the test for the two existing node helpers.
+PBS `Variable_List` records `PBS_O_WORKDIR=/home/397/kj7183` because the
+absolute-path `qsub` was invoked from the remote home directory. The script
+therefore looked for
+`/home/397/kj7183/builds/build-scripts/gadi-gcc162-ompi5010/stage_4n_runtime_node.sh`
+and its processor helper. Read-only checks returned absent for both home
+paths and present for the runtime helper in
+`/scratch/pm78/kj7183/openfoam_cpu/control-repo/`. This explains the silent
+`test -f` exit before logging. The original PBS stdout and job ID are
+preserved; this is a submission-working-directory error, not evidence about
+PMPI compatibility or the scientific solver.
+
+Proposed correction: make the two established helper paths independent of
+`PBS_O_WORKDIR` by resolving them from the confirmed Gadi control checkout,
+and submit a new immutable script from that checkout. A new four-node job
+requires a separately reviewed diff and explicit user approval. Do not
+resubmit `181868687.gadi-pbs` or reuse its stdout/evidence path.
