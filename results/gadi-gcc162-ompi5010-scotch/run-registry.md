@@ -8,6 +8,7 @@ unchanged. The copied case uses 416 ranks and Scotch decomposition.
 | --- | --- | --- | ---: | ---: | ---: | --- | ---: | --- |
 | First GCC16 Scotch baseline | `181368883.gadi-pbs` | 4 / 416 | 150 | **1.991194389 s** | **0.2918759493** | 00:16:19 | **226.26** | Valid completed run |
 | Same-build Scotch repeat | `181371071.gadi-pbs` | 4 / 416 | 150 | **1.988625920 s** | **0.2918759493** | 00:16:36 | **230.19** | Valid completed repeat |
+| Same-stack hierarchical `(16 13 2)` | `181519873.gadi-pbs` | 4 / 416 | 150 | **2.058549642 s** | **0.2823061427** | 00:13:35 | **188.36** | Valid controlled decomposition comparison |
 
 ## Configuration behind the comparison
 
@@ -80,6 +81,20 @@ reference but inside the predeclared 0.27–0.30 band. Because compiler,
 MPI and decomposition all changed, this comparison does not isolate the
 cause of the gain. This is a validated current candidate, not a claim
 that every possible build/decomposition has been tested.
+
+The later same-stack hierarchical job `181519873.gadi-pbs` used the same
+GCC 16.2/Open MPI 5.0.10/OpenFOAM v2512 archives, 4 SPR nodes × 104 ranks,
+full preparation chain, fixed mesh/solver/schemes/solution and 150 steps.
+Its single completed run measured **2.058549642 s/step**, so the two-run
+Scotch mean is **3.33% faster**. The NCI receipt gives Exit Status 0 and
+188.36 SU. Four preparation logs and the solver reached normal `End`,
+`Time = 150` and MPI finalisation; its four hosts each carried 104 ranks.
+Cd was 0.2823061427, within the accepted 0.27–0.30 band but about 0.00957
+below the Scotch Cd. This isolates decomposition more directly than the
+older site-stack comparison, while one hierarchical run cannot establish
+repeatability. Original evidence is under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical/181519873.gadi-pbs/evidence/`,
+with independent PBS stdout at the matching `submit-logs/run_baseline_4n_hierarchical_v1.pbs.out`.
 
 ## Unscored diagnostic profile attempt
 

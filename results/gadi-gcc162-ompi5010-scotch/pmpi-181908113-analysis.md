@@ -37,6 +37,19 @@ The steady columns sum PMPI 10-second buckets whose start is at least 70 s after
 
 Rank 112 has the highest steady Waitall (32.613 s) but zero direct cross-node faces. This rules out a simple explanation that only ranks with remote neighbors wait longest. Neighbor load, collective synchronization, and CPU placement remain possible contributors.
 
+## Zero-SU placement thought experiment (2026-10-22)
+
+Using only the saved rank-pair face graph, a deterministic greedy sequence
+of 15 pairwise rank swaps between node groups preserved exactly 104 ranks
+in each of four groups. It reduced weighted cross-node processor faces from
+300,065 to 262,385, a **12.56%** reduction of cross-node faces. Relative to
+all 2,690,403 unique processor faces, the reduction is only **1.40%**.
+This is a graph-cut estimate, not a tested rankfile or runtime result. It
+does not account for physical-core affinity, memory locality, collectives,
+message size, or the node-local JOBFS processor layout. Given the modest
+fraction of total faces and rank 112's high Waitall with no remote neighbor,
+it is not enough evidence on its own to spend a four-node run on remapping.
+
 ## Source evidence
 
 - PBS job: 181908113.gadi-pbs.

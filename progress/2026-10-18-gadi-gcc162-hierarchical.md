@@ -89,3 +89,26 @@ Job-keyed evidence will be in
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical/181519873.gadi-pbs/evidence/`.
 Result and actual charge are pending. Do not submit a repeat without new user
 approval.
+
+## Later read-only result recovery (2026-10-22)
+
+The result had completed but had not been reconciled into this report.
+`qstat -xf` no longer retains this job ID. The preserved independent PBS
+stdout contains the NCI accounting receipt: **Exit Status 0**, **188.36 SU**,
+13:35 walltime, 416 CPUs, 306.04 GB used memory and 22.07 GB used JOBFS.
+The script recorded `script_exit_rc=0` and
+`GCC162_OMPI5010_OF2512_HIERARCHICAL_4N_PASS`. All four preparation logs
+and the solver log contain normal `End`; `simpleFoam` reached `Time = 150`
+and `Finalising parallel run`. Rank-host-map has four distinct SPR hosts,
+104 ranks each. The decomposition record shows `hierarchical (16 13 2)`.
+The coded metric is **2.058549642268457 s/step** and final
+**Cd = 0.28230614272579119**. The pinned case and stack provenance files
+remain in the job-keyed evidence directory above.
+
+The two same-stack Scotch runs averaged **1.989910155 s/step** and Cd
+0.2918759493. Scotch was **3.33% faster** on the coded solver-step metric
+than this one hierarchical run. Both Cd values lie in the predeclared
+0.27–0.30 band, though they differ by about 0.00957. This is a controlled
+decomposition comparison at the same compiler/MPI/rank count and iteration
+count; it has no hierarchical repeat. No new PBS job was submitted to
+recover the old result.
