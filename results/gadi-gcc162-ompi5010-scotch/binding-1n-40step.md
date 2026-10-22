@@ -14,6 +14,8 @@ The only launcher change was `--bind-to core`; both used
 | Default | `182017873.gadi-pbs` | F, exit 0 | 8.373520290307694 | 0.43806006706848422 | 11:41 | 40.50 | Eight 13-core NUMA masks, 13 ranks per mask |
 | Core | `182019151.gadi-pbs` | F, exit 0 | 8.346359078358972 | 0.43806006706848422 | 11:32 | 39.98 | 104 distinct one-core masks |
 
+**Selected 1-node scaling baseline:** `182017873.gadi-pbs` (default binding). It uses the same pinned GCC 16.2.0/Open MPI 5.0.10/OpenFOAM v2512/Scotch stack and `ppr:104:node` launcher policy as the completed four-node Scotch baseline. The explicit core-binding run remains a separate affinity experiment; its single-pair 0.32437% difference is inconclusive. The planned two-node point must use 208 ranks, 80 steps and the default binding policy. No two-node result has been measured yet. This designation does not replace the older site-module official reference.
+
 Both jobs have the relevant PASS marker and all five stage `End` markers;
 the solver reached `Time = 40` and finalized MPI. The input SHA-256 records
 match byte-for-byte, as do 1,358 extracted `decomposePar` statistic lines.
