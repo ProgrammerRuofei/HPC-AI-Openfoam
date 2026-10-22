@@ -186,7 +186,7 @@ Raw evidence and precise SU caveat are in the 2026-10-19 progress report.
 
 ## GCC16/Scotch scaling baseline selection (2026-10-22)
 
-The default-binding one-node job `182017873.gadi-pbs` is the selected 1N/104-rank/40-step point for this stack: 8.373520290307694 s/step, Cd 0.43806006706848422, 40.50 SU. The four-node points are `181368883.gadi-pbs` and `181371071.gadi-pbs` at 416 ranks/150 steps. A matching two-node 208-rank/80-step Scotch point is pending; use per-step times for scaling because prescribed step counts differ. This selection does not relabel the historical site-module official reference.
+The default-binding one-node job `182017873.gadi-pbs` is the selected 1N/104-rank/40-step point for this stack: 8.373520290307694 s/step, Cd 0.43806006706848422, 40.50 SU. The four-node points are `181368883.gadi-pbs` and `181371071.gadi-pbs` at 416 ranks/150 steps. The matching two-node 208-rank/80-step Scotch job `182022356.gadi-pbs` passed at 4.137720655924051 s/step, Cd 0.33963559075612176, and 95.56 SU from the NCI job receipt. Use per-step times for scaling because prescribed step counts differ; see [scaling-1n2n4n.md](scaling-1n2n4n.md). This selection does not relabel the historical site-module official reference.
 
 ## One-node core-binding comparison (2026-10-22)
 

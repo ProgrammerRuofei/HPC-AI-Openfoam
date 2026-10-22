@@ -1,0 +1,5 @@
+job_id,nodes,ranks,ranks_per_node,steps,avg_wall_s_per_step,final_cd,pbs_walltime,actual_su,pbs_exit,compiler,mpi,openfoam,decomposition,binding,ucx_module,ucc_module,effective_ucx_version,ucc_collective_selection
+182017873.gadi-pbs,1,104,104,40,8.373520290307694,0.43806006706848422,00:11:41,40.50,0,GCC 16.2.0,Open MPI 5.0.10,v2512,Scotch,default,1.18.1,1.4.4,unknown,unknown
+182022356.gadi-pbs,2,208,104,80,4.137720655924051,0.33963559075612176,00:13:47,95.56,0,GCC 16.2.0,Open MPI 5.0.10,v2512,Scotch,default,1.18.1,1.4.4,unknown,unknown
+181368883.gadi-pbs,4,416,104,150,1.991194389201344,0.29187594927465327,00:16:19,226.26,0,GCC 16.2.0,Open MPI 5.0.10,v2512,Scotch,default,1.18.1,1.4.4,unknown,unknown
+181371071.gadi-pbs,4,416,104,150,1.988625920,0.29187594927465327,00:16:36,230.19,0,GCC 16.2.0,Open MPI 5.0.10,v2512,Scotch,default,1.18.1,1.4.4,unknown,unknown
