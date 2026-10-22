@@ -1,0 +1,115 @@
+#!/bin/bash
+# One-node affinity audit for the verified GCC 16.2/Open MPI 5.0.10 stack.
+# Submit from the Gadi control repository; writes job-keyed evidence in scratch.
+# It launches no OpenFOAM solver and changes no scientific input.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N gcc162_binding_1n_v1
+#PBS -l ncpus=104
+#PBS -l mem=16GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:05:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/probe_gcc162_ompi5010_binding_1n_v1.pbs.out
+set -euo pipefail
+
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+RUN_ROOT="$STACK_ROOT/binding-probe-1n/${PBS_JOBID:?}"
+EVIDENCE="$RUN_ROOT/evidence"
+LOCAL_ROOT="${PBS_JOBFS:?}/gcc162-binding-${PBS_JOBID}"
+GCC_PREFIX="$LOCAL_ROOT/gcc-16.2.0"
+MPI_PREFIX="$LOCAL_ROOT/openmpi-5.0.10"
+
+test "${PBS_NNODES:?}" -eq 1
+test "${PBS_NCPUS:?}" -eq 104
+test ! -e "$RUN_ROOT"
+mkdir -p "$EVIDENCE" "$LOCAL_ROOT"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+finish() { rc=$?; printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"; return "$rc"; }
+trap finish EXIT
+
+printf 'job_id=%s\nstack=gcc16.2-ompi5.0.10\npurpose=affinity-audit-only\n' "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
+module purge
+module load ucx/1.18.1 ucc/1.4.4
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+printf '%s  %s\n' "$GCC_SHA" "$GCC_ARCHIVE" | sha256sum -c -
+printf '%s  %s\n' "$MPI_SHA" "$MPI_ARCHIVE" | sha256sum -c -
+tar -xzf "$GCC_ARCHIVE" -C "$LOCAL_ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$LOCAL_ROOT"
+test -x "$GCC_PREFIX/bin/gcc"
+test -x "$MPI_PREFIX/bin/mpirun"
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+gcc --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+lscpu | grep -E 'Model name|Socket|Core|Thread|NUMA' | tee "$EVIDENCE/lscpu.txt"
+grep -Fq 'Xeon(R) Platinum 8470Q' "$EVIDENCE/lscpu.txt"
+
+# Each rank reports the OS affinity mask and the physical cores it covers.
+# JSON avoids ambiguity when Linux formats CPU masks with embedded commas.
+cat > "$EVIDENCE/report_affinity.py" <<'PY'
+import glob
+import json
+import os
+from pathlib import Path
+import socket
+
+def read_int(path):
+    return int(Path(path).read_text().strip())
+
+cpus = sorted(os.sched_getaffinity(0))
+cores = set()
+numa = set()
+for cpu in cpus:
+    base = f'/sys/devices/system/cpu/cpu{cpu}'
+    package = read_int(f'{base}/topology/physical_package_id')
+    core = read_int(f'{base}/topology/core_id')
+    cores.add((package, core))
+    numa.update(int(Path(p).name[4:]) for p in glob.glob(f'{base}/node[0-9]*'))
+print(json.dumps(dict(rank=int(os.environ['OMPI_COMM_WORLD_RANK']),
+                      local_rank=int(os.environ['OMPI_COMM_WORLD_LOCAL_RANK']),
+                      host=socket.gethostname().split('.')[0], cpus=cpus,
+                      cores=sorted(cores), numa=sorted(numa)), sort_keys=True), flush=True)
+PY
+
+# Preserve the baseline mapping and UCX PML. The second launch adds only
+# explicit core binding; --report-bindings is evidence output in both.
+for variant in default core; do
+    options=()
+    if [[ "$variant" = core ]]; then options=(--bind-to core); fi
+    mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node \
+        "${options[@]}" --report-bindings --mca pml ucx -np 104 \
+        python3 "$EVIDENCE/report_affinity.py" \
+        > "$EVIDENCE/$variant.jsonl" 2> "$EVIDENCE/$variant.bindings.txt"
+done
+
+python3 - "$EVIDENCE" <<'PY' | tee "$EVIDENCE/summary.txt"
+import collections
+import json
+import pathlib
+import sys
+
+root = pathlib.Path(sys.argv[1])
+for variant in ('default', 'core'):
+    rows = [json.loads(line) for line in (root / f'{variant}.jsonl').read_text().splitlines()]
+    assert len(rows) == 104, (variant, len(rows))
+    assert {r['rank'] for r in rows} == set(range(104))
+    assert {r['local_rank'] for r in rows} == set(range(104))
+    assert len({r['host'] for r in rows}) == 1
+    widths = collections.Counter(len(r['cores']) for r in rows)
+    single = [tuple(r['cores'][0]) for r in rows if len(r['cores']) == 1]
+    node_counts = collections.Counter(r['numa'][0] for r in rows if len(r['numa']) == 1)
+    print(f'{variant}: rank_count=104 physical_core_mask_widths={dict(sorted(widths.items()))}')
+    print(f'{variant}: singleton_core_ranks={len(single)} distinct_singleton_cores={len(set(single))}')
+    print(f'{variant}: singleton_numa_rank_counts={dict(sorted(node_counts.items()))}')
+print('GCC162_OMPI5010_BINDING_1N_PROBE_PASS')
+PY
