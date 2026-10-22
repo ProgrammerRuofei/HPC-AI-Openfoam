@@ -40,3 +40,23 @@ of `core.jsonl` is
 This difference warrants a controlled solver comparison, subject to a new
 reviewed script diff and approval under the repository workflow. No 40-step
 or four-node solve was submitted as part of this probe.
+
+## Approved one-node 40-step comparison
+
+The user separately approved one default-binding and one explicit-core-binding
+solve after reviewing their proposed diff. Both use
+`run_binding_1n_40step_v1.pbs`, with `BIND_POLICY=default` or `core` supplied
+at submission, separate PBS stdout names and separate job-keyed evidence.
+The first job must pass before the second is submitted; no retry or four-node
+job is covered by this approval. The request per job is one SPR node,
+104 CPUs/ranks, 190 GB memory, 100 GB JOBFS and 20 minutes: at 2 SU per
+core-hour, at most 69.33 SU each or 138.67 SU for the approved pair.
+
+The jobs use the SHA-pinned GCC 16.2.0, Open MPI 5.0.10 and OpenFOAM v2512
+archives from the successful four-node Scotch run. They copy the pinned ~65M
+case into JOBFS, set only the official one-node values `nCores=104`,
+`decompositionMethod=scotch`, and `endTime=40`, and retain the full preparation
+chain. The only between-job launcher difference is `--bind-to core`.
+Completion requires normal PBS and all stage exits, `Time = 40`, finite Cd,
+the coded wall-clock seconds/step, and actual SU. The two 40-step Cd values
+are compared with one another; they are not judged by the 150-step 4N band.
