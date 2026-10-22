@@ -60,3 +60,26 @@ chain. The only between-job launcher difference is `--bind-to core`.
 Completion requires normal PBS and all stage exits, `Time = 40`, finite Cd,
 the coded wall-clock seconds/step, and actual SU. The two 40-step Cd values
 are compared with one another; they are not judged by the 150-step 4N band.
+
+### Completed pair
+
+| Binding | PBS job | Exit | Coded s/step | Final Cd | PBS walltime | Actual SU |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Default NUMA-domain mask | `182017873.gadi-pbs` | 0 | 8.373520290307694 | 0.43806006706848422 | 11:41 | 40.50 |
+| Explicit core | `182019151.gadi-pbs` | 0 | 8.346359078358972 | 0.43806006706848422 | 11:32 | 39.98 |
+
+Both jobs ran on the **same** SPR host, `gadi-cpu-spr-0638`, and each reached
+`Time = 40` with normal `End` markers for all five stages. Each produced
+104 rank affinity records: the default group had eight distinct 13-core
+masks; the core group had 104 distinct single-core masks. Input SHA-256 files
+were identical, the 1,358 extracted decomposition-statistic lines were
+identical, and `coefficient.dat` had the same SHA-256
+`49226f84a1d9b5c8041d37587b840bd4c45f0c7a96e2324363de0b6866197be8`.
+The coded solver metric improved by **0.32437%** in this one pair. This is
+too small to establish a robust win without repetition, and the user has
+explicitly limited repeats and SU use. No four-node binding job was submitted.
+
+Independent PBS stdout files are in the established `submit-logs/` directory
+as `run_binding_1n_40step_v1_default.pbs.out` and
+`run_binding_1n_40step_v1_core.pbs.out`. Job-keyed evidence is under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/binding-1n-40step/<policy>/<jobid>/evidence/`.

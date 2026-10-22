@@ -183,3 +183,15 @@ collection, not the 65M-cell scientific solver's MPI or network fraction.
 Profiler library SHA-256:
 `dbe725d1ee8e07746ff18d0179ef4f02b24962cc0c3311a8aecb22bef1e88b79`.
 Raw evidence and precise SU caveat are in the 2026-10-19 progress report.
+
+## One-node core-binding comparison (2026-10-22)
+
+The SHA-pinned GCC 16.2/Open MPI 5.0.10/OpenFOAM v2512 stack was tested on
+one SPR node at the official 104-rank, 40-step Scotch point. The default
+binding job `182017873.gadi-pbs` passed at **8.373520290 s/step**, Cd
+**0.4380600671**, **40.50 SU**. The otherwise identical core-bound job
+`182019151.gadi-pbs` passed at **8.346359078 s/step**, identical Cd,
+**39.98 SU**. Both used the same physical host and identical decomposition
+statistics. The observed core-binding gain was **0.32437%** in one pair,
+insufficient to justify a four-node run under the current SU constraint.
+See [binding-1n-40step.md](binding-1n-40step.md) for full provenance.
