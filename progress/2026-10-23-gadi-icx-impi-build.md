@@ -21,8 +21,27 @@ Intel's 2026 toolkit release table maps 2026.1 to compiler 2026.1 and MPI
 2021.19. The Gadi login node runs Rocky Linux 8.10, and the public Intel
 oneAPI Yum repository metadata directly lists both versioned RPM groups. A
 read-only dependency plan resolved 27 Intel RPMs totalling 1,119,733,448 bytes.
-The proposed next step fetches those RPM archives to a user scratch cache,
+The next stage fetches those RPM archives to a user scratch cache,
 validates each against Intel repository metadata, and privately extracts them
 inside a fresh PBS_JOBFS. A 4-core two-rank smoke test checks compiler version,
 actual Intel MPI linkage, PBS startup, and an archived SHA-256 before any
 OpenFOAM build. No shared installation is planned.
+
+The user approved exactly this private-toolchain download and one 4-core
+preflight job. Commit `6c86b8d` reached GitHub and Gadi's isolated branch;
+the two executable script SHA-256 values matched locally and on Gadi
+(`1591bfcadfee9bfcfa6bb2d356bcaab28b7576ef81fdd59404381c0e8eadc3f2`
+for the downloader and
+`1e0992f307071498b918f2fcec561fa5ba30bb75f7d28759c3b44ac57ff90875`
+for PBS). All 27 RPMs downloaded to `rpm-cache` with repository-recorded
+size and SHA-256; the cache occupies about 1.1 GB. No system package was
+installed.
+
+PBS job `182138851.gadi-pbs` was submitted once from the verified
+`submit-logs/smoke_private_toolchain_1n.6c86b8d.pbs` copy. Initial `qstat -f`
+showed state `Q`, queue `normalsr-exec`, 4 CPUs and a 20-minute limit. Its
+independent stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/smoke_private_toolchain_1n.pbs.out`;
+job-keyed evidence will be under the same stack's
+`evidence/182138851.gadi-pbs/` directory. No OpenFOAM compilation or
+four-node run was submitted.
