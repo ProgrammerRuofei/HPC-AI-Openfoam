@@ -31,3 +31,19 @@ SHA-256 `013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc`.
 
 OpenFOAM v2512 build settings, compiler flags, Scotch, and application binary
 linkage must be validated in a separate job before any scientific run.
+
+## OpenFOAM build attempt v1
+
+`build_openfoam_v2512_v1.pbs` requests one `normalsr` SPR node with 48 CPUs,
+190 GB memory, 100 GB JOBFS and a four-hour walltime limit (384 SU maximum).
+Its job-specific build helper verifies and extracts the preflight toolchain
+archive into fresh JOBFS, then uses `WM_COMPILER=Icx`, `WM_MPLIB=INTELMPI`,
+`WM_COMPILE_OPTION=Opt` and the private `I_MPI_ROOT`. This Intel MPI path uses
+Intel's fabric stack; it does not claim the Open MPI UCX/UCC configuration.
+
+The build gates the unchanged `OPENFOAM_SOURCE_ID_V2`, compiles genuine Scotch
+and the six benchmark applications, verifies `simpleFoam` links to the private
+Intel MPI `libmpi.so.12`, and checks a new OpenFOAM runtime archive SHA-256.
+Optional applications outside the benchmark are excluded because the prior
+ICX 2025.3.2 all-applications attempt failed in unrelated CGAL 4.14.3 code.
+This is a build-only job; it has no solver run or performance score.
