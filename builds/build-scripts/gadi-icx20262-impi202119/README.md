@@ -21,5 +21,13 @@ requires the marker `ICX20262_IMPI202119_PRIVATE_1N_PASS`, compiler 2026.2,
 Intel MPI 2021.19, `libmpi` from the private prefix, both MPI ranks, and an
 archive SHA-256 check. This is a compatibility test, not a benchmark score.
 
+Job `182138851.gadi-pbs` passed with PBS `Exit_status=0` and walltime
+`00:03:57` (four CPUs, approximately 0.2633 SU pending final accounting).
+It reported ICX 2026.2.0 and Intel MPI 2021.19.0, linked `libmpi.so.12`
+from the private JOBFS installation, and completed both ranks on one SPR node.
+The verified runtime archive is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/runtime-archive/gadi-icx20262-impi202119.182138851.gadi-pbs.tar.gz`,
+SHA-256 `013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc`.
+
 OpenFOAM v2512 build settings, compiler flags, Scotch, and application binary
 linkage must be validated in a separate job before any scientific run.
