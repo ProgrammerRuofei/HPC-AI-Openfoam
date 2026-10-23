@@ -53,8 +53,9 @@ reported 2026.2.0, Intel MPI reported 2021.19.0, and `ldd` resolved
 `libmpi.so.12` from the extracted private MPI tree under this job's JOBFS.
 Both MPI ranks ran on that node. The runtime archive's verified SHA-256 is
 `013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc`.
-At 4 CPU-hours per wall-hour, the 3:57 runtime corresponds to 0.2633 SU;
-`nci_account -P pm78` still showed 2.67 SU reserved and rounded 2.36 KSU used
-immediately after completion, so the posted charge remains to be confirmed.
+The independent PBS resource receipt reports **0.53 SU** (four CPUs at two
+SU per core-hour, 3:57 walltime), 6.52 GB memory and 3.82 GB JOBFS used.
+`nci_account -P pm78` subsequently showed zero reserved and rounded
+2.36 KSU used.
 This establishes private compiler and MPI usability only. OpenFOAM v2512
 has not yet been built or run with this combination.

@@ -22,7 +22,7 @@ Intel MPI 2021.19, `libmpi` from the private prefix, both MPI ranks, and an
 archive SHA-256 check. This is a compatibility test, not a benchmark score.
 
 Job `182138851.gadi-pbs` passed with PBS `Exit_status=0` and walltime
-`00:03:57` (four CPUs, approximately 0.2633 SU pending final accounting).
+`00:03:57` (four CPUs, **0.53 SU** in the PBS resource receipt).
 It reported ICX 2026.2.0 and Intel MPI 2021.19.0, linked `libmpi.so.12`
 from the private JOBFS installation, and completed both ranks on one SPR node.
 The verified runtime archive is
