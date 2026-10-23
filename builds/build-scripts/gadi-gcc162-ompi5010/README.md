@@ -43,6 +43,12 @@ The current `pm78` scratch allocation has 195.21K of 202K inodes used. Do not
 unpack GCC or Open MPI installations onto scratch. The retained archive is
 immutable and a repeated attempt must use a new job-specific filename.
 
+Later inode cleanup: job `182137556.gadi-pbs` archived the separate old
+`/scratch/pm78/kj7183/openfoam-build/OpenFOAM-v2512` tree and removed its
+47,912 entries only after archive verification. The live group file count
+fell to 153,412; see `progress/2026-10-23-gadi-inode-cleanup.md` for the
+archive hash, commands, receipt and evidence boundary.
+
 ## Remaining gates
 
 1. Run and verify the upstream-patched Open MPI build retry: `Exit_status=0`,
