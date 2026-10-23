@@ -59,3 +59,24 @@ SU per core-hour, 3:57 walltime), 6.52 GB memory and 3.82 GB JOBFS used.
 2.36 KSU used.
 This establishes private compiler and MPI usability only. OpenFOAM v2512
 has not yet been built or run with this combination.
+
+The user separately approved exactly one OpenFOAM v2512 build with this
+private toolchain after the proposed script changes were shown. The build-only
+scripts were locally validated with `bash -n` and `git diff --check`, committed
+as `9ccd15d`, and pushed to GitHub and Gadi's isolated branch. Gadi's branch
+resolved to `9ccd15d19d29d6391f68c1ddbb5f19ba0076b640`; the submitted
+helper/PBS copies had matching local and remote SHA-256 values
+`d3bd04234b3c2b888123df22fa62f64a615d8b835e25c730a9492738e085714f`
+and `a7d9e9de8a6b43ac50019da6ec52b029988c8d1b0f244dd56f9d9ea5afd46e78`.
+The remote `main` checkout and its unrelated untracked files were untouched.
+
+`qsub` returned **`182139214.gadi-pbs`** exactly once. Initial `qstat -f`
+showed `Q` in `normalsr-exec`, one node, 48 CPUs, 190 GB memory, 100 GB
+JOBFS, four-hour walltime and a 384-SU request ceiling. Unique stdout:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/build_openfoam_v2512_v1.pbs.out`.
+The job-keyed build log will be at
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119-of2512/evidence/gadi-icx20262-impi202119-of2512.182139214.gadi-pbs/build.log`.
+Acceptance requires PBS Exit_status 0, unchanged SOURCE_ID_V2, ICX 2026.2,
+Intel MPI 2021.19, real Scotch, six benchmark executables, `simpleFoam`
+linked to private `libmpi.so.12`, and a verified OpenFOAM runtime archive.
+There is no OpenFOAM run, Cd or performance result yet.

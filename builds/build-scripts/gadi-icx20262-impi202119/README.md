@@ -47,3 +47,9 @@ Intel MPI `libmpi.so.12`, and checks a new OpenFOAM runtime archive SHA-256.
 Optional applications outside the benchmark are excluded because the prior
 ICX 2025.3.2 all-applications attempt failed in unrelated CGAL 4.14.3 code.
 This is a build-only job; it has no solver run or performance score.
+
+The single authorized v1 submission is `182139214.gadi-pbs` (initial PBS
+state `Q`). Its stdout is in the stack's `submit-logs/build_openfoam_v2512_v1.pbs.out`,
+and its job-keyed `build.log` is in the separate
+`gadi-icx20262-impi202119-of2512/evidence/` tree. Do not classify the build
+from PBS exit status alone; check every acceptance marker and binary link.
