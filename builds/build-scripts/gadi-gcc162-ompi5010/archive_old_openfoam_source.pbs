@@ -1,0 +1,41 @@
+#!/bin/bash
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of2512_inode_archive
+#PBS -l ncpus=1
+#PBS -l mem=4GB
+#PBS -l jobfs=2GB
+#PBS -l walltime=00:30:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/archive_old_openfoam_source.pbs.out
+set -euo pipefail
+
+parent=/scratch/pm78/kj7183/openfoam-build
+source_dir=$parent/OpenFOAM-v2512
+archive=$parent/OpenFOAM-v2512.precleanup-20261023.tar
+partial=$archive.partial
+sha_file=$archive.sha256
+
+[[ -d "$source_dir" && ! -L "$source_dir" ]]
+[[ $(stat -c %U "$source_dir") == kj7183 ]]
+[[ ! -e "$archive" && ! -e "$partial" && ! -e "$sha_file" ]]
+
+source_entries=$(find "$source_dir" -xdev -print | wc -l)
+printf 'SOURCE_ENTRIES=%s\n' "$source_entries"
+
+tar -C "$parent" -cf "$partial" OpenFOAM-v2512
+mv -- "$partial" "$archive"
+sha256sum "$archive" > "$sha_file"
+(cd "$parent" && sha256sum -c "$(basename "$sha_file")")
+archive_entries=$(tar -tf "$archive" | wc -l)
+printf 'ARCHIVE_ENTRIES=%s\n' "$archive_entries"
+[[ "$source_entries" -eq "$archive_entries" ]]
+tar -C "$parent" -df "$archive"
+
+printf 'ARCHIVE_VALIDATION_PASS\n'
+rm -rf --one-file-system -- "$source_dir"
+[[ ! -e "$source_dir" ]]
+printf 'SOURCE_REMOVED_PASS\n'
+printf 'ARCHIVE_SHA256=%s\n' "$(cut -d ' ' -f1 "$sha_file")"
