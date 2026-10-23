@@ -1,0 +1,62 @@
+#!/bin/bash
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx_impi_abi_probe
+#PBS -l ncpus=4
+#PBS -l mem=16GB
+#PBS -l jobfs=8GB
+#PBS -l walltime=00:20:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-impi202117/submit-logs/smoke_icx_impi_1n.pbs.out
+set -euo pipefail
+
+stack=gadi-icx20253-impi202117
+root=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/$stack
+job_id=${PBS_JOBID:?}
+evidence=$root/evidence/$job_id
+work=${PBS_JOBFS:?}/$stack-$job_id
+[[ ${PBS_NCPUS:?} -eq 4 && ! -e $evidence && ! -e $work ]]
+mkdir -p "$evidence" "$work"
+exec > >(tee "$evidence/probe.log") 2>&1
+
+module purge
+module load intel-compiler-llvm/2025.3.2 intel-mpi/2021.17.2
+module list 2>&1
+[[ ${INTEL_COMPILER_LLVM_VERSION:?} == 2025.3.2 ]]
+[[ ${INTEL_MPI_VERSION:?} == 2021.17.2 ]]
+[[ ${I_MPI_HYDRA_BOOTSTRAP:?} == rsh ]]
+[[ ${I_MPI_HYDRA_BOOTSTRAP_EXEC:?} == /opt/pbs/default/bin/pbs_tmrsh ]]
+icx --version | head -1
+icpx --version | head -1
+mpirun -version | head -2
+mpiicpx -show | tee "$evidence/mpiicpx-show.txt"
+
+cat > "$work/mpi-smoke.cpp" <<'CPP'
+#include <mpi.h>
+#include <cstdio>
+#include <cstring>
+#include <unistd.h>
+int main(int argc, char **argv) {
+    MPI_Init(&argc, &argv);
+    int rank = -1, size = -1, len = 0;
+    char host[256] = {}, version[MPI_MAX_LIBRARY_VERSION_STRING] = {};
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Get_library_version(version, &len);
+    gethostname(host, sizeof(host));
+    std::printf("ICX_IMPI_RANK=%d SIZE=%d HOST=%s LIB=%.*s\n", rank, size, host, len, version);
+    MPI_Finalize();
+    return size == 2 && std::strstr(version, "Intel(R) MPI") ? 0 : 1;
+}
+CPP
+mpiicpx -O2 "$work/mpi-smoke.cpp" -o "$work/mpi-smoke"
+ldd "$work/mpi-smoke" | tee "$evidence/mpi-smoke.ldd"
+! grep -Fq 'not found' "$evidence/mpi-smoke.ldd"
+grep -E 'libmpi.* /apps/intel-tools/intel-mpi/2021.17.2/' "$evidence/mpi-smoke.ldd"
+I_MPI_DEBUG=4 mpirun -n 2 "$work/mpi-smoke" 2>&1 | tee "$evidence/mpi-smoke.txt"
+[[ $(grep -c '^ICX_IMPI_RANK=' "$evidence/mpi-smoke.txt") -eq 2 ]]
+grep -q '^ICX_IMPI_RANK=0 SIZE=2 ' "$evidence/mpi-smoke.txt"
+grep -q '^ICX_IMPI_RANK=1 SIZE=2 ' "$evidence/mpi-smoke.txt"
+printf 'ICX20253_IMPI202117_1N_SMOKE_PASS\n'
