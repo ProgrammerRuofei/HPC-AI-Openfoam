@@ -134,6 +134,10 @@ before the application chain starts.
 This is a whole-stack comparison against GCC 16.2 / Open MPI 5.0.10;
 both compiler and MPI differ. No automatic repeat is authorized. See
 `progress/2026-10-25-gadi-icx20262-impi202119-4n.md` for job status
-and evidence. One `qsub` returned `182194314.gadi-pbs`, initially Q;
-the result and charged SU remain pending. Do not repeat or retry without
-separate approval.
+and evidence. One `qsub` returned `182194314.gadi-pbs`. The job finished
+with PBS `Exit_status=143`, 11:22 walltime and 157.62 SU: Scotch 416-way
+decomposition completed, then the cross-node Intel MPI rank-map precheck
+failed inside `MPI_Init` / `MPIDI_OFI_mpi_init_hook`. The solver did not
+start, so this candidate has no Cd or performance result. The original
+logs remain under the job-keyed evidence path. Do not repeat or retry
+without separate approval.
