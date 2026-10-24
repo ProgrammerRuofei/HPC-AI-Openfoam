@@ -106,5 +106,12 @@ fast-forwarded on Gadi. The staged script SHA-256 is
 One `qsub` returned `182194237.gadi-pbs`, initially Q on `normalsr-exec`;
 its independent stdout is under the stack's `submit-logs/` directory as
 `smoke_openfoam_v2512_v1.pbs.out`, and job-keyed evidence is under the
-OpenFOAM stack's `evidence/smoke.182194237.gadi-pbs/`. Final outcome and
-actual SU are pending. No automatic retry is authorized.
+OpenFOAM stack's `evidence/smoke.182194237.gadi-pbs/`. It finished PBS
+Exit Status 0 on `gadi-cpu-spr-0466` in 51 seconds, charging **0.14 SU**.
+Both archive hashes, the `simpleFoam` checksum and private Intel MPI link
+passed in a fresh JOBFS. The saved decomposition log says `scotch [5]`,
+five ranks launched on the one node, and the solver reached `Time = 20`,
+`End` and normal parallel finalization. The coded wall-clock line is present;
+the script emitted `OF2512_ICX20262_IMPI202119_SMOKE_PASS`. This verifies
+runtime usability only, not official-case correctness or performance.
+No automatic retry is authorized.
