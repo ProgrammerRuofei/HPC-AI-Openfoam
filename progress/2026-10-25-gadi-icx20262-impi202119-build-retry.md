@@ -22,5 +22,17 @@ exclusion, missing-library check, source identity, Scotch, six applications,
 checksums and archive gates remain. A read-only grep against v1's saved
 `simpleFoam.ldd` showed the corrected path gate exits 0.
 
-Submission and post-run acceptance remain pending. No four-node solver run
-or performance claim is authorized by this retry.
+The v2 scripts were committed as `4239b3f57951b8571c1fae4a658fc5d2abf115e9`,
+pushed to the isolated GitHub branch, transferred in a SHA-256-verified Git
+bundle, and fast-forwarded on Gadi without changing its `main` checkout.
+The staged helper and PBS hashes are respectively
+`52b96e57bb67ce7772e317e126916566a93e95162d7102abe6671ebb58e6d40f`
+and `20b2442e1415feae9bda10407753ce0051dc129505628387ed66299ef4333e90`.
+One `qsub` returned `182193515.gadi-pbs`. Initial `qstat -f` showed state Q,
+`normalsr-exec`, one node, 48 CPUs, 190 GB memory, 100 GB JOBFS, four-hour
+walltime. Independent stdout:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/build_openfoam_v2512_v2.pbs.out`.
+Job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119-of2512/evidence/gadi-icx20262-impi202119-of2512.182193515.gadi-pbs/`.
+Post-run acceptance remains pending. No four-node solver run or performance
+claim is authorized by this retry.

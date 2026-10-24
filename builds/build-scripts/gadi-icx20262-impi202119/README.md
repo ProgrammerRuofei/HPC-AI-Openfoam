@@ -73,3 +73,10 @@ uses a separate job name and stdout path. The original job's files and
 logs remain untouched. Acceptance still requires PBS Exit Status 0, all
 source and build gates, binary checksum, archive checksum, and
 `BUILD_VALIDATION_PASS`; there is no automatic scientific benchmark.
+
+The approved v2 attempt is PBS job `182193515.gadi-pbs`, initially Q on
+`normalsr-exec` with one node, 48 CPUs, 190 GB memory, 100 GB JOBFS and a
+four-hour walltime request. Independent stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/build_openfoam_v2512_v2.pbs.out`.
+Acceptance and actual SU remain pending; see
+`progress/2026-10-25-gadi-icx20262-impi202119-build-retry.md`.
