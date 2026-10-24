@@ -1,0 +1,14 @@
+#!/bin/bash
+# Four-arm Opt/PgoUse x default/core comparison, order block 2.
+#PBS -N of_pgb_b2_v1
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=4:ncpus=128:mpiprocs=128:mem=400gb
+#PBS -l place=scatter
+#PBS -l walltime=06:00:00
+#PBS -o /home/project/59000020/openfoam-isc26/control-repo/experiments/aspire2a-scotch-pgo-binding/outputs/scotch_pgo_binding_block2_v1.o
+#PBS -e /home/project/59000020/openfoam-isc26/control-repo/experiments/aspire2a-scotch-pgo-binding/outputs/scotch_pgo_binding_block2_v1.e
+set -euo pipefail
+cd /home/project/59000020/openfoam-isc26/control-repo
+export BLOCK=2
+bash experiments/aspire2a-scotch-pgo-binding/run_scotch_pgo_binding_v1.sh
