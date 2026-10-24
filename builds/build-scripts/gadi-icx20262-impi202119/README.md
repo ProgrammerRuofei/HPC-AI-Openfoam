@@ -134,4 +134,6 @@ before the application chain starts.
 This is a whole-stack comparison against GCC 16.2 / Open MPI 5.0.10;
 both compiler and MPI differ. No automatic repeat is authorized. See
 `progress/2026-10-25-gadi-icx20262-impi202119-4n.md` for job status
-and evidence after submission.
+and evidence. One `qsub` returned `182194314.gadi-pbs`, initially Q;
+the result and charged SU remain pending. Do not repeat or retry without
+separate approval.
