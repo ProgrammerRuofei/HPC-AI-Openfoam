@@ -141,3 +141,13 @@ failed inside `MPI_Init` / `MPIDI_OFI_mpi_init_hook`. The solver did not
 start, so this candidate has no Cd or performance result. The original
 logs remain under the job-keyed evidence path. Do not repeat or retry
 without separate approval.
+
+## Two-node Intel MPI OFI preflight
+
+After the failed four-node rank-map `MPI_Init`, the user approved one
+short diagnostic to isolate Hydra placement from Intel MPI's OFI
+initialization. `probe_impi202119_2n_v1.pbs` allocates two SPR nodes,
+launches only two ranks (one per node), saves provider and actual library
+evidence, and separately records default and conditional explicit-tcp
+results. It does not launch OpenFOAM or establish a new baseline. See
+`progress/2026-10-25-gadi-impi202119-2n-ofi-probe.md`.
