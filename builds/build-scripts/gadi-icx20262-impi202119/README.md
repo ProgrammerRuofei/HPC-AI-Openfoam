@@ -78,5 +78,14 @@ The approved v2 attempt is PBS job `182193515.gadi-pbs`, initially Q on
 `normalsr-exec` with one node, 48 CPUs, 190 GB memory, 100 GB JOBFS and a
 four-hour walltime request. Independent stdout is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/build_openfoam_v2512_v2.pbs.out`.
-Acceptance and actual SU remain pending; see
-`progress/2026-10-25-gadi-icx20262-impi202119-build-retry.md`.
+It finished PBS Exit Status 0 on `gadi-cpu-spr-0420` in 00:47:25,
+charging 75.87 SU. Six benchmark applications, real Scotch, source identity
+V2, ICX/ICPX 2026.2.0, Intel MPI 2021.19.0, the private `simpleFoam`
+MPI link, and `BUILD_VALIDATION_PASS` all passed. The binary SHA-256 is
+`ab7d574d63a87d48bf3ceb5651203c86e1d2f64eb741295917d4d8cf5658218c`.
+The 874,890,850-byte runtime archive is under the stack's `runtime-archive/`
+directory with job ID `182193515.gadi-pbs`, SHA-256
+`efff0aa0137905dbac05b7418d99d89b523a32df3a5d068af9dd6192d7ae0c97`;
+`sha256sum -c` passed. This establishes a usable build artifact, not a
+solver or performance result. See
+`progress/2026-10-25-gadi-icx20262-impi202119-build-retry.md` for evidence.

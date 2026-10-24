@@ -34,5 +34,26 @@ walltime. Independent stdout:
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/build_openfoam_v2512_v2.pbs.out`.
 Job-keyed evidence will be under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119-of2512/evidence/gadi-icx20262-impi202119-of2512.182193515.gadi-pbs/`.
-Post-run acceptance remains pending. No four-node solver run or performance
-claim is authorized by this retry.
+## v2 outcome
+
+PBS `qstat -xf 182193515.gadi-pbs` reported state F and `Exit_status=0`.
+The independent stdout reports walltime `00:47:25`, CPU time `03:39:01`,
+48 requested CPUs, 117.37 GB maximum memory used, 7.3 GB JOBFS used,
+and **75.87 SU**. The job ran on `gadi-cpu-spr-0420`.
+
+The job-keyed evidence contains all six `BENCHMARK_APP_PASS` markers,
+`SCOTCH_BUILD_PASS`, and `BUILD_VALIDATION_PASS`. The source identity V2
+equals `5e43349d5b302beb354e4e0d9842ff8148cfed069fb0f1a224616df6021c18db`
+for both authoritative and staged trees. Saved versions are ICX/ICPX
+2026.2.0 and Intel MPI 2021.19.0. Saved `simpleFoam.ldd` resolves
+`libmpi.so.12` to the private Intel MPI 2021.19 `lib/release` directory,
+with no missing dependency. `simpleFoam` SHA-256 is
+`ab7d574d63a87d48bf3ceb5651203c86e1d2f64eb741295917d4d8cf5658218c`.
+
+The runtime archive is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119-of2512/runtime-archive/gadi-icx20262-impi202119-of2512.182193515.gadi-pbs.tar.gz`
+(874,890,850 bytes), SHA-256
+`efff0aa0137905dbac05b7418d99d89b523a32df3a5d068af9dd6192d7ae0c97`;
+the saved checksum file passed a fresh `sha256sum -c`. Thus this is an
+accepted **build artifact**. No solver smoke test, four-node run, Cd, or
+performance result was produced or authorized by this retry.
