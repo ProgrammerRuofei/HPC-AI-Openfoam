@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx26_impi19b
+#PBS -l ncpus=48
+#PBS -l mem=190GB
+#PBS -l jobfs=100GB
+#PBS -l walltime=04:00:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/build_openfoam_v2512_v2.pbs.out
+set -euo pipefail
+exec bash /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/build_openfoam_v2512_v2.sh

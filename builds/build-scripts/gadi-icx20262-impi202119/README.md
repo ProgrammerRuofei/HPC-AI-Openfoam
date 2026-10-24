@@ -53,3 +53,23 @@ state `Q`). Its stdout is in the stack's `submit-logs/build_openfoam_v2512_v1.pb
 and its job-keyed `build.log` is in the separate
 `gadi-icx20262-impi202119-of2512/evidence/` tree. Do not classify the build
 from PBS exit status alone; check every acceptance marker and binary link.
+
+## OpenFOAM build attempt v1 outcome and approved v2 correction
+
+Job `182139214.gadi-pbs` ended with PBS Exit Status 1 after 00:43:14,
+charging 69.17 SU. The independent PBS stdout is preserved. All six
+`BENCHMARK_APP_PASS` checks and `SCOTCH_BUILD_PASS` appeared, and `ldd`
+resolved `simpleFoam` to private Intel MPI 2021.19 under
+`$PRIVATE_MPI_PREFIX/lib/release/libmpi.so.12`. The v1 helper mistakenly
+required `$PRIVATE_MPI_PREFIX/lib/libmpi.so.12`; `set -e` stopped before
+`simpleFoam.sha256`, the runtime archive, or `BUILD_VALIDATION_PASS`. Thus
+v1 is not an accepted runtime build. No solver run or Cd result exists.
+
+The user approved one v2 build retry. `build_openfoam_v2512_v2.sh` differs
+from v1 only by matching the observed `lib/release` MPI link path; the
+corrected literal gate passed a read-only test against v1's saved `ldd`.
+`build_openfoam_v2512_v2.pbs` retains the 48-core resource request but
+uses a separate job name and stdout path. The original job's files and
+logs remain untouched. Acceptance still requires PBS Exit Status 0, all
+source and build gates, binary checksum, archive checksum, and
+`BUILD_VALIDATION_PASS`; there is no automatic scientific benchmark.
