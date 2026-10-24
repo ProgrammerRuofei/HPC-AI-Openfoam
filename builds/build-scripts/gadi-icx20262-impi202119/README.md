@@ -151,3 +151,5 @@ launches only two ranks (one per node), saves provider and actual library
 evidence, and separately records default and conditional explicit-tcp
 results. It does not launch OpenFOAM or establish a new baseline. See
 `progress/2026-10-25-gadi-impi202119-2n-ofi-probe.md`.
+One `qsub` returned `182194827.gadi-pbs`, initially Q; diagnostic
+outcome and charged SU are pending.
