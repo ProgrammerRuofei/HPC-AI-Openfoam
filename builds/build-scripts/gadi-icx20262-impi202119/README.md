@@ -99,5 +99,12 @@ the saved `simpleFoam` hash and private Intel MPI link in a new JOBFS,
 then copies the site `pitzDaily_fused` tutorial, uses Scotch and 5 MPI ranks,
 and checks solver finalization, `End`, and coded wall-clock output at step 20.
 The tutorial case is not the official 65M-cell scientific workload, so no
-timing or Cd from it is a performance result. Submission and outcome are
-recorded separately below when available; no automatic retry is authorized.
+timing or Cd from it is a performance result. The script was committed as
+`4d9fd1600178a84ea9d321b713a94b0239d0d429`, pushed to GitHub and
+fast-forwarded on Gadi. The staged script SHA-256 is
+`ed47df06ce6dd416db9ee2069a7c57922019e5bc4b327a741fe5dd3fe3f78435`.
+One `qsub` returned `182194237.gadi-pbs`, initially Q on `normalsr-exec`;
+its independent stdout is under the stack's `submit-logs/` directory as
+`smoke_openfoam_v2512_v1.pbs.out`, and job-keyed evidence is under the
+OpenFOAM stack's `evidence/smoke.182194237.gadi-pbs/`. Final outcome and
+actual SU are pending. No automatic retry is authorized.
