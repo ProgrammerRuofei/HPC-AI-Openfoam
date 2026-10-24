@@ -89,3 +89,15 @@ directory with job ID `182193515.gadi-pbs`, SHA-256
 `sha256sum -c` passed. This establishes a usable build artifact, not a
 solver or performance result. See
 `progress/2026-10-25-gadi-icx20262-impi202119-build-retry.md` for evidence.
+
+## Fresh-job tutorial smoke
+
+The user approved one small run using the accepted v2 archive. The reviewed
+`smoke_openfoam_v2512_v1.pbs` requests one normalsr SPR node, 5 CPUs,
+16 GB memory, 20 GB JOBFS and 20 minutes. It verifies both archive hashes,
+the saved `simpleFoam` hash and private Intel MPI link in a new JOBFS,
+then copies the site `pitzDaily_fused` tutorial, uses Scotch and 5 MPI ranks,
+and checks solver finalization, `End`, and coded wall-clock output at step 20.
+The tutorial case is not the official 65M-cell scientific workload, so no
+timing or Cd from it is a performance result. Submission and outcome are
+recorded separately below when available; no automatic retry is authorized.
