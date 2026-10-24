@@ -1,0 +1,200 @@
+#!/bin/bash
+# 65M candidate: private ICX 2026.2/Intel MPI 2021.19/Scotch on four SPR nodes.
+# The compiler and MPI stack both change relative to the GCC/Open MPI baseline.
+# Processor data stays in node-local JOBFS to preserve pm78 scratch inodes.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of2512_icx26_impi19_4n
+#PBS -l ncpus=416
+#PBS -l mem=760GB
+#PBS -l jobfs=100GB
+#PBS -l walltime=01:00:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/run_baseline_4n_scotch_v1.pbs.out
+set -euo pipefail
+
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119
+OF_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119-of2512
+SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+INTEL_ARCHIVE="$STACK_ROOT/runtime-archive/gadi-icx20262-impi202119.182138851.gadi-pbs.tar.gz"
+OF_ARCHIVE="$OF_ROOT/runtime-archive/gadi-icx20262-impi202119-of2512.182193515.gadi-pbs.tar.gz"
+INTEL_SHA=013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc
+OF_SHA=efff0aa0137905dbac05b7418d99d89b523a32df3a5d068af9dd6192d7ae0c97
+BIN_SHA=ab7d574d63a87d48bf3ceb5651203c86e1d2f64eb741295917d4d8cf5658218c
+NRANKS=416
+RUN_ROOT="$OF_ROOT/baseline-4n-scotch/${PBS_JOBID:?}"
+EVIDENCE="$RUN_ROOT/evidence"
+SHARED_CASE="$RUN_ROOT/case"
+LOCAL_ROOT="${PBS_JOBFS:?}/of2512-icx20262-impi202119-scotch-4n-${PBS_JOBID}"
+LOCAL_CASE="$LOCAL_ROOT/case"
+COMPILER_PREFIX="$LOCAL_ROOT/opt/intel/oneapi/compiler/2026.2"
+MPI_PREFIX="$LOCAL_ROOT/opt/intel/oneapi/mpi/2021.19"
+FOAM_ROOT="$LOCAL_ROOT/OpenFOAM-v2512"
+STAGE_RUNTIME="$STACK_ROOT/submit-logs/stage_4n_runtime_node_v1.sh"
+STAGE_PROCESSORS="$STACK_ROOT/submit-logs/stage_4n_processors_node_v1.sh"
+
+test "${PBS_NNODES:?}" -eq 4; test "${PBS_NCPUS:?}" -eq "$NRANKS"
+test ! -e "$RUN_ROOT"; test -f "$STAGE_RUNTIME"; test -f "$STAGE_PROCESSORS"
+mkdir -p "$EVIDENCE" "$SHARED_CASE" "$RUN_ROOT/stage"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+preserve() {
+    rc=$?; set +e
+    c=$(find "$SHARED_CASE/postProcessing/forceCoeffsAll" -name coefficient.dat -type f 2>/dev/null | head -n 1)
+    test -n "$c" && cp -p "$c" "$EVIDENCE/coefficient.dat"
+    printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"
+    return "$rc"
+}
+trap preserve EXIT
+
+printf 'pbs_jobid=%s\nofficial_result=candidate\nstack=icx2026.2-impi2021.19-openfoamv2512\ndecomposition=scotch\n' "$PBS_JOBID" | tee "$EVIDENCE/provenance.txt"
+sort -u "$PBS_NODEFILE" | tee "$EVIDENCE/nodes.txt"
+test "$(sort -u "$PBS_NODEFILE" | wc -l)" -eq 4
+test "$(awk '{c[$0]++} END {for (h in c) print c[h]}' "$PBS_NODEFILE" | sort -u)" = 104
+mapfile -t HOSTS < <(sed -n '1p;105p;209p;313p' "$PBS_NODEFILE")
+test "${#HOSTS[@]}" -eq 4
+test "$(printf '%s\n' "${HOSTS[@]}" | sort -u | wc -l)" -eq 4
+lscpu | grep -E 'Model name|Socket|Core|Thread|NUMA' | tee "$EVIDENCE/lscpu.txt"
+grep -Fq 'Xeon(R) Platinum 8470Q' "$EVIDENCE/lscpu.txt"
+module purge
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+printf "intel_mpi_bootstrap=rsh\nintel_mpi_bootstrap_exec=/opt/pbs/default/bin/pbs_tmrsh\nbinding=Intel MPI default\n" | tee "$EVIDENCE/launch-config.txt"
+
+cat > "$EVIDENCE/expected-source.sha256" <<EOF
+2a02ec456ce880b2242d566da6c5b28fae1aa99218169260030cd53f5a662ec3  $SOURCE_CASE/Allrun.gadi
+1da44731f5f723c1b8471bee6c6186c6f402f63154f84cacd26bf27e30e6a6c6  $SOURCE_CASE/system/include/caseDefinition
+ce4ec0f52bcc88eea8402b454940dc5aad1f31dea6441e7d98413b651427ef06  $SOURCE_CASE/system/controlDict.noWrite
+064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3  $SOURCE_CASE/system/fvSchemes
+5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba  $SOURCE_CASE/system/fvSolution
+5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba  $SOURCE_CASE/system/fvSolution.fixedIter
+0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08  $SOURCE_CASE/system/FOwallClockTimeStatistics
+EOF
+sha256sum -c "$EVIDENCE/expected-source.sha256"
+printf '%s  %s\n' "$INTEL_SHA" "$INTEL_ARCHIVE" | sha256sum -c -
+printf '%s  %s\n' "$OF_SHA" "$OF_ARCHIVE" | sha256sum -c -
+
+# pbsdsh task indices 0,104,208,312 select one task on each SPR node.
+for idx in 0 104 208 312; do
+    marker="$EVIDENCE/stage-runtime-$idx.txt"
+    /opt/pbs/default/bin/pbsdsh -n "$idx" -s -- /bin/bash "$STAGE_RUNTIME" "$LOCAL_ROOT" "$INTEL_ARCHIVE" "$OF_ARCHIVE" "$INTEL_SHA" "$OF_SHA" "$marker"
+    grep -Fq "STAGE_4N_RUNTIME_PASS host=${HOSTS[$((idx / 104))]} " "$marker"
+done
+test "$(grep -h STAGE_4N_RUNTIME_PASS "$EVIDENCE"/stage-runtime-*.txt | wc -l)" -eq 4
+set +u
+. "$COMPILER_PREFIX/env/vars.sh"
+. "$MPI_PREFIX/env/vars.sh"
+set -u
+export I_MPI_ROOT="$MPI_PREFIX" MPI_ROOT="$MPI_PREFIX"
+export I_MPI_HYDRA_BOOTSTRAP=rsh I_MPI_HYDRA_BOOTSTRAP_EXEC=/opt/pbs/default/bin/pbs_tmrsh
+icx --version | head -n 1 | grep -F '2026.2.0'
+mpirun -version | head -n 1 | grep -F '2021.19.0'
+test "$(command -v icx)" = "$COMPILER_PREFIX/bin/icx"
+test "$(command -v mpirun)" = "$MPI_PREFIX/bin/mpirun"
+BIN="$FOAM_ROOT/platforms/linux64IcxDPInt32Opt/bin/simpleFoam"
+printf '%s  %s\n' "$BIN_SHA" "$BIN" | sha256sum -c -
+set +u; . "$FOAM_ROOT/etc/bashrc" WM_COMPILER=Icx WM_MPLIB=INTELMPI WM_COMPILE_OPTION=Opt; set -u
+test "$WM_PROJECT_DIR" = "$FOAM_ROOT"; test "$WM_OPTIONS" = linux64IcxDPInt32Opt
+test "$FOAM_MPI" = intelmpi; test "$MPI_ARCH_PATH" = "$MPI_PREFIX"
+ldd "$BIN" | tee "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+grep -F "libmpi.so.12 => $MPI_PREFIX/lib/release/libmpi.so.12" "$EVIDENCE/simpleFoam.ldd"
+
+# The scientific case is copied verbatim to JOBFS for serial decomposition.
+mkdir "$LOCAL_CASE"
+cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$LOCAL_CASE/"
+for part in faces owner neighbour points; do
+    cmp -s "$SOURCE_CASE/constant/polyMesh/$part" "$LOCAL_CASE/constant/polyMesh/$part"
+done
+cd "$LOCAL_CASE"
+cp system/controlDict.noWrite system/controlDict
+cp system/fvSolution.fixedIter system/fvSolution
+sed -i -E 's/^([[:space:]]*nCores[[:space:]]+)[0-9]+;/\1416;/' system/include/caseDefinition
+sed -i -E 's/^([[:space:]]*decompositionMethod[[:space:]]+)[a-z]+;/\1scotch;/' system/include/caseDefinition
+grep -Eq '^[[:space:]]*nCores[[:space:]]+416;' system/include/caseDefinition
+grep -Eq '^[[:space:]]*decompositionMethod[[:space:]]+scotch;' system/include/caseDefinition
+grep -Eq '^[[:space:]]*endTime[[:space:]]+150;' system/controlDict
+cmp -s system/fvSolution system/fvSolution.fixedIter
+sha256sum system/fvSchemes system/fvSolution system/controlDict.noWrite | tee "$EVIDENCE/case-inputs.sha256"
+set +u; . "$FOAM_ROOT/bin/tools/RunFunctions"; set -u
+type restore0Dir | head -n 1
+decomposePar -constant > "$EVIDENCE/10_decomposePar.log" 2>&1
+grep -Fq 'Decomposition method scotch' "$EVIDENCE/10_decomposePar.log"
+grep -Eq '^End$' "$EVIDENCE/10_decomposePar.log"
+restore0Dir -processor
+test "$(find . -mindepth 1 -maxdepth 1 -type d -name 'processor*' | wc -l)" -eq 416
+
+# Pack four node ranges as tar files: scratch gains four inodes instead of
+# thousands of uncollated processor files. Each node sees the same JOBFS path.
+for first in 0 104 208 312; do
+    last=$((first + 103))
+    dirs=(); for n in $(seq "$first" "$last"); do dirs+=("processor$n"); done
+    tar -cf "$RUN_ROOT/stage/processors-$first-$last.tar" "${dirs[@]}"
+done
+for first in 104 208 312; do
+    last=$((first + 103)); idx=$first
+    marker="$EVIDENCE/stage-processors-$idx.txt"
+    /opt/pbs/default/bin/pbsdsh -n "$idx" -s -- /bin/bash "$STAGE_PROCESSORS" "$LOCAL_CASE" "$RUN_ROOT/stage/processors-$first-$last.tar" "$first" "$last" "$marker"
+    grep -Fq "STAGE_4N_PROCESSORS_PASS host=${HOSTS[$((idx / 104))]} " "$marker"
+done
+
+# Shared dictionaries and dynamicCode live on scratch; processor symlinks
+# resolve to each node's local JOBFS. No source or earlier case is modified.
+cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$LOCAL_CASE/system" "$SHARED_CASE/"
+for part in faces owner neighbour points; do
+    cmp -s "$SOURCE_CASE/constant/polyMesh/$part" "$SHARED_CASE/constant/polyMesh/$part"
+done
+for n in $(seq 0 415); do ln -s "$LOCAL_CASE/processor$n" "$SHARED_CASE/processor$n"; done
+test "$(find "$SHARED_CASE" -mindepth 1 -maxdepth 1 -type l -name 'processor*' | wc -l)" -eq 416
+cmp -s "$SHARED_CASE/system/fvSchemes" "$SOURCE_CASE/system/fvSchemes"
+cmp -s "$SHARED_CASE/system/fvSolution" "$SOURCE_CASE/system/fvSolution.fixedIter"
+
+PAREX=(mpirun -n 416 -ppn 104)
+cat > "$EVIDENCE/rank-map.c" <<'C'
+#define _GNU_SOURCE
+#include <mpi.h>
+#include <sched.h>
+#include <stdio.h>
+#include <unistd.h>
+int main(int argc, char **argv) {
+    MPI_Init(&argc, &argv);
+    int rank; char host[256] = {0};
+    cpu_set_t mask;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    gethostname(host, sizeof(host));
+    if (sched_getaffinity(0, sizeof(mask), &mask)) return 2;
+    printf("%d %s %d", rank, host, CPU_COUNT(&mask));
+    for (int cpu = 0; cpu < CPU_SETSIZE; ++cpu)
+        if (CPU_ISSET(cpu, &mask)) printf(" %d", cpu);
+    putchar('\n');
+    MPI_Finalize();
+    return 0;
+}
+C
+mpiicx -O0 "$EVIDENCE/rank-map.c" -o "$EVIDENCE/rank-map"
+timeout 180 "${PAREX[@]}" "$EVIDENCE/rank-map" > "$EVIDENCE/rank-host-map.txt"
+awk -v a="${HOSTS[0]}" -v b="${HOSTS[1]}" -v c="${HOSTS[2]}" -v d="${HOSTS[3]}" '
+    { expected=($1<104?a:($1<208?b:($1<312?c:d))); if ($2!=expected || $3<1 || seen[$1]++) bad=1 }
+    END { if (NR!=416 || bad) exit 1 }
+' "$EVIDENCE/rank-host-map.txt"
+cd "$SHARED_CASE"
+"${PAREX[@]}" renumberMesh -constant -overwrite -parallel > "$EVIDENCE/20_renumberMesh.log" 2>&1
+"${PAREX[@]}" potentialFoam -initialiseUBCs -parallel > "$EVIDENCE/30_potentialFoam.log" 2>&1
+"${PAREX[@]}" applyBoundaryLayer -ybl 0.0450244 -parallel > "$EVIDENCE/40_applyBoundaryLayer.log" 2>&1
+"${PAREX[@]}" "$BIN" -parallel > "$EVIDENCE/simpleFoam.log" 2>&1
+for step in 10_decomposePar 20_renumberMesh 30_potentialFoam 40_applyBoundaryLayer; do
+    grep -aEq '^End$' "$EVIDENCE/$step.log"
+done
+grep -aEq '^Time = 150[[:space:]]*$' "$EVIDENCE/simpleFoam.log"
+grep -aFq 'Finalising parallel run' "$EVIDENCE/simpleFoam.log"
+grep -aEq '^End$' "$EVIDENCE/simpleFoam.log"
+grep -a 'Average wall-clock time per time step' "$EVIDENCE/simpleFoam.log" | tail -n 1 | tee "$EVIDENCE/avg-step-time.txt"
+grep -aE 'ExecutionTime|ClockTime' "$EVIDENCE/simpleFoam.log" | tail -n 1 | tee "$EVIDENCE/clocktime.txt"
+coefficient=$(find "$SHARED_CASE/postProcessing/forceCoeffsAll" -name coefficient.dat -type f | head -n 1)
+test -s "$coefficient"
+cp -p "$coefficient" "$EVIDENCE/coefficient.dat"
+cd_value=$(awk '/^#/ { for (i=2;i<=NF;i++) if ($i=="Cd") col=i-1; next } NF && col { last=$col } END { if (col) print last }' "$EVIDENCE/coefficient.dat")
+test -n "$cd_value"
+awk -v v="$cd_value" 'BEGIN { exit !(v>=0.27 && v<=0.30) }'
+printf 'final_Cd=%s\n' "$cd_value" | tee "$EVIDENCE/final-Cd.txt"
+echo ICX20262_IMPI202119_OF2512_SCOTCH_4N_PASS

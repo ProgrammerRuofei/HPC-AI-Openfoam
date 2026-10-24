@@ -115,3 +115,23 @@ five ranks launched on the one node, and the solver reached `Time = 20`,
 the script emitted `OF2512_ICX20262_IMPI202119_SMOKE_PASS`. This verifies
 runtime usability only, not official-case correctness or performance.
 No automatic retry is authorized.
+
+## Four-node scored-case candidate
+
+The user approved one reviewed four-node ICX 2026.2 / Intel MPI 2021.19
+comparison. `run_baseline_4n_scotch_v1.pbs` requests pm78 `normalsr`,
+four Sapphire Rapids nodes, 416 CPUs/ranks (104 per node), 760 GB memory,
+100 GB JOBFS per node and one hour (maximum request about 832 SU). It
+uses the accepted private Intel and OpenFOAM runtime archives, retains
+the successful 2025 ICX script's exact scientific input SHA-256 block,
+Scotch 416-way decomposition, preparation chain and 150-step solver
+controls. The processor staging helper is byte-identical to the previous
+successful helper. The new runtime helper only unpacks the two private
+archives on each node. A 180-second Intel MPI rank-map precheck must
+confirm ranks 0–415 on four hosts, exactly 104 consecutive ranks each,
+before the application chain starts.
+
+This is a whole-stack comparison against GCC 16.2 / Open MPI 5.0.10;
+both compiler and MPI differ. No automatic repeat is authorized. See
+`progress/2026-10-25-gadi-icx20262-impi202119-4n.md` for job status
+and evidence after submission.
