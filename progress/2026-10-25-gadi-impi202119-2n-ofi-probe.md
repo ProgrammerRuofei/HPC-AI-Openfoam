@@ -30,5 +30,18 @@ ten minutes. Independent PBS stdout is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/probe_impi202119_2n_v1.pbs.out`.
 Job-keyed evidence will be under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/evidence/impi-ofi-2n.182194827.gadi-pbs/`.
-Result, first error and actual SU remain pending. Do not submit another
-job without separate approval.
+The job finished on `gadi-cpu-spr-0685` and `0686` with PBS
+`Exit_status=1`, walltime 00:00:51 and **5.89 SU**. Both private Intel
+archives staged successfully. The first failed assertion was the
+Hydra placement test: `hydra-hosts.txt` has two lines, both naming
+`gadi-cpu-spr-0685.gadi.nci.org.au`, despite the two distinct PBS nodes.
+The script exited before compiling or running the MPI peer program; no
+`MPI_Init` or OFI test occurred. `fi_info` was not on the runtime PATH,
+but the archived Intel stack contains a private
+`libfabric/2.6/lib/libfabric.so.1.32.13`. This diagnostic result does
+not identify the cause of the original four-node OFI error.
+
+The placement check needs a separately approved revision using the
+two allocated PBS hosts explicitly and disabling Intel MPI's scheduler
+process-placement inheritance for this two-rank probe. Preserve this
+job's stdout and job-keyed evidence; do not auto-resubmit.

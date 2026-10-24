@@ -151,5 +151,9 @@ launches only two ranks (one per node), saves provider and actual library
 evidence, and separately records default and conditional explicit-tcp
 results. It does not launch OpenFOAM or establish a new baseline. See
 `progress/2026-10-25-gadi-impi202119-2n-ofi-probe.md`.
-One `qsub` returned `182194827.gadi-pbs`, initially Q; diagnostic
-outcome and charged SU are pending.
+One `qsub` returned `182194827.gadi-pbs`. The job ended with PBS
+`Exit_status=1` in 51 seconds, charging 5.89 SU. Both private archives
+staged, but Hydra's two `hostname` processes both ran on the first
+node; the script stopped at its placement assertion before any
+`MPI_Init`/OFI test. This is an inconclusive diagnostic, not evidence
+that the OFI issue is resolved or reproduced. No repeat is authorized.
