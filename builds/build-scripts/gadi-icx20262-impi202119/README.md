@@ -197,3 +197,10 @@ The v4 script sources it after compiler/MPI, verifies the SONAME symlink
 and `fi_info` before starting the unchanged two-host MPI peer probe.
 It uses a new job name, stdout and evidence directory. No OpenFOAM solver
 or automatic repeat is included.
+
+The one approved v4 submission returned `182237093.gadi-pbs`;
+it finished PBS Exit Status 0 in 57 seconds, charging 6.59 SU.
+The private libfabric 2.6.13 loaded and Intel MPI selected default OFI
+provider `mlx`. Both ranks on distinct SPR nodes completed MPI_Init,
+Sendrecv, Allreduce and Finalize with `default_rc=0`. This validates
+two-rank cross-node communication, not the 416-rank OpenFOAM case.
