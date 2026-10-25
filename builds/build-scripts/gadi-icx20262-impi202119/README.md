@@ -175,3 +175,8 @@ and job-keyed evidence remain intact. v3 checks that the loaded library is
 under the private MPI `lib/` prefix and has the same SHA-256 as the expected
 release library. It uses unique stdout and evidence paths; no solver run is
 included. The user approved one v3 submission after seeing this diff.
+
+The reviewed v3 script commit is `fcd24ecaa61c2b0ac97aa55af82d9ecc74f823b4`.
+One `qsub` returned `182236904.gadi-pbs`, initially Q on
+`normalsr-exec`. Its independent stdout is under the stack's
+`submit-logs/probe_impi202119_2n_v3.pbs.out`; result and SU are pending.
