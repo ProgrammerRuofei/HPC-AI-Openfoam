@@ -1,0 +1,141 @@
+#!/bin/bash
+# Two-node Intel MPI/OFI diagnostic only; no OpenFOAM case or scored run.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx26_impi19_2n_probe_v2
+#PBS -l ncpus=208
+#PBS -l mem=16GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:10:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/probe_impi202119_2n_v2.pbs.out
+set -euo pipefail
+
+STACK=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119
+ARCHIVE="$STACK/runtime-archive/gadi-icx20262-impi202119.182138851.gadi-pbs.tar.gz"
+ARCHIVE_SHA=013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc
+EVIDENCE="$STACK/evidence/impi-ofi-2n-v2.${PBS_JOBID:?}"
+ROOT="${PBS_JOBFS:?}/impi-ofi-2n-v2-${PBS_JOBID}"
+MPI="$ROOT/opt/intel/oneapi/mpi/2021.19"
+COMPILER="$ROOT/opt/intel/oneapi/compiler/2026.2"
+test "${PBS_NNODES:?}" -eq 2
+test "${PBS_NCPUS:?}" -eq 208
+test ! -e "$EVIDENCE"
+mkdir -p "$EVIDENCE"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+trap 'rc=$?; printf "script_exit_rc=%s\n" "$rc" > "$EVIDENCE/exit-status.txt"' EXIT
+module purge
+sort -u "$PBS_NODEFILE" | tee "$EVIDENCE/nodes.txt"
+test "$(wc -l < "$EVIDENCE/nodes.txt")" -eq 2
+test "$(awk '{c[$0]++} END {for (h in c) print c[h]}' "$PBS_NODEFILE" | sort -u)" = 104
+mapfile -t HOSTS < <(sed -n '1p;105p' "$PBS_NODEFILE")
+test "${HOSTS[0]}" != "${HOSTS[1]}"
+printf '%s  %s\n' "$ARCHIVE_SHA" "$ARCHIVE" | sha256sum -c -
+
+cat > "$EVIDENCE/stage.sh" <<'STAGE'
+#!/bin/bash
+set -euo pipefail
+root=${1:?}; archive=${2:?}; sha=${3:?}; marker=${4:?}
+test ! -e "$root"; test ! -e "$marker"
+printf '%s  %s\n' "$sha" "$archive" | sha256sum -c -
+mkdir -p "$root/opt/intel"
+tar -xzf "$archive" -C "$root/opt/intel" oneapi
+test -x "$root/opt/intel/oneapi/mpi/2021.19/bin/mpirun"
+test -x "$root/opt/intel/oneapi/compiler/2026.2/bin/icx"
+printf 'STAGE_IMPI_2N_PASS host=%s\n' "$(hostname)" > "$marker"
+STAGE
+for idx in 0 104; do
+    marker="$EVIDENCE/stage-$idx.txt"
+    /opt/pbs/default/bin/pbsdsh -n "$idx" -s -- /bin/bash "$EVIDENCE/stage.sh" "$ROOT" "$ARCHIVE" "$ARCHIVE_SHA" "$marker"
+    grep -Fx "STAGE_IMPI_2N_PASS host=${HOSTS[$((idx / 104))]}" "$marker"
+done
+
+set +u
+. "$COMPILER/env/vars.sh"
+. "$MPI/env/vars.sh"
+set -u
+export I_MPI_ROOT="$MPI" MPI_ROOT="$MPI"
+export I_MPI_HYDRA_BOOTSTRAP=rsh
+export I_MPI_HYDRA_BOOTSTRAP_EXEC=/opt/pbs/default/bin/pbs_tmrsh
+export I_MPI_JOB_RESPECT_PROCESS_PLACEMENT=off
+test "$(command -v mpirun)" = "$MPI/bin/mpirun"
+test "$(command -v mpiicx)" = "$MPI/bin/mpiicx"
+mpirun -version | tee "$EVIDENCE/mpi-version.txt"
+grep -Fq '2021.19.0' "$EVIDENCE/mpi-version.txt"
+printf 'LD_LIBRARY_PATH=%s\n' "${LD_LIBRARY_PATH:-}" > "$EVIDENCE/library-path.txt"
+ldd "$MPI/lib/release/libmpi.so.12" > "$EVIDENCE/libmpi.ldd"
+sha256sum "$MPI/lib/release/libmpi.so.12" > "$EVIDENCE/libmpi.sha256"
+find "$ROOT/opt/intel/oneapi" -type f \( -name 'libfabric.so*' -o -name 'libucp.so*' \) -print \
+    | sort > "$EVIDENCE/fabric-library-paths.txt"
+if test -s "$EVIDENCE/fabric-library-paths.txt"; then
+    xargs -r sha256sum < "$EVIDENCE/fabric-library-paths.txt" > "$EVIDENCE/fabric-libraries.sha256"
+fi
+printf 'fi_info=%s\n' "$(command -v fi_info || true)" > "$EVIDENCE/fi-info-path.txt"
+if command -v fi_info >/dev/null; then
+    fi_info --version > "$EVIDENCE/fi-info-version.txt" 2>&1 || true
+    fi_info -l > "$EVIDENCE/providers.txt" 2>&1 || true
+else
+    printf 'fi_info unavailable in this runtime environment\n' > "$EVIDENCE/providers.txt"
+fi
+
+# First prove that Hydra/PBS starts processes on the two allocated nodes.
+PAREX=(mpirun -n 2 -ppn 1 -hosts "${HOSTS[0]},${HOSTS[1]}")
+printf 'placement=%s\nhosts=%s,%s\n' "$I_MPI_JOB_RESPECT_PROCESS_PLACEMENT" "${HOSTS[0]}" "${HOSTS[1]}" > "$EVIDENCE/placement.txt"
+timeout -k 5 45 "${PAREX[@]}" hostname > "$EVIDENCE/hydra-hosts.txt" 2>&1
+test "$(sort -u "$EVIDENCE/hydra-hosts.txt" | wc -l)" -eq 2
+for host in "${HOSTS[@]}"; do grep -Fx "$host" "$EVIDENCE/hydra-hosts.txt"; done
+
+cat > "$EVIDENCE/mpi-peer.c" <<'C'
+#include <mpi.h>
+#include <stdio.h>
+#include <unistd.h>
+int main(int argc, char **argv) {
+    int rank = -1, size = -1, recv = -1, sum = -1;
+    char host[256] = {0};
+    int rc = MPI_Init(&argc, &argv);
+    if (rc != MPI_SUCCESS) return 2;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    gethostname(host, sizeof(host));
+    printf("INIT rank=%d size=%d host=%s\n", rank, size, host);
+    fflush(stdout);
+    if (size != 2) return 3;
+    MPI_Sendrecv(&rank, 1, MPI_INT, 1-rank, 7,
+                 &recv, 1, MPI_INT, 1-rank, 7,
+                 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+    printf("TRANSFER rank=%d recv=%d sum=%d\n", rank, recv, sum);
+    fflush(stdout);
+    MPI_Finalize();
+    return recv == 1-rank && sum == 1 ? 0 : 4;
+}
+C
+mpiicx -O0 "$EVIDENCE/mpi-peer.c" -o "$EVIDENCE/mpi-peer"
+ldd "$EVIDENCE/mpi-peer" > "$EVIDENCE/mpi-peer.ldd"
+grep -F "libmpi.so.12 => $MPI/lib/release/libmpi.so.12" "$EVIDENCE/mpi-peer.ldd"
+
+set +e
+timeout -k 5 90 env I_MPI_DEBUG=6 I_MPI_OFI_PROVIDER_DUMP=1 FI_LOG_LEVEL=info \
+    "${PAREX[@]}" "$EVIDENCE/mpi-peer" > "$EVIDENCE/default-ofi.log" 2>&1
+default_rc=$?
+set -e
+printf 'default_rc=%s\n' "$default_rc" | tee "$EVIDENCE/default-status.txt"
+tcp_rc=SKIPPED
+if test "$default_rc" -ne 0 && grep -Eiq '(^|[^[:alnum:]_])tcp([^[:alnum:]_]|$)' "$EVIDENCE/providers.txt"; then
+    set +e
+    timeout -k 5 90 env I_MPI_DEBUG=6 I_MPI_OFI_PROVIDER=tcp FI_LOG_LEVEL=info \
+        "${PAREX[@]}" "$EVIDENCE/mpi-peer" > "$EVIDENCE/explicit-tcp.log" 2>&1
+    tcp_rc=$?
+    set -e
+fi
+printf 'default_rc=%s\ntcp_rc=%s\n' "$default_rc" "$tcp_rc" | tee "$EVIDENCE/probe-status.txt"
+if test "$default_rc" -eq 0; then
+    test "$(grep -c '^TRANSFER rank=' "$EVIDENCE/default-ofi.log")" -eq 2
+    for host in "${HOSTS[@]}"; do grep -Fq "host=$host" "$EVIDENCE/default-ofi.log"; done
+fi
+if test "$tcp_rc" = 0; then
+    test "$(grep -c '^TRANSFER rank=' "$EVIDENCE/explicit-tcp.log")" -eq 2
+fi
+echo IMPI202119_2N_DIAGNOSTIC_COMPLETE

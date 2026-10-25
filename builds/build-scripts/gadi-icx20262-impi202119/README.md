@@ -157,3 +157,7 @@ staged, but Hydra's two `hostname` processes both ran on the first
 node; the script stopped at its placement assertion before any
 `MPI_Init`/OFI test. This is an inconclusive diagnostic, not evidence
 that the OFI issue is resolved or reproduced. No repeat is authorized.
+One corrected v2 probe was separately approved after the placement diff
+was shown; it names both PBS hosts and disables Intel MPI's scheduler
+placement inheritance. See
+`progress/2026-10-25-gadi-impi202119-2n-ofi-probe-v2.md`.
