@@ -25,5 +25,20 @@ Exactly one `qsub` returned `182236904.gadi-pbs`, initially Q on
 Independent stdout is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/probe_impi202119_2n_v3.pbs.out`;
 job-keyed evidence is under the sibling
-`evidence/impi-ofi-2n-v3.182236904.gadi-pbs/`. Result and actual SU pending.
-Do not resubmit if the job is merely queued or running.
+`evidence/impi-ofi-2n-v3.182236904.gadi-pbs/`. The job finished PBS Exit Status 0 in 00:00:57 and charged **6.59 SU**.
+This only means the diagnostic script reached its completion marker.
+The actual MPI peer probe returned `default_rc=143`; `tcp_rc=SKIPPED`
+because `fi_info` was unavailable. Both private archives staged and Hydra
+placed one process on each of `gadi-cpu-spr-0718` and
+`gadi-cpu-spr-0720`. The private `libmpi.so.12` linkage gate passed.
+The first MPI error in `default-ofi.log` was:
+`failed to load libfabric.so.1: libfabric.so.1: cannot open shared object file`.
+The recorded `LD_LIBRARY_PATH` lacked the archive's
+`opt/intel/oneapi/libfabric/2.6/lib`, although
+`fabric-library-paths.txt` found `libfabric.so.1.32.13` there.
+`MPI_Init` failed before Sendrecv or Allreduce; no cross-node Intel MPI/OFI
+validation or OpenFOAM result exists. The original logs remain preserved.
+A future, separately authorized small preflight should add the private
+libfabric directory to the runtime library search path and verify
+`libfabric.so.1` resolves on both nodes before launching the peer probe.
+No repeat is authorized under this v3 approval.

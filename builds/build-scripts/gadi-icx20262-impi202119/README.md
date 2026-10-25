@@ -179,4 +179,9 @@ included. The user approved one v3 submission after seeing this diff.
 The reviewed v3 script commit is `fcd24ecaa61c2b0ac97aa55af82d9ecc74f823b4`.
 One `qsub` returned `182236904.gadi-pbs`, initially Q on
 `normalsr-exec`. Its independent stdout is under the stack's
-`submit-logs/probe_impi202119_2n_v3.pbs.out`; result and SU are pending.
+`submit-logs/probe_impi202119_2n_v3.pbs.out`; it finished PBS Exit Status 0 in 57 seconds, charging 6.59 SU, but
+the MPI probe returned `default_rc=143` at `MPI_Init`: Intel MPI could
+not load `libfabric.so.1`. The private libfabric 2.6 file exists in the
+archive but its directory was absent from `LD_LIBRARY_PATH`. This is a
+failed communication diagnostic despite the script completion marker;
+no transfer or solver result exists. Original logs remain job-keyed.
