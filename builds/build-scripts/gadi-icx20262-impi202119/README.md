@@ -161,5 +161,17 @@ One corrected v2 probe was separately approved after the placement diff
 was shown; it names both PBS hosts and disables Intel MPI's scheduler
 placement inheritance. See
 `progress/2026-10-25-gadi-impi202119-2n-ofi-probe-v2.md`.
-Exactly one v2 `qsub` returned `182218986.gadi-pbs`, initially Q;
-the result and charged SU remain pending.
+Exactly one v2 `qsub` returned `182218986.gadi-pbs`; its outcome is recorded below.
+
+## Two-node Intel MPI OFI preflight v2 outcome and v3 correction
+
+The approved v2 job `182218986.gadi-pbs` ended PBS `Exit_status=1` after
+55 seconds, charging 6.36 SU. Both SPR node archives staged and Hydra placed
+one hostname process on each allocated host. The compiled peer probe linked
+private `libmpi.so.12` from `$MPI/lib/libmpi.so.12`. The script incorrectly
+required the textual path `$MPI/lib/release/libmpi.so.12` in `ldd`, so it
+stopped before `MPI_Init` and before any OFI diagnosis. The original stdout
+and job-keyed evidence remain intact. v3 checks that the loaded library is
+under the private MPI `lib/` prefix and has the same SHA-256 as the expected
+release library. It uses unique stdout and evidence paths; no solver run is
+included. The user approved one v3 submission after seeing this diff.
