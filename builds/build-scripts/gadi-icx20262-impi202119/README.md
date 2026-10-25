@@ -161,3 +161,5 @@ One corrected v2 probe was separately approved after the placement diff
 was shown; it names both PBS hosts and disables Intel MPI's scheduler
 placement inheritance. See
 `progress/2026-10-25-gadi-impi202119-2n-ofi-probe-v2.md`.
+Exactly one v2 `qsub` returned `182218986.gadi-pbs`, initially Q;
+the result and charged SU remain pending.

@@ -15,5 +15,16 @@ Hydra host check and the default/conditional-tcp MPI peer probes.
 It uses new stdout and job-keyed evidence paths. No official case or
 OpenFOAM solver will run, and no further automatic retry is authorized.
 
-Local validation, synchronization, submission, PBS ID, detailed result
-and actual SU are pending.
+The v2 file passed local and remote `bash -n` and diff checks. Commit
+`c880d02f319525412ee0601e825f0052a29b5c40` was pushed to GitHub,
+transferred as a SHA-256-verified Git bundle and fast-forwarded on Gadi's
+isolated branch. The staged PBS file SHA-256 is
+`11a8fed7f689787945c01ad2af2d64d089d95655cda7717414eeef0cfa1b8000`.
+Exactly one `qsub` returned `182218986.gadi-pbs`; initial `qstat -f`
+showed Q on `normalsr-exec`, 208 CPUs, 16 GB memory, 20 GB JOBFS and ten
+minutes. Independent stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/probe_impi202119_2n_v2.pbs.out`;
+job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/evidence/impi-ofi-2n-v2.182218986.gadi-pbs/`.
+Detailed result and actual SU remain pending. Do not submit another
+job without separate approval.
