@@ -185,3 +185,15 @@ not load `libfabric.so.1`. The private libfabric 2.6 file exists in the
 archive but its directory was absent from `LD_LIBRARY_PATH`. This is a
 failed communication diagnostic despite the script completion marker;
 no transfer or solver result exists. Original logs remain job-keyed.
+
+## Two-node Intel MPI OFI preflight v4
+
+The user approved one corrected small preflight after the v3 diagnosis.
+The cached official `intel-oneapi-libfabric-2.6` RPM was inspected
+read-only: it contains `libfabric.so.1 -> libfabric.so.1.32.13`,
+`bin/fi_info`, and `env/vars.sh`. Intel's environment script exports
+`LD_LIBRARY_PATH` and `FI_PROVIDER_PATH` for this private component.
+The v4 script sources it after compiler/MPI, verifies the SONAME symlink
+and `fi_info` before starting the unchanged two-host MPI peer probe.
+It uses a new job name, stdout and evidence directory. No OpenFOAM solver
+or automatic repeat is included.
