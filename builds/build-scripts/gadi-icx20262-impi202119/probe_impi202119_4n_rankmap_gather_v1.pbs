@@ -1,0 +1,137 @@
+#!/bin/bash
+# Four-node, 416-rank Intel MPI placement diagnostic; no OpenFOAM case or solver.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx26_impi19_4n_map_v1
+#PBS -l ncpus=416
+#PBS -l mem=190GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:06:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/probe_impi202119_4n_rankmap_gather_v1.pbs.out
+set -euo pipefail
+
+STACK=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119
+ARCHIVE="$STACK/runtime-archive/gadi-icx20262-impi202119.182138851.gadi-pbs.tar.gz"
+ARCHIVE_SHA=013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc
+EVIDENCE="$STACK/evidence/impi-rankmap-4n-gather-v1.${PBS_JOBID:?}"
+ROOT="${PBS_JOBFS:?}/impi-rankmap-4n-gather-v1-${PBS_JOBID}"
+MPI="$ROOT/opt/intel/oneapi/mpi/2021.19"
+COMPILER="$ROOT/opt/intel/oneapi/compiler/2026.2"
+FABRIC="$ROOT/opt/intel/oneapi/libfabric/2.6"
+test "${PBS_NNODES:?}" -eq 4
+test "${PBS_NCPUS:?}" -eq 416
+test ! -e "$EVIDENCE"
+mkdir -p "$EVIDENCE"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+trap 'rc=$?; printf "script_exit_rc=%s\n" "$rc" > "$EVIDENCE/exit-status.txt"' EXIT
+module purge
+sort -u "$PBS_NODEFILE" | tee "$EVIDENCE/nodes.txt"
+test "$(wc -l < "$EVIDENCE/nodes.txt")" -eq 4
+test "$(awk '{c[$0]++} END {for (h in c) print c[h]}' "$PBS_NODEFILE" | sort -u)" = 104
+mapfile -t HOSTS < <(sed -n '1p;105p;209p;313p' "$PBS_NODEFILE")
+test "$(printf '%s\n' "${HOSTS[@]}" | sort -u | wc -l)" -eq 4
+printf '%s  %s\n' "$ARCHIVE_SHA" "$ARCHIVE" | sha256sum -c -
+
+cat > "$EVIDENCE/stage.sh" <<'STAGE'
+#!/bin/bash
+set -euo pipefail
+root=${1:?}; archive=${2:?}; sha=${3:?}; marker=${4:?}
+test ! -e "$root"; test ! -e "$marker"
+printf '%s  %s\n' "$sha" "$archive" | sha256sum -c -
+mkdir -p "$root/opt/intel"
+tar -xzf "$archive" -C "$root/opt/intel" oneapi
+test -x "$root/opt/intel/oneapi/mpi/2021.19/bin/mpirun"
+test -x "$root/opt/intel/oneapi/compiler/2026.2/bin/icx"
+test -f "$root/opt/intel/oneapi/libfabric/2.6/env/vars.sh"
+printf 'STAGE_IMPI_4N_PASS host=%s\n' "$(hostname)" > "$marker"
+STAGE
+for idx in 0 104 208 312; do
+    marker="$EVIDENCE/stage-$idx.txt"
+    /opt/pbs/default/bin/pbsdsh -n "$idx" -s -- /bin/bash "$EVIDENCE/stage.sh" "$ROOT" "$ARCHIVE" "$ARCHIVE_SHA" "$marker"
+    grep -Fx "STAGE_IMPI_4N_PASS host=${HOSTS[$((idx / 104))]}" "$marker"
+done
+
+set +u
+. "$COMPILER/env/vars.sh"
+. "$MPI/env/vars.sh"
+. "$FABRIC/env/vars.sh"
+set -u
+test "$(readlink -f "$FABRIC/lib/libfabric.so.1")" = "$FABRIC/lib/libfabric.so.1.32.13"
+"$FABRIC/bin/fi_info" --version | tee "$EVIDENCE/fi-info-version.txt"
+export I_MPI_ROOT="$MPI" MPI_ROOT="$MPI"
+export I_MPI_HYDRA_BOOTSTRAP=rsh I_MPI_HYDRA_BOOTSTRAP_EXEC=/opt/pbs/default/bin/pbs_tmrsh
+export I_MPI_JOB_RESPECT_PROCESS_PLACEMENT=off
+test "$(command -v mpirun)" = "$MPI/bin/mpirun"
+test "$(command -v mpiicx)" = "$MPI/bin/mpiicx"
+icx --version | head -n 1 | grep -F '2026.2.0'
+mpirun -version | head -n 1 | grep -F '2021.19.0'
+ldd "$MPI/lib/release/libmpi.so.12" > "$EVIDENCE/libmpi.ldd"
+sha256sum "$MPI/lib/release/libmpi.so.12" > "$EVIDENCE/libmpi.sha256"
+
+cat > "$EVIDENCE/rank-map.c" <<'C'
+#define _GNU_SOURCE
+#include <mpi.h>
+#include <sched.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#define ROW 8192
+int main(int argc, char **argv) {
+    int rank, size, pos;
+    char host[256] = {0}, row[ROW] = {0};
+    char *all = NULL;
+    cpu_set_t mask;
+    if (MPI_Init(&argc, &argv) != MPI_SUCCESS) return 2;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    if (size != 416 || gethostname(host, sizeof(host)) ||
+        sched_getaffinity(0, sizeof(mask), &mask)) MPI_Abort(MPI_COMM_WORLD, 3);
+    pos = snprintf(row, sizeof(row), "%d %s %d", rank, host, CPU_COUNT(&mask));
+    if (pos < 0 || pos >= ROW) MPI_Abort(MPI_COMM_WORLD, 4);
+    for (int cpu = 0; cpu < CPU_SETSIZE; ++cpu) {
+        if (CPU_ISSET(cpu, &mask)) {
+            int n = snprintf(row + pos, ROW - pos, " %d", cpu);
+            if (n < 0 || n >= ROW - pos) MPI_Abort(MPI_COMM_WORLD, 5);
+            pos += n;
+        }
+    }
+    if (rank == 0) {
+        all = malloc((size_t)size * ROW);
+        if (!all) MPI_Abort(MPI_COMM_WORLD, 6);
+    }
+    MPI_Gather(row, ROW, MPI_CHAR, all, ROW, MPI_CHAR, 0, MPI_COMM_WORLD);
+    if (rank == 0) {
+        for (int i = 0; i < size; ++i) printf("%s\n", all + (size_t)i * ROW);
+        fflush(stdout);
+        free(all);
+    }
+    MPI_Finalize();
+    return 0;
+}
+C
+mpiicx -O0 -Wall -Wextra "$EVIDENCE/rank-map.c" -o "$EVIDENCE/rank-map"
+ldd "$EVIDENCE/rank-map" > "$EVIDENCE/rank-map.ldd"
+linked_mpi=$(awk '$1=="libmpi.so.12" && $2=="=>" {print $3}' "$EVIDENCE/rank-map.ldd")
+case "$linked_mpi" in "$MPI"/lib/*) ;; *) echo "Unexpected MPI library: $linked_mpi" >&2; exit 1 ;; esac
+test "$(sha256sum "$linked_mpi" | awk '{print $1}')" = \
+     "$(sha256sum "$MPI/lib/release/libmpi.so.12" | awk '{print $1}')"
+PAREX=(mpirun -n 416 -ppn 104 -hosts "${HOSTS[0]},${HOSTS[1]},${HOSTS[2]},${HOSTS[3]}")
+timeout -k 5 120 "${PAREX[@]}" "$EVIDENCE/rank-map" > "$EVIDENCE/rank-host-map.txt" 2> "$EVIDENCE/rank-map-stderr.txt"
+awk -v a="${HOSTS[0]}" -v b="${HOSTS[1]}" -v c="${HOSTS[2]}" -v d="${HOSTS[3]}" '
+    {
+        if (NF<4 || $1 !~ /^[0-9]+$/ || $3 !~ /^[0-9]+$/ || $1<0 || $1>=416 || $3<1 || seen[$1]++) bad=1
+        expected=($1<104?a:($1<208?b:($1<312?c:d)))
+        if ($2!=expected) bad=1
+        count[$2]++
+    }
+    END {
+        if (NR!=416 || count[a]!=104 || count[b]!=104 || count[c]!=104 || count[d]!=104) bad=1
+        for (i=0;i<416;i++) if (seen[i]!=1) bad=1
+        exit bad
+    }
+' "$EVIDENCE/rank-host-map.txt"
+awk '{count[$2]++} END {for (host in count) print host,count[host]}' "$EVIDENCE/rank-host-map.txt" | sort | tee "$EVIDENCE/host-counts.txt"
+echo IMPI202119_4N_RANKMAP_GATHER_PASS

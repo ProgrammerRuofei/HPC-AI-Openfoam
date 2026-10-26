@@ -220,3 +220,16 @@ It later finished PBS Exit Status 1 in 3:06, charging 42.99 SU. The
 `printf` calls; its strict AWK record gate failed before the scientific
 case was copied or decomposed. See the dated progress report for evidence.
 No solver result or automatic retry exists for v2.
+
+## Four-node rank-map gathering preflight
+
+`probe_impi202119_4n_rankmap_gather_v1.pbs` isolates the v2 output
+interleaving failure. It requests four `normalsr` SPR nodes with 104 ranks
+per node (416 total), 190 GB memory, 20 GB node-local JOBFS and six
+minutes (83.2 SU request ceiling). It stages only the previously verified
+ICX 2026.2 / Intel MPI 2021.19 / libfabric 2.6.13 archive and does not
+copy the scientific case, decompose, or run OpenFOAM. Each MPI rank builds
+its host/affinity record in memory; `MPI_Gather` returns all records to
+rank zero for serialized output. The gate requires ranks 0–415 once each,
+the four allocated hosts at exactly 104 ranks each, and non-empty affinity.
+The preflight is diagnostic, not a scored benchmark or a repeat of v2.
