@@ -238,3 +238,14 @@ charging 24.73 SU. It produced 416 complete rank records on four SPR
 hosts (104 each), with one unique bound CPU per rank, and the
 `IMPI202119_4N_RANKMAP_GATHER_PASS` marker. See the dated progress file.
 The 65M-cell solver has not been rerun.
+
+## Approved four-node full-case v3
+
+After the rank-map preflight passed, the user approved one full v3
+candidate. `run_baseline_4n_scotch_v3.pbs` uses the same tested
+`MPI_Gather` rank-map gate with 416 unique records before case staging.
+The v2 scientific case, source/solver SHA-256 gates, Scotch, four
+`normalsr` SPR nodes with 104 ranks each, 150 steps, and PBS resource
+requests remain unchanged. New v3 stdout and job-keyed paths preserve
+v1/v2 evidence. The one-hour request ceiling is about 832 SU. There is
+no approval for an automatic retry or repeat.
