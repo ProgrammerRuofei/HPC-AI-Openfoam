@@ -214,4 +214,9 @@ Scientific source hashes, Scotch/416 ranks, 150 steps and archive identities
 are identical to v1. New stdout and job-keyed run paths preserve the failed
 v1 evidence. See `progress/2026-10-26-gadi-icx20262-impi202119-4n-v2.md`.
 The one approved submission returned `182277272.gadi-pbs`, initially in
-PBS state `Q`; no result or charge has been recorded yet.
+PBS state `Q`.
+It later finished PBS Exit Status 1 in 3:06, charging 42.99 SU. The
+416-rank startup map output was interleaved because each rank used multiple
+`printf` calls; its strict AWK record gate failed before the scientific
+case was copied or decomposed. See the dated progress report for evidence.
+No solver result or automatic retry exists for v2.
