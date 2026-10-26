@@ -22,3 +22,18 @@ non-empty affinity mask. Local `bash -n`, C syntax checking with MPI/sched
 API stubs, and positive/negative AWK gate fixtures passed. The original
 v2 evidence remains untouched. Record the new PBS ID, status, marker,
 host counts, walltime and actual SU here after submission/completion.
+
+## Submission
+
+Reviewed commit `4916e9670ae0a80aec896a675815cbd976908ee5` was pushed to
+GitHub and fast-forwarded on Gadi's isolated branch. The staged PBS script
+passed remote `bash -n` and matched local SHA-256
+`7687eeac6d117c82030fe62f4e8182dbe1c4d34039dfe1de0d38bb2b48c4f973`.
+Exactly one `qsub` returned `182291343.gadi-pbs`. Initial PBS state was
+`Q`, with 416 CPUs, 190 GB memory, 20 GB JOBFS and a six-minute walltime.
+Independent stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/submit-logs/probe_impi202119_4n_rankmap_gather_v1.pbs.out`;
+job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/evidence/impi-rankmap-4n-gather-v1.182291343.gadi-pbs/`.
+Do not resubmit on an unknown status or proceed to the 65M solve without
+reviewing this result and the separate large-run approval.
