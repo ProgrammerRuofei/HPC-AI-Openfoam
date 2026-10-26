@@ -37,3 +37,29 @@ job-keyed evidence will be under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/evidence/impi-rankmap-4n-gather-v1.182291343.gadi-pbs/`.
 Do not resubmit on an unknown status or proceed to the 65M solve without
 reviewing this result and the separate large-run approval.
+
+## Final outcome
+
+`182291343.gadi-pbs` finished PBS state `F`, `Exit_status=0`, walltime
+`00:01:47`, with **24.73 SU** charged. The four node-local stages passed.
+The run log contains `IMPI202119_4N_RANKMAP_GATHER_PASS`; the gathered
+map has exactly 416 records and zero MPI stderr bytes. Host counts were:
+
+| SPR host | MPI ranks |
+| --- | ---: |
+| `gadi-cpu-spr-0088.gadi.nci.org.au` | 104 |
+| `gadi-cpu-spr-0105.gadi.nci.org.au` | 104 |
+| `gadi-cpu-spr-0106.gadi.nci.org.au` | 104 |
+| `gadi-cpu-spr-0107.gadi.nci.org.au` | 104 |
+
+All 416 ranks reported affinity to exactly one CPU, with zero duplicate
+host/CPU masks. The script checked ICX 2026.2.0, Intel MPI 2021.19.0,
+private libfabric 2.6.13, and the private Intel MPI library. The archive
+SHA-256 gate and each node's extraction marker passed. This validates
+four-node MPI startup, gather, placement and CPU affinity for the private
+toolchain. It does not provide OpenFOAM correctness, Cd or step time.
+
+The next large step would be a separately approved v3 full scientific run
+that adopts the gathered rank-map gate and preserves the original mesh,
+source, fvSchemes, fvSolution, Scotch decomposition, 416 ranks and 150 steps.
+No full run has been submitted on the basis of this preflight.

@@ -233,3 +233,8 @@ its host/affinity record in memory; `MPI_Gather` returns all records to
 rank zero for serialized output. The gate requires ranks 0–415 once each,
 the four allocated hosts at exactly 104 ranks each, and non-empty affinity.
 The preflight is diagnostic, not a scored benchmark or a repeat of v2.
+The single approved job `182291343.gadi-pbs` finished Exit 0 in 1:47,
+charging 24.73 SU. It produced 416 complete rank records on four SPR
+hosts (104 each), with one unique bound CPU per rank, and the
+`IMPI202119_4N_RANKMAP_GATHER_PASS` marker. See the dated progress file.
+The 65M-cell solver has not been rerun.
