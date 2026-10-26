@@ -249,3 +249,7 @@ The v2 scientific case, source/solver SHA-256 gates, Scotch, four
 requests remain unchanged. New v3 stdout and job-keyed paths preserve
 v1/v2 evidence. The one-hour request ceiling is about 832 SU. There is
 no approval for an automatic retry or repeat.
+One approved `qsub` returned `182291934.gadi-pbs`, initially PBS `Q`.
+Its independent stdout is `submit-logs/run_baseline_4n_scotch_v3.pbs.out`;
+the job-keyed evidence root is under
+`gadi-icx20262-impi202119-of2512/baseline-4n-scotch-v3/182291934.gadi-pbs/`.
