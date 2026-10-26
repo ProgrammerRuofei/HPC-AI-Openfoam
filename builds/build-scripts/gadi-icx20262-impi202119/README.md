@@ -204,3 +204,12 @@ The private libfabric 2.6.13 loaded and Intel MPI selected default OFI
 provider `mlx`. Both ranks on distinct SPR nodes completed MPI_Init,
 Sendrecv, Allreduce and Finalize with `default_rc=0`. This validates
 two-rank cross-node communication, not the 416-rank OpenFOAM case.
+
+## Four-node candidate v2 after libfabric diagnosis
+
+The user approved one v2 full-case attempt. The script loads the verified
+private libfabric 2.6.13 environment, names the four PBS hosts, and runs the
+unchanged 416-rank startup gate before 65M-case staging/decomposition.
+Scientific source hashes, Scotch/416 ranks, 150 steps and archive identities
+are identical to v1. New stdout and job-keyed run paths preserve the failed
+v1 evidence. See `progress/2026-10-26-gadi-icx20262-impi202119-4n-v2.md`.
