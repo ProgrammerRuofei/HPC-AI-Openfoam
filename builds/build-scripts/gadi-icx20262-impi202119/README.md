@@ -253,3 +253,11 @@ One approved `qsub` returned `182291934.gadi-pbs`, initially PBS `Q`.
 Its independent stdout is `submit-logs/run_baseline_4n_scotch_v3.pbs.out`;
 the job-keyed evidence root is under
 `gadi-icx20262-impi202119-of2512/baseline-4n-scotch-v3/182291934.gadi-pbs/`.
+The job finished PBS `Exit_status=0` in `00:17:14`, charging **238.97 SU**.
+All 416 ranks mapped to four SPR hosts at 104 each with unique core affinity;
+the rank-map gate, all preparation logs and `simpleFoam` reached normal
+completion. The solver reached `Time = 150`, coded average
+**2.004062486355705 s/step** over 149 steps, and final
+**Cd = 0.29187621680415826**. The full case emitted
+`ICX20262_IMPI202119_OF2512_SCOTCH_4N_PASS`. See the dated v3 progress
+report and the stack's result registry for raw evidence and comparison.
