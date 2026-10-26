@@ -213,3 +213,5 @@ unchanged 416-rank startup gate before 65M-case staging/decomposition.
 Scientific source hashes, Scotch/416 ranks, 150 steps and archive identities
 are identical to v1. New stdout and job-keyed run paths preserve the failed
 v1 evidence. See `progress/2026-10-26-gadi-icx20262-impi202119-4n-v2.md`.
+The one approved submission returned `182277272.gadi-pbs`, initially in
+PBS state `Q`; no result or charge has been recorded yet.
