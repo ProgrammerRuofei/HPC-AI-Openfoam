@@ -25,5 +25,22 @@ Exactly one `qsub` returned **`182372451.gadi-pbs`**; first PBS state was
 and 20-minute walltime. Independent stdout is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/smoke_icx_ompi_1n_v1.pbs.out`.
 Expected job-keyed evidence is under the matching stack's
-`evidence/smoke.182372451.gadi-pbs/`. Final exit, marker, links, ranks and
-actual SU remain to be checked.
+`evidence/smoke.182372451.gadi-pbs/`.
+
+## Outcome checked 2026-10-28
+
+The existing `gadi-comp` SSH master was running. Read-only `qstat -xf`
+reported `job_state=F`, `Exit_status=0`, 41 seconds walltime and 50 seconds
+CPU time on `gadi-cpu-spr-0611`, with four allocated CPUs. The job-keyed
+`probe.log` ended in `ICX20262_OMPI5010_ABI_SMOKE_PASS`. It recorded
+ICX/ICPX 2026.2.0, Open MPI 5.0.10, private `libmpi.so.40`, and rank 0 and
+rank 1 with `SIZE=2`. The charged SU is not yet individually confirmed;
+four CPUs × 41 seconds × the 2 SU/core-hour `normalsr` rate gives an
+approximately 0.09 SU estimate. `ldd` resolved `libucp.so.0` under
+`/usr/lib64`, so the effective UCX version is unknown despite the loaded
+`ucx/1.18.1` module. Linked UCC is not evidence of collective selection.
+
+The user then approved one OpenFOAM v2512 build with private ICX 2026.2,
+GCC 16.2.0 runtime and Open MPI 5.0.10, using a fresh job-keyed path and
+the six benchmark application gates. This approval does not include a
+four-node run or an automatic retry.

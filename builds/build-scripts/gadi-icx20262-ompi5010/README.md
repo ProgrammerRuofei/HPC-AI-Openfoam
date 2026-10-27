@@ -15,6 +15,17 @@ OpenFOAM v2512 build would retain the verified source identity, `Opt`,
 real Scotch and six benchmark application gates. A four-node performance
 run requires separate approval.
 
-The first approved preflight was submitted once as `182372451.gadi-pbs`,
-initially PBS `Q`; see the dated progress report for script checksum,
-resource request and evidence paths. No outcome is claimed yet.
+The first approved preflight was submitted once as `182372451.gadi-pbs`.
+PBS finished with `Exit_status=0` after 41 seconds and the
+`ICX20262_OMPI5010_ABI_SMOKE_PASS` marker. ICX 2026.2.0 compiled a two-rank
+program linked to the private Open MPI 5.0.10 `libmpi`. The Gadi UCX/UCC
+modules were loaded, while `ldd` resolved `libucp.so.0` from `/usr/lib64`;
+the effective UCP version and collective selection remain unverified.
+
+The next approved action is one OpenFOAM build in a fresh JOBFS. The v1 build
+scripts use the same verified compiler/GCC/MPI archives, preserve source
+identity, require real Scotch and six benchmark executables, and archive the
+runtime with a checked SHA-256. PBS requests one `normalsr` SPR node,
+48 CPUs, 190 GB memory, 100 GB JOBFS and four hours (384 SU ceiling).
+This build is not a performance result; a tutorial smoke test requires its
+own subsequent decision.

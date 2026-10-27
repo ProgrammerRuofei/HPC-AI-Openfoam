@@ -8,6 +8,7 @@ set -euo pipefail
 # validated candidate (C1 generic included) resolves exactly as before.
 WM_COMPILE_OPTION_VALUE="${WM_COMPILE_OPTION_VALUE:-Opt}"
 EXPECT_COMPILE_FLAGS="${EXPECT_COMPILE_FLAGS:-}"
+EXPECTED_ICX_VERSION="${EXPECTED_ICX_VERSION:-2025.3.2}"
 AUTHORITATIVE_SOURCE=/apps/OpenFOAM/2512
 BUILD_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/${STACK_ID}"
 EVIDENCE_DIR="${BUILD_ROOT}/evidence/${STACK_ID}.${PBS_JOBID:?}"
@@ -25,6 +26,13 @@ EXPECTED_API_INFO_SHA256=d03cf08cf48ab523323a8849439b2f1073df920e29e969f51f18856
 
 module purge
 module load ${MODULE_LIST}
+if test -n "${PRIVATE_COMPILER_VARS_SH:-}"; then
+    test -f "$PRIVATE_COMPILER_VARS_SH"
+    set +u
+    . "$PRIVATE_COMPILER_VARS_SH"
+    set -u
+    test "$(command -v icx)" = "${PRIVATE_COMPILER_VARS_SH%/env/vars.sh}/bin/icx"
+fi
 # Private archives are unpacked by the candidate wrapper in this job's JOBFS.
 if test -n "${PRIVATE_MPI_PREFIX:-}"; then
     : "${PRIVATE_GCC_PREFIX:?}"
@@ -72,8 +80,8 @@ if test -n "${PRIVATE_MPI_PREFIX:-}"; then
             "$OMPI_CC_VALUE" --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
             "$OMPI_CXX_VALUE" --version | head -n 1 | grep -Fx 'g++ (GCC) 16.2.0' ;;
         Icx)
-            "$OMPI_CC_VALUE" --version | head -n 1 | grep -F '2025.3.2'
-            "$OMPI_CXX_VALUE" --version | head -n 1 | grep -F '2025.3.2' ;;
+            "$OMPI_CC_VALUE" --version | head -n 1 | grep -F "$EXPECTED_ICX_VERSION"
+            "$OMPI_CXX_VALUE" --version | head -n 1 | grep -F "$EXPECTED_ICX_VERSION" ;;
         *) echo "ERROR: unvalidated private-MPI compiler $WM_COMPILER_VALUE" >&2; exit 4 ;;
     esac
     mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
