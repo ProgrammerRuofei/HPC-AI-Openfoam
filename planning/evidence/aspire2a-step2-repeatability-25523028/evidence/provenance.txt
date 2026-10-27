@@ -1,0 +1,13 @@
+classification=REPEATABILITY SCREEN
+official_result=false
+profiled=false
+pbs_jobid=25523028.pbs101
+nodes=4
+ranks=512
+ranks_per_node=128
+compiler=AOCC 5.0
+mpi=Open MPI 5.0.10
+decomposition=kahip fast imbalance 0.01
+endtime=40
+arm_A0=control
+arm_A1=identical control repeat

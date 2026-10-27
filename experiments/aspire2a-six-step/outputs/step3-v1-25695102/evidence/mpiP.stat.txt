@@ -1,0 +1,8 @@
+  File: /home/users/industry/ai-hpc/apacsc20/scratch/tools/mpiP-install/lib/libmpiP.so
+  Size: 914816    	Blocks: 1792       IO Block: 4194304 regular file
+Device: 25c66b0ah/633760522d	Inode: 144129903472717487  Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: (10784/apacsc20)   Gid: (10784/apacsc20)
+Access: 2026-10-06 00:44:44.000000000 +0800
+Modify: 2026-09-19 21:29:39.000000000 +0800
+Change: 2026-09-19 21:29:39.000000000 +0800
+ Birth: 2026-09-19 21:29:39.000000000 +0800

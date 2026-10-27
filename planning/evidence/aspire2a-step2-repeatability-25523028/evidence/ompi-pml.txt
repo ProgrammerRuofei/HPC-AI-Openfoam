@@ -1,0 +1,90 @@
+                 MCA pml: cm (MCA v2.1.0, API v2.1.0, Component v5.0.10)
+                 MCA pml: monitoring (MCA v2.1.0, API v2.1.0, Component v5.0.10)
+                 MCA pml: ob1 (MCA v2.1.0, API v2.1.0, Component v5.0.10)
+                 MCA pml: ucx (MCA v2.1.0, API v2.1.0, Component v5.0.10)
+                 MCA pml: v (MCA v2.1.0, API v2.1.0, Component v5.0.10)
+            MCA pml base: ---------------------------------------------------
+            MCA pml base: parameter "pml" (current value: "", data source: default, level: 2 user/detail, type: string)
+                          Default selection set of components for the pml framework (<none> means use all components that can be found)
+            MCA pml base: parameter "pml_wrapper" (current value: "", data source: default, level: 9 dev/all, type: string, synonym of: pml_base_wrapper)
+                          Use a Wrapper component around the selected PML component
+            MCA pml base: ---------------------------------------------------
+            MCA pml base: parameter "pml_base_verbose" (current value: "error", data source: default, level: 8 dev/detail, type: int)
+                          Verbosity level for the pml framework (default: 0)
+                          Valid values: -1|none, 0|error, 10|component, 20|warn, 40|info, 60|trace, 80|debug, 100|max, 0-100
+            MCA pml base: parameter "pml_base_bsend_allocator" (current value: "basic", data source: default, level: 9 dev/all, type: string)
+            MCA pml base: parameter "pml_base_wrapper" (current value: "", data source: default, level: 9 dev/all, type: string, synonyms: pml_wrapper)
+                          Use a Wrapper component around the selected PML component
+            MCA pml base: parameter "pml_base_check_pml" (current value: "true", data source: default, level: 9 dev/all, type: bool)
+                          Whether to check the pml selections to ensure they all match
+                          Valid values: 0|f|false|disabled|no|n, 1|t|true|enabled|yes|y
+              MCA pml cm: ---------------------------------------------------
+              MCA pml cm: parameter "pml_cm_free_list_num" (current value: "4", data source: default, level: 9 dev/all, type: int)
+                          Initial size of request free lists
+              MCA pml cm: parameter "pml_cm_free_list_max" (current value: "-1", data source: default, level: 9 dev/all, type: int)
+                          Maximum size of request free lists
+              MCA pml cm: parameter "pml_cm_free_list_inc" (current value: "64", data source: default, level: 9 dev/all, type: int)
+                          Number of elements to add when growing request free lists
+      MCA pml monitoring: ---------------------------------------------------
+      MCA pml monitoring: parameter "pml_monitoring_enable" (current value: "0", data source: default, level: 4 tuner/basic, type: int)
+                          Enable the monitoring at the PML level. A value of 0 will disable the monitoring (default). A value of 1 will aggregate all monitoring information (point-to-point and collective). Any other value will enable filtered monitoring
+      MCA pml monitoring: parameter "pml_monitoring_enable_output" (current value: "0", data source: default, level: 9 dev/all, type: int)
+                          Enable the PML monitoring textual output at MPI_Finalize (it will be automatically turned off when MPIT is used to monitor communications). This value should be different than 0 in order for the output to be enabled (default disable)
+      MCA pml monitoring: parameter "pml_monitoring_filename" (current value: "", data source: default, level: 9 dev/all, type: string)
+                          The name of the file where the monitoring information should be saved (the filename will be extended with the process rank and the ".prof" extension). If this field is NULL the monitoring will not be saved.
+      MCA pml monitoring: performance "pml_monitoring_flush" (type: string, class: generic)
+                          Flush the monitoring information in the provided file. The filename is append with the .%d.prof suffix, where %d is replaced with the processus rank in MPI_COMM_WORLD.
+      MCA pml monitoring: performance "pml_monitoring_messages_count" (type: unsigned_long_long, class: size)
+                          Number of messages sent to each peer through the PML framework.
+      MCA pml monitoring: performance "pml_monitoring_messages_size" (type: unsigned_long_long, class: size)
+                          Size of messages sent to each peer in a communicator through the PML framework.
+             MCA pml ob1: ---------------------------------------------------
+             MCA pml ob1: parameter "pml_ob1_verbose" (current value: "0", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_free_list_num" (current value: "4", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_free_list_max" (current value: "-1", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_free_list_inc" (current value: "64", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_priority" (current value: "20", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_send_pipeline_depth" (current value: "3", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_recv_pipeline_depth" (current value: "4", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_max_rdma_per_request" (current value: "4", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_max_send_per_range" (current value: "4", data source: default, level: 9 dev/all, type: int)
+             MCA pml ob1: parameter "pml_ob1_unexpected_limit" (current value: "128", data source: default, level: 9 dev/all, type: unsigned_int)
+             MCA pml ob1: parameter "pml_ob1_use_all_rdma" (current value: "false", data source: default, level: 5 tuner/detail, type: bool)
+                          Use all available RDMA btls for the RDMA and RDMA pipeline protocols (default: false)
+                          Valid values: 0|f|false|disabled|no|n, 1|t|true|enabled|yes|y
+             MCA pml ob1: parameter "pml_ob1_allocator" (current value: "bucket", data source: default, level: 9 dev/all, type: string)
+                          Name of allocator component for unexpected messages
+             MCA pml ob1: parameter "pml_ob1_accelerator_events_max" (current value: "400", data source: default, level: 5 tuner/detail, type: int)
+                          Number of events created by the ob1 component internally
+             MCA pml ob1: performance "pml_ob1_unexpected_msgq_length" (type: unsigned_int, class: size)
+                          Number of unexpected messages received by each peer in a communicator
+             MCA pml ob1: performance "pml_ob1_posted_recvq_length" (type: unsigned_int, class: size)
+                          Number of unmatched receives posted for each peer in a communicator
+             MCA pml ucx: ---------------------------------------------------
+             MCA pml ucx: parameter "pml_ucx_priority" (current value: "51", data source: default, level: 3 user/all, type: int)
+                          Priority of the UCX component
+             MCA pml ucx: parameter "pml_ucx_num_disconnect" (current value: "1", data source: default, level: 3 user/all, type: int)
+                          How may disconnects go in parallel
+             MCA pml ucx: parameter "pml_ucx_request_leak_check" (current value: "false", data source: default, level: 3 user/all, type: bool)
+                          Enable showing a warning during MPI_Finalize if some non-blocking MPI requests have not been released
+                          Valid values: 0|f|false|disabled|no|n, 1|t|true|enabled|yes|y
+             MCA pml ucx: parameter "pml_ucx_multi_send_nb" (current value: "false", data source: default, level: 3 user/all, type: bool)
+                          Enable passing multi-send optimization flag for nonblocking operations
+                          Valid values: 0|f|false|disabled|no|n, 1|t|true|enabled|yes|y
+             MCA pml ucx: parameter "pml_ucx_verbose" (current value: "0", data source: default, level: 3 user/all, type: int, synonym of: opal_common_ucx_verbose)
+                          Verbose level of the UCX components
+             MCA pml ucx: parameter "pml_ucx_progress_iterations" (current value: "100", data source: default, level: 3 user/all, type: int, synonym of: opal_common_ucx_progress_iterations)
+                          Set number of calls of internal UCX progress calls per opal_progress call
+             MCA pml ucx: parameter "pml_ucx_opal_mem_hooks" (current value: "true", data source: default, level: 3 user/all, type: bool, synonym of: opal_common_ucx_opal_mem_hooks)
+                          Use OPAL memory hooks, instead of UCX internal memory hooks
+                          Valid values: 0|f|false|disabled|no|n, 1|t|true|enabled|yes|y
+             MCA pml ucx: parameter "pml_ucx_tls" (current value: "rc_verbs,ud_verbs,rc_mlx5,dc_mlx5,ud_mlx5,cuda_ipc,rocm_ipc", data source: default, level: 3 user/all, type: string, synonym of: opal_common_ucx_tls)
+                          List of UCX transports which should be supported on the system, to enable selecting the UCX component. Special values: any (any available). A '^' prefix negates the list. For example, in order to exclude on shared memory and TCP transports, please set to '^posix,sysv,self,tcp,cma,knem,xpmem'.
+             MCA pml ucx: parameter "pml_ucx_devices" (current value: "mlx*", data source: default, level: 3 user/all, type: string, synonym of: opal_common_ucx_devices)
+                          List of device driver pattern names, which, if supported by UCX, will bump its priority above ob1. Special values: any (any available)
+               MCA pml v: ---------------------------------------------------
+               MCA pml v: parameter "pml_v_output" (current value: "stderr", data source: default, level: 9 dev/all, type: string)
+               MCA pml v: parameter "pml_v_verbose" (current value: "0", data source: default, level: 9 dev/all, type: int)
+                          Verbosity of the pml v component
+               MCA pml v: parameter "pml_v_vprotocol" (current value: "", data source: default, level: 9 dev/all, type: string, synonyms: vprotocol)
+                          Specify a specific vprotocol to use

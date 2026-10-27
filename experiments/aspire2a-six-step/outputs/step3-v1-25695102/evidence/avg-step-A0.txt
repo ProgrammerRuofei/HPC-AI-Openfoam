@@ -1,0 +1,1 @@
+    Average wall-clock time per time step = 2.876553809102564

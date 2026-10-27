@@ -1,0 +1,4 @@
+label=A0
+window=steps20-40
+increments=21
+mean_s_per_step=2.849047619048

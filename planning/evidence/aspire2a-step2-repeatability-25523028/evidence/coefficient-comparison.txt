@@ -1,0 +1,1 @@
+coefficient_files_byte_identical=yes

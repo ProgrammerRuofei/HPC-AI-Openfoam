@@ -1,0 +1,194 @@
+classification=PROFILING DIAGNOSTIC
+official_result=false
+profiled=true
+job=25695102.pbs101
+===== ALLOCATION =====
+x1001c1s2b1n0.hostmgmt2001.cm.asp2a.nscc.sg
+x1003c4s6b0n1.hostmgmt2003.cm.asp2a.nscc.sg
+x1003c7s2b0n1.hostmgmt2003.cm.asp2a.nscc.sg
+x1003c7s2b1n0.hostmgmt2003.cm.asp2a.nscc.sg
+===== TOOLCHAIN =====
+Currently Loaded Modulefiles:
+  1) aocc/5.0               2) gcc/11.2.0             3) openmpi/5.0.10-gcc11
+lrwxrwxrwx 1 apacsc20 apacsc20 19 Jul 22  2025 /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/ext/libfabric/lib/libfabric.so.1 -> libfabric.so.1.25.0
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/ext/libfabric/lib/libfabric.so.1.25.0
+4959baaffd6620659f9878693faba31bd3ac7c382a0e576a9e1816653873407f  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/ext/libfabric/lib/libfabric.so.1.25.0
+  File: /home/users/industry/ai-hpc/apacsc20/scratch/tools/mpiP-install/lib/libmpiP.so
+  Size: 914816    	Blocks: 1792       IO Block: 4194304 regular file
+Device: 25c66b0ah/633760522d	Inode: 144129903472717487  Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: (10784/apacsc20)   Gid: (10784/apacsc20)
+Access: 2026-10-06 00:44:44.000000000 +0800
+Modify: 2026-09-19 21:29:39.000000000 +0800
+Change: 2026-09-19 21:29:39.000000000 +0800
+ Birth: 2026-09-19 21:29:39.000000000 +0800
+017bfc27b8ff4e767d46e77e9c2df698e90d085367feb5f25834d84d631841ba  /home/users/industry/ai-hpc/apacsc20/scratch/tools/mpiP-install/lib/libmpiP.so
+CHECKPOINT_RUNTIME_LIBRARIES_OK
+CHECKPOINT_OPENFOAM_TREE_OK
+bashrc_rc=0
+CHECKPOINT_FOAM_ENV_OK
+runfunctions_rc=0
+CHECKPOINT_RUNFUNCTIONS_OK
+/app/apps/openmpi/5.0.10-gcc11/bin/mpirun
+/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/decomposePar
+/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/foamDictionary
+/bin/nm
+AMD clang version 17.0.6 (CLANG: AOCC_5.0.0-Build#1377 2024_09_24)
+mpirun (Open MPI) 5.0.10
+
+Report bugs to https://www.open-mpi.org/community/help/
+WM_PROJECT_VERSION=v2512
+WM_COMPILER=Amd
+WM_OPTIONS=linux64AmdDPInt32Opt
+WM_MPLIB=SYSTEMOPENMPI
+FOAM_MPI=sys-openmpi
+7846a1250d3b95a80507f907f5a1ed9d2281a75b1bfd18d47af24b5105d2609f  /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/simpleFoam
+	linux-vdso.so.1 (0x00007ffc89fcc000)
+	libPstream.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/sys-openmpi/libPstream.so (0x0000149901d6e000)
+	libfabric.so.1 => /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/ext/libfabric/lib/libfabric.so.1 (0x0000149901902000)
+	libfiniteVolume.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libfiniteVolume.so (0x00001498ffebf000)
+	libfvOptions.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libfvOptions.so (0x00001498ffc0b000)
+	libmeshTools.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libmeshTools.so (0x00001498ff475000)
+	libsampling.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libsampling.so (0x00001498ff020000)
+	libdynamicMesh.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libdynamicMesh.so (0x00001498feaf1000)
+	libdynamicFvMesh.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libdynamicFvMesh.so (0x0000149901c8e000)
+	libturbulenceModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libturbulenceModels.so (0x00001498fe8d3000)
+	libincompressibleTurbulenceModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libincompressibleTurbulenceModels.so (0x00001498fe5f7000)
+	libincompressibleTransportModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libincompressibleTransportModels.so (0x00001498fe565000)
+	libatmosphericModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libatmosphericModels.so (0x00001498fe36e000)
+	libOpenFOAM.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libOpenFOAM.so (0x00001498fd813000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00001498fd60f000)
+	libstdc++.so.6 => /opt/cray/pe/gcc/11.2.0/snos/lib64/libstdc++.so.6 (0x00001498fd1f9000)
+	libgcc_s.so.1 => /opt/cray/pe/gcc/11.2.0/snos/lib64/libgcc_s.so.1 (0x00001498fcfe0000)
+	libc.so.6 => /lib64/libc.so.6 (0x00001498fcc0a000)
+	libmpi.so.40 => /app/apps/openmpi/5.0.10-gcc11/lib/libmpi.so.40 (0x00001498fc665000)
+	libm.so.6 => /lib64/libm.so.6 (0x00001498fc2e3000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x00001498fc0c3000)
+	librdmacm.so.1 => /lib64/librdmacm.so.1 (0x00001498fbea8000)
+	libibverbs.so.1 => /lib64/libibverbs.so.1 (0x00001498fbc87000)
+	libatomic.so.1 => /opt/cray/pe/gcc/11.2.0/snos/lib64/libatomic.so.1 (0x00001498fba7f000)
+	librt.so.1 => /lib64/librt.so.1 (0x00001498fb877000)
+	libfileFormats.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libfileFormats.so (0x00001498fb754000)
+	libsurfMesh.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libsurfMesh.so (0x00001498fb4ea000)
+	libfluidThermophysicalModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libfluidThermophysicalModels.so (0x00001498fa9a6000)
+	libsolidThermo.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libsolidThermo.so (0x00001498fa7ee000)
+	libcompressibleTurbulenceModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libcompressibleTurbulenceModels.so (0x00001498fa54b000)
+	libreactionThermophysicalModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libreactionThermophysicalModels.so (0x00001498f9667000)
+	liboverset.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/liboverset.so (0x00001498f942c000)
+	liblagrangian.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/liblagrangian.so (0x0000149901c33000)
+	libextrudeModel.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libextrudeModel.so (0x00001498f9400000)
+	libtwoPhaseMixture.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libtwoPhaseMixture.so (0x00001498f93de000)
+	libz.so.1 => /lib64/libz.so.1 (0x00001498f91c6000)
+	/lib64/ld-linux-x86-64.so.2 (0x0000149901bfd000)
+	libgpfs.so => /lib64/libgpfs.so (0x00001498f8fb0000)
+	libopen-pal.so.80 => /app/apps/openmpi/5.0.10-gcc11/lib/libopen-pal.so.80 (0x00001498f8c95000)
+	libucp.so.0 => /lib64/libucp.so.0 (0x00001498f89a5000)
+	libucs.so.0 => /lib64/libucs.so.0 (0x00001498f85f7000)
+	libucm.so.0 => /lib64/libucm.so.0 (0x00001498f83db000)
+	libuct.so.0 => /lib64/libuct.so.0 (0x00001498f819c000)
+	libnl-route-3.so.200 => /lib64/libnl-route-3.so.200 (0x00001498f7f0a000)
+	libnl-3.so.200 => /lib64/libnl-3.so.200 (0x00001498f7ce7000)
+	libpmix.so.2 => /app/apps/openmpi/5.0.10-gcc11/lib/libpmix.so.2 (0x00001498f78b8000)
+	libutil.so.1 => /lib64/libutil.so.1 (0x00001498f76b4000)
+	libevent_core-2.1.so.7 => /app/apps/openmpi/5.0.10-gcc11/lib/libevent_core-2.1.so.7 (0x00001498f747f000)
+	libevent_pthreads-2.1.so.7 => /app/apps/openmpi/5.0.10-gcc11/lib/libevent_pthreads-2.1.so.7 (0x00001498f727c000)
+	libhwloc.so.15 => /app/apps/openmpi/5.0.10-gcc11/lib/libhwloc.so.15 (0x00001498f7024000)
+	libcompressibleTransportModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libcompressibleTransportModels.so (0x00001498f701e000)
+	libspecie.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libspecie.so (0x00001498f6af7000)
+	libthermophysicalProperties.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libthermophysicalProperties.so (0x00001498f6a44000)
+	libsolidSpecie.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libsolidSpecie.so (0x00001498f6a04000)
+	libradiationModels.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libradiationModels.so (0x00001498f6881000)
+	libblockMesh.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libblockMesh.so (0x00001498f67dc000)
+	libdecompositionMethods.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libdecompositionMethods.so (0x00001498f673b000)
+	libSLGThermo.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libSLGThermo.so (0x00001498f6732000)
+	libdistributed.so => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/lib/libdistributed.so (0x00001498f667d000)
+	linux-vdso.so.1 (0x00007fff3e1ef000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x000014820435d000)
+	libm.so.6 => /lib64/libm.so.6 (0x0000148203fdb000)
+	libmpi.so.40 => /app/apps/openmpi/5.0.10-gcc11/lib/libmpi.so.40 (0x0000148203a36000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x0000148203816000)
+	libc.so.6 => /lib64/libc.so.6 (0x0000148203440000)
+	/lib64/ld-linux-x86-64.so.2 (0x0000148204e3c000)
+	libgpfs.so => /lib64/libgpfs.so (0x000014820322a000)
+	libopen-pal.so.80 => /app/apps/openmpi/5.0.10-gcc11/lib/libopen-pal.so.80 (0x0000148202f0f000)
+	libfabric.so.1 => /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/ext/libfabric/lib/libfabric.so.1 (0x0000148202c14000)
+	libucp.so.0 => /lib64/libucp.so.0 (0x0000148202924000)
+	libucs.so.0 => /lib64/libucs.so.0 (0x0000148202576000)
+	libucm.so.0 => /lib64/libucm.so.0 (0x000014820235a000)
+	libuct.so.0 => /lib64/libuct.so.0 (0x000014820211b000)
+	libnl-route-3.so.200 => /lib64/libnl-route-3.so.200 (0x0000148201e89000)
+	libnl-3.so.200 => /lib64/libnl-3.so.200 (0x0000148201c66000)
+	librt.so.1 => /lib64/librt.so.1 (0x0000148201a5e000)
+	libpmix.so.2 => /app/apps/openmpi/5.0.10-gcc11/lib/libpmix.so.2 (0x000014820162f000)
+	libutil.so.1 => /lib64/libutil.so.1 (0x000014820142b000)
+	libevent_core-2.1.so.7 => /app/apps/openmpi/5.0.10-gcc11/lib/libevent_core-2.1.so.7 (0x00001482011f6000)
+	libevent_pthreads-2.1.so.7 => /app/apps/openmpi/5.0.10-gcc11/lib/libevent_pthreads-2.1.so.7 (0x0000148200ff3000)
+	libhwloc.so.15 => /app/apps/openmpi/5.0.10-gcc11/lib/libhwloc.so.15 (0x0000148200d9b000)
+	librdmacm.so.1 => /lib64/librdmacm.so.1 (0x0000148200b80000)
+	libibverbs.so.1 => /lib64/libibverbs.so.1 (0x000014820095f000)
+	libatomic.so.1 => /opt/cray/pe/gcc/11.2.0/snos/lib64/libatomic.so.1 (0x0000148200757000)
+	libz.so.1 => /usr/lib64/libz.so.1 (0x000014820053f000)
+	libgcc_s.so.1 => /opt/cray/pe/gcc/11.2.0/snos/lib64/libgcc_s.so.1 (0x0000148200326000)
+	linux-vdso.so.1 (0x00007ffe13efa000)
+	librdmacm.so.1 => /lib64/librdmacm.so.1 (0x000014796438a000)
+	libibverbs.so.1 => /lib64/libibverbs.so.1 (0x0000147964169000)
+	libatomic.so.1 => /opt/cray/pe/gcc/11.2.0/snos/lib64/libatomic.so.1 (0x0000147963f61000)
+	librt.so.1 => /lib64/librt.so.1 (0x0000147963d59000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x0000147963b39000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x0000147963935000)
+	libc.so.6 => /lib64/libc.so.6 (0x000014796355f000)
+	libnl-3.so.200 => /lib64/libnl-3.so.200 (0x000014796333c000)
+	/lib64/ld-linux-x86-64.so.2 (0x00001479648a0000)
+	libnl-route-3.so.200 => /lib64/libnl-route-3.so.200 (0x00001479630aa000)
+	libgcc_s.so.1 => /opt/cray/pe/gcc/11.2.0/snos/lib64/libgcc_s.so.1 (0x0000147962e91000)
+CHECKPOINT_LINKAGE_AND_MPIP_OK
+===== SOURCE WORKLOAD HASH GATE =====
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/include/caseDefinition: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/decomposeParDict: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/controlDict.noWrite: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/fvSchemes: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/fvSolution.fixedIter: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/forceCoeffsAll: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/0.orig/U: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/transportProperties: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/turbulenceProperties: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/points: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/faces: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/owner: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/neighbour: OK
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/boundary: OK
+===== FRESH CASE =====
+nCores          512;
+nHierarchical   ( 8 8 8 );
+decompositionMethod kahip;
+endTime         40;
+5d497aa829c0369dc3252a5af03043bc099d4ac31f39c780fc3184c602687c0c  system/controlDict
+ee76e1b47f56d98d5552de3c60e75801f194249bea8f47c19a0ac2816a570829  system/decomposeParDict
+afedcaf38de07d869661fb829643ea665575c1f7c15527b9f836ec65424590dc  system/include/caseDefinition
+064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3  system/fvSchemes
+5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba  system/fvSolution
+4a66f9792320ef7775486f34a80185e3ab384f3529a231f448c3f80c78c7d001  system/forceCoeffsAll
+bcec9e7b7c5fdff940d960b4f32a1abde445411a9efaad24c4a9c4c8160fd8e8  0.orig/U
+4994e93eac7370fc2f8921e7cef59022f1f677319bbb8e0e5187ff777ee90f27  constant/transportProperties
+aa80a06db5870f620e484df3f97098c105c534bd473b114de99497b6f75c1e58  constant/turbulenceProperties
+===== LAUNCHER / AFFINITY =====
+Warning: Permanently added 'x1003c7s2b0n1.hostmgmt2003.cm.asp2a.nscc.sg,10.168.12.118' (ECDSA) to the list of known hosts.
+Warning: Permanently added 'x1003c4s6b0n1.hostmgmt2003.cm.asp2a.nscc.sg,10.168.12.78' (ECDSA) to the list of known hosts.
+Warning: Permanently added 'x1003c7s2b1n0.hostmgmt2003.cm.asp2a.nscc.sg,10.168.12.244' (ECDSA) to the list of known hosts.
+===== ONE FRESH PARTITION SHARED BY ALL ARMS =====
+Restore 0/ from 0.orig/  [processor dirs]
+===== ARM A0: UNPROFILED CONTROL =====
+Restore 0/ from 0.orig/  [processor dirs]
+    Average wall-clock time per time step = 2.876553809102564
+label=A0
+window=steps20-40
+increments=21
+mean_s_per_step=2.849047619048
+ARM_A0_OK
+===== ARM P0: mpiP PROFILE =====
+Restore 0/ from 0.orig/  [processor dirs]
+    Average wall-clock time per time step = 3.153061245358975
+label=P0
+window=steps20-40
+increments=21
+mean_s_per_step=3.122857142857
+ARM_P0_OK

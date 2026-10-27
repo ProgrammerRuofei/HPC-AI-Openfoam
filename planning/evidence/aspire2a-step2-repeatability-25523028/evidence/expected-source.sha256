@@ -1,0 +1,14 @@
+cc8476b011c0b6d04e9e4495c12078885218d81a8377ca1543d0477a21b891e7  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/include/caseDefinition
+ee76e1b47f56d98d5552de3c60e75801f194249bea8f47c19a0ac2816a570829  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/decomposeParDict
+5d497aa829c0369dc3252a5af03043bc099d4ac31f39c780fc3184c602687c0c  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/controlDict.noWrite
+064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/fvSchemes
+5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/fvSolution.fixedIter
+4a66f9792320ef7775486f34a80185e3ab384f3529a231f448c3f80c78c7d001  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/system/forceCoeffsAll
+bcec9e7b7c5fdff940d960b4f32a1abde445411a9efaad24c4a9c4c8160fd8e8  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/0.orig/U
+4994e93eac7370fc2f8921e7cef59022f1f677319bbb8e0e5187ff777ee90f27  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/transportProperties
+aa80a06db5870f620e484df3f97098c105c534bd473b114de99497b6f75c1e58  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/turbulenceProperties
+7c43587be473796d67fd735ba3e7b76733b5c93540123fad85c4b1d2b7b47a7e  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/points
+9aef04138f5107dbb47257cfca1b15eb0ba478b0963f1557d7d0b69ee534512d  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/faces
+7e784350e2e8c00f2fac9f847c94b7e3b317c9deb1740a8512b809b5863f80b2  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/owner
+b5b0f90fbac0dc966c235b28c5712e4f2d38535a4f1e05b2f9ddbbc490545fea  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/neighbour
+3f34abc678836a67f87bfea30c707df0a5571aaafa1e303d4b0b6ff5cc7c519b  /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occDrivAerStaticMesh-template/constant/polyMesh/boundary

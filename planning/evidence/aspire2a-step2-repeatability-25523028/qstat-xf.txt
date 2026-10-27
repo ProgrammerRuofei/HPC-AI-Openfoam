@@ -1,0 +1,89 @@
+Job Id: 25523028.pbs101
+    Job_Name = of_step2_aa_v5
+    Job_Owner = apacsc20@asp2a-login-ntu02.head.cm.asp2a.nscc.sg
+    resources_used.cpupercent = 34791
+    resources_used.cput = 46:49:23
+    resources_used.mem = 191597920kb
+    resources_used.ncpus = 512
+    resources_used.ngpus = 0
+    resources_used.vmem = 1238747012kb
+    resources_used.walltime = 00:12:48
+    job_state = F
+    queue = q5
+    server = pbs101
+    Checkpoint = u
+    ctime = Wed Sep 23 23:17:11 2026
+    Error_Path = asp2a-login-ntu02.head.cm.asp2a.nscc.sg:/home/project/59000020
+	/openfoam-isc26/control-repo/scripts/outputs/step2_clean_repeatability_
+	v5.e
+    exec_host = x1001c2s0b1n1/0*128+x1002c4s0b0n1/0*128+x1003c1s3b0n0/0*128+x10
+	03c1s7b0n0/0*128
+    exec_vnode = (x1001c2s0b1n1:ncpus=128:mem=419430400kb)+(x1002c4s0b0n1:ncpus
+	=128:mem=419430400kb)+(x1003c1s3b0n0:ncpus=128:mem=419430400kb)+(x1003c
+	1s7b0n0:ncpus=128:mem=419430400kb)
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = a
+    mtime = Thu Sep 24 02:11:15 2026
+    Output_Path = asp2a-login-ntu02.head.cm.asp2a.nscc.sg:/home/project/5900002
+	0/openfoam-isc26/control-repo/scripts/outputs/step2_clean_repeatability
+	_v5.o
+    Priority = 0
+    qtime = Wed Sep 23 23:17:11 2026
+    Rerunable = True
+    Resource_List.am_job_cache = {"job.ngpus": 0, "job.ncpus": 512.0,
+	 "job.walltime": 2400, "job.queue_charge_rate": 1.0,
+	 "am_cloud_enabled": false}
+    Resource_List.jobprio = 170
+    Resource_List.mem = 1600gb
+    Resource_List.mpiprocs = 512
+    Resource_List.ncpus = 512
+    Resource_List.ngpus = 0
+    Resource_List.nodect = 4
+    Resource_List.organisation = org_default
+    Resource_List.parent_organisation = parent_org_default
+    Resource_List.place = scatter
+    Resource_List.project_category = category_default
+    Resource_List.queue_charge_rate = 1
+    Resource_List.scientific_area = area_default
+    Resource_List.select = 4:ncpus=128:mpiprocs=128:ompthreads=1:mem=400gb
+    Resource_List.software = software_default
+    Resource_List.user_organisation = user_org_default
+    Resource_List.walltime = 00:40:00
+    stime = Thu Sep 24 01:58:24 2026
+    obittime = Thu Sep 24 02:11:15 2026
+    session_id = 3512114
+    jobdir = /home/users/industry/ai-hpc/apacsc20
+    substate = 92
+    Variable_List = PBS_O_HOME=/home/users/industry/ai-hpc/apacsc20,
+	PBS_O_LANG=en_US.UTF-8,PBS_O_LOGNAME=apacsc20,
+	PBS_O_PATH=/home/users/industry/ai-hpc/apacsc20/.local/bin:/home/users
+	/industry/ai-hpc/apacsc20/bin:/opt/cray/pe/pals/1.1.6/bin:/opt/cray/pe/
+	craype/2.7.15/bin:/opt/cray/pe/cce/13.0.2/binutils/x86_64/x86_64-pc-lin
+	ux-gnu/bin:/opt/cray/pe/cce/13.0.2/binutils/cross/x86_64-aarch64/aarch6
+	4-linux-gnu/../bin:/opt/cray/pe/cce/13.0.2/utils/x86_64/bin:/opt/cray/p
+	e/cce/13.0.2/bin:/opt/cray/pe/perftools/22.04.0/bin:/opt/cray/pe/papi/6
+	.0.0.14/bin:/opt/cray/libfabric/1.22.0/bin:/opt/clmgr/sbin:/opt/clmgr/b
+	in:/opt/sgi/sbin:/opt/sgi/bin:/usr/share/Modules/bin:/usr/local/bin:/us
+	r/bin:/usr/local/sbin:/usr/sbin:/app/apps/altair/custom_qstat/qstat_cli
+	ent:/app/apps/local/bin:/opt/c3/bin:/usr/lpp/mmfs/bin:/opt/pbs/bin:/opt
+	/cray/pe/bin,PBS_O_SHELL=/bin/bash,
+	PBS_O_INTERACTIVE_AUTH_METHOD=resvport,
+	PBS_O_HOST=asp2a-login-ntu02.head.cm.asp2a.nscc.sg,
+	PBS_O_WORKDIR=/data/projects/59000020/openfoam-isc26/control-repo,
+	PBS_O_SYSTEM=Linux,PBS_O_QUEUE=normal
+    comment = Job run at Thu Sep 24 at 01:58 on (x1001c2s0b1n1:ncpus=128:mem=41
+	9430400kb)+(x1002c4s0b0n1:ncpus=128:mem=419430400kb)+(x1003c1s3b0n0:ncp
+	us=128:mem=419430400kb)+(x1003c1s7b0n0:ncpus=128:mem=419430400kb) and f
+	inished
+    etime = Wed Sep 23 23:17:11 2026
+    run_count = 1
+    Stageout_status = 1
+    Exit_status = 0
+    Submit_arguments = experiments/aspire2a-six-step/step2_clean_repeatability_
+	v5.pbs
+    history_timestamp = 1790187075
+    project = 59000020
+    Submit_Host = asp2a-login-ntu02.head.cm.asp2a.nscc.sg
+

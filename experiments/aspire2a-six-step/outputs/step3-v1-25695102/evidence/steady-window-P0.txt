@@ -1,0 +1,4 @@
+label=P0
+window=steps20-40
+increments=21
+mean_s_per_step=3.122857142857

@@ -1,0 +1,15 @@
+{
+  "A0_builtin_s_per_step": 2.855659040128205,
+  "A0_steps20_40_execution_s": 2.827619047619048,
+  "A1_builtin_s_per_step": 2.861398734871794,
+  "A1_steps20_40_execution_s": 2.829047619047619,
+  "affinity_rows": 512,
+  "cd_40": 0.43471632678608485,
+  "cells_sum": 65334765,
+  "coefficients_byte_identical": true,
+  "distinct_processor_faces": 2786035,
+  "exit_status": 0,
+  "hosts": 4,
+  "job": "25523028.pbs101",
+  "steps20_40_relative_difference_percent": 0.05050930212978988
+}

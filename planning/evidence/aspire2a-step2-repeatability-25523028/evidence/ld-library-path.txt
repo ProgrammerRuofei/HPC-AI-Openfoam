@@ -1,0 +1,1 @@
+LD_LIBRARY_PATH=/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/ext/libfabric/lib:/opt/pbs/lib:/app/apps/openmpi/5.0.10-gcc11/lib:/opt/cray/pe/gcc/11.2.0/snos/lib64:/app/apps/aocc/5.0/lib:/app/apps/gcc/11.2.0-nscc/lib64:/app/apps/aocc/5.0/ompd

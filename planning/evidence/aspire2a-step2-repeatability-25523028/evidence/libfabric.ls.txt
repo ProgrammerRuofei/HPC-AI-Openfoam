@@ -1,0 +1,1 @@
+lrwxrwxrwx 1 apacsc20 apacsc20 19 Jul 22  2025 /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/ext/libfabric/lib/libfabric.so.1 -> libfabric.so.1.25.0

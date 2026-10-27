@@ -1,0 +1,4 @@
+/app/apps/openmpi/5.0.10-gcc11/bin/mpirun
+/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/decomposePar
+/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/foamDictionary
+/bin/nm

@@ -1,6 +1,12 @@
 # Scotch topology and weight A/B/C study
 
-Status: **local proposal; no job submitted**.
+Status: **B/C preflight and all three full A/B/C blocks completed**. See the
+[2026-10-25 read-only evidence check](../../progress/2026-10-25-aspire2a-scotch-abc-evidence.md)
+for PBS IDs, 150-step solver times, Cd, node mappings and evidence paths.
+The completed repeats have high timing variance and the B arm's Cd is below
+the 150-step reference band; they do not establish a stable weighted-Scotch
+advantage. This README is a record of the executed design, not permission to
+submit additional jobs.
 
 Purpose: separate the effect of adding the Scotch topology (`domains (4 8 16)`) from the effect of changing its `domainWeights`. A is plain Scotch, B uses `(1 1 1)`, and C uses `(1 1 0.01)` with the same domains. B is a controlled topology arm; it is **not assumed equivalent** to A.
 
