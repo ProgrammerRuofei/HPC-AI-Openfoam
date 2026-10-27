@@ -1,0 +1,28 @@
+#!/bin/bash
+# Submit only after a candidate build passed. qsub -v supplies the six variables below.
+#PBS -P pm78
+#PBS -q normal
+#PBS -N of2512_compiler_smoke
+#PBS -l ncpus=5
+#PBS -l mem=20GB
+#PBS -l jobfs=10GB
+#PBS -l walltime=00:20:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+set -euo pipefail
+: "${STACK_ID:?}" "${MODULE_LIST:?}" "${WM_COMPILER_VALUE:?}" "${RUNTIME_ARCHIVE:?}" "${RUNTIME_ARCHIVE_SHA256:?}" "${CANDIDATE_BINARY_REL:?}" "${CANDIDATE_BINARY_SHA256:?}"
+module purge; module load ${MODULE_LIST}
+RUNTIME_ROOT="${PBS_JOBFS}/openfoam-runtime/${STACK_ID}"
+export STACK_ID RUNTIME_ARCHIVE RUNTIME_ARCHIVE_SHA256 RUNTIME_ROOT CANDIDATE_BINARY_REL CANDIDATE_BINARY_SHA256
+stage_report=$(pbsdsh -s -c "${PBS_NNODES:?}" -- bash scripts/compiler-screening/stage_candidate_runtime_node.sh | sort)
+printf '%s\n' "$stage_report"
+test "$(printf '%s\n' "$stage_report" | grep -c '^runtime_stage_pass ' )" = "${PBS_NNODES:?}"
+set +u; . "$RUNTIME_ROOT/etc/bashrc" "WM_COMPILER=${WM_COMPILER_VALUE}" WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt; set -u
+test "$FOAM_API" = 2512; test "$WM_MPLIB" = SYSTEMOPENMPI; test "$(command -v mpirun)" = /apps/openmpi/4.1.7/bin/mpirun
+test -x "$RUNTIME_ROOT/$CANDIDATE_BINARY_REL"; test "$(sha256sum "$RUNTIME_ROOT/$CANDIDATE_BINARY_REL" | awk '{print $1}')" = "$CANDIDATE_BINARY_SHA256"
+ldd "$RUNTIME_ROOT/$CANDIDATE_BINARY_REL" | grep -q /apps/openmpi/4.1.7
+SMOKE_CASE="${PBS_JOBFS}/simpleFoam-smoke/pitzDaily_fused"; mkdir -p "${SMOKE_CASE%/*}"
+cp -a /apps/OpenFOAM/2512/tutorials/incompressible/simpleFoam/pitzDaily_fused "$SMOKE_CASE"
+cd "$SMOKE_CASE"; blockMesh; decomposePar; mpirun -np 5 "$RUNTIME_ROOT/$CANDIDATE_BINARY_REL" -parallel > log.simpleFoam 2>&1
+grep -a -q '^End' log.simpleFoam

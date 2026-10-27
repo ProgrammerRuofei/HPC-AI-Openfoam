@@ -1,0 +1,71 @@
+#!/bin/bash
+# Validate the GCC 16.2 archive in a fresh PBS_JOBFS before any MPI build.
+# Submit from the synchronized Gadi control repository after review.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of_gcc162_reloc_v2
+#PBS -l ncpus=1
+#PBS -l mem=8GB
+#PBS -l jobfs=10GB
+#PBS -l walltime=00:15:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/smoke_gcc162_relocation_v2.pbs.out
+set -euo pipefail
+
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+SOURCE_JOB=181342083.gadi-pbs
+ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.$SOURCE_JOB.tar.gz"
+ARCHIVE_SHA256=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+JOB_ID=${PBS_JOBID:?PBS_JOBID is required}
+JOBFS_ROOT="${PBS_JOBFS:?PBS_JOBFS is required}/gcc162-relocation-$JOB_ID"
+PREFIX="$JOBFS_ROOT/gcc-16.2.0"
+EVIDENCE="$STACK_ROOT/evidence/$JOB_ID"
+
+test "${PBS_NCPUS:?PBS_NCPUS is required}" -eq 1
+test -f "$ARCHIVE"
+test -f "$ARCHIVE.sha256"
+test ! -e "$JOBFS_ROOT"
+test ! -e "$EVIDENCE"
+printf '%s  %s\n' "$ARCHIVE_SHA256" "$ARCHIVE" | sha256sum -c -
+sha256sum -c "$ARCHIVE.sha256"
+
+mkdir -p "$JOBFS_ROOT" "$EVIDENCE"
+exec > >(tee "$EVIDENCE/relocation.log") 2>&1
+trap 'printf "GCC162_RELOCATION_FAIL line=%s exit=%s\n" "$LINENO" "$?"' ERR
+printf 'job_id=%s\nsource_job=%s\njobfs=%s\narchive=%s\narchive_sha256=%s\n' \
+    "$JOB_ID" "$SOURCE_JOB" "$PBS_JOBFS" "$ARCHIVE" "$ARCHIVE_SHA256"
+grep -m1 'model name' /proc/cpuinfo
+tar -xzf "$ARCHIVE" -C "$JOBFS_ROOT"
+test -x "$PREFIX/bin/gcc"
+test -x "$PREFIX/bin/g++"
+
+module purge
+export PATH="$PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$PREFIX/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+test "$(command -v gcc)" = "$PREFIX/bin/gcc"
+test "$(command -v g++)" = "$PREFIX/bin/g++"
+gcc --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+g++ --version | head -n 1 | grep -Fx 'g++ (GCC) 16.2.0'
+
+cat > "$JOBFS_ROOT/smoke.c" <<'EOF'
+#include <stdio.h>
+int main(void) { puts("GCC162_C_PASS"); return 0; }
+EOF
+cat > "$JOBFS_ROOT/smoke.cpp" <<'EOF'
+#include <filesystem>
+#include <iostream>
+int main() {
+    std::cout << std::filesystem::path("GCC162_CPP_PASS").string() << '\n';
+    return 0;
+}
+EOF
+gcc -O2 "$JOBFS_ROOT/smoke.c" -o "$JOBFS_ROOT/smoke-c"
+g++ -O2 -std=c++17 "$JOBFS_ROOT/smoke.cpp" -o "$JOBFS_ROOT/smoke-cpp"
+"$JOBFS_ROOT/smoke-c" | grep -Fx GCC162_C_PASS
+"$JOBFS_ROOT/smoke-cpp" | grep -Fx GCC162_CPP_PASS
+ldd "$JOBFS_ROOT/smoke-cpp" | tee "$EVIDENCE/smoke-cpp.ldd"
+grep -F "$PREFIX/lib64/libstdc++.so.6" "$EVIDENCE/smoke-cpp.ldd"
+printf 'relocated_prefix=%s\n' "$PREFIX"
+echo GCC162_RELOCATION_PASS
