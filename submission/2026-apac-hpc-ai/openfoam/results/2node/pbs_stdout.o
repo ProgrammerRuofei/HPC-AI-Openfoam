@@ -1,0 +1,30 @@
+DrivAer start host=x1001c5s5b1n1 attempt=occdrivaer_2node_aocc_scotch_w_v1.1 ncores=256 endTime=80
+Appended scotch coeffs domains=(2 8 16) domainWeights=(1 1 0.01)
+Binary: /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/simpleFoam
+Case: /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1
+WM_COMPILER=Amd WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+mpirun=/app/apps/openmpi/5.0.10-gcc11/bin/mpirun
+MPI_ARGS=unset
+I_MPI_FABRICS=unset
+I_MPI_OFI_PROVIDER=unset
+FI_PROVIDER=unset
+FABRIC_LIB=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1
+	libfabric.so.1 => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1 (0x000014bacb088000)
+	libmpi.so.40 => /app/apps/openmpi/5.0.10-gcc11/lib/libmpi.so.40 (0x000014bac5deb000)
+nCores=256
+nHierarchical=( 8 8 4 )
+decompositionMethod=scotch
+endTime=80
+PAR=mpirun --hostfile /var/spool/pbs/aux/20030920.pbs101 --map-by ppr:128:node -np 256 -x PATH -x LD_LIBRARY_PATH -x HOME -x FOAM_API -x FOAM_APP -x FOAM_APPBIN -x FOAM_ETC -x FOAM_EXT_LIBBIN -x FOAM_EXTRA_LD_LIBRARY_PATH -x FOAM_INST_DIR -x FOAM_LIBBIN -x FOAM_MPI -x FOAM_RUN -x FOAM_SETTINGS -x FOAM_SITE_APPBIN -x FOAM_SITE_LIBBIN -x FOAM_SOLVERS -x FOAM_SRC -x FOAM_TUTORIALS -x FOAM_USER_APPBIN -x FOAM_USER_LIBBIN -x FOAM_UTILITIES -x WM_ARCH -x WM_COMPILE_OPTION -x WM_COMPILER -x WM_COMPILER_LIB_ARCH -x WM_COMPILER_TYPE -x WM_DIR -x WM_LABEL_OPTION -x WM_LABEL_SIZE -x WM_MPLIB -x WM_OPTIONS -x WM_PRECISION_OPTION -x WM_PROJECT -x WM_PROJECT_DIR -x WM_PROJECT_USER_DIR -x WM_PROJECT_VERSION -x WM_THIRD_PARTY_DIR
+decomposePar
+restore0Dir
+renumberMesh
+potentialFoam
+applyBoundaryLayer
+simpleFoam log=logFiles/50_simpleFoam.2026-09-14_03-04-13.log
+AVG_WALL_PER_STEP=6.396119317455696
+CD_FILE=postProcessing/forceCoeffsAll/0/coefficient.dat
+78                      	3.4721788186915992e-01	1.6991869125615913e-01	1.7729919061300081e-01	1.2345497489416500e-01	-2.6636624852893871e-02	1.5009159974705885e-01	-8.8364112299976372e-02	-3.6902496784208404e-03	6.8383164589320778e-03	2.4212351572570512e-02	1.8944492245217333e-02	5.2678593273531790e-03
+79                      	3.4368069072434859e-01	1.6780059190573898e-01	1.7588009881860958e-01	1.3188082398152151e-01	-2.5841792313603732e-02	1.5772261629512527e-01	-9.1782204304364484e-02	-4.0397534564353202e-03	7.2054695040956948e-03	2.4136600314609090e-02	1.9273769661400243e-02	4.8628306532088510e-03
+80                      	3.4026321604269161e-01	1.6569581901646935e-01	1.7456739702622226e-01	1.3892809732282960e-01	-2.4601244637026069e-02	1.6352934195985566e-01	-9.4065293298440864e-02	-4.4357890048764637e-03	7.3780158216908221e-03	2.3378019571979998e-02	1.9067025607680820e-02	4.3109939642991778e-03
+DRIVAER_OK attempt=occdrivaer_2node_aocc_scotch_w_v1.1 avg=6.396119317455696 log=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1/logFiles/50_simpleFoam.2026-09-14_03-04-13.log

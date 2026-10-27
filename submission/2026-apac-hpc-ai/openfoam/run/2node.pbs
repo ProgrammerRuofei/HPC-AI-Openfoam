@@ -1,0 +1,39 @@
+#!/bin/bash
+#PBS -N of_a2wsc11
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=2:ncpus=128:mpiprocs=128:mem=400gb
+#PBS -l place=scatter
+#PBS -l walltime=04:00:00
+#PBS -o outputs/occdrivaer_2node_aocc_scotch_w_v1.1.o
+#PBS -e outputs/occdrivaer_2node_aocc_scotch_w_v1.1.e
+
+set -eo pipefail
+cd "$PBS_O_WORKDIR"
+module purge
+module load aocc/5.0
+module load gcc/11.2.0
+module load openmpi/5.0.10-gcc11
+export PATH="/app/apps/aocc/5.0/bin:${PATH}"
+export OMPI_CC=clang
+export OMPI_CXX=clang++
+export OMPI_FC=flang
+FABRIC_LIB="${HOME}/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1"
+if [[ ! -e "${FABRIC_LIB}" ]]; then
+    echo "Missing scratch libfabric at ${FABRIC_LIB}" >&2
+    exit 1
+fi
+export FABRIC_LIB
+export FOAM_EXTRA_LD_LIBRARY_PATH="$(dirname "${FABRIC_LIB}")"
+export LD_LIBRARY_PATH="${FOAM_EXTRA_LD_LIBRARY_PATH}:${LD_LIBRARY_PATH:-}"
+export FOAM_INST_DIR="${HOME}/scratch/openfoam-v2512"
+export ATTEMPT=occdrivaer_2node_aocc_scotch_w_v1.1
+export WM_COMPILER=Amd
+export WM_MPLIB=SYSTEMOPENMPI
+export NCORES=256
+export NHIERARCHICAL="(8 8 4)"
+export ENDTIME=80
+export DECOMP_METHOD=scotch
+export SCOTCH_DOMAINS="(2 8 16)"
+export SCOTCH_DOMAIN_WEIGHTS="(1 1 0.01)"
+bash ./run_occdrivaer.sh

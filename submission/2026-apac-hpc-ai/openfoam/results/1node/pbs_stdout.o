@@ -1,0 +1,29 @@
+DrivAer start host=x1003c3s1b0n0 attempt=occdrivaer_1node_aocc_scotch_w_v1 ncores=128 endTime=40
+Appended scotch coeffs domains=(8 16) domainWeights=(1 0.01)
+Binary: /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/simpleFoam
+Case: /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases/occdrivaer-occdrivaer_1node_aocc_scotch_w_v1
+WM_COMPILER=Amd WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+mpirun=/app/apps/openmpi/5.0.10-gcc11/bin/mpirun
+MPI_ARGS=unset
+I_MPI_FABRICS=unset
+I_MPI_OFI_PROVIDER=unset
+FI_PROVIDER=unset
+FABRIC_LIB=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1
+	libfabric.so.1 => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1 (0x00001478418cf000)
+	libmpi.so.40 => /app/apps/openmpi/5.0.10-gcc11/lib/libmpi.so.40 (0x000014783c632000)
+nCores=128
+nHierarchical=( 8 4 4 )
+decompositionMethod=scotch
+endTime=40
+decomposePar
+restore0Dir
+renumberMesh
+potentialFoam
+applyBoundaryLayer
+simpleFoam log=logFiles/50_simpleFoam.2026-09-13_16-24-18.log
+AVG_WALL_PER_STEP=13.34507191794872
+CD_FILE=postProcessing/forceCoeffsAll/0/coefficient.dat
+38                      	4.3181658225033226e-01	2.1215677847687520e-01	2.1965980377345704e-01	3.5621861335990303e-02	-4.1035101259298455e-02	7.6656962595288744e-02	-5.8846031927293596e-02	-3.7515126482909294e-03	-2.0950116260835943e-04	6.8635006680639425e-03	3.2222491714236118e-03	3.6412514966403307e-03
+39                      	4.3314349538051938e-01	2.1257143692991276e-01	2.2057205845060662e-01	3.1486375061744683e-02	-4.3145507481381476e-02	7.4631882543126166e-02	-5.8888695012253821e-02	-4.0003107603469408e-03	-3.7537944635359087e-05	7.9758021985636817e-03	3.9503631546464815e-03	4.0254390439172002e-03
+40                      	4.3453616151492563e-01	2.1301853261827769e-01	2.2151762889664794e-01	2.5077532200687119e-02	-4.6186926376303526e-02	7.1264458576990639e-02	-5.8725692476647086e-02	-4.2495481391851293e-03	4.2112937742992066e-04	8.9722620454155792e-03	4.9072604001377095e-03	4.0650016452778688e-03
+DRIVAER_OK attempt=occdrivaer_1node_aocc_scotch_w_v1 avg=13.34507191794872 log=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases/occdrivaer-occdrivaer_1node_aocc_scotch_w_v1/logFiles/50_simpleFoam.2026-09-13_16-24-18.log

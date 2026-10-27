@@ -1,0 +1,27 @@
+DrivAer start host=x1002c5s5b0n0 attempt=occdrivaer_1node_p4_aocc_kahip_v1 ncores=128 endTime=40
+Binary: /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/simpleFoam
+Case: /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases/occdrivaer-occdrivaer_1node_p4_aocc_kahip_v1
+WM_COMPILER=Amd WM_MPLIB=SYSTEMOPENMPI
+mpirun=/app/apps/openmpi/5.0.10-gcc11/bin/mpirun
+I_MPI_FABRICS=unset
+I_MPI_OFI_PROVIDER=unset
+FI_PROVIDER=unset
+FABRIC_LIB=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1
+	libfabric.so.1 => /home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1 (0x0000146886168000)
+	libmpi.so.40 => /app/apps/openmpi/5.0.10-gcc11/lib/libmpi.so.40 (0x0000146880ecb000)
+nCores=128
+nHierarchical=( 8 4 4 )
+decompositionMethod=kahip
+endTime=40
+decomposePar
+restore0Dir
+renumberMesh
+potentialFoam
+applyBoundaryLayer
+simpleFoam log=logFiles/50_simpleFoam.2026-09-13_06-58-32.log
+AVG_WALL_PER_STEP=13.30693129451282
+CD_FILE=postProcessing/forceCoeffsAll/0/coefficient.dat
+38                      	4.3248255541116576e-01	2.1256126144155807e-01	2.1992129396960772e-01	3.1775814389371389e-02	-5.6052313577867038e-02	8.7828127967238434e-02	-7.1940220772552729e-02	-3.6800162640248167e-03	-1.0911562694570212e-03	1.0288830807740663e-02	4.0532591344133104e-03	6.2355716733273527e-03
+39                      	4.3473431608944396e-01	2.1382208979768738e-01	2.2091222629175658e-01	2.6451818698718335e-02	-5.8850074412645594e-02	8.5301893111363936e-02	-7.2075983762004761e-02	-3.5450682470346030e-03	-7.2915756798131804e-04	1.0399893118628026e-02	4.4707889913326955e-03	5.9291041272953315e-03
+40                      	4.3638202288867967e-01	2.1466812154007001e-01	2.2171390134860969e-01	1.9344287033371783e-02	-6.2030875772798581e-02	8.1375162806170367e-02	-7.1703019289484471e-02	-3.5228899042698426e-03	-4.1236157322415914e-05	1.0524494174177000e-02	5.2210109297660835e-03	5.3034832444109154e-03
+DRIVAER_OK attempt=occdrivaer_1node_p4_aocc_kahip_v1 avg=13.30693129451282 log=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases/occdrivaer-occdrivaer_1node_p4_aocc_kahip_v1/logFiles/50_simpleFoam.2026-09-13_06-58-32.log

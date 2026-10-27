@@ -1,0 +1,1868 @@
+[1789326256.690512] [x1001c5s6b1n1:3044260:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.697678] [x1001c5s6b1n1:3044260:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.718629] [x1001c5s6b1n1:3044258:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.722985] [x1001c5s6b1n1:3044262:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.724827] [x1001c5s6b1n1:3044258:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.729678] [x1001c5s6b1n1:3044262:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.730006] [x1001c5s6b1n1:3044263:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.734441] [x1001c5s6b1n1:3044265:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.736020] [x1001c5s6b1n1:3044263:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.740400] [x1001c5s6b1n1:3044265:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.752787] [x1001c5s6b1n1:3044259:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.755425] [x1001c5s6b1n1:3044261:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.756299] [x1001c5s6b1n1:3044257:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.762584] [x1001c5s6b1n1:3044259:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.766488] [x1001c5s6b1n1:3044261:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.767311] [x1001c5s6b1n1:3044257:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.798279] [x1001c5s6b1n1:3044264:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.804386] [x1001c5s6b1n1:3044264:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.809981] [x1001c5s6b1n1:3044266:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.816696] [x1001c5s6b1n1:3044266:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.834225] [x1001c5s6b1n1:3044268:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.839772] [x1001c5s6b1n1:3044268:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.843952] [x1001c5s6b1n1:3044267:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.847826] [x1001c5s6b1n1:3044269:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.851053] [x1001c5s6b1n1:3044267:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.855171] [x1001c5s6b1n1:3044269:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.855453] [x1001c5s6b1n1:3044270:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.861825] [x1001c5s6b1n1:3044270:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.961543] [x1001c5s6b1n1:3044274:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.967189] [x1001c5s6b1n1:3044274:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.973212] [x1001c5s6b1n1:3044279:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326256.979770] [x1001c5s6b1n1:3044279:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.082941] [x1001c5s6b1n1:3044271:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.085703] [x1001c5s6b1n1:3044273:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.091869] [x1001c5s6b1n1:3044271:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.093743] [x1001c5s6b1n1:3044273:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.118217] [x1001c5s6b1n1:3044285:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.118671] [x1001c5s6b1n1:3044282:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.125504] [x1001c5s6b1n1:3044291:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.125662] [x1001c5s6b1n1:3044302:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.131412] [x1001c5s6b1n1:3044285:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.131429] [x1001c5s6b1n1:3044282:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.137200] [x1001c5s6b1n1:3044284:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.138624] [x1001c5s6b1n1:3044276:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.138811] [x1001c5s6b1n1:3044302:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.138816] [x1001c5s6b1n1:3044291:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.146810] [x1001c5s6b1n1:3044284:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.147586] [x1001c5s6b1n1:3044276:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.172954] [x1001c5s6b1n1:3044280:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.178459] [x1001c5s6b1n1:3044286:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.178669] [x1001c5s6b1n1:3044280:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.183903] [x1001c5s6b1n1:3044286:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.232361] [x1001c5s6b1n1:3044283:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.238077] [x1001c5s6b1n1:3044283:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.244103] [x1001c5s6b1n1:3044272:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.244104] [x1001c5s6b1n1:3044277:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.251836] [x1001c5s6b1n1:3044275:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.252706] [x1001c5s6b1n1:3044278:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.259938] [x1001c5s6b1n1:3044272:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.259944] [x1001c5s6b1n1:3044277:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.265782] [x1001c5s6b1n1:3044275:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.265809] [x1001c5s6b1n1:3044278:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.274032] [x1001c5s6b1n1:3044306:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.279845] [x1001c5s6b1n1:3044306:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.291062] [x1001c5s6b1n1:3044307:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.297395] [x1001c5s6b1n1:3044307:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.319891] [x1001c5s6b1n1:3044294:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.322695] [x1001c5s6b1n1:3044303:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.328661] [x1001c5s6b1n1:3044294:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.330982] [x1001c5s6b1n1:3044303:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.458804] [x1001c5s6b1n1:3044287:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.464392] [x1001c5s6b1n1:3044287:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.767005] [x1001c5s6b1n1:3044309:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.767067] [x1001c5s6b1n1:3044314:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.777157] [x1001c5s6b1n1:3044309:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.777161] [x1001c5s6b1n1:3044314:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.848217] [x1001c5s6b1n1:3044312:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.854022] [x1001c5s6b1n1:3044312:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.930614] [x1001c5s6b1n1:3044290:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.930835] [x1001c5s6b1n1:3044295:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.940668] [x1001c5s6b1n1:3044295:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.940672] [x1001c5s6b1n1:3044290:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.958124] [x1001c5s6b1n1:3044308:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.961854] [x1001c5s6b1n1:3044260:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.961867] [x1001c5s6b1n1:3044260:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.964702] [x1001c5s6b1n1:3044308:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.970977] [x1001c5s6b1n1:3044313:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.976493] [x1001c5s6b1n1:3044313:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326257.995635] [x1001c5s6b1n1:3044292:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.003878] [x1001c5s6b1n1:3044301:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.006946] [x1001c5s6b1n1:3044292:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.009258] [x1001c5s6b1n1:3044300:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.011901] [x1001c5s6b1n1:3044301:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.014150] [x1001c5s6b1n1:3044258:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.014161] [x1001c5s6b1n1:3044258:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.016110] [x1001c5s6b1n1:3044300:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.020828] [x1001c5s6b1n1:3044311:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.025017] [x1001c5s6b1n1:3044265:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.025029] [x1001c5s6b1n1:3044265:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.030650] [x1001c5s6b1n1:3044297:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.033217] [x1001c5s6b1n1:3044319:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.041815] [x1001c5s6b1n1:3044262:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.041825] [x1001c5s6b1n1:3044262:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.044810] [x1001c5s6b1n1:3044263:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.044820] [x1001c5s6b1n1:3044263:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.045251] [x1001c5s6b1n1:3044311:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.052916] [x1001c5s6b1n1:3044319:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.052970] [x1001c5s6b1n1:3044297:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.060228] [x1001c5s6b1n1:3044257:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.060238] [x1001c5s6b1n1:3044257:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.062316] [x1001c5s6b1n1:3044261:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.062325] [x1001c5s6b1n1:3044261:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.063431] [x1001c5s6b1n1:3044305:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.063734] [x1001c5s6b1n1:3044318:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.073651] [x1001c5s6b1n1:3044318:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.073663] [x1001c5s6b1n1:3044305:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.074987] [x1001c5s6b1n1:3044281:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.075117] [x1001c5s6b1n1:3044259:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.075130] [x1001c5s6b1n1:3044259:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.081162] [x1001c5s6b1n1:3044264:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.081176] [x1001c5s6b1n1:3044264:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.086409] [x1001c5s6b1n1:3044310:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.096326] [x1001c5s6b1n1:3044268:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.096338] [x1001c5s6b1n1:3044268:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.104128] [x1001c5s6b1n1:3044267:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.104142] [x1001c5s6b1n1:3044267:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.126981] [x1001c5s6b1n1:3044269:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.126992] [x1001c5s6b1n1:3044269:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.131240] [x1001c5s6b1n1:3044281:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.132737] [x1001c5s6b1n1:3044270:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.132748] [x1001c5s6b1n1:3044270:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.135030] [x1001c5s6b1n1:3044266:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.135041] [x1001c5s6b1n1:3044266:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.136907] [x1001c5s6b1n1:3044310:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.221756] [x1001c5s6b1n1:3044279:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.221771] [x1001c5s6b1n1:3044279:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.227492] [x1001c5s6b1n1:3044274:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.227502] [x1001c5s6b1n1:3044274:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.249047] [x1001c5s6b1n1:3044316:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.250603] [x1001c5s6b1n1:3044288:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.255071] [x1001c5s6b1n1:3044320:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.270797] [x1001c5s6b1n1:3044342:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.272929] [x1001c5s6b1n1:3044338:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.286046] [x1001c5s6b1n1:3044321:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.286046] [x1001c5s6b1n1:3044325:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.287169] [x1001c5s6b1n1:3044341:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.297970] [x1001c5s6b1n1:3044331:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.310992] [x1001c5s6b1n1:3044322:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.317556] [x1001c5s6b1n1:3044317:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.317556] [x1001c5s6b1n1:3044315:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.318658] [x1001c5s6b1n1:3044293:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.318810] [x1001c5s6b1n1:3044304:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.319188] [x1001c5s6b1n1:3044271:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.319201] [x1001c5s6b1n1:3044271:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.323954] [x1001c5s6b1n1:3044334:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.328136] [x1001c5s6b1n1:3044273:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.328148] [x1001c5s6b1n1:3044273:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.330565] [x1001c5s6b1n1:3044289:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.332752] [x1001c5s6b1n1:3044351:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.346240] [x1001c5s6b1n1:3044352:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.356242] [x1001c5s6b1n1:3044335:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.357572] [x1001c5s6b1n1:3044291:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.357587] [x1001c5s6b1n1:3044291:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.360246] [x1001c5s6b1n1:3044282:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.360255] [x1001c5s6b1n1:3044282:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.373528] [x1001c5s6b1n1:3044285:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.373538] [x1001c5s6b1n1:3044285:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.374518] [x1001c5s6b1n1:3044324:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.376680] [x1001c5s6b1n1:3044284:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.376691] [x1001c5s6b1n1:3044284:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.380927] [x1001c5s6b1n1:3044276:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.380937] [x1001c5s6b1n1:3044276:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.384979] [x1001c5s6b1n1:3044302:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.384989] [x1001c5s6b1n1:3044302:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.386209] [x1001c5s6b1n1:3044288:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.388034] [x1001c5s6b1n1:3044364:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.405875] [x1001c5s6b1n1:3044299:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.407443] [x1001c5s6b1n1:3044286:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.407457] [x1001c5s6b1n1:3044286:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.410146] [x1001c5s6b1n1:3044320:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.417127] [x1001c5s6b1n1:3044316:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.419548] [x1001c5s6b1n1:3044327:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.419833] [x1001c5s6b1n1:3044323:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.420683] [x1001c5s6b1n1:3044362:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.422022] [x1001c5s6b1n1:3044347:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.428686] [x1001c5s6b1n1:3044280:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.428698] [x1001c5s6b1n1:3044280:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.428722] [x1001c5s6b1n1:3044346:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.436832] [x1001c5s6b1n1:3044359:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.440855] [x1001c5s6b1n1:3044298:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.441069] [x1001c5s6b1n1:3044342:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.444817] [x1001c5s6b1n1:3044363:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.445334] [x1001c5s6b1n1:3044345:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.448631] [x1001c5s6b1n1:3044337:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.450822] [x1001c5s6b1n1:3044383:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.451156] [x1001c5s6b1n1:3044372:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.452834] [x1001c5s6b1n1:3044371:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.453205] [x1001c5s6b1n1:3044355:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.453217] [x1001c5s6b1n1:3044344:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.454903] [x1001c5s6b1n1:3044338:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.458241] [x1001c5s6b1n1:3044370:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.461603] [x1001c5s6b1n1:3044366:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.462014] [x1001c5s6b1n1:3044329:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.462775] [x1001c5s6b1n1:3044365:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.464600] [x1001c5s6b1n1:3044339:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.467754] [x1001c5s6b1n1:3044328:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.467800] [x1001c5s6b1n1:3044296:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.468189] [x1001c5s6b1n1:3044332:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.468541] [x1001c5s6b1n1:3044330:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.468941] [x1001c5s6b1n1:3044336:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.469467] [x1001c5s6b1n1:3044358:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.470657] [x1001c5s6b1n1:3044353:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.471888] [x1001c5s6b1n1:3044360:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.472250] [x1001c5s6b1n1:3044367:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.475047] [x1001c5s6b1n1:3044341:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.475263] [x1001c5s6b1n1:3044343:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.475789] [x1001c5s6b1n1:3044349:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.476197] [x1001c5s6b1n1:3044350:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.476493] [x1001c5s6b1n1:3044368:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.479101] [x1001c5s6b1n1:3044331:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.482076] [x1001c5s6b1n1:3044357:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.482877] [x1001c5s6b1n1:3044356:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.485055] [x1001c5s6b1n1:3044361:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.485320] [x1001c5s6b1n1:3044374:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.485359] [x1001c5s6b1n1:3044322:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.485611] [x1001c5s6b1n1:3044380:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.485871] [x1001c5s6b1n1:3044373:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.485961] [x1001c5s6b1n1:3044304:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.486558] [x1001c5s6b1n1:3044340:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487120] [x1001c5s6b1n1:3044354:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487208] [x1001c5s6b1n1:3044377:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487345] [x1001c5s6b1n1:3044326:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487344] [x1001c5s6b1n1:3044333:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487384] [x1001c5s6b1n1:3044348:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487822] [x1001c5s6b1n1:3044334:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487879] [x1001c5s6b1n1:3044384:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487975] [x1001c5s6b1n1:3044379:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.487974] [x1001c5s6b1n1:3044369:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.488090] [x1001c5s6b1n1:3044375:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.488165] [x1001c5s6b1n1:3044378:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.488406] [x1001c5s6b1n1:3044381:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.488478] [x1001c5s6b1n1:3044382:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.488836] [x1001c5s6b1n1:3044376:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.496700] [x1001c5s6b1n1:3044283:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.496714] [x1001c5s6b1n1:3044283:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.498410] [x1001c5s6b1n1:3044277:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.498421] [x1001c5s6b1n1:3044277:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.508303] [x1001c5s6b1n1:3044275:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.508312] [x1001c5s6b1n1:3044275:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.513974] [x1001c5s6b1n1:3044278:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.513985] [x1001c5s6b1n1:3044278:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.516587] [x1001c5s6b1n1:3044293:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.518184] [x1001c5s6b1n1:3044272:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.518193] [x1001c5s6b1n1:3044272:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.520572] [x1001c5s6b1n1:3044306:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.520584] [x1001c5s6b1n1:3044306:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.523850] [x1001c5s6b1n1:3044317:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.526418] [x1001c5s6b1n1:3044315:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.531655] [x1001c5s6b1n1:3044325:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.535266] [x1001c5s6b1n1:3044289:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.537259] [x1001c5s6b1n1:3044307:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.537269] [x1001c5s6b1n1:3044307:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.559525] [x1001c5s6b1n1:3044321:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.581242] [x1001c5s6b1n1:3044303:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.581253] [x1001c5s6b1n1:3044303:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.584617] [x1001c5s6b1n1:3044294:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.584627] [x1001c5s6b1n1:3044294:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.591526] [x1001c5s6b1n1:3044335:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.613277] [x1001c5s6b1n1:3044352:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.617015] [x1001c5s6b1n1:3044351:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.638072] [x1001c5s6b1n1:3044324:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.710232] [x1001c5s6b1n1:3044287:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.710244] [x1001c5s6b1n1:3044287:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.728969] [x1001c5s6b1n1:3044327:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.748890] [x1001c5s6b1n1:3044364:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.777846] [x1001c5s6b1n1:3044346:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.788660] [x1001c5s6b1n1:3044337:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.795249] [x1001c5s6b1n1:3044362:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.805778] [x1001c5s6b1n1:3044298:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.809514] [x1001c5s6b1n1:3044323:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.816497] [x1001c5s6b1n1:3044383:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.825614] [x1001c5s6b1n1:3044329:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.825912] [x1001c5s6b1n1:3044344:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.835809] [x1001c5s6b1n1:3044372:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.837341] [x1001c5s6b1n1:3044349:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.840791] [x1001c5s6b1n1:3044367:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.856676] [x1001c5s6b1n1:3044299:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.857892] [x1001c5s6b1n1:3044339:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.866707] [x1001c5s6b1n1:3044375:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.887202] [x1001c5s6b1n1:3044340:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.889749] [x1001c5s6b1n1:3044360:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.890663] [x1001c5s6b1n1:3044347:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.908238] [x1001c5s6b1n1:3044359:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.910519] [x1001c5s6b1n1:3044368:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.910561] [x1001c5s6b1n1:3044296:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.910585] [x1001c5s6b1n1:3044366:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.910854] [x1001c5s6b1n1:3044370:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.913639] [x1001c5s6b1n1:3044355:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.913645] [x1001c5s6b1n1:3044353:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.917667] [x1001c5s6b1n1:3044350:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.928331] [x1001c5s6b1n1:3044371:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.937637] [x1001c5s6b1n1:3044365:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.937641] [x1001c5s6b1n1:3044381:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.937773] [x1001c5s6b1n1:3044374:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.943697] [x1001c5s6b1n1:3044343:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.946990] [x1001c5s6b1n1:3044361:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.948124] [x1001c5s6b1n1:3044379:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.951706] [x1001c5s6b1n1:3044336:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.954566] [x1001c5s6b1n1:3044377:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.954571] [x1001c5s6b1n1:3044378:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.954844] [x1001c5s6b1n1:3044357:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.956030] [x1001c5s6b1n1:3044333:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.956052] [x1001c5s6b1n1:3044330:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.956085] [x1001c5s6b1n1:3044363:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.956082] [x1001c5s6b1n1:3044332:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.956099] [x1001c5s6b1n1:3044348:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.956808] [x1001c5s6b1n1:3044369:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.956852] [x1001c5s6b1n1:3044376:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.956857] [x1001c5s6b1n1:3044382:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.958136] [x1001c5s6b1n1:3044345:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.959496] [x1001c5s6b1n1:3044326:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.959572] [x1001c5s6b1n1:3044384:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.964110] [x1001c5s6b1n1:3044328:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.964153] [x1001c5s6b1n1:3044380:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.964171] [x1001c5s6b1n1:3044356:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.984267] [x1001c5s6b1n1:3044358:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.985815] [x1001c5s6b1n1:3044354:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326258.985863] [x1001c5s6b1n1:3044373:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.007938] [x1001c5s6b1n1:3044314:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.007961] [x1001c5s6b1n1:3044314:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.011796] [x1001c5s6b1n1:3044309:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.011809] [x1001c5s6b1n1:3044309:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.121343] [x1001c5s6b1n1:3044312:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.121364] [x1001c5s6b1n1:3044312:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.176443] [x1001c5s6b1n1:3044290:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.176456] [x1001c5s6b1n1:3044290:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.192356] [x1001c5s6b1n1:3044295:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.192366] [x1001c5s6b1n1:3044295:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.208232] [x1001c5s6b1n1:3044308:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.208243] [x1001c5s6b1n1:3044308:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.230947] [x1001c5s6b1n1:3044313:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.230960] [x1001c5s6b1n1:3044313:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.294196] [x1001c5s6b1n1:3044319:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.294206] [x1001c5s6b1n1:3044319:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.295699] [x1001c5s6b1n1:3044292:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.295713] [x1001c5s6b1n1:3044292:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.295699] [x1001c5s6b1n1:3044301:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.295713] [x1001c5s6b1n1:3044301:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.313791] [x1001c5s6b1n1:3044311:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.313802] [x1001c5s6b1n1:3044311:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.314122] [x1001c5s6b1n1:3044300:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.314133] [x1001c5s6b1n1:3044300:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.339804] [x1001c5s6b1n1:3044305:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.339816] [x1001c5s6b1n1:3044305:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.342740] [x1001c5s6b1n1:3044318:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.342751] [x1001c5s6b1n1:3044318:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.344674] [x1001c5s6b1n1:3044297:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.344684] [x1001c5s6b1n1:3044297:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.378476] [x1001c5s6b1n1:3044281:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.378489] [x1001c5s6b1n1:3044281:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.403295] [x1001c5s6b1n1:3044310:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.403308] [x1001c5s6b1n1:3044310:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.641230] [x1001c5s6b1n1:3044288:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.641241] [x1001c5s6b1n1:3044288:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.728585] [x1001c5s6b1n1:3044316:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.728598] [x1001c5s6b1n1:3044316:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.730926] [x1001c5s6b1n1:3044320:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.730936] [x1001c5s6b1n1:3044320:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.776599] [x1001c5s6b1n1:3044338:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.776615] [x1001c5s6b1n1:3044338:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.810118] [x1001c5s6b1n1:3044341:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.810129] [x1001c5s6b1n1:3044341:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.813100] [x1001c5s6b1n1:3044293:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.813112] [x1001c5s6b1n1:3044293:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.820912] [x1001c5s6b1n1:3044322:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.820926] [x1001c5s6b1n1:3044322:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.823748] [x1001c5s6b1n1:3044315:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.823760] [x1001c5s6b1n1:3044315:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.826495] [x1001c5s6b1n1:3044334:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.826506] [x1001c5s6b1n1:3044334:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.834233] [x1001c5s6b1n1:3044342:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.834245] [x1001c5s6b1n1:3044342:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.836898] [x1001c5s6b1n1:3044331:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.836908] [x1001c5s6b1n1:3044331:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.848974] [x1001c5s6b1n1:3044289:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.848986] [x1001c5s6b1n1:3044289:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.875407] [x1001c5s6b1n1:3044335:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.875423] [x1001c5s6b1n1:3044335:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.899105] [x1001c5s6b1n1:3044321:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.899118] [x1001c5s6b1n1:3044321:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.904855] [x1001c5s6b1n1:3044325:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.904866] [x1001c5s6b1n1:3044325:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.919565] [x1001c5s6b1n1:3044304:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.919579] [x1001c5s6b1n1:3044304:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.929535] [x1001c5s6b1n1:3044317:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.929546] [x1001c5s6b1n1:3044317:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.930864] [x1001c5s6b1n1:3044351:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.930878] [x1001c5s6b1n1:3044351:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.951488] [x1001c5s6b1n1:3044352:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.951501] [x1001c5s6b1n1:3044352:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.970391] [x1001c5s6b1n1:3044324:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.970403] [x1001c5s6b1n1:3044324:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.995629] [x1001c5s6b1n1:3044327:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326259.995641] [x1001c5s6b1n1:3044327:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.001920] [x1001c5s6b1n1:3044364:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.001936] [x1001c5s6b1n1:3044364:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.034273] [x1001c5s6b1n1:3044346:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.034286] [x1001c5s6b1n1:3044346:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.046018] [x1001c5s6b1n1:3044337:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.046029] [x1001c5s6b1n1:3044337:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.064382] [x1001c5s6b1n1:3044298:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.064395] [x1001c5s6b1n1:3044298:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.070250] [x1001c5s6b1n1:3044344:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.070264] [x1001c5s6b1n1:3044344:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.071069] [x1001c5s6b1n1:3044323:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.071081] [x1001c5s6b1n1:3044323:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.076155] [x1001c5s6b1n1:3044329:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.076169] [x1001c5s6b1n1:3044329:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.085850] [x1001c5s6b1n1:3044362:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.085866] [x1001c5s6b1n1:3044362:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.088672] [x1001c5s6b1n1:3044349:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.088686] [x1001c5s6b1n1:3044349:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.092376] [x1001c5s6b1n1:3044383:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.092395] [x1001c5s6b1n1:3044383:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.110298] [x1001c5s6b1n1:3044299:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.110310] [x1001c5s6b1n1:3044299:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.117424] [x1001c5s6b1n1:3044339:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.117440] [x1001c5s6b1n1:3044339:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.118025] [x1001c5s6b1n1:3044375:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.118036] [x1001c5s6b1n1:3044375:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.122021] [x1001c5s6b1n1:3044372:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.122037] [x1001c5s6b1n1:3044372:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.125651] [x1001c5s6b1n1:3044367:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.125666] [x1001c5s6b1n1:3044367:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.151101] [x1001c5s6b1n1:3044347:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.151113] [x1001c5s6b1n1:3044347:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.152267] [x1001c5s6b1n1:3044360:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.152278] [x1001c5s6b1n1:3044360:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.154920] [x1001c5s6b1n1:3044340:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.154934] [x1001c5s6b1n1:3044340:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.169541] [x1001c5s6b1n1:3044359:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.169553] [x1001c5s6b1n1:3044359:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.209377] [x1001c5s6b1n1:3044366:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.209392] [x1001c5s6b1n1:3044366:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.251126] [x1001c5s6b1n1:3044350:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.251141] [x1001c5s6b1n1:3044350:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.253071] [x1001c5s6b1n1:3044355:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.253085] [x1001c5s6b1n1:3044355:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.253109] [x1001c5s6b1n1:3044296:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.253121] [x1001c5s6b1n1:3044296:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.257721] [x1001c5s6b1n1:3044330:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.257741] [x1001c5s6b1n1:3044330:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.257934] [x1001c5s6b1n1:3044336:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.257946] [x1001c5s6b1n1:3044336:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.267004] [x1001c5s6b1n1:3044365:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.267017] [x1001c5s6b1n1:3044365:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.268381] [x1001c5s6b1n1:3044343:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.268395] [x1001c5s6b1n1:3044343:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.277784] [x1001c5s6b1n1:3044368:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.277795] [x1001c5s6b1n1:3044368:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.285501] [x1001c5s6b1n1:3044357:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.285512] [x1001c5s6b1n1:3044357:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.286266] [x1001c5s6b1n1:3044353:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.286280] [x1001c5s6b1n1:3044353:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.290457] [x1001c5s6b1n1:3044374:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.290472] [x1001c5s6b1n1:3044374:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.291214] [x1001c5s6b1n1:3044348:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.291230] [x1001c5s6b1n1:3044348:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.293410] [x1001c5s6b1n1:3044379:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.293422] [x1001c5s6b1n1:3044379:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.295551] [x1001c5s6b1n1:3044345:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.295562] [x1001c5s6b1n1:3044345:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.296247] [x1001c5s6b1n1:3044378:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.296257] [x1001c5s6b1n1:3044378:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.298680] [x1001c5s6b1n1:3044381:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.298691] [x1001c5s6b1n1:3044381:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.299123] [x1001c5s6b1n1:3044369:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.299135] [x1001c5s6b1n1:3044369:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.300691] [x1001c5s6b1n1:3044333:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.300704] [x1001c5s6b1n1:3044333:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.312817] [x1001c5s6b1n1:3044370:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.312827] [x1001c5s6b1n1:3044370:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.317040] [x1001c5s6b1n1:3044371:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.317051] [x1001c5s6b1n1:3044371:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.320392] [x1001c5s6b1n1:3044376:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.320405] [x1001c5s6b1n1:3044376:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.324514] [x1001c5s6b1n1:3044326:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.324527] [x1001c5s6b1n1:3044326:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.332363] [x1001c5s6b1n1:3044332:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.332380] [x1001c5s6b1n1:3044332:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.339286] [x1001c5s6b1n1:3044363:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.339303] [x1001c5s6b1n1:3044363:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.339690] [x1001c5s6b1n1:3044358:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.339701] [x1001c5s6b1n1:3044358:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.339736] [x1001c5s6b1n1:3044380:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.339750] [x1001c5s6b1n1:3044380:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.341584] [x1001c5s6b1n1:3044361:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.341597] [x1001c5s6b1n1:3044361:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.345500] [x1001c5s6b1n1:3044382:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.345513] [x1001c5s6b1n1:3044382:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.346114] [x1001c5s6b1n1:3044384:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.346126] [x1001c5s6b1n1:3044384:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.352833] [x1001c5s6b1n1:3044377:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.352845] [x1001c5s6b1n1:3044377:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.354061] [x1001c5s6b1n1:3044373:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.354074] [x1001c5s6b1n1:3044373:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.356809] [x1001c5s6b1n1:3044328:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.356823] [x1001c5s6b1n1:3044328:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.362566] [x1001c5s6b1n1:3044356:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.362578] [x1001c5s6b1n1:3044356:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.369360] [x1001c5s6b1n1:3044354:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1789326260.369373] [x1001c5s6b1n1:3044354:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2512                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _87ed40d256-20251219 OPENFOAM=2512 version=v2512
+Arch   : "LSB;label=32;scalar=64"
+Exec   : simpleFoam -parallel
+Date   : Sep 14 2026
+Time   : 03:04:21
+Host   : x1001c5s5b1n1
+PID    : 3220939
+I/O    : uncollated
+Case   : /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1
+nProcs : 256
+Hosts  :
+(
+    (x1001c5s5b1n1 128)
+    (x1001c5s6b1n1 128)
+)
+Pstream initialized with:
+    node communication : on [type=host] (256 ranks, 2 nodes)
+    topology controls  : none
+    consensus exchange : 0 (tuning: 0)
+    exchange algorithm : 0
+    commsType          : nonBlocking
+    polling iterations : 0
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+SIMPLE: no convergence criteria found. Calculations will run for 80 steps.
+
+Reading field p
+
+Reading field U
+
+Reading/calculating face flux field phi
+
+Selecting incompressible transport model Newtonian
+Selecting turbulence model type RAS
+Selecting RAS turbulence model kOmegaSST
+Selecting patchDistMethod meshWave
+RAS
+{
+    RASModel        kOmegaSST;
+    turbulence      on;
+    printCoeffs     on;
+    alphaK1         0.85;
+    alphaK2         1;
+    alphaOmega1     0.5;
+    alphaOmega2     0.856;
+    gamma1          0.5555555555555556;
+    gamma2          0.44;
+    beta1           0.075;
+    beta2           0.0828;
+    betaStar        0.09;
+    a1              0.31;
+    b1              1;
+    c1              10;
+    F3              false;
+    decayControl    false;
+    kInf            0;
+    omegaInf        0;
+}
+
+No MRF models present
+
+Creating finite-volume options from "system/fvOptions"
+
+Selecting finite volume options type velocityDampingConstraint
+    Source: velocityDamping
+    State: active
+    - selecting all cells
+    - selected 65334765 cell(s) with volume 105593.5503565156
+
+Starting time loop
+
+Using dynamicCode for functionObject wallClockTimeStatistics at line 95 in "/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1/system/controlDict/functions/wallClockTimeStatistics"
+Could not load "/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1/dynamicCode/platforms/linux64AmdDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so"
+/scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1/dynamicCode/platforms/linux64AmdDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so: cannot open shared object file: No such file or directory
+Creating new library in "dynamicCode/wallClockTimeStatistics/platforms/linux64AmdDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so"
+Invoking wmake libso /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1/dynamicCode/wallClockTimeStatistics
+wmake libso /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1/dynamicCode/wallClockTimeStatistics
+    ln: ./lnInclude
+    dep: functionObjectTemplate.C
+    Ctoo: functionObjectTemplate.C
+    link: /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1/dynamicCode/wallClockTimeStatistics/../platforms/linux64AmdDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so
+forceCoeffs forceCoeffsAll:
+    rho: rhoInf
+    Freestream density (rhoInf) set to 1
+    Not including porosity effects
+    magUInf: 38.889
+    lRef   : 2.78618
+    Aref   : 2.17
+    rhoInf : 1
+    Selecting all coefficients
+    - Drag force: Cd
+    - Drag force front: Cd(f)
+    - Drag force rear: Cd(r)
+    - Lift force: Cl
+    - Lift force front: Cl(f)
+    - Lift force rear: Cl(r)
+    - Pitch moment: CmPitch
+    - Roll moment: CmRoll
+    - Yaw moment: CmYaw
+    - Side force: Cs
+    - Side force front: Cs(f)
+    - Side force rear: Cs(r)
+
+
+pressure calc_cp:
+    Operating mode: staticCoeff
+    Not including hydrostatic effects
+
+wallShearStress wallShearStress:
+    processing (47) wall patches:
+        BodyA-Pillar
+        BodyDoorhandles
+        BodyFasciafront1
+        BodyFasciafront2
+        BodyFender
+        BodyHeadlamps
+        BodyHood
+        BodyRear
+        BodyRearAccess
+        BodyRocker
+        BodyRoof
+        BodySide
+        BodyWindowfront
+        BodyWindowfrontframe
+        BodyWindowSide
+        BodyWindowsideframe
+        Mirrors1
+        Mirrors2
+        ClosedGrillLowerInsert
+        ClosedGrillUpperInsert
+        OCDADetailedUnderbody
+        EngineUndershield
+        Tiresfront
+        Tiresrear
+        WheelSupportfront1
+        WheelSupportfront2
+        WheelSupportrear
+        Powertrain
+        ExhaustSystem1
+        ExhaustSystem2
+        ExhaustSystem3
+        NotchbackB-Pillar
+        NotchbackBodyside
+        NotchbackC-Pillar
+        NotchbackRoof
+        NotchbackTrunk
+        NotchbackWindowrear
+        NotchbackWindowrearframe
+        NotchbackWindowside
+        NotchbackWindowsideframe
+        CTRL_SURFACE_Outlet
+        CTRL_SURFACE_Wheelhouse_LHS
+        CTRL_SURFACE_Wheelshouse_RHS
+        Rimsfront
+        Rimsrear
+        BrakeDiscfront
+        BrakeDiscrear
+
+Time = 1
+
+velocityDampingConstraint velocityDamping damped 12 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.00674905563326698, Final residual = 0.0003170504336363659, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.4370738055356303, Final residual = 0.009468720578601061, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.2978720930712865, Final residual = 0.007410964826161225, No Iterations 15
+GAMG:  Solving for p, Initial residual = 1, Final residual = 0.001590721628152487, No Iterations 12
+time step continuity errors : sum local = 1.195515282955382e-05, global = 9.034345160861803e-06, cumulative = 9.034345160861803e-06
+smoothSolver:  Solving for omega, Initial residual = 0.01761889976474256, Final residual = 1.11922823908212e-06, No Iterations 8
+bounding omega, min: -454.8229529692717 max: 45356108.66734583 average: 2415.936415651156
+smoothSolver:  Solving for k, Initial residual = 0.99999999999966, Final residual = 0.0001954940508664901, No Iterations 8
+ExecutionTime = 15.27 s  ClockTime = 59 s
+
+Time = 2
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0033236243168958, Final residual = 0.0001332729630835201, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.1609124926644633, Final residual = 0.005777656152473136, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.07434211164019136, Final residual = 0.002761606791175087, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.006186248728989397, Final residual = 5.998870660369135e-06, No Iterations 12
+time step continuity errors : sum local = 5.162347328939361e-06, global = -3.46498726933619e-06, cumulative = 5.569357891525613e-06
+smoothSolver:  Solving for omega, Initial residual = 0.007594624596422348, Final residual = 1.885082405046085e-06, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.1592166313770401, Final residual = 7.499403161994273e-05, No Iterations 8
+ExecutionTime = 21.6 s  ClockTime = 66 s
+
+Wall-clock time elapsed during the current time step = 6.511017937 s
+
+Time = 3
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.001763990499069996, Final residual = 6.592084631042797e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.09232539952195, Final residual = 0.003575521523077833, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03138602982076576, Final residual = 0.00115824507545332, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.005557628137535206, Final residual = 2.579789734969542e-06, No Iterations 12
+time step continuity errors : sum local = 2.238891074336986e-06, global = -1.736292286814049e-06, cumulative = 3.833065604711564e-06
+smoothSolver:  Solving for omega, Initial residual = 0.003710563336363393, Final residual = 2.046998219952927e-06, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.05417833392006492, Final residual = 4.297166449591574e-05, No Iterations 8
+ExecutionTime = 27.91 s  ClockTime = 72 s
+
+Wall-clock time elapsed during the current time step = 6.343185252 s
+
+Time = 4
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.001195627201883325, Final residual = 4.19779408233154e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.06682633790280249, Final residual = 0.002511232684065571, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01778994998629867, Final residual = 0.000665642438611804, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.005075797142062726, Final residual = 2.018365543676549e-06, No Iterations 12
+time step continuity errors : sum local = 1.682067684562863e-06, global = -1.358173381494324e-06, cumulative = 2.474892223217239e-06
+smoothSolver:  Solving for omega, Initial residual = 0.001999517660346874, Final residual = 1.73188869036306e-06, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.02208698849025395, Final residual = 2.401034091636647e-05, No Iterations 8
+ExecutionTime = 34.24 s  ClockTime = 78 s
+
+Wall-clock time elapsed during the current time step = 6.377645924 s
+
+Time = 5
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0009102652429023791, Final residual = 3.304644507891925e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.05338109672901235, Final residual = 0.001945592586494534, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01266310382403161, Final residual = 0.0004564877877430107, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.004457382391672839, Final residual = 9.166620948210795e-07, No Iterations 12
+time step continuity errors : sum local = 7.987273249057542e-07, global = -5.308047023343095e-07, cumulative = 1.94408752088293e-06
+smoothSolver:  Solving for omega, Initial residual = 0.001200349933130363, Final residual = 1.340368600277631e-06, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.01000569806808818, Final residual = 1.31926844063049e-05, No Iterations 8
+ExecutionTime = 40.54 s  ClockTime = 85 s
+
+Wall-clock time elapsed during the current time step = 6.350085524 s
+
+Time = 6
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000810114401110046, Final residual = 2.837066972766285e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.04608955351243652, Final residual = 0.001648585677210766, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01080826766509292, Final residual = 0.0003743112291607981, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003870297672203318, Final residual = 1.10270819467938e-06, No Iterations 12
+time step continuity errors : sum local = 1.0431316024139e-06, global = 8.169821063327098e-07, cumulative = 2.76106962721564e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0007964875451416691, Final residual = 1.030560260628924e-06, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.005063045110628375, Final residual = 7.455972912415954e-06, No Iterations 8
+ExecutionTime = 46.85 s  ClockTime = 91 s
+
+Wall-clock time elapsed during the current time step = 6.352892498 s
+
+Time = 7
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0007620983724113533, Final residual = 2.483311895958974e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.04084338855816762, Final residual = 0.00145101967124995, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009896119609501213, Final residual = 0.0003457404754128709, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003380855083937916, Final residual = 9.04544533419782e-07, No Iterations 12
+time step continuity errors : sum local = 9.254198317300859e-07, global = 6.892357521235617e-07, cumulative = 3.450305379339201e-06
+smoothSolver:  Solving for omega, Initial residual = 0.000563866623572626, Final residual = 7.917887220504734e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.002946980829634381, Final residual = 4.558959641664752e-06, No Iterations 8
+ExecutionTime = 53.18 s  ClockTime = 97 s
+
+Wall-clock time elapsed during the current time step = 6.369918791 s
+
+Time = 8
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0007850594327402318, Final residual = 2.260284462885425e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03621005423860164, Final residual = 0.001283762735227839, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009224955220265434, Final residual = 0.0003274703869319903, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003044316749692326, Final residual = 8.446947983813244e-07, No Iterations 12
+time step continuity errors : sum local = 9.204932033831727e-07, global = -6.771172760504937e-07, cumulative = 2.773188103288707e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0004201976487087798, Final residual = 6.173669163346379e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.00197481343835989, Final residual = 3.051141638338587e-06, No Iterations 8
+ExecutionTime = 59.49 s  ClockTime = 104 s
+
+Wall-clock time elapsed during the current time step = 6.356058608 s
+
+Time = 9
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0009554512649535929, Final residual = 2.070305250298712e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03240390777453633, Final residual = 0.001144257337360277, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.008902627359897367, Final residual = 0.0003142424804855864, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002846735205504154, Final residual = 1.327273412703639e-06, No Iterations 12
+time step continuity errors : sum local = 1.504900439318234e-06, global = -1.099144002949128e-06, cumulative = 1.67404410033958e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0003274981473063565, Final residual = 4.917697599885264e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.001436526580324287, Final residual = 2.125563044220944e-06, No Iterations 8
+ExecutionTime = 65.8 s  ClockTime = 110 s
+
+Wall-clock time elapsed during the current time step = 6.368133946 s
+
+Time = 10
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.001094748830775488, Final residual = 1.933837282401904e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03007815369071668, Final residual = 0.001046297450004218, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.00933451004961367, Final residual = 0.0003071979672017038, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00276425399757425, Final residual = 1.312261727890728e-06, No Iterations 12
+time step continuity errors : sum local = 1.506478826655989e-06, global = -1.096249685988106e-06, cumulative = 5.777944143514738e-07
+smoothSolver:  Solving for omega, Initial residual = 0.0002651924980636506, Final residual = 4.002046388662866e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.001125988894179795, Final residual = 1.568429803587192e-06, No Iterations 8
+ExecutionTime = 72.12 s  ClockTime = 116 s
+
+Wall-clock time elapsed during the current time step = 6.357076783 s
+
+Time = 11
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.001048462749895419, Final residual = 1.819047491444702e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02850847572881944, Final residual = 0.0009881878703171777, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009700801840781923, Final residual = 0.0003084665188400701, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002687968485461905, Final residual = 7.329602078741508e-07, No Iterations 12
+time step continuity errors : sum local = 8.398057266739656e-07, global = -6.351144169079606e-07, cumulative = -5.732000255648677e-08
+smoothSolver:  Solving for omega, Initial residual = 0.0002217119927255469, Final residual = 3.323685681368777e-07, No Iterations 8
+bounding omega, min: -11128.28214373165 max: 45356127.06758682 average: 5189.364353776364
+smoothSolver:  Solving for k, Initial residual = 0.000942446365576934, Final residual = 1.221420372760559e-06, No Iterations 8
+ExecutionTime = 78.48999999999999 s  ClockTime = 123 s
+
+Wall-clock time elapsed during the current time step = 6.411091514 s
+
+Time = 12
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0009405975138580919, Final residual = 1.739733306829863e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.0269118629175696, Final residual = 0.0009519417314901185, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009388136007214588, Final residual = 0.0003061367280322441, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002617182920406849, Final residual = 6.386703953194133e-07, No Iterations 12
+time step continuity errors : sum local = 7.286306670415694e-07, global = -5.475950439232693e-07, cumulative = -6.04915046479756e-07
+smoothSolver:  Solving for omega, Initial residual = 0.0001907196282566376, Final residual = 2.818701352295318e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0008386245304247262, Final residual = 9.995625368274222e-07, No Iterations 8
+ExecutionTime = 84.79000000000001 s  ClockTime = 129 s
+
+Wall-clock time elapsed during the current time step = 6.345088263 s
+
+Time = 13
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0008300955177037555, Final residual = 1.703328961541466e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02554988962497993, Final residual = 0.0009297812184175222, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009277545131037771, Final residual = 0.0003075541369436269, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002560360790589853, Final residual = 6.408607002826804e-07, No Iterations 12
+time step continuity errors : sum local = 7.288376043871628e-07, global = -5.544954537578324e-07, cumulative = -1.159410500237588e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001680692314796839, Final residual = 2.439539740061602e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0007743952779110459, Final residual = 8.463103161506205e-07, No Iterations 8
+ExecutionTime = 91.09999999999999 s  ClockTime = 136 s
+
+Wall-clock time elapsed during the current time step = 6.345891281 s
+
+Time = 14
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0007374362715045531, Final residual = 1.695447170167741e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02460662101739619, Final residual = 0.0009199362590358189, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009369196767173271, Final residual = 0.0003132440696376859, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002518394340312701, Final residual = 4.636808378758229e-07, No Iterations 12
+time step continuity errors : sum local = 5.27359049712901e-07, global = -3.855198309141838e-07, cumulative = -1.544930331151772e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001490938472001374, Final residual = 2.147348263723925e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0007061183976095741, Final residual = 7.297458564877011e-07, No Iterations 8
+ExecutionTime = 97.42 s  ClockTime = 142 s
+
+Wall-clock time elapsed during the current time step = 6.363550638 s
+
+Time = 15
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006679089806263622, Final residual = 1.713303029634241e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02419277290869381, Final residual = 0.0009217246838932215, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009635358854036531, Final residual = 0.0003246641919372161, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002475716918767122, Final residual = 4.494883423469965e-07, No Iterations 12
+time step continuity errors : sum local = 5.137330155343537e-07, global = 3.805801000223483e-07, cumulative = -1.164350231129424e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001321229500258715, Final residual = 1.905777540754056e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0006381649283831688, Final residual = 6.359866340442071e-07, No Iterations 8
+ExecutionTime = 103.72 s  ClockTime = 148 s
+
+Wall-clock time elapsed during the current time step = 6.350175199 s
+
+Time = 16
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006145572612622294, Final residual = 1.728776697133256e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02404870211245072, Final residual = 0.0009294343391392925, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009967822843441821, Final residual = 0.0003408092149684556, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002424465670677904, Final residual = 5.766909191500432e-07, No Iterations 12
+time step continuity errors : sum local = 6.650788078171759e-07, global = 4.97146799435888e-07, cumulative = -6.672034316935356e-07
+smoothSolver:  Solving for omega, Initial residual = 0.000118718788158591, Final residual = 1.713042523027079e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0005842643528507665, Final residual = 5.652867932485352e-07, No Iterations 8
+ExecutionTime = 110.04 s  ClockTime = 155 s
+
+Wall-clock time elapsed during the current time step = 6.351033814 s
+
+Time = 17
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005693366936865608, Final residual = 1.729232939363817e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02399088917269631, Final residual = 0.0009372175958542552, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.0103170421484332, Final residual = 0.0003580750574977237, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002372262028883499, Final residual = 5.579801566382174e-07, No Iterations 12
+time step continuity errors : sum local = 6.498637466055375e-07, global = 4.656261800034926e-07, cumulative = -2.01577251690043e-07
+smoothSolver:  Solving for omega, Initial residual = 0.0001097132282120049, Final residual = 1.566752716309982e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0005432572825185071, Final residual = 5.152755680170646e-07, No Iterations 8
+ExecutionTime = 116.4 s  ClockTime = 161 s
+
+Wall-clock time elapsed during the current time step = 6.406993849 s
+
+Time = 18
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005305381662206134, Final residual = 1.71137034552386e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02391506095911776, Final residual = 0.0009405820184058122, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01067702863023249, Final residual = 0.0003733527244410033, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002332461905234679, Final residual = 4.987706503778359e-07, No Iterations 12
+time step continuity errors : sum local = 5.848370391740201e-07, global = 4.111724719352218e-07, cumulative = 2.095952202451788e-07
+smoothSolver:  Solving for omega, Initial residual = 0.0001026825006076052, Final residual = 1.456850804022209e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0005132711699872728, Final residual = 4.798035997499862e-07, No Iterations 8
+ExecutionTime = 122.72 s  ClockTime = 167 s
+
+Wall-clock time elapsed during the current time step = 6.357483667 s
+
+Time = 19
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004997343716353722, Final residual = 1.690126149758968e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02379615336510373, Final residual = 0.0009384085728231142, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01108944164171092, Final residual = 0.0003863547295154887, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002303683999304381, Final residual = 4.822507376217368e-07, No Iterations 12
+time step continuity errors : sum local = 5.66458950358034e-07, global = 4.125890036270887e-07, cumulative = 6.221842238722675e-07
+smoothSolver:  Solving for omega, Initial residual = 9.667528982684608e-05, Final residual = 1.367565975263267e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004933040012487646, Final residual = 4.562071789208536e-07, No Iterations 8
+ExecutionTime = 129.03 s  ClockTime = 174 s
+
+Wall-clock time elapsed during the current time step = 6.352190382 s
+
+Time = 20
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004772335783968688, Final residual = 1.670181571130166e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02369386042539044, Final residual = 0.000930214994959834, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01161659654644568, Final residual = 0.0003994788834035894, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002288658516821668, Final residual = 5.201137962998866e-07, No Iterations 12
+time step continuity errors : sum local = 6.096352579484213e-07, global = 4.436856651642924e-07, cumulative = 1.06586988903656e-06
+smoothSolver:  Solving for omega, Initial residual = 9.128306475612924e-05, Final residual = 1.291607855707196e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004819346617525036, Final residual = 4.423115487427646e-07, No Iterations 8
+ExecutionTime = 135.35 s  ClockTime = 180 s
+
+Wall-clock time elapsed during the current time step = 6.354132599 s
+
+Time = 21
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004632823272919756, Final residual = 1.657369319850541e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.0236218566160507, Final residual = 0.0009179364175436996, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01226621948078236, Final residual = 0.0004151268251679545, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002283669373377128, Final residual = 5.100558536510066e-07, No Iterations 12
+time step continuity errors : sum local = 5.946630396062133e-07, global = 3.93047813950173e-07, cumulative = 1.458917702986733e-06
+smoothSolver:  Solving for omega, Initial residual = 8.647126408119663e-05, Final residual = 1.227249727880212e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004784279212022768, Final residual = 4.369729213171968e-07, No Iterations 8
+ExecutionTime = 141.65 s  ClockTime = 186 s
+
+Wall-clock time elapsed during the current time step = 6.350828672 s
+
+Time = 22
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000455945016937704, Final residual = 1.640240286182062e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.0236070055811427, Final residual = 0.0009076195547087021, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01302920656414965, Final residual = 0.0004323437899587767, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00228168583899818, Final residual = 5.057791833421597e-07, No Iterations 12
+time step continuity errors : sum local = 5.853129883773012e-07, global = 3.773369931284831e-07, cumulative = 1.836254696115216e-06
+smoothSolver:  Solving for omega, Initial residual = 8.22318341538316e-05, Final residual = 1.172220601613419e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004822876012680351, Final residual = 4.383810819835759e-07, No Iterations 8
+ExecutionTime = 147.96 s  ClockTime = 193 s
+
+Wall-clock time elapsed during the current time step = 6.349153443 s
+
+Time = 23
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004525214106529859, Final residual = 1.625414305892866e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02360955036057551, Final residual = 0.0009010042766646135, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.0138366549414043, Final residual = 0.0004518300656002674, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002279405871904457, Final residual = 3.995865747147629e-07, No Iterations 12
+time step continuity errors : sum local = 4.587168013814711e-07, global = 2.395023572645228e-07, cumulative = 2.075757053379738e-06
+smoothSolver:  Solving for omega, Initial residual = 7.845386288511681e-05, Final residual = 1.125712482190144e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004909032597581856, Final residual = 4.457493594940205e-07, No Iterations 8
+ExecutionTime = 154.28 s  ClockTime = 199 s
+
+Wall-clock time elapsed during the current time step = 6.35640225 s
+
+Time = 24
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004508692449889591, Final residual = 1.61576725321417e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02350445413346182, Final residual = 0.0008925369526139791, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01464249691601563, Final residual = 0.000476258764908329, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002275128704965943, Final residual = 3.728975766493749e-07, No Iterations 12
+time step continuity errors : sum local = 4.251135923114128e-07, global = 1.969616774607142e-07, cumulative = 2.272718730840453e-06
+smoothSolver:  Solving for omega, Initial residual = 7.511616947667936e-05, Final residual = 1.08701356507194e-07, No Iterations 8
+bounding omega, min: -8.565168424285716 max: 45356129.69502818 average: 6382.32311186748
+smoothSolver:  Solving for k, Initial residual = 0.0005045819013176912, Final residual = 4.57789135779216e-07, No Iterations 8
+ExecutionTime = 160.65 s  ClockTime = 206 s
+
+Wall-clock time elapsed during the current time step = 6.41437519 s
+
+Time = 25
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004502940752483475, Final residual = 1.608954251083775e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02333344448748753, Final residual = 0.0008823790236793495, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01538784991111982, Final residual = 0.0005021600112877836, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002269739857915693, Final residual = 3.259323228617011e-07, No Iterations 12
+time step continuity errors : sum local = 3.693536514210741e-07, global = 1.730603470112095e-07, cumulative = 2.445779077851662e-06
+smoothSolver:  Solving for omega, Initial residual = 7.211599391134069e-05, Final residual = 1.052502668366467e-07, No Iterations 8
+bounding omega, min: -790.6535944930216 max: 45356128.68089257 average: 6431.249280593272
+smoothSolver:  Solving for k, Initial residual = 0.0005245063244645928, Final residual = 4.756045718250661e-07, No Iterations 8
+ExecutionTime = 167 s  ClockTime = 212 s
+
+Wall-clock time elapsed during the current time step = 6.399162831 s
+
+Time = 26
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004505038267831155, Final residual = 1.607721770015644e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02312159423087389, Final residual = 0.0008723647522404627, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01603686856497626, Final residual = 0.0005263488009096886, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00226171817043708, Final residual = 2.512935854611163e-07, No Iterations 12
+time step continuity errors : sum local = 2.830430307481512e-07, global = 9.066868418285749e-08, cumulative = 2.53644776203452e-06
+smoothSolver:  Solving for omega, Initial residual = 6.942187991542054e-05, Final residual = 1.020572898261227e-07, No Iterations 8
+bounding omega, min: -706.2905121773641 max: 45356124.38655972 average: 6474.56934094148
+smoothSolver:  Solving for k, Initial residual = 0.0005526577621819681, Final residual = 5.01777751066739e-07, No Iterations 8
+ExecutionTime = 173.37 s  ClockTime = 218 s
+
+Wall-clock time elapsed during the current time step = 6.408576386 s
+
+Time = 27
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000451317274062299, Final residual = 1.612596913629736e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02285284996435929, Final residual = 0.0008598737888693964, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01664575996004584, Final residual = 0.0005489963428832993, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002254112199278503, Final residual = 1.347110809915456e-07, No Iterations 12
+time step continuity errors : sum local = 1.508035385251e-07, global = 7.455849508524736e-09, cumulative = 2.543903611543045e-06
+smoothSolver:  Solving for omega, Initial residual = 6.699302627130386e-05, Final residual = 9.909827609977389e-08, No Iterations 8
+bounding omega, min: -33.0035291804393 max: 45356118.21388344 average: 6512.88166990948
+smoothSolver:  Solving for k, Initial residual = 0.000591073785457255, Final residual = 5.325080062219184e-07, No Iterations 8
+ExecutionTime = 179.73 s  ClockTime = 225 s
+
+Wall-clock time elapsed during the current time step = 6.403649075 s
+
+Time = 28
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004521827886973085, Final residual = 1.619707193412445e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02253897311553512, Final residual = 0.0008457979665660942, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01723163878718442, Final residual = 0.0005696700199752118, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00224614586857493, Final residual = 3.211035923845583e-07, No Iterations 12
+time step continuity errors : sum local = 3.579113054779033e-07, global = -2.123269412634897e-07, cumulative = 2.331576670279555e-06
+smoothSolver:  Solving for omega, Initial residual = 6.48144380195708e-05, Final residual = 9.641962987302319e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0006390352739340282, Final residual = 5.459725750803593e-07, No Iterations 8
+ExecutionTime = 186.05 s  ClockTime = 231 s
+
+Wall-clock time elapsed during the current time step = 6.360691442 s
+
+Time = 29
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004530494690839685, Final residual = 1.62815396279646e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02222467969316369, Final residual = 0.0008337742840335959, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01780157788580517, Final residual = 0.0005899069714442315, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00223632154652339, Final residual = 3.998664558722017e-07, No Iterations 12
+time step continuity errors : sum local = 4.45177569174658e-07, global = -3.037321390365376e-07, cumulative = 2.027844531243017e-06
+smoothSolver:  Solving for omega, Initial residual = 6.28777205437335e-05, Final residual = 9.400007421717288e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0007000199101904527, Final residual = 5.594559842168588e-07, No Iterations 8
+ExecutionTime = 192.36 s  ClockTime = 237 s
+
+Wall-clock time elapsed during the current time step = 6.348430011 s
+
+Time = 30
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004547024767482769, Final residual = 1.635515451429414e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02194388051834389, Final residual = 0.0008221003152738892, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01837624338185342, Final residual = 0.000611792113541752, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002221187808879717, Final residual = 4.104830896822858e-07, No Iterations 12
+time step continuity errors : sum local = 4.577860676273175e-07, global = -3.096844382611957e-07, cumulative = 1.718160092981822e-06
+smoothSolver:  Solving for omega, Initial residual = 6.121365419322681e-05, Final residual = 9.18775590213243e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0007805390439190613, Final residual = 5.70578024447912e-07, No Iterations 8
+ExecutionTime = 198.67 s  ClockTime = 244 s
+
+Wall-clock time elapsed during the current time step = 6.352933225 s
+
+Time = 31
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004573784734053772, Final residual = 1.646303940029838e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02170294245551497, Final residual = 0.0008109979692241986, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01902690101826909, Final residual = 0.000637001617138895, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002207327258980534, Final residual = 3.918540407949663e-07, No Iterations 12
+time step continuity errors : sum local = 4.384340107203411e-07, global = -2.865515487836789e-07, cumulative = 1.431608544198143e-06
+smoothSolver:  Solving for omega, Initial residual = 5.979866417562816e-05, Final residual = 9.00646501221361e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0008820225349815682, Final residual = 5.774176246093182e-07, No Iterations 8
+ExecutionTime = 204.98 s  ClockTime = 250 s
+
+Wall-clock time elapsed during the current time step = 6.347074692 s
+
+Time = 32
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004608531559164559, Final residual = 1.66574419492266e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02155113958509667, Final residual = 0.0008047169712722638, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01983074213038907, Final residual = 0.0006666946420340461, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002199458634886299, Final residual = 3.648523364987198e-07, No Iterations 12
+time step continuity errors : sum local = 4.096609445916422e-07, global = -2.603426209933553e-07, cumulative = 1.171265923204787e-06
+smoothSolver:  Solving for omega, Initial residual = 5.862541905880766e-05, Final residual = 8.859193957290053e-08, No Iterations 8
+bounding omega, min: -273.0384457330641 max: 45356085.71868683 average: 6650.635936347812
+smoothSolver:  Solving for k, Initial residual = 0.0009456658358991168, Final residual = 5.794124599578906e-07, No Iterations 8
+ExecutionTime = 211.33 s  ClockTime = 257 s
+
+Wall-clock time elapsed during the current time step = 6.404826211 s
+
+Time = 33
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004649681795259088, Final residual = 1.69480919126565e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02149367064494446, Final residual = 0.0008038810635055471, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02083170339216249, Final residual = 0.0007032509908391443, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002194470999252212, Final residual = 3.30442350844895e-07, No Iterations 12
+time step continuity errors : sum local = 3.72476809395326e-07, global = -2.273234034843968e-07, cumulative = 9.439425197203907e-07
+smoothSolver:  Solving for omega, Initial residual = 5.761602766236749e-05, Final residual = 8.743279542014413e-08, No Iterations 8
+bounding omega, min: -828.3315626470012 max: 45356076.94949905 average: 6670.911935726712
+smoothSolver:  Solving for k, Initial residual = 0.0009843568572720255, Final residual = 5.798246481538562e-07, No Iterations 8
+ExecutionTime = 217.7 s  ClockTime = 263 s
+
+Wall-clock time elapsed during the current time step = 6.404698133 s
+
+Time = 34
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004695195880930053, Final residual = 1.729428208924405e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02152627936452691, Final residual = 0.0008081009084251518, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02213529048663693, Final residual = 0.0007502718100170165, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00219497300556271, Final residual = 2.784793600615583e-07, No Iterations 12
+time step continuity errors : sum local = 3.147474299722671e-07, global = -1.776013839418274e-07, cumulative = 7.663411357785633e-07
+smoothSolver:  Solving for omega, Initial residual = 5.665717082707279e-05, Final residual = 8.637953300186395e-08, No Iterations 8
+bounding omega, min: -3069.611082621054 max: 45356066.62928692 average: 6689.538916821434
+smoothSolver:  Solving for k, Initial residual = 0.001009570144503236, Final residual = 5.789614987423202e-07, No Iterations 8
+ExecutionTime = 224.08 s  ClockTime = 269 s
+
+Wall-clock time elapsed during the current time step = 6.420112369 s
+
+Time = 35
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004741592629615192, Final residual = 1.765222030781702e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02162046718637951, Final residual = 0.0008164942870391447, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02369058694416472, Final residual = 0.000808016430371261, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002207807122276684, Final residual = 2.532236611797962e-07, No Iterations 12
+time step continuity errors : sum local = 2.857946642888336e-07, global = -1.485175391123926e-07, cumulative = 6.178235966661706e-07
+smoothSolver:  Solving for omega, Initial residual = 5.56828485782572e-05, Final residual = 8.530901945356388e-08, No Iterations 8
+bounding omega, min: -7302.653483836491 max: 45356055.51195679 average: 6706.979770467894
+smoothSolver:  Solving for k, Initial residual = 0.001024697057823101, Final residual = 5.77621806853308e-07, No Iterations 8
+ExecutionTime = 230.5 s  ClockTime = 276 s
+
+Wall-clock time elapsed during the current time step = 6.461599002 s
+
+Time = 36
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004792020917192422, Final residual = 1.795753503267756e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02176446028119684, Final residual = 0.000826678546313283, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02539875434733982, Final residual = 0.0008751473268328954, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002232093484585422, Final residual = 2.908647896390641e-07, No Iterations 12
+time step continuity errors : sum local = 3.26535742898004e-07, global = -1.872309025536373e-07, cumulative = 4.305926941125333e-07
+smoothSolver:  Solving for omega, Initial residual = 5.477624523751484e-05, Final residual = 8.423139299212468e-08, No Iterations 8
+bounding omega, min: -3101.242059960419 max: 45356044.75122938 average: 6723.322438316112
+smoothSolver:  Solving for k, Initial residual = 0.001027795061733766, Final residual = 5.758513141119173e-07, No Iterations 8
+ExecutionTime = 236.86 s  ClockTime = 282 s
+
+Wall-clock time elapsed during the current time step = 6.405648777 s
+
+Time = 37
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004848803159912956, Final residual = 1.820998760741136e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.0219958692938016, Final residual = 0.0008416607413937277, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02719262691042345, Final residual = 0.0009492669932305697, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002267418691822511, Final residual = 3.184064435237599e-07, No Iterations 12
+time step continuity errors : sum local = 3.546577133873936e-07, global = -2.077518825282783e-07, cumulative = 2.22840811584255e-07
+smoothSolver:  Solving for omega, Initial residual = 5.399505553419304e-05, Final residual = 8.330613149556539e-08, No Iterations 8
+bounding omega, min: -4757.374989008331 max: 45356035.14784481 average: 6738.463305655104
+smoothSolver:  Solving for k, Initial residual = 0.001020099593544995, Final residual = 5.735656995563815e-07, No Iterations 8
+ExecutionTime = 243.24 s  ClockTime = 289 s
+
+Wall-clock time elapsed during the current time step = 6.416533426 s
+
+Time = 38
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004914309594840841, Final residual = 1.847161751459681e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02233375104338841, Final residual = 0.0008606725523968803, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02899203388205501, Final residual = 0.001023076436140177, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00231535005911248, Final residual = 3.628661589794783e-07, No Iterations 12
+time step continuity errors : sum local = 4.005751778963318e-07, global = -2.464161438620985e-07, cumulative = -2.357533227784355e-08
+smoothSolver:  Solving for omega, Initial residual = 5.330626994680633e-05, Final residual = 8.246101079416874e-08, No Iterations 8
+bounding omega, min: -3215.129064818089 max: 45356027.15569091 average: 6752.158902953891
+smoothSolver:  Solving for k, Initial residual = 0.001002574838608547, Final residual = 5.714320663726938e-07, No Iterations 8
+ExecutionTime = 249.61 s  ClockTime = 295 s
+
+Wall-clock time elapsed during the current time step = 6.413074446 s
+
+Time = 39
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004983259633776798, Final residual = 1.872095234258981e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02282590429917257, Final residual = 0.000883261996715522, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.0306616527110026, Final residual = 0.001089575289971885, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002369611007092599, Final residual = 4.145512270522696e-07, No Iterations 12
+time step continuity errors : sum local = 4.539432472747642e-07, global = -2.891963090561218e-07, cumulative = -3.127716413339654e-07
+smoothSolver:  Solving for omega, Initial residual = 5.268289676606031e-05, Final residual = 8.155618000137006e-08, No Iterations 8
+bounding omega, min: -3311.02052769118 max: 45356021.203255 average: 6764.643761158592
+smoothSolver:  Solving for k, Initial residual = 0.0009790762563126642, Final residual = 5.708683927481404e-07, No Iterations 8
+ExecutionTime = 255.98 s  ClockTime = 301 s
+
+Wall-clock time elapsed during the current time step = 6.409341706 s
+
+Time = 40
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005047938080315807, Final residual = 1.892171241336304e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02341811755828481, Final residual = 0.0009057453124167766, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03206187032501751, Final residual = 0.001143238104464872, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.0024225963568711, Final residual = 4.760957823480581e-07, No Iterations 12
+time step continuity errors : sum local = 5.175807382181635e-07, global = -3.503242835279853e-07, cumulative = -6.630959248619507e-07
+smoothSolver:  Solving for omega, Initial residual = 5.207093961399909e-05, Final residual = 8.05500454505586e-08, No Iterations 8
+bounding omega, min: -2753.740309443711 max: 45356017.14411104 average: 6775.947198155734
+smoothSolver:  Solving for k, Initial residual = 0.0009501024388560504, Final residual = 5.725538774854226e-07, No Iterations 8
+ExecutionTime = 262.33 s  ClockTime = 308 s
+
+Wall-clock time elapsed during the current time step = 6.401617901 s
+
+Time = 41
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005105199683663452, Final residual = 1.913085662275385e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02400446300285, Final residual = 0.000928622345315361, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03312823959179515, Final residual = 0.001186535472141121, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00247183653845684, Final residual = 4.887567433870032e-07, No Iterations 12
+time step continuity errors : sum local = 5.281240778317753e-07, global = -3.66159811927291e-07, cumulative = -1.029255736789242e-06
+smoothSolver:  Solving for omega, Initial residual = 5.141641076225864e-05, Final residual = 7.95480191070995e-08, No Iterations 8
+bounding omega, min: -3450.215172915375 max: 45356014.26226584 average: 6786.610377567392
+smoothSolver:  Solving for k, Initial residual = 0.0009160820642993906, Final residual = 5.764496938434234e-07, No Iterations 8
+ExecutionTime = 268.69 s  ClockTime = 314 s
+
+Wall-clock time elapsed during the current time step = 6.401035187 s
+
+Time = 42
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005154994000698187, Final residual = 1.938793735570044e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.0245811103245887, Final residual = 0.0009556845633211204, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03409529699959744, Final residual = 0.001228671330861611, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002512581935680516, Final residual = 4.246349969191439e-07, No Iterations 12
+time step continuity errors : sum local = 4.563181001962427e-07, global = -2.87893542610258e-07, cumulative = -1.317149279399499e-06
+smoothSolver:  Solving for omega, Initial residual = 5.074568310674657e-05, Final residual = 7.866360362854408e-08, No Iterations 8
+bounding omega, min: -7661.318555112347 max: 45356011.74335447 average: 6796.573959155178
+smoothSolver:  Solving for k, Initial residual = 0.0008754300613249456, Final residual = 5.823431741031565e-07, No Iterations 8
+ExecutionTime = 275.09 s  ClockTime = 321 s
+
+Wall-clock time elapsed during the current time step = 6.441177119 s
+
+Time = 43
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005201973605696697, Final residual = 1.972112266251551e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02522031709011458, Final residual = 0.0009881307257606192, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03504157836506456, Final residual = 0.001272700050420855, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002544281989711672, Final residual = 3.892091128829091e-07, No Iterations 12
+time step continuity errors : sum local = 4.166526015901293e-07, global = -2.460732081219001e-07, cumulative = -1.5632224875214e-06
+smoothSolver:  Solving for omega, Initial residual = 5.008675846570939e-05, Final residual = 7.787251648614803e-08, No Iterations 8
+bounding omega, min: -8329.880650158697 max: 45356008.96847737 average: 6805.543313590099
+smoothSolver:  Solving for k, Initial residual = 0.0008321982460233003, Final residual = 5.874617988643736e-07, No Iterations 8
+ExecutionTime = 281.5 s  ClockTime = 327 s
+
+Wall-clock time elapsed during the current time step = 6.445683788 s
+
+Time = 44
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005251235733179298, Final residual = 2.008866523639762e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02591828718301172, Final residual = 0.001025993156845635, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03602667934220342, Final residual = 0.001320684767050484, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00257265415756874, Final residual = 4.054547391394639e-07, No Iterations 12
+time step continuity errors : sum local = 4.330107874859807e-07, global = -2.578067154192594e-07, cumulative = -1.821029202940659e-06
+smoothSolver:  Solving for omega, Initial residual = 4.941718458899396e-05, Final residual = 7.701949538856936e-08, No Iterations 8
+bounding omega, min: -8328.517392137552 max: 45356005.71789581 average: 6812.835787352135
+smoothSolver:  Solving for k, Initial residual = 0.0007894644846981595, Final residual = 5.908048663191009e-07, No Iterations 8
+ExecutionTime = 287.91 s  ClockTime = 334 s
+
+Wall-clock time elapsed during the current time step = 6.456390944 s
+
+Time = 45
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005302018376554701, Final residual = 2.050924285754138e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02660255411909168, Final residual = 0.001065354396780528, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03697325446019206, Final residual = 0.001373932226644433, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002592357612456153, Final residual = 3.982134541826525e-07, No Iterations 12
+time step continuity errors : sum local = 4.251061720302473e-07, global = -2.334916979135174e-07, cumulative = -2.054520900854176e-06
+smoothSolver:  Solving for omega, Initial residual = 4.874624100832155e-05, Final residual = 7.62189324644713e-08, No Iterations 8
+bounding omega, min: -7975.037952103109 max: 45356001.84296412 average: 6818.412971889361
+smoothSolver:  Solving for k, Initial residual = 0.0007487175260829881, Final residual = 5.941483497103581e-07, No Iterations 8
+ExecutionTime = 294.33 s  ClockTime = 340 s
+
+Wall-clock time elapsed during the current time step = 6.453608037 s
+
+Time = 46
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005350180184397034, Final residual = 2.09644647781406e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02723204224717921, Final residual = 0.00110239237341591, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03778692596315651, Final residual = 0.001427345263537563, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00260543946780848, Final residual = 3.727490648893491e-07, No Iterations 12
+time step continuity errors : sum local = 3.980684101174534e-07, global = -2.06813946549561e-07, cumulative = -2.261334847403738e-06
+smoothSolver:  Solving for omega, Initial residual = 4.810446563260275e-05, Final residual = 7.544207693251539e-08, No Iterations 8
+bounding omega, min: -6509.802480617898 max: 45355997.37808698 average: 6822.611870716785
+smoothSolver:  Solving for k, Initial residual = 0.0007112628827359667, Final residual = 5.98453349602115e-07, No Iterations 8
+ExecutionTime = 300.74 s  ClockTime = 347 s
+
+Wall-clock time elapsed during the current time step = 6.455402828 s
+
+Time = 47
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005400733852654959, Final residual = 2.14015034239771e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02782067578898496, Final residual = 0.001135028291977705, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03845816816790651, Final residual = 0.001479690659599895, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00262145068661779, Final residual = 3.413613822884424e-07, No Iterations 12
+time step continuity errors : sum local = 3.641639567080668e-07, global = -1.809206432599028e-07, cumulative = -2.44225549066364e-06
+smoothSolver:  Solving for omega, Initial residual = 4.749405469750012e-05, Final residual = 7.473696213409955e-08, No Iterations 8
+bounding omega, min: -5035.029980336725 max: 45355992.55566463 average: 6825.848897924935
+smoothSolver:  Solving for k, Initial residual = 0.0006780643811157678, Final residual = 6.043511292752998e-07, No Iterations 8
+ExecutionTime = 307.13 s  ClockTime = 353 s
+
+Wall-clock time elapsed during the current time step = 6.432846981 s
+
+Time = 48
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005460132474201666, Final residual = 2.187091410910415e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02848902704562096, Final residual = 0.00116868150174929, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03911576028590306, Final residual = 0.00153383482442818, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002642682415123377, Final residual = 2.619665557666564e-07, No Iterations 12
+time step continuity errors : sum local = 2.788343612727522e-07, global = -9.4210844047003e-08, cumulative = -2.536466334710643e-06
+smoothSolver:  Solving for omega, Initial residual = 4.691498243641415e-05, Final residual = 7.411147090983535e-08, No Iterations 8
+bounding omega, min: -4269.655929564681 max: 45355987.84086034 average: 6828.419136848644
+smoothSolver:  Solving for k, Initial residual = 0.0006488125584483344, Final residual = 6.105755428027972e-07, No Iterations 8
+ExecutionTime = 313.48 s  ClockTime = 359 s
+
+Wall-clock time elapsed during the current time step = 6.401954058 s
+
+Time = 49
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005521219251601969, Final residual = 2.235547693709805e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.029236758108469, Final residual = 0.001203868056527417, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03976419934731253, Final residual = 0.001583531617431673, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002667245195269393, Final residual = 2.426692466600318e-07, No Iterations 12
+time step continuity errors : sum local = 2.579702654100306e-07, global = -6.346357325931708e-08, cumulative = -2.59992990796996e-06
+smoothSolver:  Solving for omega, Initial residual = 4.635163935348995e-05, Final residual = 7.337634937200376e-08, No Iterations 8
+bounding omega, min: -122679.4057123635 max: 45355987.11817598 average: 6830.418697296672
+smoothSolver:  Solving for k, Initial residual = 0.0006223892701806193, Final residual = 6.16332549052333e-07, No Iterations 8
+ExecutionTime = 319.84 s  ClockTime = 366 s
+
+Wall-clock time elapsed during the current time step = 6.396012906 s
+
+Time = 50
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005578964228369942, Final residual = 2.273019753963035e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03002694903388314, Final residual = 0.001236448194161522, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04029564709571459, Final residual = 0.001616624059028374, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002684140017763857, Final residual = 2.703400976465051e-07, No Iterations 12
+time step continuity errors : sum local = 2.877730912758197e-07, global = -1.084850982231609e-07, cumulative = -2.708415006193121e-06
+smoothSolver:  Solving for omega, Initial residual = 4.58128002886363e-05, Final residual = 7.262083649063444e-08, No Iterations 8
+bounding omega, min: -10521.73600458059 max: 45355987.46698391 average: 6831.475537719983
+smoothSolver:  Solving for k, Initial residual = 0.0005994867188126751, Final residual = 6.22791991988943e-07, No Iterations 8
+ExecutionTime = 326.2 s  ClockTime = 372 s
+
+Wall-clock time elapsed during the current time step = 6.401067988 s
+
+Time = 51
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005634803563874022, Final residual = 2.294802602162144e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03075527892176027, Final residual = 0.001260737065367911, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04068947232870879, Final residual = 0.001634349160158721, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002689266857778597, Final residual = 3.468539288829212e-07, No Iterations 12
+time step continuity errors : sum local = 3.706497143190362e-07, global = -1.79467171045483e-07, cumulative = -2.887882177238604e-06
+smoothSolver:  Solving for omega, Initial residual = 4.529283205700512e-05, Final residual = 7.193263588983486e-08, No Iterations 8
+bounding omega, min: -45391.17687809196 max: 45355987.02423676 average: 6831.515777526219
+smoothSolver:  Solving for k, Initial residual = 0.0005796287129660857, Final residual = 6.299003306877889e-07, No Iterations 8
+ExecutionTime = 332.56 s  ClockTime = 379 s
+
+Wall-clock time elapsed during the current time step = 6.40292349 s
+
+Time = 52
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005689466108868705, Final residual = 2.30574762412296e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03140163093384462, Final residual = 0.001280906007886613, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04101341358958886, Final residual = 0.001645490466266602, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002689804263964095, Final residual = 2.743721140354396e-07, No Iterations 12
+time step continuity errors : sum local = 2.944059716770251e-07, global = -1.023960092595997e-07, cumulative = -2.990278186498204e-06
+smoothSolver:  Solving for omega, Initial residual = 4.481704478739186e-05, Final residual = 7.118388928917045e-08, No Iterations 8
+bounding omega, min: -767.8696672609835 max: 45355985.25973591 average: 6830.376893676486
+smoothSolver:  Solving for k, Initial residual = 0.0005619408727047194, Final residual = 6.330731845269679e-07, No Iterations 8
+ExecutionTime = 338.94 s  ClockTime = 385 s
+
+Wall-clock time elapsed during the current time step = 6.416249899 s
+
+Time = 53
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005750307246436211, Final residual = 2.314484668696436e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03198863119796184, Final residual = 0.001304120215551419, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04099209180288083, Final residual = 0.001637814120205588, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002697999906139832, Final residual = 2.51820007293336e-07, No Iterations 12
+time step continuity errors : sum local = 2.709830333378121e-07, global = -6.448410895564367e-08, cumulative = -3.054762295453848e-06
+smoothSolver:  Solving for omega, Initial residual = 4.438244883843216e-05, Final residual = 7.033238740365204e-08, No Iterations 8
+bounding omega, min: -2300.049106258682 max: 45355984.53425542 average: 6827.679043269693
+smoothSolver:  Solving for k, Initial residual = 0.0005470971949264423, Final residual = 6.31462789718778e-07, No Iterations 8
+ExecutionTime = 345.31 s  ClockTime = 391 s
+
+Wall-clock time elapsed during the current time step = 6.40679855 s
+
+Time = 54
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005818243868844733, Final residual = 2.326820981334459e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03254498122945874, Final residual = 0.001329825267433712, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03991564394162363, Final residual = 0.001588086100728289, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00270525256855067, Final residual = 2.447473159136415e-07, No Iterations 12
+time step continuity errors : sum local = 2.63733462333673e-07, global = -5.433794678341243e-08, cumulative = -3.10910024223726e-06
+smoothSolver:  Solving for omega, Initial residual = 4.396564573319305e-05, Final residual = 6.943543804951168e-08, No Iterations 8
+bounding omega, min: -41259.2159711198 max: 45355985.09073329 average: 6823.386235372889
+smoothSolver:  Solving for k, Initial residual = 0.0005341024897547148, Final residual = 6.273166412279769e-07, No Iterations 8
+ExecutionTime = 351.66 s  ClockTime = 398 s
+
+Wall-clock time elapsed during the current time step = 6.395640296 s
+
+Time = 55
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000588276445634388, Final residual = 2.347811066522314e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03307788675557169, Final residual = 0.001358253712156097, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03870888811925116, Final residual = 0.001539995953401012, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002711945880814523, Final residual = 2.512617947374886e-07, No Iterations 12
+time step continuity errors : sum local = 2.70908481154255e-07, global = -6.909076058064133e-08, cumulative = -3.178191002817901e-06
+smoothSolver:  Solving for omega, Initial residual = 4.357302966797548e-05, Final residual = 6.861738779986138e-08, No Iterations 8
+bounding omega, min: -7422.011469299143 max: 45355985.84714489 average: 6817.562587810137
+smoothSolver:  Solving for k, Initial residual = 0.0005234711031633632, Final residual = 6.230054173675309e-07, No Iterations 8
+ExecutionTime = 358.02 s  ClockTime = 404 s
+
+Wall-clock time elapsed during the current time step = 6.399981807 s
+
+Time = 56
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005938185501384128, Final residual = 2.374026269232141e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03363045509972983, Final residual = 0.001386526702223035, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.0376486324910455, Final residual = 0.0014991569744673, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002724231190053287, Final residual = 2.563831845991713e-07, No Iterations 12
+time step continuity errors : sum local = 2.765918584213516e-07, global = -7.288827851459533e-08, cumulative = -3.251079281332497e-06
+smoothSolver:  Solving for omega, Initial residual = 4.322228647615931e-05, Final residual = 6.794407382011783e-08, No Iterations 8
+bounding omega, min: -8102.754440964304 max: 45355986.27495993 average: 6810.760021551862
+smoothSolver:  Solving for k, Initial residual = 0.0005148541321572459, Final residual = 6.199602677149063e-07, No Iterations 8
+ExecutionTime = 364.38 s  ClockTime = 411 s
+
+Wall-clock time elapsed during the current time step = 6.399877785 s
+
+Time = 57
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005987448423167036, Final residual = 2.398966048272836e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03419492543596475, Final residual = 0.001411196391414093, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03688609755845074, Final residual = 0.001465271569095112, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002745430594090628, Final residual = 2.76557947412893e-07, No Iterations 12
+time step continuity errors : sum local = 2.9831422653611e-07, global = -1.01467170057381e-07, cumulative = -3.352546451389878e-06
+smoothSolver:  Solving for omega, Initial residual = 4.288366240692142e-05, Final residual = 6.737577356653942e-08, No Iterations 8
+bounding omega, min: -11899.83118692992 max: 45355986.48163823 average: 6803.423655054839
+smoothSolver:  Solving for k, Initial residual = 0.0005088604853225121, Final residual = 6.186866341514106e-07, No Iterations 8
+ExecutionTime = 370.74 s  ClockTime = 417 s
+
+Wall-clock time elapsed during the current time step = 6.411017336 s
+
+Time = 58
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000603732674136091, Final residual = 2.422324315898311e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03460415145361796, Final residual = 0.001424642153861, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03644427589778888, Final residual = 0.001437416706294485, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002772615095054517, Final residual = 2.539155495512538e-07, No Iterations 12
+time step continuity errors : sum local = 2.735939695620689e-07, global = -8.030024596873999e-08, cumulative = -3.432846697358618e-06
+smoothSolver:  Solving for omega, Initial residual = 4.255706826401246e-05, Final residual = 6.676553116739376e-08, No Iterations 8
+bounding omega, min: -14328.4366114454 max: 45355986.72175047 average: 6795.662030644378
+smoothSolver:  Solving for k, Initial residual = 0.0005041402786214197, Final residual = 6.165364405991659e-07, No Iterations 8
+ExecutionTime = 377.1 s  ClockTime = 423 s
+
+Wall-clock time elapsed during the current time step = 6.409473738 s
+
+Time = 59
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006083816196422078, Final residual = 2.443547351307289e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03477164734740665, Final residual = 0.001426090173850539, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03631966418402342, Final residual = 0.001417378322518275, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002799008840294998, Final residual = 2.523296563149235e-07, No Iterations 12
+time step continuity errors : sum local = 2.715157385024156e-07, global = -9.615718196049873e-08, cumulative = -3.529003879319116e-06
+smoothSolver:  Solving for omega, Initial residual = 4.221402440867467e-05, Final residual = 6.609099411747611e-08, No Iterations 8
+bounding omega, min: -46113.8927192693 max: 45355986.98354213 average: 6787.534247728224
+smoothSolver:  Solving for k, Initial residual = 0.0005005417217326559, Final residual = 6.119137645848044e-07, No Iterations 8
+ExecutionTime = 383.46 s  ClockTime = 430 s
+
+Wall-clock time elapsed during the current time step = 6.398739487 s
+
+Time = 60
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006124299154230769, Final residual = 2.46164229571577e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03472962054323373, Final residual = 0.001423124643169111, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03653286513261957, Final residual = 0.001410612148990676, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002814135733025743, Final residual = 2.089996946359606e-07, No Iterations 12
+time step continuity errors : sum local = 2.246376136406041e-07, global = -6.160486751124117e-08, cumulative = -3.590608746830357e-06
+smoothSolver:  Solving for omega, Initial residual = 4.18398597373027e-05, Final residual = 6.541421483719497e-08, No Iterations 8
+bounding omega, min: -20595.72663880785 max: 45355987.10135666 average: 6779.071427073117
+smoothSolver:  Solving for k, Initial residual = 0.0004970690178278489, Final residual = 6.063352633224011e-07, No Iterations 8
+ExecutionTime = 389.83 s  ClockTime = 436 s
+
+Wall-clock time elapsed during the current time step = 6.402918751 s
+
+Time = 61
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006160929739847321, Final residual = 2.476671086897411e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03459271570819918, Final residual = 0.001419163472022838, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03719357317738693, Final residual = 0.00142307961469987, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002824766762932024, Final residual = 1.752855485401901e-07, No Iterations 12
+time step continuity errors : sum local = 1.882966987358474e-07, global = -2.707557282700258e-08, cumulative = -3.61768431965736e-06
+smoothSolver:  Solving for omega, Initial residual = 4.147071948407931e-05, Final residual = 6.475327454063818e-08, No Iterations 8
+bounding omega, min: -16024.83366218777 max: 45355986.96737218 average: 6769.995759379121
+smoothSolver:  Solving for k, Initial residual = 0.0004943253971291051, Final residual = 5.999166890580401e-07, No Iterations 8
+ExecutionTime = 396.18 s  ClockTime = 443 s
+
+Wall-clock time elapsed during the current time step = 6.389780773 s
+
+Time = 62
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006188815109768556, Final residual = 2.491337973349293e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03442663809286284, Final residual = 0.001413345201540243, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03844603397300311, Final residual = 0.00145983940460581, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002840177060178609, Final residual = 1.561366646684494e-07, No Iterations 12
+time step continuity errors : sum local = 1.675845805181156e-07, global = -1.66600561266107e-08, cumulative = -3.634344375783971e-06
+smoothSolver:  Solving for omega, Initial residual = 4.112094574687091e-05, Final residual = 6.41513785358465e-08, No Iterations 8
+bounding omega, min: -15526.31727461908 max: 45355986.76078919 average: 6760.206010726713
+smoothSolver:  Solving for k, Initial residual = 0.0004921000333197301, Final residual = 5.928104085867319e-07, No Iterations 8
+ExecutionTime = 402.56 s  ClockTime = 449 s
+
+Wall-clock time elapsed during the current time step = 6.423527273 s
+
+Time = 63
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006216645524666148, Final residual = 2.512594799254933e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03434507129661592, Final residual = 0.001413472066856456, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04044178364601234, Final residual = 0.001530463755901425, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002868850734059747, Final residual = 1.522103266781412e-07, No Iterations 12
+time step continuity errors : sum local = 1.631247902530494e-07, global = -8.335366793708826e-09, cumulative = -3.64267974257768e-06
+smoothSolver:  Solving for omega, Initial residual = 4.078299199617931e-05, Final residual = 6.372197638382045e-08, No Iterations 8
+bounding omega, min: -7549.466255794923 max: 45355986.69978198 average: 6749.799320238978
+smoothSolver:  Solving for k, Initial residual = 0.0004908527899629396, Final residual = 5.869536609516371e-07, No Iterations 8
+ExecutionTime = 408.92 s  ClockTime = 455 s
+
+Wall-clock time elapsed during the current time step = 6.414128325 s
+
+Time = 64
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006250491795026031, Final residual = 2.538848634069294e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03433141165535756, Final residual = 0.00142265350667266, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04328935783985852, Final residual = 0.001645192964577653, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00290734802631599, Final residual = 1.508563821905418e-07, No Iterations 12
+time step continuity errors : sum local = 1.612072697620889e-07, global = -2.098044705047366e-10, cumulative = -3.642889547048185e-06
+smoothSolver:  Solving for omega, Initial residual = 4.042905498040198e-05, Final residual = 6.340405649144093e-08, No Iterations 8
+bounding omega, min: -30060.67574392126 max: 45355986.82500697 average: 6738.855210480408
+smoothSolver:  Solving for k, Initial residual = 0.0004888397482834429, Final residual = 5.855529313235631e-07, No Iterations 8
+ExecutionTime = 415.29 s  ClockTime = 462 s
+
+Wall-clock time elapsed during the current time step = 6.402385546 s
+
+Time = 65
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006291448298680431, Final residual = 2.577009211104023e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.0343567139529348, Final residual = 0.001440408895372107, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04604305087042631, Final residual = 0.001773424472431873, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002955879281011322, Final residual = 1.460802139917187e-07, No Iterations 12
+time step continuity errors : sum local = 1.555621542702549e-07, global = 6.241897276917763e-09, cumulative = -3.636647649771267e-06
+smoothSolver:  Solving for omega, Initial residual = 4.006598138816361e-05, Final residual = 6.321315392805861e-08, No Iterations 8
+bounding omega, min: -15009.93078928037 max: 45355987.03387489 average: 6727.604292209558
+smoothSolver:  Solving for k, Initial residual = 0.0004872623324602391, Final residual = 5.890243636157782e-07, No Iterations 8
+ExecutionTime = 421.64 s  ClockTime = 468 s
+
+Wall-clock time elapsed during the current time step = 6.391868326 s
+
+Time = 66
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006329256923501096, Final residual = 2.622854790490045e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03440428795355645, Final residual = 0.001464147010444846, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04558473451155107, Final residual = 0.001785857644476687, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00300801079344722, Final residual = 1.594848525671835e-07, No Iterations 12
+time step continuity errors : sum local = 1.692767904365946e-07, global = 1.497940061108639e-08, cumulative = -3.62166824916018e-06
+smoothSolver:  Solving for omega, Initial residual = 3.96913460093162e-05, Final residual = 6.317422888655018e-08, No Iterations 8
+bounding omega, min: -1140.884379216583 max: 45355987.19715345 average: 6716.169653919389
+smoothSolver:  Solving for k, Initial residual = 0.0004856538268752126, Final residual = 5.977003030728355e-07, No Iterations 8
+ExecutionTime = 428 s  ClockTime = 475 s
+
+Wall-clock time elapsed during the current time step = 6.39772678 s
+
+Time = 67
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006368073957710146, Final residual = 2.671577516435065e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03449420328391373, Final residual = 0.001491427990730188, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04339797483155606, Final residual = 0.001729262504708868, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003058843546971331, Final residual = 1.68639665554516e-07, No Iterations 12
+time step continuity errors : sum local = 1.783523268983697e-07, global = 3.564738954089774e-08, cumulative = -3.586020859619282e-06
+smoothSolver:  Solving for omega, Initial residual = 3.936124031197465e-05, Final residual = 6.329646210536617e-08, No Iterations 8
+bounding omega, min: -1795.962982663709 max: 45355987.2003163 average: 6704.80102401368
+smoothSolver:  Solving for k, Initial residual = 0.0004848032910118189, Final residual = 6.091035166157396e-07, No Iterations 8
+ExecutionTime = 434.37 s  ClockTime = 481 s
+
+Wall-clock time elapsed during the current time step = 6.408995951 s
+
+Time = 68
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000640773301932331, Final residual = 2.724891506136587e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03462522589112851, Final residual = 0.001518713596057099, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.04124156975900325, Final residual = 0.001668076732672416, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003110930836870529, Final residual = 1.725875984246692e-07, No Iterations 12
+time step continuity errors : sum local = 1.816763680166607e-07, global = 3.993266507777566e-08, cumulative = -3.546088194541507e-06
+smoothSolver:  Solving for omega, Initial residual = 3.905933477203004e-05, Final residual = 6.3525957454276e-08, No Iterations 8
+bounding omega, min: -2053.000012063587 max: 45355986.91462677 average: 6693.597086854883
+smoothSolver:  Solving for k, Initial residual = 0.0004837466339341176, Final residual = 6.202233982182273e-07, No Iterations 8
+ExecutionTime = 440.72 s  ClockTime = 487 s
+
+Wall-clock time elapsed during the current time step = 6.400426863 s
+
+Time = 69
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006448302111027806, Final residual = 2.774129450204424e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03479387727700644, Final residual = 0.001546402899225996, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03951714061243661, Final residual = 0.001622291967563715, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003163007988891117, Final residual = 1.859804195426432e-07, No Iterations 12
+time step continuity errors : sum local = 1.945529797158292e-07, global = 4.234379108091486e-08, cumulative = -3.503744403460592e-06
+smoothSolver:  Solving for omega, Initial residual = 3.877965192289362e-05, Final residual = 6.374995158364139e-08, No Iterations 8
+bounding omega, min: -97306.72795574179 max: 45355986.23158517 average: 6682.698015546343
+smoothSolver:  Solving for k, Initial residual = 0.0004828775965601953, Final residual = 6.305315471409485e-07, No Iterations 8
+ExecutionTime = 447.08 s  ClockTime = 494 s
+
+Wall-clock time elapsed during the current time step = 6.406926973 s
+
+Time = 70
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006480991443809694, Final residual = 2.813286951874848e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03496022342727833, Final residual = 0.001568987672221061, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03822041253684802, Final residual = 0.001590504698114914, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003213622114022175, Final residual = 2.09614210012261e-07, No Iterations 12
+time step continuity errors : sum local = 2.174474292074573e-07, global = 6.043122458835548e-08, cumulative = -3.443313178872237e-06
+smoothSolver:  Solving for omega, Initial residual = 3.852277031761388e-05, Final residual = 6.388958652825417e-08, No Iterations 8
+bounding omega, min: -2505.010755094337 max: 45355985.09366263 average: 6672.042143765793
+smoothSolver:  Solving for k, Initial residual = 0.000481877985662326, Final residual = 6.405319491445458e-07, No Iterations 8
+ExecutionTime = 453.45 s  ClockTime = 500 s
+
+Wall-clock time elapsed during the current time step = 6.403863501 s
+
+Time = 71
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006504129871691713, Final residual = 2.841445490632688e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03501862016035343, Final residual = 0.001580361969596029, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03733748883774218, Final residual = 0.001572042317191137, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003261539153253522, Final residual = 2.485163548561078e-07, No Iterations 12
+time step continuity errors : sum local = 2.551713677392241e-07, global = 8.498284572165138e-08, cumulative = -3.358330333150585e-06
+smoothSolver:  Solving for omega, Initial residual = 3.824120943280394e-05, Final residual = 6.382020311873702e-08, No Iterations 8
+bounding omega, min: -1576.403094478429 max: 45355983.97400849 average: 6661.434225556137
+smoothSolver:  Solving for k, Initial residual = 0.0004808356046485469, Final residual = 6.479191828120103e-07, No Iterations 8
+ExecutionTime = 459.81 s  ClockTime = 507 s
+
+Wall-clock time elapsed during the current time step = 6.406348336 s
+
+Time = 72
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006530052111362569, Final residual = 2.864718010699664e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03492018949684603, Final residual = 0.00158299382324469, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03670559263515027, Final residual = 0.00155929607498499, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003303501039650717, Final residual = 2.553446104962398e-07, No Iterations 12
+time step continuity errors : sum local = 2.59209399588621e-07, global = 8.035491152181912e-08, cumulative = -3.277975421628766e-06
+smoothSolver:  Solving for omega, Initial residual = 3.794676286817111e-05, Final residual = 6.349074698659908e-08, No Iterations 8
+bounding omega, min: -2041.406262498398 max: 45355984.33302059 average: 6650.940028676671
+smoothSolver:  Solving for k, Initial residual = 0.000479005194072853, Final residual = 6.505404745338682e-07, No Iterations 8
+ExecutionTime = 466.17 s  ClockTime = 513 s
+
+Wall-clock time elapsed during the current time step = 6.399167532 s
+
+Time = 73
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006549795525309519, Final residual = 2.881983864535158e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03465376862887169, Final residual = 0.001581600784076145, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03612155723523588, Final residual = 0.001544757691916891, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003332095266129196, Final residual = 2.539313180459757e-07, No Iterations 12
+time step continuity errors : sum local = 2.549266513366034e-07, global = 7.358845698965646e-08, cumulative = -3.20438696463911e-06
+smoothSolver:  Solving for omega, Initial residual = 3.765400127699143e-05, Final residual = 6.299120708768601e-08, No Iterations 8
+bounding omega, min: -4941.570889904185 max: 45355984.72998878 average: 6640.557895154744
+smoothSolver:  Solving for k, Initial residual = 0.0004774580737350037, Final residual = 6.490402600001983e-07, No Iterations 8
+ExecutionTime = 472.53 s  ClockTime = 519 s
+
+Wall-clock time elapsed during the current time step = 6.410836667 s
+
+Time = 74
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006558719945072642, Final residual = 2.901012546387439e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03422654141029267, Final residual = 0.001577413319422, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.0354216779111212, Final residual = 0.001526524062570597, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003357279154005169, Final residual = 2.457124730822985e-07, No Iterations 12
+time step continuity errors : sum local = 2.442033876126833e-07, global = 7.747004786893954e-08, cumulative = -3.12691691677017e-06
+smoothSolver:  Solving for omega, Initial residual = 3.736516952534558e-05, Final residual = 6.247258793776308e-08, No Iterations 8
+bounding omega, min: -32797.92633682388 max: 45355984.69044723 average: 6630.214430794012
+smoothSolver:  Solving for k, Initial residual = 0.0004751141974293896, Final residual = 6.459119145094686e-07, No Iterations 8
+ExecutionTime = 478.91 s  ClockTime = 526 s
+
+Wall-clock time elapsed during the current time step = 6.414887612 s
+
+Time = 75
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006563202396641063, Final residual = 2.922400787876532e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03363817983045255, Final residual = 0.001565151872167489, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03458605319113695, Final residual = 0.001503627530150334, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003379042873991236, Final residual = 2.311836788937639e-07, No Iterations 12
+time step continuity errors : sum local = 2.27671884189153e-07, global = 7.329852411426165e-08, cumulative = -3.053618392655909e-06
+smoothSolver:  Solving for omega, Initial residual = 3.708663620640381e-05, Final residual = 6.20693920550637e-08, No Iterations 8
+bounding omega, min: -4493.934663607021 max: 45355984.22962417 average: 6619.959079721395
+smoothSolver:  Solving for k, Initial residual = 0.0004729713321504853, Final residual = 6.460796610684712e-07, No Iterations 8
+ExecutionTime = 485.27 s  ClockTime = 532 s
+
+Wall-clock time elapsed during the current time step = 6.399740061 s
+
+Time = 76
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000656747223055721, Final residual = 2.937089363413151e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03293459136852685, Final residual = 0.001540489291485993, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.0335016055088858, Final residual = 0.001472409234739831, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003392665161059477, Final residual = 2.473428696472357e-07, No Iterations 12
+time step continuity errors : sum local = 2.414489903303139e-07, global = 8.887259627571704e-08, cumulative = -2.964745796380191e-06
+smoothSolver:  Solving for omega, Initial residual = 3.681046115449722e-05, Final residual = 6.183452682756209e-08, No Iterations 8
+bounding omega, min: -4547.381729976028 max: 45355983.46667559 average: 6609.888903898753
+smoothSolver:  Solving for k, Initial residual = 0.0004705045361473892, Final residual = 6.514343194828361e-07, No Iterations 8
+ExecutionTime = 491.63 s  ClockTime = 539 s
+
+Wall-clock time elapsed during the current time step = 6.406515768 s
+
+Time = 77
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000656506113522111, Final residual = 2.941153973469864e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03219082650226601, Final residual = 0.001511581798420288, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03206262743197064, Final residual = 0.001423863941585678, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003399206058493013, Final residual = 2.935270524256794e-07, No Iterations 12
+time step continuity errors : sum local = 2.840025448543038e-07, global = 1.357304299190177e-07, cumulative = -2.829015366461174e-06
+smoothSolver:  Solving for omega, Initial residual = 3.65221742793136e-05, Final residual = 6.163059927192605e-08, No Iterations 8
+bounding omega, min: -3891.307798388155 max: 45355983.02076869 average: 6600.096278471568
+smoothSolver:  Solving for k, Initial residual = 0.0004678029007403717, Final residual = 6.579184725724211e-07, No Iterations 8
+ExecutionTime = 498.01 s  ClockTime = 545 s
+
+Wall-clock time elapsed during the current time step = 6.42183237 s
+
+Time = 78
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006551185533807684, Final residual = 2.941206298429094e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03145418860594329, Final residual = 0.001485856677742643, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03031288116885926, Final residual = 0.00135761225659777, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003397476505373302, Final residual = 3.370549742347659e-07, No Iterations 12
+time step continuity errors : sum local = 3.233988021347127e-07, global = 1.763033189531031e-07, cumulative = -2.652712047508071e-06
+smoothSolver:  Solving for omega, Initial residual = 3.619647959090588e-05, Final residual = 6.133570979538356e-08, No Iterations 8
+bounding omega, min: -13929.55107292298 max: 45355982.83351568 average: 6590.694131605699
+smoothSolver:  Solving for k, Initial residual = 0.0004643877875983961, Final residual = 6.626211568824272e-07, No Iterations 8
+ExecutionTime = 504.37 s  ClockTime = 552 s
+
+Wall-clock time elapsed during the current time step = 6.398021751 s
+
+Time = 79
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006536865284998115, Final residual = 2.945034141081606e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03075040665134235, Final residual = 0.001463807771942046, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02842391405101315, Final residual = 0.001281387732408612, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003379821523375781, Final residual = 3.731514184420318e-07, No Iterations 12
+time step continuity errors : sum local = 3.55648074005976e-07, global = 2.15848607401083e-07, cumulative = -2.436863440106988e-06
+smoothSolver:  Solving for omega, Initial residual = 3.584303205729898e-05, Final residual = 6.093958005611609e-08, No Iterations 8
+bounding omega, min: -121501.2274102469 max: 45355982.75175417 average: 6581.729424914919
+smoothSolver:  Solving for k, Initial residual = 0.0004611086206825619, Final residual = 6.656435695438742e-07, No Iterations 8
+ExecutionTime = 510.74 s  ClockTime = 558 s
+
+Wall-clock time elapsed during the current time step = 6.41153402 s
+
+Time = 80
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006528360635641076, Final residual = 2.943536396105546e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03009179923559013, Final residual = 0.001440936545265646, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02651387137340454, Final residual = 0.001199948509210729, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003344683434932607, Final residual = 4.040351591022431e-07, No Iterations 12
+time step continuity errors : sum local = 3.830737403428455e-07, global = 2.495037979246971e-07, cumulative = -2.187359642182291e-06
+smoothSolver:  Solving for omega, Initial residual = 3.548346621115684e-05, Final residual = 6.047506033822811e-08, No Iterations 8
+bounding omega, min: -6771.291207802677 max: 45355982.65330365 average: 6572.93726936917
+smoothSolver:  Solving for k, Initial residual = 0.0004576283797578203, Final residual = 6.67273770860262e-07, No Iterations 8
+ExecutionTime = 517.1 s  ClockTime = 564 s
+
+Wall-clock time elapsed during the current time step = 6.403735019 s
+
+Statistics:
+    Number of measured time steps = 79
+    Average wall-clock time per time step = 6.396119317455696
+    Standard deviation of wall-clock time per time step = 0.0321609900725934
+    Minimum number of measured time steps for 2% error at 95% confidence level = 0
+
+End
+
+Finalising parallel run

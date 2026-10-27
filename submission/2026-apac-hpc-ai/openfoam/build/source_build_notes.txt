@@ -1,0 +1,40 @@
+# a2a-comp-aocc-openmpi
+
+Independent OpenFOAM-v2512 build on Aspire2A-comp (`apacsc20`) with
+site `aocc/5.0` and `openmpi/5.0.10-gcc11`.
+
+Handoff: personal `18987588` / `19038848` SMOKE_OK, then
+`next_on_A2A: comp-rebuild-and-drivaer`. Do not start this Allwmake
+while another Allwmake is running on the same tree.
+
+## Summary
+
+Stock `Opt` flags. Platform expected: `linux64AmdDPInt32Opt`.
+
+## Environment
+
+```text
+module purge
+module load aocc/5.0
+module load gcc/11.2.0
+module load openmpi/5.0.10-gcc11
+export PATH="/app/apps/aocc/5.0/bin:${PATH}"
+module load cmake/3.31.3
+module load flex/2.6.4
+export OMPI_CC=clang OMPI_CXX=clang++ OMPI_FC=flang
+```
+
+- Compiler: AOCC 5.0 `clang` / `clang++`
+- MPI wrapper: OpenMPI 5.0.10 with `OMPI_CXX=clang++`
+- Link `libfabric`: `$HOME/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1`
+- PBS: `-P 59000020`, `-q normal`, no GPU
+
+## Attempts
+
+| Attempt | PBS job | Result |
+|---------|---------|--------|
+| a2a_comp_aocc_openmpi_v2512_v1 | 19046275.pbs101 | Build OK. Exit 0, 1h31, `x1001c4s7b0n0`. 285 bins / 151 libs. `$HOME/scratch/openfoam-v2512/OpenFOAM-v2512/platforms/linux64AmdDPInt32Opt/bin/simpleFoam` |
+
+## Error-patching
+
+None yet.

@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -N a2ac_aocc_2512
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=64:mem=128gb
+#PBS -l walltime=12:00:00
+#PBS -o outputs/a2a_comp_aocc_openmpi_v2512_v1.o
+#PBS -e outputs/a2a_comp_aocc_openmpi_v2512_v1.e
+
+# OpenFOAM-v2512 AOCC 5.0 + OpenMPI 5.0.10 build on Aspire2A-comp.
+# Submit after site-ICX Allwmake on the same tree has finished.
+
+set -eo pipefail
+cd "$PBS_O_WORKDIR"
+module purge
+module load aocc/5.0
+module load gcc/11.2.0
+module load openmpi/5.0.10-gcc11
+export PATH="/app/apps/aocc/5.0/bin:${PATH}"
+module load cmake/3.31.3
+module load flex/2.6.4
+export OMPI_CC=clang
+export OMPI_CXX=clang++
+export OMPI_FC=flang
+module list || true
+echo "clang=$(command -v clang) mpicxx=$(command -v mpicxx)"
+clang --version | head -1
+bash ./build_a2a_comp_aocc_openmpi.sh

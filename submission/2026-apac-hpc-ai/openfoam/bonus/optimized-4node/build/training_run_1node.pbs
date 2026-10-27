@@ -1,0 +1,41 @@
+#!/bin/bash
+#PBS -N of_a1kpgog
+#PBS -P 59000020
+#PBS -q normal
+#PBS -l select=1:ncpus=128:mpiprocs=128:mem=400gb
+#PBS -l walltime=06:00:00
+#PBS -o outputs/occdrivaer_1node_aocc_kahip_pgogen_v1.o
+#PBS -e outputs/occdrivaer_1node_aocc_kahip_pgogen_v1.e
+
+# Phase 7 training: instrumented PgoGen binary. Do not overwrite Opt.
+
+set -eo pipefail
+cd "$PBS_O_WORKDIR"
+module purge
+module load aocc/5.0
+module load gcc/11.2.0
+module load openmpi/5.0.10-gcc11
+export PATH="/app/apps/aocc/5.0/bin:${PATH}"
+export OMPI_CC=clang
+export OMPI_CXX=clang++
+export OMPI_FC=flang
+FABRIC_LIB="${HOME}/scratch/openfoam-v2512/ext/libfabric/lib/libfabric.so.1"
+if [[ ! -e "${FABRIC_LIB}" ]]; then
+    echo "Missing scratch libfabric at ${FABRIC_LIB}" >&2
+    exit 1
+fi
+export FABRIC_LIB
+export FOAM_EXTRA_LD_LIBRARY_PATH="$(dirname "${FABRIC_LIB}")"
+export LD_LIBRARY_PATH="${FOAM_EXTRA_LD_LIBRARY_PATH}:${LD_LIBRARY_PATH:-}"
+export FOAM_INST_DIR="${HOME}/scratch/openfoam-v2512"
+mkdir -p "${FOAM_INST_DIR}/pgo/aocc"
+export LLVM_PROFILE_FILE="${FOAM_INST_DIR}/pgo/aocc/simplefoam-%p.profraw"
+export ATTEMPT=occdrivaer_1node_aocc_kahip_pgogen_v1
+export WM_COMPILER=Amd
+export WM_MPLIB=SYSTEMOPENMPI
+export WM_COMPILE_OPTION=PgoGen
+export NCORES=128
+export NHIERARCHICAL="(8 4 4)"
+export DECOMP_METHOD=kahip
+export ENDTIME=40
+bash ./run_occdrivaer.sh

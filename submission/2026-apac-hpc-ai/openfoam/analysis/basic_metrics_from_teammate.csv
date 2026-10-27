@@ -1,0 +1,4 @@
+experiment_id,attempt,pbs_job_id,status,compiler,mpi,nodes,procs,simplefoam_wall_s,end_time,last_time,avg_wall_per_step_s,cd,notes
+occdrivaer-static,occdrivaer_1node_aocc_scotch_w_v1,19730482,success,aocc-5.0,openmpi-5.0.10,1,128,543.75,40,40,13.345,0.4345,DRIVAER_OK; weighted scotch (8 16); ClockTime 610 s; x1003c3s1b0n0
+occdrivaer-static,occdrivaer_2node_aocc_scotch_w_v1.1,20030920,success,aocc-5.0,openmpi-5.0.10,2,256,517.1,80,80,6.396,0.3403,DRIVAER_OK; weighted scotch (2 8 16); ClockTime 564 s; x1001c5s5b1n1
+occdrivaer-static,occdrivaer_4node_aocc_scotch_w_v1,20072244,success,aocc-5.0,openmpi-5.0.10,4,512,438.48,150,150,2.905,0.2886,DRIVAER_OK; weighted scotch (4 8 16); still slower than kahip 2.876; ClockTime 455 s; x1001c2s5b0n1

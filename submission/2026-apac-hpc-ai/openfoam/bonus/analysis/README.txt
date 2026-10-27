@@ -1,0 +1,1 @@
+Phase 8 PMPI profiles are diagnostic results for selected compiler/KaHIP configurations. They are not the scored unprofiled solver runs. The primary Basic score and correctness evidence is under ../../results/ and ../../dicts/.

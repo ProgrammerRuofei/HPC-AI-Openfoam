@@ -1,0 +1,70 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2512                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _87ed40d256-20251219 OPENFOAM=2512 version=v2512
+Arch   : "LSB;label=32;scalar=64"
+Exec   : renumberMesh -constant -overwrite -parallel
+Date   : Sep 13 2026
+Time   : 16:23:07
+Host   : x1003c3s1b0n0
+PID    : 2388872
+I/O    : uncollated
+Case   : /scratch/users/industry/ai-hpc/apacsc20/openfoam-v2512/cases/occdrivaer-occdrivaer_1node_aocc_scotch_w_v1
+nProcs : 128
+Hosts  :
+(
+    (x1003c3s1b0n0 128)
+)
+Pstream initialized with:
+    node communication : off [type=host] (128 ranks, 1 nodes)
+    topology controls  : none
+    consensus exchange : 0 (tuning: 0)
+    exchange algorithm : 0
+    commsType          : nonBlocking
+    polling iterations : 0
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = constant
+
+Mesh region0 size: 65334765
+Before renumbering
+    band           : 507201
+    profile        : 628950530402
+
+Using renumber-method: CuthillMcKee [default]
+
+Reading fields
+
+Renumbering processor cell decomposition map cellProcAddressing
+Renumbering processor face decomposition map faceProcAddressing
+Renumbering processor point decomposition map pointProcAddressing
+After renumbering
+    band           : 32635
+    profile        : 476182560588
+
+Writing mesh to "constant"
+
+Timings:
+    read mesh   : 1.146573787
+    read fields : 0.019531037
+    decompose   : 0
+    cell-cells  : 0
+    renumber    : 0.338456797
+    write       : 3.253857907
+TotalTime = 6.680337661 s
+
+ExecutionTime = 4.26 s  ClockTime = 8 s
+
+End
+
+Finalising parallel run

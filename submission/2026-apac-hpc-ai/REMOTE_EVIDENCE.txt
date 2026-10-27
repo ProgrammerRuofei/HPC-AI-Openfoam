@@ -1,0 +1,50 @@
+ASPIRE2A read-only inventory, 2026-10-09 (Asia/Singapore)
+=========================================================
+
+Remote case root:
+/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases
+
+Every case below has logFiles/{10_decomposePar,20_renumberMesh,
+30_potentialFoam,40_applyBoundaryLayer}.log, the listed 50_simpleFoam log,
+postProcessing/forceCoeffsAll/0/coefficient.dat, system/controlDict,
+system/decomposeParDict, and system/include/caseDefinition. File presence,
+last-step markers, Average wall-clock time per time step and SHA256 were
+checked via read-only SSH. The listed text files were then copied locally with
+non-interactive SCP and the five core SHA256 values for each node were matched.
+
+1 node / job 19730482:
+Case: occdrivaer-occdrivaer_1node_aocc_scotch_w_v1
+Log: logFiles/50_simpleFoam.2026-09-13_16-24-18.log
+Log SHA256: e0b835fd32e1efa5995377c7b7adb9a7d54f4b689d5e475381c74a394c17b4f7
+Cd SHA256: e36d0c955537ca87d3495e0d4aeab238abfa679acb5492b449a2acf47a3ae627
+decomposeParDict SHA256: 125e62168b934159501feaf58fafb5fc2d409672e9b01716d0751fc1ce730411
+controlDict SHA256: 664ea4469252dfbecaddb5346c091661ec6833451b683b67aee5825c5440876a
+caseDefinition SHA256: 369497335740e4a986db7bd570e80c04ebaba48699d8e174dc1ec52da94012bc
+
+2 nodes / job 20030920:
+Case: occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1
+Log: logFiles/50_simpleFoam.2026-09-14_03-04-13.log
+Log SHA256: af972d680ae1cc58ad881e20e46a05228bbc78decdc65cb925c6c3027b6d1d0a
+Cd SHA256: b18020b1f8742e34b7c3f4a7647c20d30a7155b5fe78796ee8a2dc8545993f20
+decomposeParDict SHA256: 66c50893e26ab33892814b2693113c2baddbec570d8741f5b8d925ee877912bc
+controlDict SHA256: d351f62125422ce020e7fb943ce1b70db62e344cf6ba6a5abc9013f9040d7038
+caseDefinition SHA256: be6b5341b8ea9e6680a40129af9421f1da48a07cf8bbdbcd6f8bb480854b30a1
+
+4 nodes / job 20072244:
+Case: occdrivaer-occdrivaer_4node_aocc_scotch_w_v1
+Log: logFiles/50_simpleFoam.2026-09-14_04-05-25.log
+Log SHA256: 623d8b0ab4579b07d32ccba5b3fca35dd3cf6821836f0336cfe2cec8661022b2
+Cd SHA256: 17450474447c2a9dd2db3755edb8fdb6ee2eaac56cd331760385ba930c1eb654
+decomposeParDict SHA256: 5fdfaa055ec021ee7ad698bb5e9128548db97c30974d3252073f8458c4811d2f
+controlDict SHA256: 6aa140b6c50b328aaafc5d15b3797ba23b24c5ef464fd6a9043b9015ba3f9fd2
+caseDefinition SHA256: 873036061e55ced10815b68f830a7abb2a33ff7679f33deafb673d7b5b79d6e2
+
+The package stores each case's files under
+openfoam/results/{1node,2node,4node}/ and its exact dictionaries under the
+matching per-node directory in openfoam/dicts/. A single global dictionary
+would obscure the different endTime, ranks and Scotch coefficients.
+
+Additional fixed-case input hashes, identical on all three Basic cases:
+fvSchemes: 064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3
+fvSolution and fvSolution.fixedIter: 5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba
+forceCoeffsAll: 4a66f9792320ef7775486f34a80185e3ab384f3529a231f448c3f80c78c7d001
