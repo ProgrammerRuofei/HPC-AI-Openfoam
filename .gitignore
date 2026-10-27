@@ -32,3 +32,83 @@ id_ed25519
 # Tool response dumps are not the authored slide content or scientific evidence.
 /artifacts/gadi-slides-20261022/raw-*.json
 /artifacts/google-redesign-20261022/raw-*.json
+
+# Reviewed untracked cohort, 2026-10-28. Exact paths only, so future unique
+# assets are not silently hidden. Decisions/hashes:
+# planning/repository-audit/2026-10-28-untracked-files.csv
+
+# Paired PNG exports; corresponding SVG files are versioned.
+/artifacts/figures/compiler-screening/basic-hierarchical-compiler-screening-1-2-4.png
+/artifacts/figures/compiler-screening/basic-hierarchical-compiler-screening-relative.png
+/artifacts/figures/openfoam-basic-scaling.png
+/artifacts/figures/openfoam-basic-to-best-recorded.png
+/artifacts/figures/openfoam-basic-vs-bonus.png
+/artifacts/figures/openfoam-hierarchical-layout-observed.png
+/artifacts/figures/openfoam-initial-decomposition-screen.png
+/artifacts/figures/openfoam-toolchain-screening.png
+/artifacts/figures/senior-style/00-evaluation-setup.png
+/artifacts/figures/senior-style/01-compiler-stacks.png
+/artifacts/figures/senior-style/02-gcc-znver3.png
+/artifacts/figures/senior-style/03-pgo-opt-vs-pgouse.png
+/artifacts/figures/senior-style/04-binding-by-decomposition.png
+/artifacts/figures/senior-style/05-basic-decomposition.png
+/artifacts/figures/senior-style/06-scaling-basic-vs-bonus.png
+/artifacts/figures/senior-style/07-basic-cd-validation.png
+/artifacts/figures/senior-style/08-bonus-candidates.png
+/artifacts/figures/senior-style/09-profile-compute-mpi.png
+/artifacts/figures/senior-style/10-profile-calls-count-time.png
+/artifacts/figures/senior-style/11-compiler-mpi-screening-unbound.png
+/artifacts/figures/senior-style/11-compiler-mpi-screening-zoomed.png
+/artifacts/figures/senior-style/12-gcc-znver3-slide.png
+/artifacts/figures/senior-style/12-gcc-znver3-zoomed.png
+/artifacts/figures/senior-style/13-pgo-slide.png
+/artifacts/figures/senior-style/13-pgo-zoomed.png
+/artifacts/figures/senior-style/14-binding-by-decomposition-zoomed.png
+/artifacts/figures/senior-style/15-basic-decomposition-zoomed.png
+/artifacts/figures/senior-style/16-basic-scaling.png
+/artifacts/figures/senior-style/17-bonus-candidates-zoomed.png
+/artifacts/figures/senior-style/18-bonus-scaling-opt.png
+
+# Duplicate ZIP packaging; all 26 members matched existing local files.
+/artifacts/figures/openfoam-charts-20261008.zip
+/artifacts/figures/three-zoomed-comparison-charts.zip
+
+# Dated source/preview/QA screenshots, not original scientific logs.
+/artifacts/google-redesign-20261022/final-qa-0.png
+/artifacts/google-redesign-20261022/final-qa-1.png
+/artifacts/google-redesign-20261022/final-qa-2.png
+/artifacts/google-redesign-20261022/final-qa-3.png
+/artifacts/google-redesign-20261022/final-qa-4.png
+/artifacts/google-redesign-20261022/hier-preview.png
+/artifacts/google-redesign-20261022/qa-0.png
+/artifacts/google-redesign-20261022/qa-1.png
+/artifacts/google-redesign-20261022/qa-2.png
+/artifacts/google-redesign-20261022/qa-3.png
+/artifacts/google-redesign-20261022/qa-4.png
+/artifacts/google-redesign-20261022/qa-5.png
+/artifacts/google-redesign-20261022/qa-6.png
+/artifacts/google-redesign-20261022/qa-extra-0.png
+/artifacts/google-redesign-20261022/qa-extra-1.png
+/artifacts/google-redesign-20261022/qa-extra-2.png
+/artifacts/google-redesign-20261022/qa-extra-3.png
+/artifacts/google-redesign-20261022/qa-extra-4.png
+/artifacts/google-redesign-20261022/qa-extra-5.png
+/artifacts/google-redesign-20261022/source-0.png
+/artifacts/google-redesign-20261022/source-1.png
+/artifacts/google-redesign-20261022/source-2.png
+/artifacts/google-redesign-20261022/source-more-0.png
+/artifacts/google-redesign-20261022/source-more-1.png
+/artifacts/google-redesign-20261022/source-more-2.png
+
+# Snapshot-specific slide-tool QA responses, not correctness validation.
+/artifacts/gadi-slides-20261022/output-issues-corrected.json
+/artifacts/gadi-slides-20261022/output-issues.json
+/artifacts/google-redesign-20261022/output-issues.json
+
+# Unselected historical PPT drafts; retained locally, never deleted.
+/artifacts/presentations/2026-apac-hpc-ai-editable-template-v2.pptx
+/artifacts/presentations/2026-apac-hpc-ai-editable-template-v3.pptx
+/artifacts/presentations/2026-apac-hpc-ai-editable-template-v4.pptx
+/artifacts/presentations/2026-apac-hpc-ai-editable-template.pptx
+/artifacts/presentations/2026-apac-hpc-ai-openfoam-first-review-v1.pptx
+/artifacts/presentations/openfoam-hpcai-20261008-visualized-v1.pptx

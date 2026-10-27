@@ -19,6 +19,7 @@
 | 按日期追溯做了什么 | [progress/](progress/README.md)；旧实验总索引见 [experiment-index.md](results/experiment-index.md) |
 | 当前性能结论为什么要保留限制 | [Scotch A/B/C 核查](progress/2026-10-25-aspire2a-scotch-abc-evidence.md)、[PGO × binding stall audit](progress/2026-10-26-aspire2a-scotch-pgo-binding-stall-audit.md) |
 | 本次整理范围、未纳入的本地文件 | [仓库整理记录](progress/2026-10-28-repository-review-and-organization.md)、[evidence 保存规则](planning/evidence/README.md)、[参考材料边界](references/README.md) |
+| 剩余 119 文件哪些归档、ignore 或保留本地 | [分类决定](planning/2026-10-28-untracked-file-classification.md)、[逐文件大小/SHA256/原因](planning/repository-audit/2026-10-28-untracked-files.csv)、[本轮交接](progress/2026-10-28-untracked-file-classification.md) |
 
 ## 读数规则
 

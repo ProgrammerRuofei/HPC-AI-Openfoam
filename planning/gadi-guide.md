@@ -13,6 +13,10 @@
 
 Gadi 新栈的运行登记和 scaling 文档于 2026-10-23 从本机 `codex/gadi-gcc162-build` 工作树补入本仓库，保留原文中的 job ID 与远端 evidence 路径。此处是文档副本；若继续在另一工作树更新，需同步新结论，避免两个副本分叉。
 
+2026-10-28 又原样归档了早期 [GCC16/Open MPI build 文件](../builds/build-scripts/gadi-gcc162-ompi5010/ARCHIVE-NOTES.md)
+和 [legacy generic screening harness](../scripts/compiler-screening/README.md)。它们不是完整下游复现包或新的执行授权；
+[XLSX provenance notes](../results/gadi-successful-4n-workbook-notes.md) 说明派生表中的 runtime 标签限制。
+
 ## Profiling 与技术分析
 
 - [PMPI 全 4 节点 rank/partition 分析](../results/gadi-gcc162-ompi5010-scotch/pmpi-181908113-analysis.md)：区分调用次数、稳态计时与 rank 差异；PMPI 时间包括等待，不能直接解释为网络传输时间。

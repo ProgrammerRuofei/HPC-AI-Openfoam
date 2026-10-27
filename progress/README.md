@@ -16,11 +16,12 @@ a later correction traceable instead of confusing.
 这些是写作当时的状态；某项作业后来是否完成，以较新的结果登记为准。
 
 本地归档和 Git 整理见 [2026-10-28 repository review](2026-10-28-repository-review-and-organization.md)。
+后续 119 个文件的归档/ignore 决定见 [untracked classification handoff](2026-10-28-untracked-file-classification.md)。
 
 | Date | Note |
 | --- | --- |
 | 2026-09-03 | [Phase 0 closeout](2026-09-03-phase0-closeout.md) |
-| 2026-09-04 | ASPIRE2A multi-node build revisit *(untracked)* |
+| 2026-09-04 | [ASPIRE2A multi-node build revisit](2026-09-04-aspire2a-multinode-build-revisit.md) |
 | 2026-09-09 | [Repository organisation and Git remote state](2026-09-09-repo-organisation-and-git-state.md) |
 
 Progress notes are narrative. Authoritative numbers live in

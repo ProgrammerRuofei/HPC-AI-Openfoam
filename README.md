@@ -142,7 +142,7 @@ Used consistently across [`results/experiment-index.md`](results/experiment-inde
 | Phase 0 controlled repeat runs (R1–R4) | [`phase0/`](phase0/) |
 | Compiler/MPI stack builds (C1/C2/C3, S1/S2/S3, A1) | [`builds/build-scripts/`](builds/build-scripts/) |
 | C1 runtime repair, smoke, and the pending 65M benchmark | [`builds/build-scripts/c1-icc2021-openmpi417/`](builds/build-scripts/c1-icc2021-openmpi417/) |
-| Generic (non-C1) compiler-screening harness, legacy local-only files not archived in this pass | `scripts/compiler-screening/` |
+| Generic (non-C1) compiler-screening harness, archived legacy implementation, not a current execution plan | [`scripts/compiler-screening/`](scripts/compiler-screening/) |
 | ASPIRE2A baseline and diagnosis runs | [`experiments/`](experiments/) |
 
 **These scripts contain hard-coded repository-relative paths and must not be
