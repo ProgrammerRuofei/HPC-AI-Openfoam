@@ -1,11 +1,11 @@
 #!/bin/bash
-# Four-arm Scotch PGO and core-binding comparison; wrappers set BLOCK.
+# Scotch PGO/binding comparison or same-allocation stall diagnostic; wrappers set BLOCK.
 # Inputs: pinned case, AOCC stock Opt and existing AOCC PgoUse builds.
 # Outputs: unique PBS-ID scratch case trees with per-arm evidence.
 # Never reuse, overwrite, or delete an existing case.
 set -euo pipefail
 : "${BLOCK:?wrapper must set BLOCK}"
-case "$BLOCK" in 1|2) ;; *) echo "Invalid BLOCK" >&2; exit 2;; esac
+case "$BLOCK" in 1|2|3) ;; *) echo "Invalid BLOCK" >&2; exit 2;; esac
 
 CONTROL_REPO=/home/project/59000020/openfoam-isc26/control-repo
 FOAM_INST_DIR="${HOME}/scratch/openfoam-v2512"
@@ -52,7 +52,12 @@ preserve_status()
 }
 trap preserve_status EXIT
 
-printf 'classification=SCOTCH PGO/BINDING CONTROLLED STUDY\nofficial_result=false\nprofiled=false\nblock=%s\njob=%s\n' "$BLOCK" "$PBS_JOBID"
+if test "$BLOCK" = 3; then
+    classification='SCOTCH STALL RECURRENCE DIAGNOSTIC'
+else
+    classification='SCOTCH PGO/BINDING CONTROLLED STUDY'
+fi
+printf 'classification=%s\nofficial_result=false\nprofiled=false\nblock=%s\njob=%s\n' "$classification" "$BLOCK" "$PBS_JOBID"
 
 echo '===== ALLOCATION ====='
 sort -u "$PBS_NODEFILE" | tee "$EVIDENCE/nodes.txt"
@@ -158,25 +163,27 @@ ldd "$FABRIC_LIB" | tee "$EVIDENCE/libfabric.ldd"
 ! grep -Fq 'not found' "$EVIDENCE/libfabric.ldd"
 echo 'CHECKPOINT_LINKAGE_OK'
 echo 'CHECKPOINT_OPT_PASS'
-PROFDATA="${FOAM_INST_DIR}/pgo/aocc/merged.profdata"
-test "$(sha256sum "$PROFDATA" | awk '{print $1}')" = "$EXPECTED_SHA_PROFDATA"
-sha256sum "$PROFDATA" > "$EVIDENCE/merged.profdata.sha256"
-(
-    set +eu
-    . "$OF_DIR/etc/bashrc" WM_COMPILER=Amd WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=PgoUse WM_LABEL_SIZE=32
-    pgo_bashrc_rc=$?
-    set -e
-    test "$pgo_bashrc_rc" -eq 0
-    export LD_LIBRARY_PATH="$(dirname "$FABRIC_LIB"):${LD_LIBRARY_PATH:-}"
-    pgo_solver="$FOAM_APPBIN/simpleFoam"
-    test -x "$pgo_solver"
-    test "$(sha256sum "$pgo_solver" | awk '{print $1}')" = "$EXPECTED_SHA_PGOUSE"
-    sha256sum "$pgo_solver" | tee "$EVIDENCE/simpleFoam-pgouse.sha256"
-    ldd "$pgo_solver" | tee "$EVIDENCE/simpleFoam-pgouse.ldd"
-    ! grep -Fq 'not found' "$EVIDENCE/simpleFoam-pgouse.ldd"
-    grep -Fq 'libmpi.so.40 => /app/apps/openmpi/5.0.10-gcc11/' "$EVIDENCE/simpleFoam-pgouse.ldd"
-)
-echo 'CHECKPOINT_PGOUSE_PASS'
+if test "$BLOCK" != 3; then
+    PROFDATA="${FOAM_INST_DIR}/pgo/aocc/merged.profdata"
+    test "$(sha256sum "$PROFDATA" | awk '{print $1}')" = "$EXPECTED_SHA_PROFDATA"
+    sha256sum "$PROFDATA" > "$EVIDENCE/merged.profdata.sha256"
+    (
+        set +eu
+        . "$OF_DIR/etc/bashrc" WM_COMPILER=Amd WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=PgoUse WM_LABEL_SIZE=32
+        pgo_bashrc_rc=$?
+        set -e
+        test "$pgo_bashrc_rc" -eq 0
+        export LD_LIBRARY_PATH="$(dirname "$FABRIC_LIB"):${LD_LIBRARY_PATH:-}"
+        pgo_solver="$FOAM_APPBIN/simpleFoam"
+        test -x "$pgo_solver"
+        test "$(sha256sum "$pgo_solver" | awk '{print $1}')" = "$EXPECTED_SHA_PGOUSE"
+        sha256sum "$pgo_solver" | tee "$EVIDENCE/simpleFoam-pgouse.sha256"
+        ldd "$pgo_solver" | tee "$EVIDENCE/simpleFoam-pgouse.ldd"
+        ! grep -Fq 'not found' "$EVIDENCE/simpleFoam-pgouse.ldd"
+        grep -Fq 'libmpi.so.40 => /app/apps/openmpi/5.0.10-gcc11/' "$EVIDENCE/simpleFoam-pgouse.ldd"
+    )
+    echo 'CHECKPOINT_PGOUSE_PASS'
+fi
 
 echo '===== SOURCE WORKLOAD HASH GATE ====='
 TEMPLATE=$(readlink -f "$TEMPLATE_LINK")
@@ -237,7 +244,7 @@ run_arm()
     foamDictionary -entry decompositionMethod -set scotch system/include/caseDefinition
     foamDictionary -entry endTime -set "$ENDTIME" system/controlDict
     case "$label" in
-        O_default|O_core|P_default|P_core) ;;
+        O_default|O_core|P_default|P_core|O_default_r1|O_default_r2) ;;
         *) echo "Unknown arm: $label" >&2; exit 2 ;;
     esac
     cat >> system/decomposeParDict <<'DICT'
@@ -314,12 +321,13 @@ DICT
 case "$BLOCK" in
     1) order=(O_default O_core P_core P_default) ;;
     2) order=(P_default P_core O_core O_default) ;;
+    3) order=(O_default_r1 O_default_r2) ;;
 esac
 printf '%s\n' "${order[@]}" > "$EVIDENCE/run-order.txt"
 for arm in "${order[@]}"; do
     run_arm "$arm"
 done
-printf 'classification=SCOTCH PGO/BINDING CONTROLLED STUDY\nblock=%s\nprofiled=false\npbs_jobid=%s\nnodes=%s\nranks=%s\nranks_per_node=%s\ncompiler=AOCC 5.0\nmpi=Open MPI 5.0.10\npartition=weighted Scotch (4 8 16) (1 1 0.01)\nendtime=%s\n' \
-    "$BLOCK" "$PBS_JOBID" "$NNODES" "$NRANKS" "$RANKS_PER_NODE" "$ENDTIME" \
+printf 'classification=%s\nblock=%s\nprofiled=false\npbs_jobid=%s\nnodes=%s\nranks=%s\nranks_per_node=%s\ncompiler=AOCC 5.0\nmpi=Open MPI 5.0.10\npartition=weighted Scotch (4 8 16) (1 1 0.01)\nendtime=%s\n' \
+    "$classification" "$BLOCK" "$PBS_JOBID" "$NNODES" "$NRANKS" "$RANKS_PER_NODE" "$ENDTIME" \
     > "$EVIDENCE/provenance.txt"
-echo SCOTCH_PGO_BINDING_PASS
+if test "$BLOCK" = 3; then echo SCOTCH_STALL_DIAGNOSTIC_PASS; else echo SCOTCH_PGO_BINDING_PASS; fi
