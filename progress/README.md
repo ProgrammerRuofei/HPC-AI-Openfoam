@@ -1,22 +1,22 @@
 # Progress — dated session handoffs
 
-> 近期状态按集群查：[ASPIRE2A](../planning/aspire2a-guide.md) · [Gadi](../planning/gadi-guide.md)。下表只是早期索引，并未列出所有近期 progress 文件；按日期追溯可直接查看本目录。
+> Find recent status by cluster: [ASPIRE2A](../planning/aspire2a-guide.en.md) · [Gadi](../planning/gadi-guide.en.md). The dated table below is an early index, not a complete list of recent handoffs; browse this directory chronologically for the full trail.
 
 One file per working session, named `YYYY-MM-DD-<topic>.md`. These form the
 project narrative: they record *when* something was known, which is what makes
 a later correction traceable instead of confusing.
 
-## 近期按集群
+## Recent records by cluster
 
-| 集群 | 最近的本地交接记录 |
+| Cluster | Latest locally retained handoffs |
 | --- | --- |
-| ASPIRE2A | [PGO × binding timing stalls](2026-10-26-aspire2a-scotch-pgo-binding-stall-audit.md) · [未发送的 site inquiry](2026-10-26-aspire2a-scotch-pgo-binding-site-inquiry-draft.md) · [Scotch A/B/C 完成证据](2026-10-25-aspire2a-scotch-abc-evidence.md) · [零 SU 核查](2026-10-25-aspire2a-scotch-abc-zero-su-audit.md) · [提交包 staging](2026-10-09-submission-staging.md) |
-| Gadi | [GCC 16.2 build](2026-10-16-gadi-gcc162-build-submitted.md) · [Open MPI build](2026-10-16-gadi-gcc162-relocation-ompi-submitted.md)；更新的运行结果见 [Gadi guide](../planning/gadi-guide.md) |
+| ASPIRE2A | [PGO × binding timing stalls](2026-10-26-aspire2a-scotch-pgo-binding-stall-audit.md) · [Unsent site inquiry](2026-10-26-aspire2a-scotch-pgo-binding-site-inquiry-draft.md) · [Completed Scotch A/B/C evidence](2026-10-25-aspire2a-scotch-abc-evidence.md) · [Zero-SU audit](2026-10-25-aspire2a-scotch-abc-zero-su-audit.md) · [Submission staging](2026-10-09-submission-staging.md) |
+| Gadi | [GCC 16.2 build](2026-10-16-gadi-gcc162-build-submitted.md) · [Open MPI build](2026-10-16-gadi-gcc162-relocation-ompi-submitted.md); later outcomes are linked in the [Gadi guide](../planning/gadi-guide.en.md) |
 
-这些是写作当时的状态；某项作业后来是否完成，以较新的结果登记为准。
+These are dated snapshots. Use newer run registries to determine whether a job subsequently completed.
 
-本地归档和 Git 整理见 [2026-10-28 repository review](2026-10-28-repository-review-and-organization.md)。
-后续 119 个文件的归档/ignore 决定见 [untracked classification handoff](2026-10-28-untracked-file-classification.md)。
+For local archival and Git organization, see the [2026-10-28 repository review](2026-10-28-repository-review-and-organization.md).
+For the subsequent 119-file archival/ignore decisions, see the [classification handoff](2026-10-28-untracked-file-classification.md).
 
 | Date | Note |
 | --- | --- |

@@ -1,6 +1,6 @@
 # Planning
 
-> 计划和展示主线按集群查：[ASPIRE2A](aspire2a-guide.md) · [Gadi](gadi-guide.md) · [项目总导航](../PROJECT-INDEX.md)。`PLANS.md` 保留 2026-09 的早期方案，不代表当前实验状态。
+> Find plans and presentation storylines by cluster: [ASPIRE2A](aspire2a-guide.en.md) · [Gadi](gadi-guide.en.md) · [English project index](../PROJECT-INDEX.en.md). `PLANS.md` preserves an early September 2026 plan, not the current experiment state. Chinese records have [English companions](../LANGUAGE-COVERAGE.md).
 
 Intent and analysis recorded **before** execution, so a later reader can tell
 what was hypothesised from what was measured.

@@ -1,6 +1,6 @@
 # OpenFOAM HPC Competition — Control Repository
 
-> **查近期记录请先看 [项目导航](PROJECT-INDEX.md)：[ASPIRE2A](planning/aspire2a-guide.md) / [Gadi](planning/gadi-guide.md)。** 本页下方保留早期项目快照；其中 ASPIRE2A “blocked”、旧 Gadi 站点栈为“当前 baseline”等状态已被后续结果替代。运行数字以各集群导航所链的日志和登记表为准。
+> **Teammates: start with [TEAM-GUIDE.md](TEAM-GUIDE.md) and the [English project index](PROJECT-INDEX.en.md): [ASPIRE2A](planning/aspire2a-guide.en.md) / [Gadi](planning/gadi-guide.en.md).** The detailed sections below preserve an early project snapshot. Its ASPIRE2A "blocked" and old Gadi "current baseline" labels have been superseded. Use the linked cluster logs and run registries for measurements. English companions for Chinese records are indexed in [LANGUAGE-COVERAGE.md](LANGUAGE-COVERAGE.md).
 
 This is the **authoritative control repository** for our 2026 APAC HPC-AI
 OpenFOAM competition work: every build script, benchmark script, result

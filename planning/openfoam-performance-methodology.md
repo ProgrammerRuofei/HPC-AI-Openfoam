@@ -10,7 +10,7 @@
 
 **[PROVISIONAL 2026 PLAN]** Establish a reproducible baseline first, screen one principal performance dimension at a time, profile only stable shortlisted candidates, and turn profiling evidence into targeted follow-up tests. Preserve raw logs and structured metrics so that charts and presentations cannot silently diverge from measurements.
 
-简言之：去年证明了“先建立可复现实验基线，再做受控筛选，再用 profiling 解释差异”的工作流；它没有证明任何 Iris/Cascade Lake 的具体 rank 数、flags 或绑定语法可直接移植到 ASPIRE2A。
+In short, the previous work supports a workflow of reproducible baselines, controlled screening, and profiling to explain differences; it does not establish that any particular Iris/Cascade Lake rank count, flags, or binding syntax transfers directly to ASPIRE2A.
 
 ## 1. Status labels, scope, and evidence rules / 状态标签、范围与证据规则
 
