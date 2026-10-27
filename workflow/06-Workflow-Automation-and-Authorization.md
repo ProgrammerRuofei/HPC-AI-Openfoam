@@ -41,6 +41,12 @@ Stop and request direction before:
 The project `AGENTS.md` may be stricter. It must not weaken universal safety
 rules in this pack.
 
+The user-authorized local personal-account authentication exception is
+explicitly defined in root `AGENTS.md` and `00-General-SSH-Rules.md`. It permits
+only that local setup and direct `sshpass -f` authentication for otherwise
+authorized operations; it does not grant remote scope or permit disclosure
+of secrets. Do not generalize the exception to other profiles or workflows.
+
 ## Authorization scope
 
 Authorization is limited to the named project, cluster scope, current task,
