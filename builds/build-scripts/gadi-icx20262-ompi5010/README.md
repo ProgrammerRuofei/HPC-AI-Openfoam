@@ -29,3 +29,10 @@ runtime with a checked SHA-256. PBS requests one `normalsr` SPR node,
 48 CPUs, 190 GB memory, 100 GB JOBFS and four hours (384 SU ceiling).
 This build is not a performance result; a tutorial smoke test requires its
 own subsequent decision.
+
+The build was submitted exactly once as `182402775.gadi-pbs` from reviewed
+commit `9a98f66` after the Gadi branch and script SHA-256 checks. Its first
+PBS state was `Q` in `normalsr-exec`. The unique stdout is under this stack's
+`submit-logs/build_openfoam_v2512_v1.pbs.out`; job-keyed build evidence is
+under `gadi-icx20262-ompi5010-of2512/evidence/`. Final result and actual
+SU remain pending.
