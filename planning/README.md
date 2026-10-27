@@ -1,5 +1,7 @@
 # Planning
 
+> 计划和展示主线按集群查：[ASPIRE2A](aspire2a-guide.md) · [Gadi](gadi-guide.md) · [项目总导航](../PROJECT-INDEX.md)。`PLANS.md` 保留 2026-09 的早期方案，不代表当前实验状态。
+
 Intent and analysis recorded **before** execution, so a later reader can tell
 what was hypothesised from what was measured.
 

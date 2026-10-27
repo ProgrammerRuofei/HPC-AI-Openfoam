@@ -1,5 +1,7 @@
 # Results
 
+> 近期结果先按集群查：[ASPIRE2A](../planning/aspire2a-guide.md) · [Gadi](../planning/gadi-guide.md) · [项目总导航](../PROJECT-INDEX.md)。下方是早期结果框架；`experiment-index.md` 尚未覆盖所有新运行。不同批次对计时指标的写法有差异，请以对应运行日志和比赛规则核对。
+
 Extracted numbers and their provenance, kept separate from the scripts that
 produced them so results can be reviewed without reading code.
 

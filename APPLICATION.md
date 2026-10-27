@@ -30,7 +30,7 @@ be considered, subject to competition rules and explicit approval.
 Correctness is checked with the drag coefficient `Cd` against the expected
 per-point range.
 
-## Current scored reference
+## Historical scored-case reference — Gadi site stack
 
 Gadi `normalsr` (Intel Xeon Platinum 8470Q, Sapphire Rapids), site
 `OpenFOAM/2512` module, GCC 8.5.0, Open MPI 4.1.7, one rank per physical core:
@@ -41,7 +41,10 @@ Gadi `normalsr` (Intel Xeon Platinum 8470Q, Sapphire Rapids), site
 | Gadi `normalsr` | 2 | 208 | `(8 13 2)` | 80 | 4.296500 s | 362 s | 0.33201 | `178154724.gadi-pbs` |
 | **Gadi `normalsr`** | **4** | **416** | **`(16 13 2)`** | **150** | **2.139565 s** | **336 s** | **0.28231** | **`178149002.gadi-pbs`** |
 
-The 4-node row is the official baseline to beat.
+The 4-node row is the historical site-stack baseline. Later private-stack
+and ASPIRE2A records are indexed in [`PROJECT-INDEX.md`](PROJECT-INDEX.md).
+"Scored-case" here identifies the workload/rules context; it does not prove
+final organizer submission, scoring or competition outcome.
 
 ### Historical pre-rule Gadi references (not official)
 
@@ -64,7 +67,13 @@ four-run Phase 0 set for that purpose.
 
 ## ASPIRE2A configuration
 
-NSCC Singapore. Single-node runs complete; every multi-node run fails with
-`signal 7` after the solver prints `End`. This line of work is blocked — see
-lesson L9 in [`results/hpc-lessons.md`](results/hpc-lessons.md) and
+NSCC Singapore. The early Cray/PALS path had multi-node finalization failures
+with `signal 7` after the solver printed `End`; those failed attempts remain
+in lesson L9 in [`results/hpc-lessons.md`](results/hpc-lessons.md) and
 [`MANUAL_INSPECTION_ERROR.md`](MANUAL_INSPECTION_ERROR.md).
+
+That historical failure is not the current status of all ASPIRE2A work.
+Later AOCC 5.0/Open MPI 5.0.10 runs completed on multiple nodes; use the
+[ASPIRE2A evidence guide](planning/aspire2a-guide.md) for job-keyed records,
+scientific-validity limits and the latest local handoff. No remote state was
+checked as part of the 2026-10-28 repository organization.

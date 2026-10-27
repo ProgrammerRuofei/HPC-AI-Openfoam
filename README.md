@@ -1,12 +1,17 @@
 # OpenFOAM HPC Competition — Control Repository
 
+> **查近期记录请先看 [项目导航](PROJECT-INDEX.md)：[ASPIRE2A](planning/aspire2a-guide.md) / [Gadi](planning/gadi-guide.md)。** 本页下方保留早期项目快照；其中 ASPIRE2A “blocked”、旧 Gadi 站点栈为“当前 baseline”等状态已被后续结果替代。运行数字以各集群导航所链的日志和登记表为准。
+
 This is the **authoritative control repository** for our 2026 APAC HPC-AI
 OpenFOAM competition work: every build script, benchmark script, result
 record, and failure analysis lives here, and every cluster job is submitted
 from a clone of this repository.
 
-If you are opening this repository for the first time, read this page top to
-bottom. It is the control center; everything else is linked from here.
+Start with [`PROJECT-INDEX.md`](PROJECT-INDEX.md) for the latest locally
+recorded state and separate ASPIRE2A/Gadi evidence paths. The detailed sections
+below retain the early project snapshot; their words "current", "official"
+and "blocked" describe that historical context, not a verified final
+competition submission or today's scheduler state.
 
 ---
 
@@ -137,7 +142,7 @@ Used consistently across [`results/experiment-index.md`](results/experiment-inde
 | Phase 0 controlled repeat runs (R1–R4) | [`phase0/`](phase0/) |
 | Compiler/MPI stack builds (C1/C2/C3, S1/S2/S3, A1) | [`builds/build-scripts/`](builds/build-scripts/) |
 | C1 runtime repair, smoke, and the pending 65M benchmark | [`builds/build-scripts/c1-icc2021-openmpi417/`](builds/build-scripts/c1-icc2021-openmpi417/) |
-| Generic (non-C1) compiler-screening harness | [`scripts/compiler-screening/`](scripts/compiler-screening/) |
+| Generic (non-C1) compiler-screening harness, legacy local-only files not archived in this pass | `scripts/compiler-screening/` |
 | ASPIRE2A baseline and diagnosis runs | [`experiments/`](experiments/) |
 
 **These scripts contain hard-coded repository-relative paths and must not be

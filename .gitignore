@@ -1,0 +1,34 @@
+# Local OS/editor/interpreter noise (never scientific evidence).
+.DS_Store
+__pycache__/
+*.py[cod]
+/.codex-finalizer/
+
+# Credentials must remain outside this repository; block accidental copies.
+*.password
+.env
+.env.*
+!.env.example
+id_rsa
+id_ed25519
+*.key
+*.pem
+
+# Independently versioned reference checkouts: retain locally, do not vendor
+# their nested Git histories or accidentally create gitlinks here.
+/references/last-year/OpenFOAM-v2412-isc26/
+/references/last-year/scc/
+/references/teammate/OpenFoam-HPCAI-26/
+
+# Large raw mpiP reports remain local archives. Keep their parsers, extracted
+# tables, provenance and supporting logs tracked; see planning/evidence/README.md.
+*.mpiP
+
+# Private career interpretation and working presentation drafts are not the
+# canonical scientific record. These files are retained, not deleted.
+/career-fact-sheet-hpc-ai-competition.md
+/submission/working/
+
+# Tool response dumps are not the authored slide content or scientific evidence.
+/artifacts/gadi-slides-20261022/raw-*.json
+/artifacts/google-redesign-20261022/raw-*.json

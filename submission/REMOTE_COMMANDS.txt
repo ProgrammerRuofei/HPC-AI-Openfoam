@@ -1,0 +1,41 @@
+ASPIRE2A commands issued for this staging audit on 2026-10-09
+===============================================================
+
+Connection check (local):
+ssh -O check aspire2a-comp
+
+Read-only remote inventory:
+ssh aspire2a-comp 'find /home/project/59000020/openfoam-isc26 -maxdepth 4 -type f \( -name "*20072244*" -o -name "*20030920*" -o -name "*19730482*" -o -name "*submission*" -o -name "*build*.sh" \) -print | head -100'
+
+ssh aspire2a-comp 'ls -la /home/project/59000020/openfoam-isc26; find /home/project/59000020/openfoam-isc26 -maxdepth 3 -type d -print | head -100'
+
+ssh aspire2a-comp 'for n in occdrivaer-occdrivaer_1node_aocc_scotch_w_v1 occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1 occdrivaer-occdrivaer_4node_aocc_scotch_w_v1; do p=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases/$n; echo CASE=$n; ls -lh "$p"/logFiles/* "$p"/postProcessing/forceCoeffsAll/0/coefficient.dat "$p"/system/decomposeParDict "$p"/system/controlDict "$p"/system/include/caseDefinition 2>&1 | head -35; done'
+
+ssh aspire2a-comp 'for n in occdrivaer-occdrivaer_1node_aocc_scotch_w_v1 occdrivaer-occdrivaer_2node_aocc_scotch_w_v1.1 occdrivaer-occdrivaer_4node_aocc_scotch_w_v1; do p=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/cases/$n; echo CASE=$n; grep -E "^Time = (40|80|150)$|Average wall-clock time per time step|^End$" "$p"/logFiles/50_simpleFoam*.log | tail -5; tail -1 "$p"/postProcessing/forceCoeffsAll/0/coefficient.dat; sha256sum "$p"/logFiles/50_simpleFoam*.log "$p"/postProcessing/forceCoeffsAll/0/coefficient.dat "$p"/system/decomposeParDict "$p"/system/controlDict "$p"/system/include/caseDefinition; done'
+
+ssh aspire2a-comp 'p=/home/users/industry/ai-hpc/apacsc20/scratch/openfoam-v2512/OpenFOAM-v2512; ls -l "$p"/wmake/rules/linux64Amd/c++Opt "$p"/wmake/rules/General/common/c++Opt; cat "$p"/wmake/rules/linux64Amd/c++Opt; cat "$p"/wmake/rules/General/common/c++Opt; if test -d "$p/.git"; then git -C "$p" rev-parse HEAD; else echo source_git_absent; fi'
+
+The last command found no linux64Amd/c++Opt file; the stock
+General/common/c++Opt rule contains c++OPT := -O3. The source directory has
+no .git metadata.
+
+Transfer continuation after the user's 2026-10-09 instruction to disregard
+the local transfer-form rule:
+
+For each row in `submission/2026-apac-hpc-ai/REMOTE_COPY_LIST.csv` and
+`submission/2026-apac-hpc-ai/openfoam/bonus/REMOTE_COPY_LIST.csv`, the exact
+command arguments were:
+
+    scp -p -o BatchMode=yes -o ConnectTimeout=15 aspire2a-comp:<remote_source> <absolute_local_destination_under_2026_apac_hpc_ai>
+
+The first 4-node Basic solver log was copied separately with the same SCP
+options. The 27-row Basic list and 36-row Bonus list give every remote source
+and destination. Additional read-only remote commands checked
+`system/{fvSchemes,fvSolution,fvSolution.fixedIter,controlDict.noWrite,
+forceCoeffsAll}` hashes in the three Basic cases, inventoried the four Bonus
+cases, and computed their solver-log, Cd and dictionary SHA256 values.
+Three fixed Basic case inputs and two `c++Pgo*` rule files were copied with
+the same non-interactive SCP form.
+
+No remote write, job submission/cancellation, build, OpenFOAM run, Git pull,
+Git commit or Git push was performed.
