@@ -14,3 +14,7 @@ This preflight does not build OpenFOAM or produce a scored result. A later
 OpenFOAM v2512 build would retain the verified source identity, `Opt`,
 real Scotch and six benchmark application gates. A four-node performance
 run requires separate approval.
+
+The first approved preflight was submitted once as `182372451.gadi-pbs`,
+initially PBS `Q`; see the dated progress report for script checksum,
+resource request and evidence paths. No outcome is claimed yet.
