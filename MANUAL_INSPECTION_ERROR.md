@@ -245,3 +245,22 @@ library path, ELF tags, `ldd`, bounded loader tracing and a two-rank UCP
 version probe. The four-node job must not be submitted on diagnostic-script
 completion alone; the actual runtime path/version and tutorial solver must
 pass first. Each new attempt keeps unique output and preserved evidence.
+
+### Resolution update — 2026-10-29
+
+The user's subsequent authorization superseded the earlier
+`USER_ACTION_REQUIRED` status for bounded low-cost diagnosis. Diagnostic
+`182508262.gadi-pbs` failed before its MPI probe because archived `mpicc`
+still referenced vanished JOBFS GCC; preserved ELF evidence showed private
+MPI `DT_RPATH` placed `/usr/lib64` ahead of site UCX. Diagnostic
+`182508303.gadi-pbs` passed with explicit site UCX preload and both ranks
+reported UCP 1.18.1. Five-rank tutorial `182508353.gadi-pbs` passed but
+reported a UCP >=1.19 warning while HCOLL was selected. Excluding HCOLL in
+the distinct tutorial `182508439.gadi-pbs` removed that warning while
+Scotch, solver `End` and coded timing all passed. Two-node communication
+preflight `182508496.gadi-pbs` passed across two SPR hosts with one rank
+each, UCP 1.18.1 on both and a completed `MPI_Allreduce`. All original
+job-keyed evidence and stdout paths remain intact; no failed output was
+overwritten. The four-node candidate uses the verified preload and excludes
+HCOLL. UCC 1.4.4 is available but its runtime collective selection is not
+claimed.

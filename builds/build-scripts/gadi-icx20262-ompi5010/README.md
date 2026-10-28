@@ -156,3 +156,14 @@ solver with coded timing and no incompatible-UCP warning. UCC 1.4.4 is
 present but was not selected. The next gate is a two-node/one-rank-per-node
 UCX preflight using the same preload and HCOLL exclusion before the
 four-node scientific case.
+
+The two-node preflight `182508496.gadi-pbs` ended PBS Exit 0 in 36 seconds
+(about 4.16 SPR SU). Each of two distinct SPR hosts ran one rank, completed
+a cross-node `MPI_Allreduce`, and reported site UCP 1.18.1 with no
+incompatible-API warning. This validates the communication path for a
+single four-node candidate, while its solver behavior still requires the
+actual 416-rank run. `run_baseline_4n_scotch_ucx118_v1.pbs` preserves the
+established 65M scientific input, Scotch decomposition and 150-step controls,
+and records rank hosts, binding, per-step time, Cd and PBS evidence. It
+excludes HCOLL; UCC 1.4.4 is loaded but runtime collective selection is
+not assumed.

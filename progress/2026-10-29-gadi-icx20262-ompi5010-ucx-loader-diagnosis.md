@@ -33,7 +33,7 @@ proceed until a small solver smoke verifies the actual UCP path and version.
 ## Diagnostic v1 result and bounded repair
 
 `182508262.gadi-pbs` finished with PBS `Exit_status=1` after 18 seconds
-(maximum 0.02 SU at 2 CPUs). Its job-keyed evidence remains under
+(about 0.02 SPR SU at 2 CPUs). Its job-keyed evidence remains under
 `evidence/ucx-loader-diag.182508262.gadi-pbs/`. Both original and UCX-first
 `LD_LIBRARY_PATH` orders resolved `libucp`, `libucs`, and `libuct` from
 `/usr/lib64`. The private `libmpi.so.40` and `libopen-pal.so.80` both carry
@@ -53,7 +53,8 @@ on a passing OpenFOAM tutorial smoke with the same selection.
 
 ## Diagnostic v2 result and OpenFOAM gate
 
-`182508303.gadi-pbs` completed with PBS `Exit_status=0` in 23 seconds,
+`182508303.gadi-pbs` completed with PBS `Exit_status=0` in 23 seconds
+(about 0.03 SPR SU),
 `UCX118_RUNTIME_PROBE_PASS`, and `probe_exit_status=0`. Both ranks reported
 `/apps/ucx/1.18.1/lib/libucp.so.0`, version `1.18.1`, after `MPI_Init`.
 The original path-order `ldd` still found `/usr/lib64/libucp.so.0`; explicit
@@ -104,3 +105,20 @@ UCX preload, `--mca coll ^hcoll`, hash-pinned GCC/Open MPI archives, actual
 UCP path/version and cross-node `MPI_Allreduce` checks. It requests 208
 CPUs for at most 10 minutes (about 69.3 SU ceiling) but should finish in
 well under a minute if healthy. Its stdout/evidence paths are unique.
+
+`182508496.gadi-pbs` finished PBS Exit 0 in 36 seconds (about 4.16 SPR SU)
+with `ICX20262_OMPI5010_UCX118_2N_PASS`. PBS allocated distinct
+`gadi-cpu-spr-0248` and `gadi-cpu-spr-0249` nodes. One rank on each node
+completed a cross-node `MPI_Allreduce`, and both reported the actual site
+`/apps/ucx/1.18.1/lib/libucp.so.0` and UCP version `1.18.1`. No
+incompatible-UCP warning appeared. The harmless site-module variables
+`UCX_ROOT`, `UCX_VERSION` and `UCX_BASE` were reported as unused by UCX.
+The job-keyed evidence remains under `evidence/ucx118-2n.182508496.gadi-pbs/`.
+
+The single authorized four-node comparison can now be prepared using ICX
+2026.2, the same private Open MPI 5.0.10 and site UCX preload, with HCOLL
+excluded. The fixed source case, mesh, `fvSchemes`, `fvSolution`, Scotch,
+416 ranks across four SPR nodes, and 150 steps match the established
+four-node template. Its scientific result will be a new candidate; since
+the collective path differs from older runs, any performance difference
+cannot be attributed to the compiler alone.
