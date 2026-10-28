@@ -47,3 +47,23 @@ This is a successful build, not an OpenFOAM run or performance result.
 The retained `ldd` output resolves `libucp.so.0` from `/usr/lib64` despite
 loading the UCX 1.18.1 module; the actual UCP version and collective
 selection require a runtime diagnostic before a four-node comparison.
+
+The user approved one low-cost tutorial smoke after reviewing its proposed
+diff. `smoke_openfoam_v2512_v1.pbs` reuses the hash-pinned successful build,
+the private compiler/GCC/MPI archives and the established five-rank
+`pitzDaily_fused` Scotch tutorial. It records the UCP library path, the
+version returned after `MPI_Init`, its SHA-256, and Open MPI's collective
+selection messages without forcing UCC. The request is one `normalsr` SPR
+node, 5 CPUs, 16 GB memory, 30 GB JOBFS and 20 minutes (about 1.67 SU
+ceiling). This does not run the fixed 65M scientific case.
+
+The reviewed smoke script passed local and Gadi `bash -n`, with matching
+SHA-256 `9e2bfeb6ec2cd7d06b21e39386b3ae9c9e3e72986e34131fb2c679b80aa249f7`.
+Commit `0a203c4` was pushed to the isolated GitHub and Gadi branches; the
+Gadi checkout was clean at that commit. Exactly one PBS submission returned
+`182469604.gadi-pbs`, initially `Q` in `normalsr-exec`. Its independent
+stdout is `gadi-icx20262-ompi5010/submit-logs/smoke_openfoam_v2512_v1.pbs.out`
+under the toolchain-screening root; job-keyed evidence will be under
+`gadi-icx20262-ompi5010-of2512/evidence/smoke.182469604.gadi-pbs/`.
+Final solver, runtime-library, PBS and SU results are pending. No automatic
+repeat or four-node run is authorized.
