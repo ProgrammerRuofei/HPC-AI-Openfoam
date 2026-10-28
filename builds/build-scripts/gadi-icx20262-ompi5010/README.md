@@ -115,3 +115,13 @@ from `/usr/lib64`. The first failure was the hard path check for
 independent stdout and job-keyed run log are retained. Explicitly prepending
 the site path after environment setup was insufficient; the loader cause
 remains unconfirmed. No automatic retry or four-node run was submitted.
+
+The user subsequently authorized bounded automatic diagnosis and low-cost
+repair attempts until the UCX path is verified, followed by a four-node
+submission only after the small verification succeeds. The first new step is
+`diagnose_ucx_loader_1n_v1.pbs`: one `normalsr` SPR node, 2 CPUs, 8 GB RAM,
+10 GB JOBFS, 10 minutes (maximum about 0.67 SU). It unpacks only the checked
+private GCC and MPI archives, records `LD_LIBRARY_PATH`, ELF dynamic tags,
+`ldd` and bounded loader tracing, then runs a two-rank MPI-initialized probe.
+The job records any probe failure separately; it does not run OpenFOAM or
+claim a UCX fix merely because the diagnostic script completes.

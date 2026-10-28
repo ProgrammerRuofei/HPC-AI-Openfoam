@@ -233,3 +233,15 @@ final library path, relevant ELF dynamic tags and loader search trace before
 another solver run. Such a diagnostic, any path/launcher change and any retry
 require a separate reviewed scope. Do not treat the path-gate failure as an
 OpenFOAM or UCX 1.18.1 runtime failure.
+
+### Authorized bounded diagnosis — 2026-10-29
+
+The user subsequently authorized automatic low-cost diagnostic and repair
+attempts until the UCX path is verified, then a four-node submission after
+the small verification succeeds. The first diagnosis is
+`builds/build-scripts/gadi-icx20262-ompi5010/diagnose_ucx_loader_1n_v1.pbs`:
+one `normalsr` node, two CPUs and ten-minute cap. It records the final
+library path, ELF tags, `ldd`, bounded loader tracing and a two-rank UCP
+version probe. The four-node job must not be submitted on diagnostic-script
+completion alone; the actual runtime path/version and tutorial solver must
+pass first. Each new attempt keeps unique output and preserved evidence.

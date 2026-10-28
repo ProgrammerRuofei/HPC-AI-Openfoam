@@ -1,0 +1,121 @@
+#!/bin/bash
+# Diagnose why private Open MPI 5.0.10 resolves system UCX on one Gadi SPR
+# node. Run from the Gadi control checkout; hash-pinned GCC/MPI archives are
+# unpacked only in JOBFS. Job-keyed scratch files retain ELF and loader facts.
+# This is a diagnostic, not an OpenFOAM or scored workload.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx26_ompi_ucx_loader
+#PBS -l ncpus=2
+#PBS -l mem=8GB
+#PBS -l jobfs=10GB
+#PBS -l walltime=00:10:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/diagnose_ucx_loader_1n_v1.pbs.out
+set -euo pipefail
+
+BASE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening
+STACK="$BASE/gadi-gcc162-ompi5010"
+GCC_ARCHIVE="$STACK/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+ROOT="${PBS_JOBFS:?}/ucx-loader-diag-${PBS_JOBID:?}"
+EVIDENCE="$BASE/gadi-icx20262-ompi5010-of2512/evidence/ucx-loader-diag.${PBS_JOBID}"
+GCC_PREFIX="$ROOT/gcc-16.2.0"
+MPI_PREFIX="$ROOT/openmpi-5.0.10"
+
+test "${PBS_NCPUS:?}" -eq 2
+test ! -e "$ROOT"; test ! -e "$EVIDENCE"
+printf '%s  %s\n' "$GCC_SHA" "$GCC_ARCHIVE" | sha256sum -c -
+printf '%s  %s\n' "$MPI_SHA" "$MPI_ARCHIVE" | sha256sum -c -
+mkdir -p "$ROOT" "$EVIDENCE"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+preserve() {
+    status=$?; set +e
+    printf 'pbs_exit_status=%s\n' "$status" > "$EVIDENCE/exit-status.txt"
+    exit "$status"
+}
+trap preserve EXIT
+printf 'pbs_jobid=%s\nscored=false\nreason=UCX_loader_diagnosis\n' "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
+
+module purge
+module load ucx/1.18.1 ucc/1.4.4
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+tar -xzf "$GCC_ARCHIVE" -C "$ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$ROOT"
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+test "$(command -v mpirun)" = "$MPI_PREFIX/bin/mpirun"
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+printf '%s\n' "$LD_LIBRARY_PATH" > "$EVIDENCE/ld-library-path.txt"
+
+# Inspect transitive dependencies and embedded search paths without changing
+# the private MPI build. Keep full, bounded loader output for review.
+for object in "$MPI_PREFIX/lib/libmpi.so.40" "$MPI_PREFIX/lib/libopen-pal.so.80" \
+              /opt/mellanox/hcoll/lib/libhcoll.so.1 \
+              "$UCC_ROOT/lib/libucc.so.1" "$UCX_ROOT/lib/libucp.so.0"; do
+    name=$(basename "$object")
+    test -f "$object"
+    readelf -d "$object" > "$EVIDENCE/readelf-$name.txt"
+    ldd "$object" > "$EVIDENCE/ldd-$name.txt"
+done
+timeout -k 2s 30s env LD_DEBUG=libs ldd "$MPI_PREFIX/lib/libopen-pal.so.80" \
+    > "$EVIDENCE/loader-search.txt" 2>&1 || true
+
+# Compare the original path order with UCX placed before private MPI, then
+# run a bounded MPI_Init probe to see the actual loaded UCP path and version.
+ldd "$MPI_PREFIX/lib/libopen-pal.so.80" > "$EVIDENCE/ldd-original-order.txt"
+export LD_LIBRARY_PATH="$UCX_ROOT/lib:$MPI_PREFIX/lib:$UCC_ROOT/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+printf '%s\n' "$LD_LIBRARY_PATH" > "$EVIDENCE/ld-library-path-ucx-first.txt"
+ldd "$MPI_PREFIX/lib/libopen-pal.so.80" > "$EVIDENCE/ldd-ucx-first.txt"
+cat > "$ROOT/ucx-diag.c" <<'C_EOF'
+#define _GNU_SOURCE
+#include <mpi.h>
+#include <dlfcn.h>
+#include <link.h>
+#include <stdio.h>
+#include <string.h>
+static char ucp_path[4096];
+static int locate(struct dl_phdr_info *info, size_t size, void *data) {
+    (void)size; (void)data;
+    if (info->dlpi_name && strstr(info->dlpi_name, "libucp.so")) {
+        snprintf(ucp_path, sizeof(ucp_path), "%s", info->dlpi_name);
+        return 1;
+    }
+    return 0;
+}
+int main(int argc, char **argv) {
+    int rank, size, sum;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+    dl_iterate_phdr(locate, NULL);
+    void *handle = ucp_path[0] ? dlopen(ucp_path, RTLD_NOW | RTLD_NOLOAD) : NULL;
+    const char *(*version)(void) = handle ? dlsym(handle, "ucp_get_version_string") : NULL;
+    printf("UCX_DIAG rank=%d size=%d path=%s version=%s sum=%d\n",
+           rank, size, ucp_path[0] ? ucp_path : "MISSING",
+           version ? version() : "MISSING", sum);
+    fflush(stdout);
+    if (handle) dlclose(handle);
+    MPI_Finalize();
+    return size == 2 && sum == 1 && version ? 0 : 1;
+}
+C_EOF
+mpicc "$ROOT/ucx-diag.c" -ldl -o "$ROOT/ucx-diag"
+set +e
+timeout -k 5s 45s mpirun --mca pml ucx --mca coll_base_verbose 20 -np 2 \
+    "$ROOT/ucx-diag" > "$EVIDENCE/mpi-runtime.txt" 2>&1
+probe_status=$?
+set -e
+printf 'probe_exit_status=%s\n' "$probe_status" > "$EVIDENCE/probe-status.txt"
+grep -E 'UCX_DIAG|libucp.so|RPATH|RUNPATH' \
+    "$EVIDENCE/mpi-runtime.txt" "$EVIDENCE/readelf-libopen-pal.so.80.txt" \
+    "$EVIDENCE/ldd-ucx-first.txt" | tail -60 || true
+echo UCX_LOADER_DIAG_COMPLETE
