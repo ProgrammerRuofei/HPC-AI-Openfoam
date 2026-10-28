@@ -29,3 +29,24 @@ Next: inspect the relevant diff, commit only task files, push GitHub/Gadi,
 fast-forward the Gadi checkout, verify the script and unique output path,
 submit once, and analyze the retained loader evidence. No four-node job may
 proceed until a small solver smoke verifies the actual UCP path and version.
+
+## Diagnostic v1 result and bounded repair
+
+`182508262.gadi-pbs` finished with PBS `Exit_status=1` after 18 seconds
+(maximum 0.02 SU at 2 CPUs). Its job-keyed evidence remains under
+`evidence/ucx-loader-diag.182508262.gadi-pbs/`. Both original and UCX-first
+`LD_LIBRARY_PATH` orders resolved `libucp`, `libucs`, and `libuct` from
+`/usr/lib64`. The private `libmpi.so.40` and `libopen-pal.so.80` both carry
+`DT_RPATH` with `/usr/lib64` before `/apps/ucx/1.18.1/lib`, explaining why
+merely prepending `LD_LIBRARY_PATH` did not select site UCX. The first fatal
+error was later: archived `mpicc` points to a vanished JOBFS GCC path, so the
+two-rank probe never started. This is not a UCX runtime result.
+
+The proposed v2 diagnostic keeps the same 2-CPU allocation but uses the
+hash-checked GCC binary directly to compile the probe. It sets `LD_PRELOAD`
+for all four site UCX libraries (`ucs`, `ucm`, `uct`, `ucp`), checks the
+preloaded `ldd` resolution, then requires both MPI ranks to report the actual
+`/apps/ucx/1.18.1/lib/libucp.so.0` path and version `1.18.1` after
+`MPI_Init`. Its stdout and evidence are unique. This changes runtime library
+selection for a diagnostic only; the four-node scientific run remains gated
+on a passing OpenFOAM tutorial smoke with the same selection.
