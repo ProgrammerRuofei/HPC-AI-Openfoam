@@ -50,3 +50,23 @@ preloaded `ldd` resolution, then requires both MPI ranks to report the actual
 `MPI_Init`. Its stdout and evidence are unique. This changes runtime library
 selection for a diagnostic only; the four-node scientific run remains gated
 on a passing OpenFOAM tutorial smoke with the same selection.
+
+## Diagnostic v2 result and OpenFOAM gate
+
+`182508303.gadi-pbs` completed with PBS `Exit_status=0` in 23 seconds,
+`UCX118_RUNTIME_PROBE_PASS`, and `probe_exit_status=0`. Both ranks reported
+`/apps/ucx/1.18.1/lib/libucp.so.0`, version `1.18.1`, after `MPI_Init`.
+The original path-order `ldd` still found `/usr/lib64/libucp.so.0`; explicit
+preloading of the site UCX family changed the actual runtime selection.
+Evidence is retained under `evidence/ucx-loader-diag-v2.182508303.gadi-pbs/`.
+The MPI output also contains a UCX warning that a component requested UCP
+API >=1.19 while 1.18.1 was loaded. The two-rank collective completed, but
+this warning needs attention in the solver smoke and cannot be labelled a
+clean four-node validation by itself.
+
+Prepared `smoke_openfoam_v2512_ucx118_v2.pbs` retains the prior five-rank
+Scotch tutorial controls and hash-pinned archives. It adds the same UCX
+preload after environment setup, requires the actual UCP path/version after
+MPI initialization, then requires complete `simpleFoam` output and coded
+per-step timing. It has a unique stdout and evidence path; no scored case
+is touched. The four-node run remains gated on this job succeeding.

@@ -125,3 +125,19 @@ private GCC and MPI archives, records `LD_LIBRARY_PATH`, ELF dynamic tags,
 `ldd` and bounded loader tracing, then runs a two-rank MPI-initialized probe.
 The job records any probe failure separately; it does not run OpenFOAM or
 claim a UCX fix merely because the diagnostic script completes.
+
+`182508262.gadi-pbs` (diagnostic v1) ended PBS Exit 1 in 18 seconds before
+the MPI probe: archived `mpicc` still names its vanished JOBFS GCC path.
+Its ELF and `ldd` evidence showed private MPI `DT_RPATH` searches `/usr/lib64`
+ahead of site UCX, explaining why `LD_LIBRARY_PATH` alone failed. A unique
+diagnostic v2, `182508303.gadi-pbs`, ended PBS Exit 0 in 23 seconds with
+`UCX118_RUNTIME_PROBE_PASS`: both ranks actually loaded site UCP 1.18.1
+after `MPI_Init` using `LD_PRELOAD` of site `ucs`, `ucm`, `uct`, and `ucp`.
+The runtime emitted a UCP API >=1.19 warning, so this is a loader-path
+finding, not yet proof that the five-rank solver succeeds.
+
+`smoke_openfoam_v2512_ucx118_v2.pbs` is the next low-cost gate. It uses the
+same five-rank, 20-step Scotch tutorial as v1, the same hash-pinned ICX
+2026.2, GCC 16.2, Open MPI 5.0.10 and OpenFOAM v2512 archives, and the
+site UCX preload. It verifies UCP path/version after MPI initialization,
+solver `End`, and coded wall-clock output before allowing a four-node run.
