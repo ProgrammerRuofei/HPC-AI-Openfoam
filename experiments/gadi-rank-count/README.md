@@ -34,7 +34,7 @@ gain does not establish a four-node win. Any two/four-node follow-up
 requires separate review and authorization. Preserve the job-keyed logs
 and do not automatically repeat this job.
 
-## Submitted attempt
+## Completed same-node A/B result
 
 The reviewed script and this README were committed as `3dc32da`, pushed
 to the isolated GitHub and Gadi branches, and verified at the same commit
@@ -43,6 +43,28 @@ in the Gadi branch checkout. A single `qsub` returned
 `182509859.gadi-pbs`. The first `qstat -f` showed `Q`, 104 CPUs and
 00:40:00 requested. PBS stdout is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_rankcount_1n_40step_ab_v1.pbs.out`;
-job-keyed evidence will be
+job-keyed evidence is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/rank-count-1n-40step/182509859.gadi-pbs/evidence/`.
-The outcome, both Cd values, timings and actual SU are pending.
+PBS finished with `Exit_status=0` and both arm-level PASS markers plus the
+aggregate PASS marker. The two arms ran on the same
+`gadi-cpu-spr-0002.gadi.nci.org.au` node, with 104 and 96 affinity rows
+respectively. Both full preparation chains and solvers ended at `Time = 40`;
+the case-input SHA-256 manifests match byte for byte.
+
+| Arm | Coded mean s/step | Final Cd | Processor faces |
+| --- | ---: | ---: | ---: |
+| 104 ranks | 8.296121226410254 | 0.43806006706848422 | 1,420,042 |
+| 96 ranks | 8.978244996461541 | 0.44034575240845725 | 1,358,817 |
+
+The 96-rank arm was **8.22% slower** (+0.6821 s/step), despite having
+4.31% fewer processor faces. Both Cd values are within the prespecified
+0.42–0.45 sanity band. This one paired 40-step result argues against
+spending four-node SU on 96 ranks/node now; it does not establish why
+the 96-rank arm is slower or predict a 384-rank four-node result. The
+104-rank arm is 0.92% faster than the earlier independent 104-rank run,
+which illustrates normal run-to-run variation.
+
+PBS used 00:22:48 walltime and charged **79.04 SPR SU** (104 CPUs,
+190 GB memory, 100 GB requested JOBFS; reported JOBFS use 39.8 GB).
+The detailed result and evidence locations are in
+`results/gadi-gcc162-ompi5010-scotch/rank-count-1n-40step.md`.
