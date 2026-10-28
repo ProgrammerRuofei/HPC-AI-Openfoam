@@ -65,5 +65,24 @@ Gadi checkout was clean at that commit. Exactly one PBS submission returned
 stdout is `gadi-icx20262-ompi5010/submit-logs/smoke_openfoam_v2512_v1.pbs.out`
 under the toolchain-screening root; job-keyed evidence will be under
 `gadi-icx20262-ompi5010-of2512/evidence/smoke.182469604.gadi-pbs/`.
-Final solver, runtime-library, PBS and SU results are pending. No automatic
-repeat or four-node run is authorized.
+No automatic repeat or four-node run is authorized.
+
+The smoke job subsequently finished with PBS `Exit_status=0`, walltime
+`00:01:14`, and 0.21 SU on `gadi-cpu-spr-0611`. The job-keyed exit file says
+`pbs_exit_status=0`; the log ends with
+`OF2512_ICX20262_OMPI5010_SMOKE_PASS`. `decomposePar` records real Scotch,
+and the five-rank `simpleFoam` reaches tutorial `Time = 20`, coded timing,
+`End` and `Finalising parallel run`. Its tutorial average is
+`0.003752561789473684` s/step and is **not** a 65M-case performance result.
+The binary links to private Open MPI 5.0.10.
+
+After `MPI_Init`, both ranks in the separate two-rank communication probe
+loaded `/usr/lib64/libucp.so.0`, whose own version string is **1.21.0** and
+SHA-256 is `c5f993ab980f2bc736fe34cfb933acd6fb4d767444f6d64c3326766908277abc`.
+The modules `ucx/1.18.1` and `ucc/1.4.4` were loaded; `ldd` found
+`libucc.so.1` in `/apps/ucc/1.4.4/lib`. The probe's verbose selection log
+disqualified UCC and selected `hcoll` for the two-rank communicator. This
+selection is probe evidence, not a claim that every collective in the
+five-rank solver used the same component. Do not label the effective UCX
+runtime as 1.18.1 or the run as UCC-backed. No further run is authorized by
+this smoke approval.
