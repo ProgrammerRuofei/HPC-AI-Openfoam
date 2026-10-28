@@ -167,3 +167,11 @@ established 65M scientific input, Scotch decomposition and 150-step controls,
 and records rank hosts, binding, per-step time, Cd and PBS evidence. It
 excludes HCOLL; UCC 1.4.4 is loaded but runtime collective selection is
 not assumed.
+
+The four-node script and helper passed local and Gadi `bash -n` and
+SHA-256 checks, then a single `qsub` returned `182508542.gadi-pbs`.
+Requested `pm78` `normalsr`, four SPR nodes, 416 CPUs/ranks (104 per node),
+760 GB RAM, 100 GB JOBFS, 1 hour (832 SPR SU ceiling). This is a new
+candidate with fixed 65M scientific inputs, Scotch and 150 steps. PBS
+outcome, Cd, coded step time and charged SU are pending in
+`results/gadi-icx20262-ompi5010-scotch/run-registry.md`.

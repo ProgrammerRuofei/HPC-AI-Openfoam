@@ -122,3 +122,14 @@ excluded. The fixed source case, mesh, `fvSchemes`, `fvSolution`, Scotch,
 four-node template. Its scientific result will be a new candidate; since
 the collective path differs from older runs, any performance difference
 cannot be attributed to the compiler alone.
+
+The four-node script and runtime helper were committed as `5578580`, pushed
+to the isolated GitHub and Gadi branches, then fast-forwarded on Gadi. Gadi
+verified both script hashes and `bash -n`; the unique stdout path did not
+exist before submission. A single `qsub` returned **`182508542.gadi-pbs`**.
+Allocation: `pm78` `normalsr`, four Sapphire Rapids nodes, 416 CPUs/ranks
+(104 per node), 760 GB RAM, 100 GB JOBFS, 1-hour limit (832 SPR SU
+request ceiling). The `occDrivAerStaticMesh` source input and 150-step
+Scotch controls remain hash-gated. The actual PBS exit, chain completion,
+Cd, coded step time and SU are pending. Do not submit a repeat without a
+specific diagnosed failure and new authorization for another large run.
