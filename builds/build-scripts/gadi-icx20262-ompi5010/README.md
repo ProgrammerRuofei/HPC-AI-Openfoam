@@ -34,5 +34,16 @@ The build was submitted exactly once as `182402775.gadi-pbs` from reviewed
 commit `9a98f66` after the Gadi branch and script SHA-256 checks. Its first
 PBS state was `Q` in `normalsr-exec`. The unique stdout is under this stack's
 `submit-logs/build_openfoam_v2512_v1.pbs.out`; job-keyed build evidence is
-under `gadi-icx20262-ompi5010-of2512/evidence/`. Final result and actual
-SU remain pending.
+under `gadi-icx20262-ompi5010-of2512/evidence/`.
+
+Read-only inspection on 2026-10-28 found PBS `Exit_status=0`, walltime
+`00:41:12`, and 65.92 SU. All six `BENCHMARK_APP_PASS` markers, real
+`SCOTCH_BUILD_PASS`, and `BUILD_VALIDATION_PASS` are present. `simpleFoam`
+links to the private Open MPI 5.0.10 `libmpi.so.40`. Its SHA-256 is
+`d0125c49d047afd5e42164438d0a10af0c2a7310fa9b99fcabc41614275bb181`;
+the checked runtime archive SHA-256 is
+`73f62f4b06df806a7409a9a45d3de02d3cfb59b227fbe99fa2254305ccd5d2f5`.
+This is a successful build, not an OpenFOAM run or performance result.
+The retained `ldd` output resolves `libucp.so.0` from `/usr/lib64` despite
+loading the UCX 1.18.1 module; the actual UCP version and collective
+selection require a runtime diagnostic before a four-node comparison.
