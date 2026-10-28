@@ -86,3 +86,15 @@ selection is probe evidence, not a claim that every collective in the
 five-rank solver used the same component. Do not label the effective UCX
 runtime as 1.18.1 or the run as UCC-backed. No further run is authorized by
 this smoke approval.
+
+On 2026-10-29, the user separately approved one small UCX 1.18.1 path check
+after seeing the proposed difference. The new
+`smoke_openfoam_v2512_ucx118_v1.pbs` leaves the prior output intact. It
+reasserts `/apps/ucx/1.18.1/lib` after compiler/OpenFOAM setup, checks the
+site `libucp.so.0` SHA-256
+`f983f10603d6b9e623f1d3a0ef0f2a69c54a41e7a72c0c41e8694cfabaf588a7`,
+requires the two-rank probe to load that path and report 1.18.1, then runs
+the same five-rank, 20-step Scotch tutorial. UCC is not forced. Allocation
+remains one `normalsr` SPR node, 5 CPUs, 16 GB, 30 GB JOBFS, 20 minutes,
+at most about 1.67 SU. The new script and output paths are unique. This
+does not authorize a four-node run or a repeated job.
