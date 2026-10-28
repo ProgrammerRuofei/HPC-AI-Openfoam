@@ -98,3 +98,11 @@ the same five-rank, 20-step Scotch tutorial. UCC is not forced. Allocation
 remains one `normalsr` SPR node, 5 CPUs, 16 GB, 30 GB JOBFS, 20 minutes,
 at most about 1.67 SU. The new script and output paths are unique. This
 does not authorize a four-node run or a repeated job.
+
+The script was committed as `c3753cb`, pushed to both isolated branches and
+verified on Gadi with SHA-256
+`e46f2be4c93d514ed5404b1946514157f2da2859577cdb100fcd040a159b967d`.
+One `qsub` returned **`182508155.gadi-pbs`**, initially queued. Its stdout
+and job-keyed evidence paths are recorded in
+`progress/2026-10-29-gadi-icx20262-ompi5010-ucx118-smoke.md`. The PBS and
+runtime results are pending; the approval covers no repeat.
