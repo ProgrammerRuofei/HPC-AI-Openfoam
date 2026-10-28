@@ -141,3 +141,10 @@ same five-rank, 20-step Scotch tutorial as v1, the same hash-pinned ICX
 2026.2, GCC 16.2, Open MPI 5.0.10 and OpenFOAM v2512 archives, and the
 site UCX preload. It verifies UCP path/version after MPI initialization,
 solver `End`, and coded wall-clock output before allowing a four-node run.
+
+The v2 smoke `182508353.gadi-pbs` ended PBS Exit 0 in 1:23 (about 0.23
+SPR SU). Five-rank Scotch, `simpleFoam` `End` and coded timing passed with
+site UCP 1.18.1 actually loaded. HCOLL was selected by default and printed
+a UCP API >=1.19 compatibility warning. A separate v3 smoke excludes only
+HCOLL (`--mca coll ^hcoll`), retaining all other inputs, to check whether
+the warning disappears before a four-node run is submitted.

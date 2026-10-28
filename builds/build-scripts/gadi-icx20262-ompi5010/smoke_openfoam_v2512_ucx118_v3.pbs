@@ -1,0 +1,182 @@
+#!/bin/bash
+# Fresh-job ICX 2026.2/Open MPI 5.0.10 OpenFOAM tutorial smoke on Gadi,
+# with the site UCX 1.18.1 library explicitly selected and checked.
+# Expected working directory: Gadi control checkout. Inputs are hash-pinned
+# runtime archives and the site tutorial; all extraction stays in JOBFS.
+# Outputs are job-keyed scratch logs. This is diagnostic, not a scored case.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N of2512_icx26_ucx118_smoke
+#PBS -l ncpus=5
+#PBS -l mem=16GB
+#PBS -l jobfs=30GB
+#PBS -l walltime=00:20:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/smoke_openfoam_v2512_ucx118_v3.pbs.out
+set -euo pipefail
+
+BASE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening
+STACK_ROOT="$BASE/gadi-gcc162-ompi5010"
+OF_ROOT="$BASE/gadi-icx20262-ompi5010-of2512"
+INTEL_ARCHIVE="$BASE/gadi-icx20262-impi202119/runtime-archive/gadi-icx20262-impi202119.182138851.gadi-pbs.tar.gz"
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+OF_ARCHIVE="$OF_ROOT/runtime-archive/gadi-icx20262-ompi5010-of2512.182402775.gadi-pbs.tar.gz"
+FO_FILE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/FOwallClockTimeStatistics
+INTEL_SHA=013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+OF_SHA=73f62f4b06df806a7409a9a45d3de02d3cfb59b227fbe99fa2254305ccd5d2f5
+BIN_SHA=d0125c49d047afd5e42164438d0a10af0c2a7310fa9b99fcabc41614275bb181
+FO_SHA=0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08
+UCX_SHA=f983f10603d6b9e623f1d3a0ef0f2a69c54a41e7a72c0c41e8694cfabaf588a7
+ROOT="${PBS_JOBFS:?}/of2512-icx20262-ompi-ucx118-smoke-v3-${PBS_JOBID:?}"
+EVIDENCE="$OF_ROOT/evidence/smoke-ucx118-v3.${PBS_JOBID}"
+COMPILER_PREFIX="$ROOT/opt/intel/oneapi/compiler/2026.2"
+GCC_PREFIX="$ROOT/gcc-16.2.0"
+MPI_PREFIX="$ROOT/openmpi-5.0.10"
+FOAM_ROOT="$ROOT/OpenFOAM-v2512"
+CASE="$ROOT/pitzDaily_fused"
+
+test "${PBS_NCPUS:?}" -eq 5
+test ! -e "$ROOT"; test ! -e "$EVIDENCE"
+for item in "$INTEL_SHA $INTEL_ARCHIVE" "$GCC_SHA $GCC_ARCHIVE" \
+            "$MPI_SHA $MPI_ARCHIVE" "$OF_SHA $OF_ARCHIVE" "$FO_SHA $FO_FILE"; do
+    read -r hash file <<< "$item"
+    printf '%s  %s\n' "$hash" "$file" | sha256sum -c -
+done
+mkdir -p "$ROOT/opt/intel" "$EVIDENCE"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+preserve() {
+    status=$?; set +e
+    test -f "$CASE/log.simpleFoam" && cp -p "$CASE/log.simpleFoam" "$EVIDENCE/"
+    printf 'pbs_exit_status=%s\n' "$status" > "$EVIDENCE/exit-status.txt"
+    exit "$status"
+}
+trap preserve EXIT
+printf 'pbs_jobid=%s\nscored=false\ncase=pitzDaily_fused\nranks=5\ndecomposition=scotch\n' "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
+grep -m1 'model name' /proc/cpuinfo | tee "$EVIDENCE/cpu-model.txt"
+
+# Load only the site communication modules; the compiler, GCC runtime, MPI
+# and OpenFOAM are restored from the successful private-stack archives.
+module purge
+module load ucx/1.18.1 ucc/1.4.4
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+printf '%s  %s\n' "$UCX_SHA" "$UCX_ROOT/lib/libucp.so.0" | sha256sum -c -
+tar -xzf "$INTEL_ARCHIVE" -C "$ROOT/opt/intel"
+tar -xzf "$GCC_ARCHIVE" -C "$ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$ROOT"
+tar -xzf "$OF_ARCHIVE" -C "$ROOT"
+test -f "$COMPILER_PREFIX/env/vars.sh"
+set +u
+. "$COMPILER_PREFIX/env/vars.sh"
+set -u
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export OMPI_CC=icx OMPI_CXX=icpx
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+test "$(command -v icx)" = "$COMPILER_PREFIX/bin/icx"
+test "$(command -v mpirun)" = "$MPI_PREFIX/bin/mpirun"
+icx --version | head -n 1 | grep -F '2026.2.0'
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+mpicc --showme:command | grep -Fx icx
+mpicxx --showme:command | grep -Fx icpx
+BIN="$FOAM_ROOT/platforms/linux64IcxDPInt32Opt/bin/simpleFoam"
+test -x "$BIN"
+printf '%s  %s\n' "$BIN_SHA" "$BIN" | sha256sum -c -
+set +u
+. "$FOAM_ROOT/etc/bashrc" WM_COMPILER=Icx WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+set -u
+test "$WM_PROJECT_DIR" = "$FOAM_ROOT"
+test "$WM_OPTIONS" = linux64IcxDPInt32Opt
+test "$(command -v mpicc)" = "$MPI_PREFIX/bin/mpicc"
+# The previous smoke resolved system UCX 1.21.0 despite loading this module.
+# Reassert the site library path after all compiler and OpenFOAM setup.
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$UCX_ROOT/lib:$UCC_ROOT/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+# Private MPI carries DT_RPATH with /usr/lib64 ahead of site UCX, so
+# LD_LIBRARY_PATH alone cannot select the intended runtime. Preload the
+# complete site UCX family in launcher and ranks, then verify the loaded UCP.
+export LD_PRELOAD="$UCX_ROOT/lib/libucs.so.0:$UCX_ROOT/lib/libucm.so.0:$UCX_ROOT/lib/libuct.so.0:$UCX_ROOT/lib/libucp.so.0"
+printf '%s\n' "$LD_PRELOAD" > "$EVIDENCE/ld-preload.txt"
+ldd "$BIN" | tee "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/simpleFoam.ldd"
+grep -F "$UCX_ROOT/lib/libucp.so.0" "$EVIDENCE/simpleFoam.ldd"
+ompi_info --all --param coll ucc --level 9 > "$EVIDENCE/coll-ucc-info.txt"
+ompi_info --param pml ucx > "$EVIDENCE/pml-ucx-info.txt"
+
+# Inspect UCP only after MPI_Init so a loadable UCX PML is included. Do not
+# infer the runtime UCP version from the module name or from ldd alone.
+cat > "$ROOT/ucx-diag.c" <<'C_EOF'
+#define _GNU_SOURCE
+#include <mpi.h>
+#include <dlfcn.h>
+#include <link.h>
+#include <stdio.h>
+#include <string.h>
+static char ucp_path[4096];
+static int locate_ucp(struct dl_phdr_info *info, size_t size, void *data) {
+    (void)size; (void)data;
+    if (info->dlpi_name && strstr(info->dlpi_name, "libucp.so")) {
+        snprintf(ucp_path, sizeof(ucp_path), "%s", info->dlpi_name);
+        return 1;
+    }
+    return 0;
+}
+int main(int argc, char **argv) {
+    int rank, n, sum;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &n);
+    MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
+    dl_iterate_phdr(locate_ucp, NULL);
+    void *handle = ucp_path[0] ? dlopen(ucp_path, RTLD_NOW | RTLD_NOLOAD) : NULL;
+    const char *(*version)(void) = handle ? dlsym(handle, "ucp_get_version_string") : NULL;
+    printf("UCX_DIAG rank=%d size=%d path=%s version=%s allreduce=%d\n",
+           rank, n, ucp_path[0] ? ucp_path : "MISSING",
+           version ? version() : "MISSING", sum);
+    fflush(stdout);
+    if (handle) dlclose(handle);
+    MPI_Finalize();
+    return n == 2 && sum == 1 && ucp_path[0] && version ? 0 : 1;
+}
+C_EOF
+mpicc "$ROOT/ucx-diag.c" -ldl -o "$ROOT/ucx-diag"
+# An incompatible-UCP warning appeared while site HCOLL was selected with
+# UCX 1.18.1. Exclude that one component; leave all other collective choices
+# at Open MPI defaults and record the actual selection.
+mpirun --mca pml ucx --mca coll ^hcoll --mca coll_base_verbose 20 -np 2 "$ROOT/ucx-diag" > "$EVIDENCE/mpi-runtime.txt" 2>&1
+grep -F 'UCX_DIAG rank=0 size=2' "$EVIDENCE/mpi-runtime.txt"
+grep -F 'UCX_DIAG rank=1 size=2' "$EVIDENCE/mpi-runtime.txt"
+test "$(grep -Fc "path=$UCX_ROOT/lib/libucp.so" "$EVIDENCE/mpi-runtime.txt")" -eq 2
+test "$(grep -Fc 'version=1.18.1' "$EVIDENCE/mpi-runtime.txt")" -eq 2
+! grep -Fq 'UCP API version is incompatible' "$EVIDENCE/mpi-runtime.txt"
+awk '/UCX_DIAG/ {for (i=1;i<=NF;i++) if ($i ~ /^path=/) {sub(/^path=/,"",$i); print $i}}' "$EVIDENCE/mpi-runtime.txt" | sort -u > "$EVIDENCE/ucp-paths.txt"
+test "$(wc -l < "$EVIDENCE/ucp-paths.txt")" -eq 1
+while IFS= read -r path; do test -f "$path"; sha256sum "$path"; done < "$EVIDENCE/ucp-paths.txt" > "$EVIDENCE/ucp.sha256"
+grep '^UCX_DIAG ' "$EVIDENCE/mpi-runtime.txt" > "$EVIDENCE/ucp-version.txt"
+
+# Retain the established five-rank tutorial controls and coded timing object.
+cp -a /apps/OpenFOAM/2512/tutorials/incompressible/simpleFoam/pitzDaily_fused "$CASE"
+cd "$CASE"
+cp -p "$FO_FILE" system/FOwallClockTimeStatistics
+sed -i -E 's/^(method[[:space:]]+)hierarchical;/\1scotch;/' system/decomposeParDict
+grep -Eq '^method[[:space:]]+scotch;' system/decomposeParDict
+printf '\nfunctions\n{\n    #include "FOwallClockTimeStatistics"\n}\n' >> system/controlDict
+sed -i -E 's/^(endTime[[:space:]]+)[0-9]+;/\120;/' system/controlDict
+blockMesh > "$EVIDENCE/blockMesh.log" 2>&1
+decomposePar > "$EVIDENCE/decomposePar.log" 2>&1
+grep -Eiq 'scotch|finished decomposition' "$EVIDENCE/decomposePar.log"
+mpirun --mca pml ucx --mca coll ^hcoll -np 5 "$BIN" -parallel > log.simpleFoam 2>&1
+cp -p log.simpleFoam "$EVIDENCE/"
+grep -Fq 'Finalising parallel run' log.simpleFoam
+grep -aEq '^End$' log.simpleFoam
+grep -Fq 'Average wall-clock time per time step' log.simpleFoam
+if grep -Eq 'FOAM FATAL|MPI_ABORT|Segmentation fault' log.simpleFoam; then exit 8; fi
+! grep -Fq 'UCP API version is incompatible' log.simpleFoam
+echo OF2512_ICX20262_OMPI5010_UCX118_NOHCOLL_SMOKE_PASS

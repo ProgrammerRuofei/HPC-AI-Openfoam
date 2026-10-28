@@ -70,3 +70,21 @@ preload after environment setup, requires the actual UCP path/version after
 MPI initialization, then requires complete `simpleFoam` output and coded
 per-step timing. It has a unique stdout and evidence path; no scored case
 is touched. The four-node run remains gated on this job succeeding.
+
+`182508353.gadi-pbs` (smoke v2) completed with PBS Exit 0 after 1:23,
+approximately 0.23 SPR SU, and
+`OF2512_ICX20262_OMPI5010_UCX118_SMOKE_PASS`. Five-rank Scotch
+decomposition, private MPI `simpleFoam`, coded average wall-clock output,
+`Finalising parallel run`, and `End` all passed. Both probe ranks reported
+site UCP 1.18.1. However, the probe and solver logs still printed
+`UCP API version is incompatible: required >=1.19, actual 1.18.1` while
+Open MPI's verbose collective selection showed site HCOLL enabled with
+priority 90 and UCC unavailable. The warning is not a solver failure but
+would obscure the four-node attribution.
+
+`smoke_openfoam_v2512_ucx118_v3.pbs` is a distinct 5-rank, 20-step
+diagnostic to exclude only HCOLL using `--mca coll ^hcoll`. It keeps the
+same archives, UCX preload, Scotch, tutorial and resource limit, records
+collective selection and requires no incompatible-UCP warning as well as
+the prior solver-completion gates. The high-cost four-node job remains
+unsubmitted while this compatibility question is resolved.
