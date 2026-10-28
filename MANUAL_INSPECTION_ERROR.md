@@ -192,3 +192,44 @@ traced. Original logs, status matrix, and measurement tar are preserved at
 No further four-node run was submitted. A future profile needs a separately
 reviewed script without the REALTIME-on-sleep preflight, bounded startup,
 and a small OpenFOAM sampling smoke before requesting 416 ranks.
+
+## Gadi ICX 2026.2/Open MPI 5.0.10 UCX 1.18.1 path gate
+
+- **Status:** `USER_ACTION_REQUIRED` — loader cause unresolved; no retry approved.
+- **Recorded:** 2026-10-29
+- **Workflow:** `builds/build-scripts/gadi-icx20262-ompi5010/smoke_openfoam_v2512_ucx118_v1.pbs`
+- **Attempt / PBS job:** UCX 1.18.1 path-gated tutorial / `182508155.gadi-pbs`
+- **Scope:** Gadi `normalsr`, one Sapphire Rapids node, 5 CPUs, 20-minute
+  request; ICX 2026.2, private Open MPI 5.0.10, OpenFOAM v2512, site UCX
+  1.18.1/UCC 1.4.4 modules. No fixed 65M case was run.
+
+### Observed failure and retained evidence
+
+PBS ended `F`, `Exit_status=1`, 1:00 walltime, 0.17 SU on
+`gadi-cpu-spr-0215`. The job-keyed `exit-status.txt` also reports 1. Archive
+SHA checks and toolchain version checks passed. `simpleFoam.ldd` found the
+private MPI and site UCC, but found `libucp.so.0`, `libucs.so.0`,
+`libucm.so.0` and `libuct.so.0` under `/usr/lib64` despite an explicit
+post-environment `LD_LIBRARY_PATH` entry for `/apps/ucx/1.18.1/lib`
+following the private MPI directory and preceding the prior library path.
+The first failing command was the `grep` gate requiring `libucp.so.0` to
+resolve under that site path. The MPI-initialized probe, Scotch decomposition
+and solver did not start, so there is no runtime UCX version or solver timing
+from this attempt. The prior successful smoke `182469604.gadi-pbs` did run
+and reported system UCX 1.21.0 after MPI initialization.
+
+Original job-keyed evidence:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/evidence/smoke-ucx118.182508155.gadi-pbs/`.
+Independent PBS stdout:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/smoke_openfoam_v2512_ucx118_v1.pbs.out`.
+Scheduler evidence: `qstat -xf 182508155.gadi-pbs`.
+
+### Suspected cause and next decision
+
+The loader cause is unconfirmed. Possible mechanisms include RPATH/RUNPATH
+in the private MPI or another dependency, or library search behavior after
+the environment has been assembled. A bounded diagnostic would capture the
+final library path, relevant ELF dynamic tags and loader search trace before
+another solver run. Such a diagnostic, any path/launcher change and any retry
+require a separate reviewed scope. Do not treat the path-gate failure as an
+OpenFOAM or UCX 1.18.1 runtime failure.

@@ -106,3 +106,12 @@ One `qsub` returned **`182508155.gadi-pbs`**, initially queued. Its stdout
 and job-keyed evidence paths are recorded in
 `progress/2026-10-29-gadi-icx20262-ompi5010-ucx118-smoke.md`. The PBS and
 runtime results are pending; the approval covers no repeat.
+
+The UCX path smoke ended `F`, PBS `Exit_status=1`, 1:00 walltime and
+**0.17 SU** on `gadi-cpu-spr-0215`. Archive and version checks passed, but
+`simpleFoam.ldd` still resolved `libucp.so.0` and related UCX libraries
+from `/usr/lib64`. The first failure was the hard path check for
+`/apps/ucx/1.18.1/lib`; the MPI probe and tutorial did not run. Both the
+independent stdout and job-keyed run log are retained. Explicitly prepending
+the site path after environment setup was insufficient; the loader cause
+remains unconfirmed. No automatic retry or four-node run was submitted.

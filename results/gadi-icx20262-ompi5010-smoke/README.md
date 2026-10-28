@@ -27,3 +27,16 @@ runtime or a competition performance ranking.
 Evidence: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/evidence/smoke.182469604.gadi-pbs/`.
 Submission, validation and provenance are in
 `progress/2026-10-28-gadi-icx20262-ompi5010-smoke.md`.
+
+## UCX 1.18.1 path-gated follow-up
+
+The separately approved `182508155.gadi-pbs` job used the same five-rank
+tutorial request with a new script and output path. It finished with PBS
+`Exit_status=1`, walltime 1:00 and **0.17 SU**. After archive and compiler
+checks, `ldd` still resolved `libucp.so.0` from `/usr/lib64` even though
+`/apps/ucx/1.18.1/lib` had been placed ahead of the prior
+`LD_LIBRARY_PATH` (after the private MPI directory). The
+path gate stopped the job before MPI initialization, decomposition or solver;
+there is no new Cd or timing result. Original evidence is retained under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/evidence/smoke-ucx118.182508155.gadi-pbs/` and the independent
+stdout at `gadi-icx20262-ompi5010/submit-logs/smoke_openfoam_v2512_ucx118_v1.pbs.out`.
