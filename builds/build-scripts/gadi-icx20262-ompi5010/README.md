@@ -148,3 +148,11 @@ site UCP 1.18.1 actually loaded. HCOLL was selected by default and printed
 a UCP API >=1.19 compatibility warning. A separate v3 smoke excludes only
 HCOLL (`--mca coll ^hcoll`), retaining all other inputs, to check whether
 the warning disappears before a four-node run is submitted.
+
+That v3 smoke, `182508439.gadi-pbs`, ended PBS Exit 0 in 1:22 (about 0.23
+SPR SU). It loaded site UCP 1.18.1, selected Open MPI `tuned` in the
+verbose two-rank collective probe, and completed the five-rank Scotch
+solver with coded timing and no incompatible-UCP warning. UCC 1.4.4 is
+present but was not selected. The next gate is a two-node/one-rank-per-node
+UCX preflight using the same preload and HCOLL exclusion before the
+four-node scientific case.

@@ -88,3 +88,19 @@ same archives, UCX preload, Scotch, tutorial and resource limit, records
 collective selection and requires no incompatible-UCP warning as well as
 the prior solver-completion gates. The high-cost four-node job remains
 unsubmitted while this compatibility question is resolved.
+
+`182508439.gadi-pbs` (v3) finished PBS Exit 0 after 1:22, about 0.23 SPR
+SU, with `OF2512_ICX20262_OMPI5010_UCX118_NOHCOLL_SMOKE_PASS`.
+Both MPI-initialized probe ranks loaded site UCP 1.18.1. Open MPI selected
+the `tuned` collective in the verbose two-rank probe; five-rank Scotch
+decomposition and `simpleFoam` reached `End` with coded timing. Neither
+probe nor solver log contained the incompatible-UCP warning. UCC 1.4.4 was
+loaded and linked but was not selected as the collective component; do not
+claim UCC runtime use.
+
+Before committing up to 832 SU to four nodes, the next small gate is
+`preflight_ucx118_2n_v1.pbs`: two SPR nodes, one MPI rank per node, site
+UCX preload, `--mca coll ^hcoll`, hash-pinned GCC/Open MPI archives, actual
+UCP path/version and cross-node `MPI_Allreduce` checks. It requests 208
+CPUs for at most 10 minutes (about 69.3 SU ceiling) but should finish in
+well under a minute if healthy. Its stdout/evidence paths are unique.
