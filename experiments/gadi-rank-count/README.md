@@ -33,3 +33,16 @@ This pair can reject an obviously poor 96-rank candidate; a small one-pair
 gain does not establish a four-node win. Any two/four-node follow-up
 requires separate review and authorization. Preserve the job-keyed logs
 and do not automatically repeat this job.
+
+## Submitted attempt
+
+The reviewed script and this README were committed as `3dc32da`, pushed
+to the isolated GitHub and Gadi branches, and verified at the same commit
+and script SHA-256 `dccc848a9f9f65c7dc219f6faf816f72385b41446ea3d5d067b412a1292745e8`
+in the Gadi branch checkout. A single `qsub` returned
+`182509859.gadi-pbs`. The first `qstat -f` showed `Q`, 104 CPUs and
+00:40:00 requested. PBS stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_rankcount_1n_40step_ab_v1.pbs.out`;
+job-keyed evidence will be
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/rank-count-1n-40step/182509859.gadi-pbs/evidence/`.
+The outcome, both Cd values, timings and actual SU are pending.
