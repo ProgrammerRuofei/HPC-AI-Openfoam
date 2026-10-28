@@ -131,5 +131,30 @@ Allocation: `pm78` `normalsr`, four Sapphire Rapids nodes, 416 CPUs/ranks
 (104 per node), 760 GB RAM, 100 GB JOBFS, 1-hour limit (832 SPR SU
 request ceiling). The `occDrivAerStaticMesh` source input and 150-step
 Scotch controls remain hash-gated. The actual PBS exit, chain completion,
-Cd, coded step time and SU are pending. Do not submit a repeat without a
-specific diagnosed failure and new authorization for another large run.
+Cd, coded step time and SU were subsequently verified; see the completion
+record below. Do not submit a repeat without a specific diagnosed failure
+and new authorization for another large run.
+
+## Four-node result: `182508542.gadi-pbs`
+
+The single submitted run finished PBS `Exit_status=0` in 00:20:10, charging
+**279.64 SPR SU** (416 CPUs requested; 760 GB RAM and 100 GB JOBFS
+requested). The job-keyed `run.log` contains
+`ICX20262_OMPI5010_UCX118_OF2512_SCOTCH_4N_PASS`; its evidence includes
+the checked source/archive hashes, copied case-input hashes, four node-local
+runtime/staging markers, and a rank-host map with exactly 104 ranks on each
+of `gadi-cpu-spr-0665` through `0668`. Scotch decomposition, renumbering,
+potentialFoam, applyBoundaryLayer and `simpleFoam` all ended normally. The
+solver reached `Time = 150`, `End` and MPI finalisation. Coded wall-clock
+statistics gave **2.120806764543624 s/step** over 149 measured steps;
+`coefficient.dat` gave final **Cd = 0.29187627172981750**, within the
+0.27–0.30 band. The fixed mesh and `fvSchemes`/`fvSolution` hashes were
+verified by the script. The preloaded site UCX path was recorded; UCC was
+loaded but collective selection was not proven.
+
+The GCC16.2/Open MPI/Scotch pair averaged 1.989910155 s/step, so this
+candidate was 6.58% slower. Its HCOLL exclusion and UCX preload differ
+from those older runs; the difference is a stack-level observation, not a
+compiler-only effect. Full evidence paths and exact scientific hashes are
+in `results/gadi-icx20262-ompi5010-scotch/run-registry.md`. No repeat was
+submitted.

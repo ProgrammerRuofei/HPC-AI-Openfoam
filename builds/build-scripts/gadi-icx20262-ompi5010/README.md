@@ -173,5 +173,12 @@ SHA-256 checks, then a single `qsub` returned `182508542.gadi-pbs`.
 Requested `pm78` `normalsr`, four SPR nodes, 416 CPUs/ranks (104 per node),
 760 GB RAM, 100 GB JOBFS, 1 hour (832 SPR SU ceiling). This is a new
 candidate with fixed 65M scientific inputs, Scotch and 150 steps. PBS
-outcome, Cd, coded step time and charged SU are pending in
+outcome, Cd, coded step time and charged SU are recorded in
 `results/gadi-icx20262-ompi5010-scotch/run-registry.md`.
+
+That single run completed PBS Exit 0 in 00:20:10 and charged 279.64 SPR SU.
+The pass marker, four hosts with 104 ranks each, unchanged input hashes,
+all preparation `End` markers, solver `Time = 150`/`End`, coded mean
+2.120806764543624 s/step and final Cd 0.29187627172981750 passed.
+The site UCX preload path was recorded. UCC 1.4.4 was loaded; its
+collective component was not shown to be selected. No repeat was submitted.
