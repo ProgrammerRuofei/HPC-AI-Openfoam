@@ -1,0 +1,959 @@
+[1793294143.132442] [gadi-cpu-spr-0201:2251964:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.132442] [gadi-cpu-spr-0201:2251964:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.156173] [gadi-cpu-spr-0201:2251967:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.156173] [gadi-cpu-spr-0201:2251967:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.156443] [gadi-cpu-spr-0201:2251963:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.156443] [gadi-cpu-spr-0201:2251963:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.178623] [gadi-cpu-spr-0201:2251974:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.178623] [gadi-cpu-spr-0201:2251974:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.182296] [gadi-cpu-spr-0201:2251968:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.182296] [gadi-cpu-spr-0201:2251968:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.182562] [gadi-cpu-spr-0201:2251980:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.182562] [gadi-cpu-spr-0201:2251980:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.219425] [gadi-cpu-spr-0201:2251973:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.219425] [gadi-cpu-spr-0201:2251973:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.220945] [gadi-cpu-spr-0201:2251969:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.220945] [gadi-cpu-spr-0201:2251969:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.260247] [gadi-cpu-spr-0201:2251975:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.260247] [gadi-cpu-spr-0201:2251975:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.280328] [gadi-cpu-spr-0201:2251981:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.280328] [gadi-cpu-spr-0201:2251981:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.378138] [gadi-cpu-spr-0201:2251978:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.378138] [gadi-cpu-spr-0201:2251978:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.500211] [gadi-cpu-spr-0201:2251971:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.500211] [gadi-cpu-spr-0201:2251971:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.550790] [gadi-cpu-spr-0201:2251982:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.550790] [gadi-cpu-spr-0201:2251982:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.556171] [gadi-cpu-spr-0201:2251979:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.556171] [gadi-cpu-spr-0201:2251979:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.563166] [gadi-cpu-spr-0201:2251977:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.563166] [gadi-cpu-spr-0201:2251977:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.568551] [gadi-cpu-spr-0201:2251972:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.568551] [gadi-cpu-spr-0201:2251972:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.573295] [gadi-cpu-spr-0201:2251991:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.573295] [gadi-cpu-spr-0201:2251991:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.573495] [gadi-cpu-spr-0201:2251985:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.573495] [gadi-cpu-spr-0201:2251985:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.580083] [gadi-cpu-spr-0201:2251984:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.580083] [gadi-cpu-spr-0201:2251984:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.582370] [gadi-cpu-spr-0201:2251989:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.582370] [gadi-cpu-spr-0201:2251989:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.591916] [gadi-cpu-spr-0201:2251992:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.591916] [gadi-cpu-spr-0201:2251992:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.596084] [gadi-cpu-spr-0201:2251970:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.596084] [gadi-cpu-spr-0201:2251970:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.597531] [gadi-cpu-spr-0201:2251983:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.597531] [gadi-cpu-spr-0201:2251983:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.632469] [gadi-cpu-spr-0201:2251988:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.632469] [gadi-cpu-spr-0201:2251988:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.632988] [gadi-cpu-spr-0201:2251986:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.632988] [gadi-cpu-spr-0201:2251986:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.642168] [gadi-cpu-spr-0201:2251993:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.642168] [gadi-cpu-spr-0201:2251993:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.651047] [gadi-cpu-spr-0201:2251966:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.651047] [gadi-cpu-spr-0201:2251966:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.682776] [gadi-cpu-spr-0201:2251976:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.682776] [gadi-cpu-spr-0201:2251976:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.691182] [gadi-cpu-spr-0201:2252002:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.691182] [gadi-cpu-spr-0201:2252002:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.695647] [gadi-cpu-spr-0201:2251987:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.695647] [gadi-cpu-spr-0201:2251987:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.711580] [gadi-cpu-spr-0201:2252001:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.711580] [gadi-cpu-spr-0201:2252001:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.723431] [gadi-cpu-spr-0201:2252003:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.723431] [gadi-cpu-spr-0201:2252003:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.750014] [gadi-cpu-spr-0201:2252009:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.750014] [gadi-cpu-spr-0201:2252009:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.763597] [gadi-cpu-spr-0201:2251994:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.763597] [gadi-cpu-spr-0201:2251994:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.771665] [gadi-cpu-spr-0201:2251995:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.771665] [gadi-cpu-spr-0201:2251995:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.779064] [gadi-cpu-spr-0201:2252010:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.779064] [gadi-cpu-spr-0201:2252010:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.779983] [gadi-cpu-spr-0201:2252006:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.779983] [gadi-cpu-spr-0201:2252006:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.795714] [gadi-cpu-spr-0201:2252013:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.795714] [gadi-cpu-spr-0201:2252013:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.802138] [gadi-cpu-spr-0201:2252014:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.802138] [gadi-cpu-spr-0201:2252014:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.818192] [gadi-cpu-spr-0201:2251990:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.818192] [gadi-cpu-spr-0201:2251990:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.827650] [gadi-cpu-spr-0201:2252018:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.827650] [gadi-cpu-spr-0201:2252018:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.828273] [gadi-cpu-spr-0201:2251998:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.828273] [gadi-cpu-spr-0201:2251998:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.828304] [gadi-cpu-spr-0201:2251997:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.828304] [gadi-cpu-spr-0201:2251997:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.830980] [gadi-cpu-spr-0201:2252025:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.830980] [gadi-cpu-spr-0201:2252025:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.832316] [gadi-cpu-spr-0201:2251999:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.832316] [gadi-cpu-spr-0201:2251999:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.844236] [gadi-cpu-spr-0201:2252004:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.844236] [gadi-cpu-spr-0201:2252004:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.853662] [gadi-cpu-spr-0201:2252008:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.853662] [gadi-cpu-spr-0201:2252008:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.857585] [gadi-cpu-spr-0201:2251996:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.857585] [gadi-cpu-spr-0201:2251996:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.867056] [gadi-cpu-spr-0201:2252000:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.867056] [gadi-cpu-spr-0201:2252000:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.869842] [gadi-cpu-spr-0201:2252007:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.869842] [gadi-cpu-spr-0201:2252007:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.875075] [gadi-cpu-spr-0201:2252005:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.875075] [gadi-cpu-spr-0201:2252005:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.875870] [gadi-cpu-spr-0201:2252023:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.875870] [gadi-cpu-spr-0201:2252023:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.876266] [gadi-cpu-spr-0201:2252022:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.876266] [gadi-cpu-spr-0201:2252022:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.879814] [gadi-cpu-spr-0201:2252020:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.879814] [gadi-cpu-spr-0201:2252020:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.880910] [gadi-cpu-spr-0201:2252012:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.880910] [gadi-cpu-spr-0201:2252012:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.881074] [gadi-cpu-spr-0201:2252016:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.881074] [gadi-cpu-spr-0201:2252016:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.881822] [gadi-cpu-spr-0201:2252011:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.881822] [gadi-cpu-spr-0201:2252011:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.882288] [gadi-cpu-spr-0201:2252015:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.882288] [gadi-cpu-spr-0201:2252015:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.882354] [gadi-cpu-spr-0201:2252021:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.882354] [gadi-cpu-spr-0201:2252021:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.883908] [gadi-cpu-spr-0201:2252017:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.883908] [gadi-cpu-spr-0201:2252017:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.886403] [gadi-cpu-spr-0201:2252026:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.886403] [gadi-cpu-spr-0201:2252026:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.886484] [gadi-cpu-spr-0201:2252030:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.886484] [gadi-cpu-spr-0201:2252030:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.886563] [gadi-cpu-spr-0201:2252019:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.886563] [gadi-cpu-spr-0201:2252019:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.893363] [gadi-cpu-spr-0201:2251965:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.893363] [gadi-cpu-spr-0201:2251965:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.898122] [gadi-cpu-spr-0201:2252024:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.898122] [gadi-cpu-spr-0201:2252024:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.899011] [gadi-cpu-spr-0201:2252042:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.899011] [gadi-cpu-spr-0201:2252042:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.900292] [gadi-cpu-spr-0201:2252029:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.900292] [gadi-cpu-spr-0201:2252029:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.903974] [gadi-cpu-spr-0201:2252032:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.903974] [gadi-cpu-spr-0201:2252032:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.904005] [gadi-cpu-spr-0201:2252028:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.904005] [gadi-cpu-spr-0201:2252028:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.912676] [gadi-cpu-spr-0201:2252044:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.912676] [gadi-cpu-spr-0201:2252044:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.912931] [gadi-cpu-spr-0201:2252041:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.912931] [gadi-cpu-spr-0201:2252041:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.918594] [gadi-cpu-spr-0201:2252031:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.918594] [gadi-cpu-spr-0201:2252031:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.925676] [gadi-cpu-spr-0201:2252036:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.925676] [gadi-cpu-spr-0201:2252036:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.938170] [gadi-cpu-spr-0201:2252045:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.938170] [gadi-cpu-spr-0201:2252045:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.939939] [gadi-cpu-spr-0201:2252034:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.939939] [gadi-cpu-spr-0201:2252034:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.943554] [gadi-cpu-spr-0201:2252035:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.943554] [gadi-cpu-spr-0201:2252035:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.945771] [gadi-cpu-spr-0201:2252027:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.945771] [gadi-cpu-spr-0201:2252027:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.945966] [gadi-cpu-spr-0201:2252033:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.945966] [gadi-cpu-spr-0201:2252033:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.948347] [gadi-cpu-spr-0201:2252040:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.948347] [gadi-cpu-spr-0201:2252040:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.948828] [gadi-cpu-spr-0201:2252039:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.948884] [gadi-cpu-spr-0201:2252038:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.948884] [gadi-cpu-spr-0201:2252038:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.948828] [gadi-cpu-spr-0201:2252039:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.949961] [gadi-cpu-spr-0201:2252043:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.949961] [gadi-cpu-spr-0201:2252043:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.954760] [gadi-cpu-spr-0201:2252056:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.954760] [gadi-cpu-spr-0201:2252056:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.960218] [gadi-cpu-spr-0201:2252050:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.960218] [gadi-cpu-spr-0201:2252050:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.960343] [gadi-cpu-spr-0201:2252037:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.960343] [gadi-cpu-spr-0201:2252037:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.960398] [gadi-cpu-spr-0201:2252065:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.960419] [gadi-cpu-spr-0201:2252055:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.960419] [gadi-cpu-spr-0201:2252055:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.960398] [gadi-cpu-spr-0201:2252065:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.960511] [gadi-cpu-spr-0201:2252057:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.960511] [gadi-cpu-spr-0201:2252057:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.960672] [gadi-cpu-spr-0201:2252048:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.960672] [gadi-cpu-spr-0201:2252048:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.962728] [gadi-cpu-spr-0201:2252062:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.962728] [gadi-cpu-spr-0201:2252062:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.964660] [gadi-cpu-spr-0201:2252054:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.964660] [gadi-cpu-spr-0201:2252054:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.964728] [gadi-cpu-spr-0201:2252064:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.964728] [gadi-cpu-spr-0201:2252064:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.964764] [gadi-cpu-spr-0201:2252047:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.964764] [gadi-cpu-spr-0201:2252047:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.964933] [gadi-cpu-spr-0201:2252063:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.964933] [gadi-cpu-spr-0201:2252063:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.964984] [gadi-cpu-spr-0201:2252060:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.964984] [gadi-cpu-spr-0201:2252060:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.965057] [gadi-cpu-spr-0201:2252058:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.965057] [gadi-cpu-spr-0201:2252058:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.965277] [gadi-cpu-spr-0201:2252066:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.965277] [gadi-cpu-spr-0201:2252066:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.965386] [gadi-cpu-spr-0201:2252046:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.965386] [gadi-cpu-spr-0201:2252046:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.965600] [gadi-cpu-spr-0201:2252061:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.965600] [gadi-cpu-spr-0201:2252061:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.965604] [gadi-cpu-spr-0201:2252059:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.965604] [gadi-cpu-spr-0201:2252059:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.965676] [gadi-cpu-spr-0201:2252052:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.965676] [gadi-cpu-spr-0201:2252052:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.966083] [gadi-cpu-spr-0201:2252053:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.966083] [gadi-cpu-spr-0201:2252053:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.966194] [gadi-cpu-spr-0201:2252051:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.966194] [gadi-cpu-spr-0201:2252051:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793294143.966921] [gadi-cpu-spr-0201:2252049:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793294143.966921] [gadi-cpu-spr-0201:2252049:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2512                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : v2512 OPENFOAM=2512 version=v2512
+Arch   : "LSB;label=32;scalar=64"
+Exec   : /jobfs/182588604.gadi-pbs/of2512-icx20253-binding-pair-182588604.gadi-pbs/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/bin/simpleFoam -parallel
+Date   : Oct 30 2026
+Time   : 04:15:46
+Host   : gadi-cpu-spr-0201.gadi.nci.org.au
+PID    : 2251973
+I/O    : uncollated
+Case   : /jobfs/182588604.gadi-pbs/of2512-icx20253-binding-pair-182588604.gadi-pbs/case-default
+nProcs : 104
+Hosts  :
+(
+    (gadi-cpu-spr-0201.gadi.nci.org.au 104)
+)
+Pstream initialized with:
+    node communication : off [type=host] (104 ranks, 1 nodes)
+    topology controls  : none
+    consensus exchange : 0 (tuning: 0)
+    exchange algorithm : 0
+    commsType          : nonBlocking
+    polling iterations : 0
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+SIMPLE: no convergence criteria found. Calculations will run for 40 steps.
+
+Reading field p
+
+Reading field U
+
+Reading/calculating face flux field phi
+
+Selecting incompressible transport model Newtonian
+Selecting turbulence model type RAS
+Selecting RAS turbulence model kOmegaSST
+Selecting patchDistMethod meshWave
+RAS
+{
+    RASModel        kOmegaSST;
+    turbulence      on;
+    printCoeffs     on;
+    alphaK1         0.85;
+    alphaK2         1;
+    alphaOmega1     0.5;
+    alphaOmega2     0.856;
+    gamma1          0.5555555555555556;
+    gamma2          0.44;
+    beta1           0.075;
+    beta2           0.0828;
+    betaStar        0.09;
+    a1              0.31;
+    b1              1;
+    c1              10;
+    F3              false;
+    decayControl    false;
+    kInf            0;
+    omegaInf        0;
+}
+
+No MRF models present
+
+Creating finite-volume options from "system/fvOptions"
+
+Selecting finite volume options type velocityDampingConstraint
+    Source: velocityDamping
+    State: active
+    - selecting all cells
+    - selected 65334765 cell(s) with volume 105593.550356508
+
+Starting time loop
+
+Using dynamicCode for functionObject wallClockTimeStatistics at line 39 in "/jobfs/182588604.gadi-pbs/of2512-icx20253-binding-pair-182588604.gadi-pbs/case-default/system/controlDict/functions/wallClockTimeStatistics"
+Could not load "/jobfs/182588604.gadi-pbs/of2512-icx20253-binding-pair-182588604.gadi-pbs/case-default/dynamicCode/platforms/linux64IcxDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so"
+/jobfs/182588604.gadi-pbs/of2512-icx20253-binding-pair-182588604.gadi-pbs/case-default/dynamicCode/platforms/linux64IcxDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so: cannot open shared object file: No such file or directory
+Creating new library in "dynamicCode/wallClockTimeStatistics/platforms/linux64IcxDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so"
+Invoking wmake libso /jobfs/182588604.gadi-pbs/of2512-icx20253-binding-pair-182588604.gadi-pbs/case-default/dynamicCode/wallClockTimeStatistics
+wmake libso /jobfs/182588604.gadi-pbs/of2512-icx20253-binding-pair-182588604.gadi-pbs/case-default/dynamicCode/wallClockTimeStatistics
+    ln: ./lnInclude
+    dep: functionObjectTemplate.C
+    Ctoo: functionObjectTemplate.C
+    link: /jobfs/182588604.gadi-pbs/of2512-icx20253-binding-pair-182588604.gadi-pbs/case-default/dynamicCode/wallClockTimeStatistics/../platforms/linux64IcxDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so
+forceCoeffs forceCoeffsAll:
+    rho: rhoInf
+    Freestream density (rhoInf) set to 1
+    Not including porosity effects
+    magUInf: 38.889
+    lRef   : 2.78618
+    Aref   : 2.17
+    rhoInf : 1
+    Selecting all coefficients
+    - Drag force: Cd
+    - Drag force front: Cd(f)
+    - Drag force rear: Cd(r)
+    - Lift force: Cl
+    - Lift force front: Cl(f)
+    - Lift force rear: Cl(r)
+    - Pitch moment: CmPitch
+    - Roll moment: CmRoll
+    - Yaw moment: CmYaw
+    - Side force: Cs
+    - Side force front: Cs(f)
+    - Side force rear: Cs(r)
+
+
+pressure calc_cp:
+    Operating mode: staticCoeff
+    Not including hydrostatic effects
+
+wallShearStress wallShearStress:
+    processing (47) wall patches:
+        BodyA-Pillar
+        BodyDoorhandles
+        BodyFasciafront1
+        BodyFasciafront2
+        BodyFender
+        BodyHeadlamps
+        BodyHood
+        BodyRear
+        BodyRearAccess
+        BodyRocker
+        BodyRoof
+        BodySide
+        BodyWindowfront
+        BodyWindowfrontframe
+        BodyWindowSide
+        BodyWindowsideframe
+        Mirrors1
+        Mirrors2
+        ClosedGrillLowerInsert
+        ClosedGrillUpperInsert
+        OCDADetailedUnderbody
+        EngineUndershield
+        Tiresfront
+        Tiresrear
+        WheelSupportfront1
+        WheelSupportfront2
+        WheelSupportrear
+        Powertrain
+        ExhaustSystem1
+        ExhaustSystem2
+        ExhaustSystem3
+        NotchbackB-Pillar
+        NotchbackBodyside
+        NotchbackC-Pillar
+        NotchbackRoof
+        NotchbackTrunk
+        NotchbackWindowrear
+        NotchbackWindowrearframe
+        NotchbackWindowside
+        NotchbackWindowsideframe
+        CTRL_SURFACE_Outlet
+        CTRL_SURFACE_Wheelhouse_LHS
+        CTRL_SURFACE_Wheelshouse_RHS
+        Rimsfront
+        Rimsrear
+        BrakeDiscfront
+        BrakeDiscrear
+
+Time = 1
+
+velocityDampingConstraint velocityDamping damped 12 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.006749063204205471, Final residual = 0.0001189514598493415, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.4370748612319121, Final residual = 0.004659557437176315, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.2978726188492712, Final residual = 0.002450364794886366, No Iterations 15
+GAMG:  Solving for p, Initial residual = 1, Final residual = 0.001786545477544187, No Iterations 12
+time step continuity errors : sum local = 1.190247157712363e-05, global = 8.017290487958493e-06, cumulative = 8.017290487958493e-06
+smoothSolver:  Solving for omega, Initial residual = 0.01761760861201038, Final residual = 7.943637077464711e-07, No Iterations 8
+bounding omega, min: -413.837745407335 max: 45356108.66734583 average: 2416.085950502424
+smoothSolver:  Solving for k, Initial residual = 0.9999999999824017, Final residual = 0.0001399492800192587, No Iterations 8
+ExecutionTime = 20.34 s  ClockTime = 25 s
+
+Time = 2
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.00317892396301824, Final residual = 5.994390964404635e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.1582736214378314, Final residual = 0.003168595920450901, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.07065769685200078, Final residual = 0.001121995694997475, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.005495546333339754, Final residual = 5.033400814805673e-06, No Iterations 12
+time step continuity errors : sum local = 4.396237153374641e-06, global = -2.505406009529472e-06, cumulative = 5.511884478429021e-06
+smoothSolver:  Solving for omega, Initial residual = 0.007593415366563436, Final residual = 1.358538294995479e-06, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.1591910895124621, Final residual = 5.389241999618543e-05, No Iterations 8
+ExecutionTime = 28.78 s  ClockTime = 33 s
+
+Wall-clock time elapsed during the current time step = 8.437111178 s
+
+Time = 3
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.001669828124175262, Final residual = 3.257071180374027e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.09064821483332078, Final residual = 0.001862457592724456, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02980151090715473, Final residual = 0.0005212767102382107, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.005030877923902438, Final residual = 4.014181072348976e-06, No Iterations 12
+time step continuity errors : sum local = 3.510748843791352e-06, global = -2.703132519732033e-06, cumulative = 2.808751958696988e-06
+smoothSolver:  Solving for omega, Initial residual = 0.003709694887508919, Final residual = 1.47094128337188e-06, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.05415925339027505, Final residual = 3.062630318821003e-05, No Iterations 8
+ExecutionTime = 37.06 s  ClockTime = 42 s
+
+Wall-clock time elapsed during the current time step = 8.28390087 s
+
+Time = 4
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.001150203060366955, Final residual = 2.335594681022366e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.06511518870924239, Final residual = 0.001294754713532984, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01693816252863025, Final residual = 0.000326101041353176, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.004645137785187031, Final residual = 3.238376163668719e-06, No Iterations 12
+time step continuity errors : sum local = 2.704094428016047e-06, global = -1.933365394869258e-06, cumulative = 8.753865638277297e-07
+smoothSolver:  Solving for omega, Initial residual = 0.001998932625902122, Final residual = 1.225068409093138e-06, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.02207873684036713, Final residual = 1.687513113803623e-05, No Iterations 8
+ExecutionTime = 45.32 s  ClockTime = 50 s
+
+Wall-clock time elapsed during the current time step = 8.261283073 s
+
+Time = 5
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0008756061742205929, Final residual = 1.995897820025847e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.05176964581080927, Final residual = 0.00103218047813711, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01216228381138535, Final residual = 0.0002492724063276707, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.004091909203636029, Final residual = 1.915572824446693e-06, No Iterations 12
+time step continuity errors : sum local = 1.674572622192005e-06, global = 1.206099316555404e-06, cumulative = 2.081485880383134e-06
+smoothSolver:  Solving for omega, Initial residual = 0.001200004327129798, Final residual = 9.250160161023837e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.01000264868128607, Final residual = 9.122732758057014e-06, No Iterations 8
+ExecutionTime = 53.61 s  ClockTime = 58 s
+
+Wall-clock time elapsed during the current time step = 8.286184985 s
+
+Time = 6
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0007776807640645407, Final residual = 1.816891447653676e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.04453207325567513, Final residual = 0.000915458371033178, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01036875830548502, Final residual = 0.0002215332683117583, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003560540161311676, Final residual = 2.430051172687556e-06, No Iterations 12
+time step continuity errors : sum local = 2.307424291269369e-06, global = 1.790139763453643e-06, cumulative = 3.871625643836777e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0007962294130814339, Final residual = 6.958489695648269e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.005064000959360204, Final residual = 5.073517764794288e-06, No Iterations 8
+ExecutionTime = 61.87 s  ClockTime = 67 s
+
+Wall-clock time elapsed during the current time step = 8.262220899000001 s
+
+Time = 7
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0007421516010345612, Final residual = 1.658739562320561e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03945188652179787, Final residual = 0.0008481441870707496, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.00951382189004382, Final residual = 0.0002121392475143085, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.003132918168848651, Final residual = 1.607745935156376e-06, No Iterations 12
+time step continuity errors : sum local = 1.651277409736004e-06, global = 1.206585681327795e-06, cumulative = 5.078211325164572e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0005636302753226361, Final residual = 5.231964882680279e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.002949082289456026, Final residual = 3.052623330426949e-06, No Iterations 8
+ExecutionTime = 70.15000000000001 s  ClockTime = 75 s
+
+Wall-clock time elapsed during the current time step = 8.276961759000001 s
+
+Time = 8
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0007682030322240547, Final residual = 1.560183882198327e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03495902381169191, Final residual = 0.0007921899508354847, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.008897355422793324, Final residual = 0.0002093947210377582, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002835772850151874, Final residual = 4.678858180946667e-07, No Iterations 12
+time step continuity errors : sum local = 5.120200162776362e-07, global = -2.410705546007175e-07, cumulative = 4.837140770563855e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0004200144716260196, Final residual = 3.99676067379093e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.001974334563792038, Final residual = 2.003597634195964e-06, No Iterations 8
+ExecutionTime = 78.36 s  ClockTime = 83 s
+
+Wall-clock time elapsed during the current time step = 8.211794728999999 s
+
+Time = 9
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000939920199166227, Final residual = 1.480607055882976e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.03131920638386998, Final residual = 0.0007419525280989092, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.008604381718059207, Final residual = 0.0002095183924665907, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002668010974532741, Final residual = 1.228671792573385e-06, No Iterations 12
+time step continuity errors : sum local = 1.400855044605205e-06, global = -8.304146523423962e-07, cumulative = 4.006726118221459e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0003273732348072076, Final residual = 3.135586118598297e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.001435297098444526, Final residual = 1.389024624744163e-06, No Iterations 8
+ExecutionTime = 86.58 s  ClockTime = 91 s
+
+Wall-clock time elapsed during the current time step = 8.223053193 s
+
+Time = 10
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.00108113698245138, Final residual = 1.415115888970493e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02911152538222148, Final residual = 0.0007066816704174142, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009062428067211479, Final residual = 0.0002105704579185654, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00260903837074267, Final residual = 1.193823973827198e-06, No Iterations 12
+time step continuity errors : sum local = 1.379441867017602e-06, global = -7.517931837638338e-07, cumulative = 3.254932934457625e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0002651724888783707, Final residual = 2.532152974964088e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.001125665429746205, Final residual = 1.026189392058187e-06, No Iterations 8
+ExecutionTime = 94.8 s  ClockTime = 99 s
+
+Wall-clock time elapsed during the current time step = 8.227661519 s
+
+Time = 11
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.001037967734304766, Final residual = 1.360677633691577e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02769732333545067, Final residual = 0.0006883826703292833, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009439238367240569, Final residual = 0.0002126818162782173, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002551893740129449, Final residual = 5.244147919620334e-07, No Iterations 12
+time step continuity errors : sum local = 6.055670452814564e-07, global = -3.655178638292758e-07, cumulative = 2.889415070628349e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0002217874414745531, Final residual = 2.108558653947127e-07, No Iterations 8
+bounding omega, min: -9993.577945177174 max: 45356124.86912245 average: 5189.559296535042
+smoothSolver:  Solving for k, Initial residual = 0.0009440615590727573, Final residual = 8.031585841453121e-07, No Iterations 8
+ExecutionTime = 103.12 s  ClockTime = 108 s
+
+Wall-clock time elapsed during the current time step = 8.31503657 s
+
+Time = 12
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0009325464634009601, Final residual = 1.324291070853938e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02629733957040197, Final residual = 0.0006821399650525921, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009121323382480366, Final residual = 0.0002151387024623658, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002489529900118056, Final residual = 6.197000577485547e-07, No Iterations 12
+time step continuity errors : sum local = 7.134490564134977e-07, global = -4.599426176148758e-07, cumulative = 2.429472453013473e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001908797639237322, Final residual = 1.811251262620895e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.000841778815029552, Final residual = 6.620828123547941e-07, No Iterations 8
+ExecutionTime = 111.36 s  ClockTime = 116 s
+
+Wall-clock time elapsed during the current time step = 8.237874201 s
+
+Time = 13
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0008237743409841532, Final residual = 1.310102500752896e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02512522961798461, Final residual = 0.0006804905577957666, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009011782899800093, Final residual = 0.0002209673633550907, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002444067005496157, Final residual = 6.910650364124681e-07, No Iterations 12
+time step continuity errors : sum local = 7.930307043627384e-07, global = -5.404295278983497e-07, cumulative = 1.889042925115123e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001682491161340729, Final residual = 1.601382717769068e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0007786702182315519, Final residual = 5.68067518917203e-07, No Iterations 8
+ExecutionTime = 119.58 s  ClockTime = 124 s
+
+Wall-clock time elapsed during the current time step = 8.228372671000001 s
+
+Time = 14
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000732433455851589, Final residual = 1.319067328892822e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02433903669093033, Final residual = 0.0006849835095600926, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009084916540066473, Final residual = 0.0002308850558620859, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002412829240836614, Final residual = 4.040420114045125e-07, No Iterations 12
+time step continuity errors : sum local = 4.63230159632817e-07, global = 2.609721667724362e-07, cumulative = 2.15001509188756e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001488242268376194, Final residual = 1.448905475631071e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0007068173346576981, Final residual = 4.999439388298573e-07, No Iterations 8
+ExecutionTime = 127.82 s  ClockTime = 132 s
+
+Wall-clock time elapsed during the current time step = 8.227156593 s
+
+Time = 15
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006636572551589701, Final residual = 1.344545137083722e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02399887626983601, Final residual = 0.0006977646852987083, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009325319143899094, Final residual = 0.000246523012540489, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00238550345207246, Final residual = 8.644449012542796e-07, No Iterations 12
+time step continuity errors : sum local = 9.943222956023595e-07, global = 6.944562990351933e-07, cumulative = 2.844471390922753e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001316879440255103, Final residual = 1.329670758123052e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0006378338298817065, Final residual = 4.462790645189281e-07, No Iterations 8
+ExecutionTime = 136.05 s  ClockTime = 141 s
+
+Wall-clock time elapsed during the current time step = 8.229432837999999 s
+
+Time = 16
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0006110309127609913, Final residual = 1.374244427237452e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02387609473789279, Final residual = 0.0007152801118227798, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.00963138399835861, Final residual = 0.0002655802540188829, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002349957913194909, Final residual = 9.878714052350176e-07, No Iterations 12
+time step continuity errors : sum local = 1.143820299009523e-06, global = 7.723241534282719e-07, cumulative = 3.616795544351025e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001184870767019808, Final residual = 1.238331064414441e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0005838305280279725, Final residual = 4.065810267538739e-07, No Iterations 8
+ExecutionTime = 144.28 s  ClockTime = 149 s
+
+Wall-clock time elapsed during the current time step = 8.237519296 s
+
+Time = 17
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005667302649569878, Final residual = 1.405635751036129e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02384103418604343, Final residual = 0.0007344099240884932, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.009953853305987316, Final residual = 0.0002859779728580669, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002312670575268361, Final residual = 9.260211380133952e-07, No Iterations 12
+time step continuity errors : sum local = 1.080629970998273e-06, global = 7.175779031913846e-07, cumulative = 4.334373447542409e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001097648840993984, Final residual = 1.168558996413838e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0005425153435467938, Final residual = 3.787798424708377e-07, No Iterations 8
+ExecutionTime = 152.53 s  ClockTime = 157 s
+
+Wall-clock time elapsed during the current time step = 8.238872386000001 s
+
+Time = 18
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005288934460630504, Final residual = 1.435470795412987e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02382364640615214, Final residual = 0.0007532194513599467, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01029576542574557, Final residual = 0.0003064921466999955, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002285312209176266, Final residual = 7.662666838741033e-07, No Iterations 12
+time step continuity errors : sum local = 8.986595060529402e-07, global = 5.697256657087541e-07, cumulative = 4.904099113251163e-06
+smoothSolver:  Solving for omega, Initial residual = 0.0001027500876806407, Final residual = 1.113798443655356e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0005126588434488505, Final residual = 3.603026387861628e-07, No Iterations 8
+ExecutionTime = 160.77 s  ClockTime = 165 s
+
+Wall-clock time elapsed during the current time step = 8.241507669000001 s
+
+Time = 19
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004983821586963451, Final residual = 1.46767300426441e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02376377315891764, Final residual = 0.0007722516652877568, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01069323714260571, Final residual = 0.0003281956881594064, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00226620368989634, Final residual = 6.906149464634062e-07, No Iterations 12
+time step continuity errors : sum local = 8.103627124331391e-07, global = 5.061286832725192e-07, cumulative = 5.410227796523682e-06
+smoothSolver:  Solving for omega, Initial residual = 9.666771706974259e-05, Final residual = 1.066419113836214e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004928617104773153, Final residual = 3.495356740504095e-07, No Iterations 8
+ExecutionTime = 168.98 s  ClockTime = 174 s
+
+Wall-clock time elapsed during the current time step = 8.222028881 s
+
+Time = 20
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004758807488022772, Final residual = 1.503003146225693e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02369726382741475, Final residual = 0.0007899924578936143, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01120368083503554, Final residual = 0.0003525824100257295, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002256879234650136, Final residual = 7.038487191827903e-07, No Iterations 12
+time step continuity errors : sum local = 8.235090088254707e-07, global = 4.997430370823523e-07, cumulative = 5.909970833606035e-06
+smoothSolver:  Solving for omega, Initial residual = 9.123676584436437e-05, Final residual = 1.02393608998244e-07, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004814558448026682, Final residual = 3.450054321662244e-07, No Iterations 8
+ExecutionTime = 177.26 s  ClockTime = 182 s
+
+Wall-clock time elapsed during the current time step = 8.276780764 s
+
+Time = 21
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004614709125239558, Final residual = 1.537781752041143e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02363645530897498, Final residual = 0.0008057788293562342, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01183960976681663, Final residual = 0.000383779737612583, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002256732338998053, Final residual = 7.124580336695861e-07, No Iterations 12
+time step continuity errors : sum local = 8.28661134842668e-07, global = 4.736515676503514e-07, cumulative = 6.383622401256386e-06
+smoothSolver:  Solving for omega, Initial residual = 8.640352843396952e-05, Final residual = 9.858049000259541e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004780162523084935, Final residual = 3.459270177910874e-07, No Iterations 8
+ExecutionTime = 185.45 s  ClockTime = 190 s
+
+Wall-clock time elapsed during the current time step = 8.195716711999999 s
+
+Time = 22
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004538263516246736, Final residual = 1.571574421569906e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02362262119717931, Final residual = 0.0008218778278514527, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01259464428276615, Final residual = 0.0004187986996785178, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002256874263949246, Final residual = 7.652624509970971e-07, No Iterations 12
+time step continuity errors : sum local = 8.833233578374497e-07, global = 5.692736152006291e-07, cumulative = 6.952896016457016e-06
+smoothSolver:  Solving for omega, Initial residual = 8.213971131646095e-05, Final residual = 9.516109345000565e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0004815335705708545, Final residual = 3.532582189968993e-07, No Iterations 8
+ExecutionTime = 193.7 s  ClockTime = 198 s
+
+Wall-clock time elapsed during the current time step = 8.250673900000001 s
+
+Time = 23
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004501273550176323, Final residual = 1.600510688656463e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02360535623907491, Final residual = 0.0008354309700828433, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01340838432795936, Final residual = 0.0004544388709941864, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002256698602540249, Final residual = 7.2295647859616e-07, No Iterations 12
+time step continuity errors : sum local = 8.2800295376807e-07, global = 5.520326735239871e-07, cumulative = 7.504928689981002e-06
+smoothSolver:  Solving for omega, Initial residual = 7.833156375855245e-05, Final residual = 9.209990534615959e-08, No Iterations 8
+bounding omega, min: -2134.709002333809 max: 45356122.31157786 average: 6327.119182260543
+smoothSolver:  Solving for k, Initial residual = 0.0004898835668733413, Final residual = 3.672530211473915e-07, No Iterations 8
+ExecutionTime = 201.99 s  ClockTime = 207 s
+
+Wall-clock time elapsed during the current time step = 8.284572299000001 s
+
+Time = 24
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004482660547944194, Final residual = 1.625207183310554e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02351991123282442, Final residual = 0.0008424575784018114, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01423241958129322, Final residual = 0.0004882307147341941, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002254259022110864, Final residual = 6.482091353948262e-07, No Iterations 12
+time step continuity errors : sum local = 7.379779094205543e-07, global = 4.765520547172528e-07, cumulative = 7.981480744698255e-06
+smoothSolver:  Solving for omega, Initial residual = 7.50046392785415e-05, Final residual = 8.940592457562574e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0005035555392408816, Final residual = 3.900072644351227e-07, No Iterations 8
+ExecutionTime = 210.21 s  ClockTime = 215 s
+
+Wall-clock time elapsed during the current time step = 8.217515335 s
+
+Time = 25
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004475850449641434, Final residual = 1.643081465887767e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02337640033885563, Final residual = 0.0008426340372446503, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01500843309754848, Final residual = 0.000517694277973789, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002249546012635268, Final residual = 5.506516887438084e-07, No Iterations 12
+time step continuity errors : sum local = 6.239150852595531e-07, global = 3.834228626692946e-07, cumulative = 8.36490360736755e-06
+smoothSolver:  Solving for omega, Initial residual = 7.203287138938871e-05, Final residual = 8.694716770049225e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0005236464597786683, Final residual = 4.227087622972299e-07, No Iterations 8
+ExecutionTime = 218.41 s  ClockTime = 223 s
+
+Wall-clock time elapsed during the current time step = 8.203698927 s
+
+Time = 26
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004479251525485855, Final residual = 1.657347230714862e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.0231266855378107, Final residual = 0.0008362781447070721, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01568324287452231, Final residual = 0.0005425215412931016, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00224275698745199, Final residual = 4.40998552143293e-07, No Iterations 12
+time step continuity errors : sum local = 4.974761129800132e-07, global = 2.726694326578095e-07, cumulative = 8.637573040025359e-06
+smoothSolver:  Solving for omega, Initial residual = 6.936893658636522e-05, Final residual = 8.472975435857916e-08, No Iterations 8
+bounding omega, min: -633.7786751723779 max: 45356118.5179111 average: 6472.835906887912
+smoothSolver:  Solving for k, Initial residual = 0.0005519944247995871, Final residual = 4.625408504034284e-07, No Iterations 8
+ExecutionTime = 226.69 s  ClockTime = 231 s
+
+Wall-clock time elapsed during the current time step = 8.275346000000001 s
+
+Time = 27
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004489221054920588, Final residual = 1.667770496696377e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02276946874426833, Final residual = 0.0008242142859745762, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01631098842279372, Final residual = 0.000564894565727035, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002236385286745063, Final residual = 3.531569750104704e-07, No Iterations 12
+time step continuity errors : sum local = 3.967869853311298e-07, global = 1.830189315651416e-07, cumulative = 8.820591971590501e-06
+smoothSolver:  Solving for omega, Initial residual = 6.693290038263485e-05, Final residual = 8.267822592320293e-08, No Iterations 8
+bounding omega, min: -213.849874258296 max: 45356112.08839699 average: 6511.357617152524
+smoothSolver:  Solving for k, Initial residual = 0.0005907585293413881, Final residual = 4.969488641120176e-07, No Iterations 8
+ExecutionTime = 234.96 s  ClockTime = 240 s
+
+Wall-clock time elapsed during the current time step = 8.280235089 s
+
+Time = 28
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004500834420592614, Final residual = 1.667468100036468e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02232207502919271, Final residual = 0.0008075589303121885, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01695722859513776, Final residual = 0.000589113259759855, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002229067185430535, Final residual = 3.363768563428707e-07, No Iterations 12
+time step continuity errors : sum local = 3.771342258593463e-07, global = 1.767445177003149e-07, cumulative = 8.997336489290816e-06
+smoothSolver:  Solving for omega, Initial residual = 6.47661277069239e-05, Final residual = 8.084075806506053e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0006393815176843586, Final residual = 5.045254586540333e-07, No Iterations 8
+ExecutionTime = 243.17 s  ClockTime = 248 s
+
+Wall-clock time elapsed during the current time step = 8.204717681 s
+
+Time = 29
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004518254107436107, Final residual = 1.65546184729262e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02182005464034495, Final residual = 0.0007899231735091323, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01766169069946581, Final residual = 0.000617166176738722, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002214776950218091, Final residual = 2.774827432425948e-07, No Iterations 12
+time step continuity errors : sum local = 3.114139065514765e-07, global = 1.232509898866901e-07, cumulative = 9.120587479177505e-06
+smoothSolver:  Solving for omega, Initial residual = 6.285602822435221e-05, Final residual = 7.911328975878382e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0007009132906853155, Final residual = 5.073628157040155e-07, No Iterations 8
+ExecutionTime = 251.38 s  ClockTime = 256 s
+
+Wall-clock time elapsed during the current time step = 8.209115735999999 s
+
+Time = 30
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004541704836298834, Final residual = 1.64242302171373e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02136202523989077, Final residual = 0.0007756806040094245, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.01840939845386061, Final residual = 0.000648600560793902, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002196142171201194, Final residual = 1.973631258761313e-07, No Iterations 12
+time step continuity errors : sum local = 2.222044218083409e-07, global = 6.106055758090401e-08, cumulative = 9.181648036758409e-06
+smoothSolver:  Solving for omega, Initial residual = 6.120419490187625e-05, Final residual = 7.755177994951514e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0007814147690189591, Final residual = 5.061117774899218e-07, No Iterations 8
+ExecutionTime = 259.59 s  ClockTime = 264 s
+
+Wall-clock time elapsed during the current time step = 8.214493504 s
+
+Time = 31
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000457371178313191, Final residual = 1.63885584512346e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02100606470006801, Final residual = 0.0007653650742708316, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.0192030717467162, Final residual = 0.0006812638474727187, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002186756639374098, Final residual = 1.197325022692119e-07, No Iterations 12
+time step continuity errors : sum local = 1.352193339498744e-07, global = 2.910931657638954e-09, cumulative = 9.184558968416049e-06
+smoothSolver:  Solving for omega, Initial residual = 5.979962973039867e-05, Final residual = 7.620648640506581e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0008818658756218633, Final residual = 5.021394592479423e-07, No Iterations 8
+ExecutionTime = 267.8 s  ClockTime = 272 s
+
+Wall-clock time elapsed during the current time step = 8.20745806 s
+
+Time = 32
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000461091215310951, Final residual = 1.643685494280614e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02078914785806135, Final residual = 0.0007612363488910467, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02009334255169299, Final residual = 0.0007154529386856236, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00218555901131339, Final residual = 1.694375471508789e-07, No Iterations 12
+time step continuity errors : sum local = 1.917269479739808e-07, global = -3.470727740430769e-08, cumulative = 9.149851691011741e-06
+smoothSolver:  Solving for omega, Initial residual = 5.865807916017605e-05, Final residual = 7.505714195296935e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.000944595445324596, Final residual = 4.953348180088366e-07, No Iterations 8
+ExecutionTime = 276.01 s  ClockTime = 281 s
+
+Wall-clock time elapsed during the current time step = 8.214522387000001 s
+
+Time = 33
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000465234519197555, Final residual = 1.656164593066338e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02071278928888751, Final residual = 0.0007611109823803372, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02119350254865674, Final residual = 0.0007553369412234401, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002188298591980384, Final residual = 1.813688618553082e-07, No Iterations 12
+time step continuity errors : sum local = 2.054423090944315e-07, global = -3.112063625368673e-08, cumulative = 9.118731054758054e-06
+smoothSolver:  Solving for omega, Initial residual = 5.762859005133608e-05, Final residual = 7.39776177136904e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.0009832116662686324, Final residual = 4.872015493377083e-07, No Iterations 8
+ExecutionTime = 284.22 s  ClockTime = 289 s
+
+Wall-clock time elapsed during the current time step = 8.206741181 s
+
+Time = 34
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.000469442580181439, Final residual = 1.675643639963255e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02077563227453419, Final residual = 0.0007654354638805789, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02263240442691993, Final residual = 0.0008070879571581819, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002194400563897255, Final residual = 2.293719514239494e-07, No Iterations 12
+time step continuity errors : sum local = 2.599049497095753e-07, global = -8.219246516876652e-08, cumulative = 9.036538589589287e-06
+smoothSolver:  Solving for omega, Initial residual = 5.659247264703048e-05, Final residual = 7.292763401758414e-08, No Iterations 8
+smoothSolver:  Solving for k, Initial residual = 0.001008203962024919, Final residual = 4.784137732624052e-07, No Iterations 8
+ExecutionTime = 292.43 s  ClockTime = 297 s
+
+Wall-clock time elapsed during the current time step = 8.210937589 s
+
+Time = 35
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004736086278496758, Final residual = 1.699860064180269e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02094692250491168, Final residual = 0.0007757146051395771, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02442269727516371, Final residual = 0.0008730563962425521, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00221046903783521, Final residual = 2.350177847388426e-07, No Iterations 12
+time step continuity errors : sum local = 2.656960695717294e-07, global = -7.733880788729764e-08, cumulative = 8.959199781701988e-06
+smoothSolver:  Solving for omega, Initial residual = 5.559602737828273e-05, Final residual = 7.194494576485593e-08, No Iterations 8
+bounding omega, min: -9897.164257059116 max: 45356049.43269656 average: 6707.697697869074
+smoothSolver:  Solving for k, Initial residual = 0.001023390572146965, Final residual = 4.707245217535415e-07, No Iterations 8
+ExecutionTime = 300.76 s  ClockTime = 305 s
+
+Wall-clock time elapsed during the current time step = 8.333474724 s
+
+Time = 36
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004782807745588688, Final residual = 1.72099218244923e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02121464998608895, Final residual = 0.0007892764781606924, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02653667063718298, Final residual = 0.0009516535331406259, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.00223083142538792, Final residual = 2.495013125580942e-07, No Iterations 12
+time step continuity errors : sum local = 2.804385364495505e-07, global = -8.970000825659972e-08, cumulative = 8.869499773445389e-06
+smoothSolver:  Solving for omega, Initial residual = 5.468003837403708e-05, Final residual = 7.100972778118789e-08, No Iterations 8
+bounding omega, min: -669.495203476557 max: 45356039.78544269 average: 6724.449725004354
+smoothSolver:  Solving for k, Initial residual = 0.001026093104771068, Final residual = 4.646926152191155e-07, No Iterations 8
+ExecutionTime = 309.05 s  ClockTime = 314 s
+
+Wall-clock time elapsed during the current time step = 8.281583611 s
+
+Time = 37
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004837412062886144, Final residual = 1.738076134422497e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02155922545198583, Final residual = 0.0008033791160127198, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.02884049201844663, Final residual = 0.001036718131446157, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002264239971208078, Final residual = 3.280441280180625e-07, No Iterations 12
+time step continuity errors : sum local = 3.655372779787041e-07, global = -1.561519351490904e-07, cumulative = 8.713347838296299e-06
+smoothSolver:  Solving for omega, Initial residual = 5.3872141024548e-05, Final residual = 7.021809962376751e-08, No Iterations 8
+bounding omega, min: -3989.235497955875 max: 45356031.42477849 average: 6740.044326551378
+smoothSolver:  Solving for k, Initial residual = 0.001017802139013404, Final residual = 4.616280918326419e-07, No Iterations 8
+ExecutionTime = 317.33 s  ClockTime = 322 s
+
+Wall-clock time elapsed during the current time step = 8.283577127999999 s
+
+Time = 38
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004896488520057251, Final residual = 1.751116604839099e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02191234273789089, Final residual = 0.000814727294942157, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.0310091751561347, Final residual = 0.001114889434029136, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002313856936882121, Final residual = 4.230036861344607e-07, No Iterations 12
+time step continuity errors : sum local = 4.663688998086783e-07, global = -2.240654872261838e-07, cumulative = 8.489282351070116e-06
+smoothSolver:  Solving for omega, Initial residual = 5.3186998393181e-05, Final residual = 6.95715926082661e-08, No Iterations 8
+bounding omega, min: -1814.398944584983 max: 45356024.64396158 average: 6754.100221900668
+smoothSolver:  Solving for k, Initial residual = 0.001000331430825767, Final residual = 4.616378425635258e-07, No Iterations 8
+ExecutionTime = 325.59 s  ClockTime = 330 s
+
+Wall-clock time elapsed during the current time step = 8.256006858999999 s
+
+Time = 39
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0004959357374281633, Final residual = 1.76176066619694e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.02224208417093981, Final residual = 0.000821113741716202, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03284234734295042, Final residual = 0.001179359265288575, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002371557881871432, Final residual = 4.31804461243301e-07, No Iterations 12
+time step continuity errors : sum local = 4.707672319244291e-07, global = -2.040335043855384e-07, cumulative = 8.285248846684577e-06
+smoothSolver:  Solving for omega, Initial residual = 5.259526122389246e-05, Final residual = 6.901905429723167e-08, No Iterations 8
+bounding omega, min: -1325.035800824519 max: 45356019.52733959 average: 6766.986096202702
+smoothSolver:  Solving for k, Initial residual = 0.0009774897210331516, Final residual = 4.657909703447183e-07, No Iterations 8
+ExecutionTime = 333.89 s  ClockTime = 339 s
+
+Wall-clock time elapsed during the current time step = 8.302257091 s
+
+Time = 40
+
+velocityDampingConstraint velocityDamping damped 0 (0%) of cells, with max limit 300
+smoothSolver:  Solving for Ux, Initial residual = 0.0005018048462319415, Final residual = 1.770381238300757e-05, No Iterations 15
+smoothSolver:  Solving for Uy, Initial residual = 0.0225039119038166, Final residual = 0.0008223219264833504, No Iterations 15
+smoothSolver:  Solving for Uz, Initial residual = 0.03437044933581273, Final residual = 0.001228694326545267, No Iterations 15
+GAMG:  Solving for p, Initial residual = 0.002428795270889512, Final residual = 4.269965190615684e-07, No Iterations 12
+time step continuity errors : sum local = 4.605974782393357e-07, global = -1.829873980482514e-07, cumulative = 8.102261448636325e-06
+smoothSolver:  Solving for omega, Initial residual = 5.199628382626557e-05, Final residual = 6.838467024043122e-08, No Iterations 8
+bounding omega, min: -4448.78979012589 max: 45356015.83888187 average: 6778.69511064839
+smoothSolver:  Solving for k, Initial residual = 0.0009495607420963937, Final residual = 4.71205475256488e-07, No Iterations 8
+ExecutionTime = 342.17 s  ClockTime = 347 s
+
+Wall-clock time elapsed during the current time step = 8.279332223000001 s
+
+Statistics:
+    Number of measured time steps = 39
+    Average wall-clock time per time step = 8.25222384897436
+    Standard deviation of wall-clock time per time step = 0.04576193086286361
+    Minimum number of measured time steps for 2% error at 95% confidence level = 0
+
+End
+
+Finalising parallel run

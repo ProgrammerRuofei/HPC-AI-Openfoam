@@ -1,0 +1,8 @@
+{
+  "default_s_step": 8.25222384897436,
+  "core_s_step": 8.248214656871795,
+  "partition_identical": true,
+  "max_abs_Cd_difference": 0.0,
+  "comparable_cd": true,
+  "core_improvement_percent": 0.048583171953862886
+}

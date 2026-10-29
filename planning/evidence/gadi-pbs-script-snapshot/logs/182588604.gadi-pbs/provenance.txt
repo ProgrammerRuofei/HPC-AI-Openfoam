@@ -1,0 +1,8 @@
+pbs_jobid=182588604.gadi-pbs
+stack=icx2025.3.2-ompi5.0.10-openfoamv2512
+decomposition=scotch
+rank_arms=104,104
+steps_per_arm=40
+binding=paired_default_core
+order=ab
+preflight_job=182588070.gadi-pbs
