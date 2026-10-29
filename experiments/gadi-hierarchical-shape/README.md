@@ -66,5 +66,31 @@ One `qsub` returned **`182558696.gadi-pbs`**. Its first `qstat -f` showed
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x16x1_v1.pbs.out`.
 Job-keyed evidence is expected under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical-26x16x1/182558696.gadi-pbs/evidence/`.
-The final PBS outcome, coded seconds/step, Cd and actual SU are pending.
-Do not automatically repeat or designate this candidate as a baseline.
+At submission, the final PBS outcome, coded seconds/step, Cd and actual
+SU were pending. This submission did not authorize a repeat or a baseline
+change.
+
+## Attempt 1: completed
+
+PBS job `182558696.gadi-pbs` finished with `Exit_status=0` and
+`GCC162_OMPI5010_OF2512_HIERARCHICAL_26X16X1_4N_PASS`.
+The four Sapphire Rapids hosts each carried 104 ranks. All source and
+runtime archive SHA-256 checks, the `simpleFoam` binary check, and private
+MPI linkage check passed. The four preparation logs and solver ended
+normally; `Time = 150` and MPI finalisation were present.
+
+The coded mean was **2.05394946522819 s/step** over 149 measured steps
+(standard deviation 0.015273468 s); solver `ClockTime` was 317 s. Final
+`Cd` from `coefficient.dat` was **0.28866830865734072**. PBS used 13:33,
+and the NCI receipt charged **187.89 SU**. Decomposition reported
+65,334,765 cells with 157,054–157,065 cells/rank and 9,208–36,459
+processor faces/rank (9,797,214 summed rank faces; 4,898,607 unique
+processor faces). These are decomposition statistics, not a measured MPI
+time breakdown.
+
+This single `(26 16 1)` result is 0.223% faster per step than the one
+same-stack `(16 13 2)` result, but 3.218% slower than the two-run Scotch
+mean of 1.989910155 s/step. Its Cd differs from both controls while
+remaining in the historical 150-step sanity range. The small difference
+between hierarchical shapes is not a reproducible gain without a matched
+repeat. Scotch remains the selected performance baseline.

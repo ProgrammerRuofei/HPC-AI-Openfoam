@@ -39,7 +39,22 @@ PBS returned **`182558696.gadi-pbs`**. Its first `qstat -f` showed
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x16x1_v1.pbs.out`;
 job-keyed evidence will be under
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical-26x16x1/182558696.gadi-pbs/evidence/`.
-The final result and actual SU are pending. Do not submit another
-four-node job or promote this configuration to baseline without
-reviewing the complete result. Main and preexisting unrelated untracked
-files remain untouched.
+At submission, the final result and actual SU were pending. That
+submission did not authorize another four-node job or a baseline change.
+Main and preexisting unrelated untracked files remain untouched.
+
+## Completed result
+
+Job `182558696.gadi-pbs` completed with PBS `Exit_status=0`, script
+`GCC162_OMPI5010_OF2512_HIERARCHICAL_26X16X1_4N_PASS`, and NCI receipt
+**187.89 SU** for 13:33 walltime. Four SPR hosts each had 104 ranks;
+source and three runtime archive SHA-256 gates plus the `simpleFoam`
+binary gate passed, and `ldd` resolved private Open MPI 5.0.10.
+`decomposePar`, `renumberMesh`, `potentialFoam`, `applyBoundaryLayer`, and
+`simpleFoam` all ended normally. The solver reached `Time = 150` and
+finalised MPI. Coded mean **2.05394946522819 s/step**, final
+**Cd 0.28866830865734072**, solver ClockTime 317 s. Cell counts were
+157,054–157,065/rank; processor faces were 9,208–36,459/rank.
+This is 0.223% faster than the single `(16 13 2)` run but 3.218% slower
+than the two-run Scotch mean. No repeat or additional PBS job was
+submitted, and the Scotch performance baseline remains in place.
