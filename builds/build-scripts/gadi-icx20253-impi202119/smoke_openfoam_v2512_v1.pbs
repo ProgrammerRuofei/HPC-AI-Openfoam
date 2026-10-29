@@ -1,0 +1,98 @@
+#!/bin/bash
+# Fresh-job tutorial smoke for ICX 2025.3.2 + private Intel MPI 2021.19.
+# This is not the scored 65M-cell case; do not use its timing as a benchmark.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx25_impi19_ofsmoke
+#PBS -l ncpus=5
+#PBS -l mem=16GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:20:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-impi202119/submit-logs/smoke_openfoam_v2512_v1.pbs.out
+set -euo pipefail
+
+OF_STACK=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-impi202119-of2512
+INTEL_ARCHIVE=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/runtime-archive/gadi-icx20262-impi202119.182138851.gadi-pbs.tar.gz
+OF_ARCHIVE="$OF_STACK/runtime-archive/gadi-icx20253-impi202119-of2512.182566723.gadi-pbs.tar.gz"
+INTEL_SHA=013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc
+OF_SHA=16cd68adb4e8e4e5fadad2ed0a03a97b0ecbb44916b516566b8bb610f8b9170f
+BIN_SHA=4f12d38005b1e0f6dbe7874b5b6c5b6f54c07aff21e7a784cbdfccf3f2595ae4
+FO_FILE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/FOwallClockTimeStatistics
+FO_SHA=0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08
+TUTORIAL=/apps/OpenFOAM/2512/tutorials/incompressible/simpleFoam/pitzDaily_fused
+ROOT="${PBS_JOBFS:?}/icx25-impi19-of-smoke-${PBS_JOBID:?}"
+EVIDENCE="$OF_STACK/evidence/smoke.${PBS_JOBID}"
+INTEL_PREFIX="$ROOT/opt/intel/oneapi"
+MPI_PREFIX="$INTEL_PREFIX/mpi/2021.19"
+FOAM_ROOT="$ROOT/OpenFOAM-v2512"
+CASE="$ROOT/pitzDaily_fused"
+test "${PBS_NCPUS:?}" -eq 5
+test ! -e "$ROOT"; test ! -e "$EVIDENCE"
+mkdir -p "$ROOT/opt/intel" "$EVIDENCE"
+preserve() {
+    status=$?; set +e
+    test -f "$CASE/log.simpleFoam" && cp -p "$CASE/log.simpleFoam" "$EVIDENCE/"
+    printf 'pbs_exit_status=%s\n' "$status" > "$EVIDENCE/exit-status.txt"
+    exit "$status"
+}
+trap preserve EXIT
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+
+module purge
+module load intel-compiler-llvm/2025.3.2
+SITE_ICX=$(command -v icx)
+for item in "$INTEL_SHA $INTEL_ARCHIVE" "$OF_SHA $OF_ARCHIVE" "$FO_SHA $FO_FILE"; do
+    read -r hash file <<< "$item"
+    printf '%s  %s\n' "$hash" "$file" | sha256sum -c -
+done
+test -d "$TUTORIAL"
+tar -xzf "$INTEL_ARCHIVE" -C "$ROOT/opt/intel"
+tar -xzf "$OF_ARCHIVE" -C "$ROOT"
+test -f "$MPI_PREFIX/env/vars.sh"
+set +u
+. "$MPI_PREFIX/env/vars.sh"
+set -u
+export I_MPI_ROOT="$MPI_PREFIX" MPI_ROOT="$MPI_PREFIX"
+export I_MPI_HYDRA_BOOTSTRAP=rsh I_MPI_HYDRA_BOOTSTRAP_EXEC=/opt/pbs/default/bin/pbs_tmrsh
+icx --version | head -n 1 | grep -F '2025.3.2'
+mpirun -version | head -n 1 | grep -F '2021.19.0'
+test "$(command -v icx)" = "$SITE_ICX"
+test "$(command -v mpirun)" = "$MPI_PREFIX/bin/mpirun"
+set +u
+. "$FOAM_ROOT/etc/bashrc" WM_COMPILER=Icx WM_MPLIB=INTELMPI WM_COMPILE_OPTION=Opt
+set -u
+test "$WM_OPTIONS" = linux64IcxDPInt32Opt
+test "$WM_PROJECT_DIR" = "$FOAM_ROOT"
+test "$MPI_ARCH_PATH" = "$MPI_PREFIX"
+BIN="$FOAM_APPBIN/simpleFoam"
+test -x "$BIN"
+printf '%s  %s\n' "$BIN_SHA" "$BIN" | sha256sum -c -
+ldd "$BIN" | tee "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+grep -F "libmpi.so.12 => $MPI_PREFIX/lib/release/libmpi.so.12" "$EVIDENCE/simpleFoam.ldd"
+mpirun -n 5 hostname | sort | tee "$EVIDENCE/rank-hosts.txt"
+test "$(wc -l < "$EVIDENCE/rank-hosts.txt")" -eq 5
+
+cp -a "$TUTORIAL" "$CASE"
+cd "$CASE"
+cp -p "$FO_FILE" system/FOwallClockTimeStatistics
+sed -i -E 's/^(method[[:space:]]+)hierarchical;/\1scotch;/' system/decomposeParDict
+grep -Eq '^method[[:space:]]+scotch;' system/decomposeParDict
+printf '\nfunctions\n{\n    #include "FOwallClockTimeStatistics"\n}\n' >> system/controlDict
+sed -i -E 's/^(endTime[[:space:]]+)[0-9]+;/\120;/' system/controlDict
+blockMesh > "$EVIDENCE/blockMesh.log" 2>&1
+decomposePar > "$EVIDENCE/decomposePar.log" 2>&1
+test "$(find . -maxdepth 1 -type d -name 'processor[0-9]*' | wc -l)" -eq 5
+grep -Eiq 'scotch|finished decomposition' "$EVIDENCE/decomposePar.log"
+mpirun -n 5 "$BIN" -parallel > log.simpleFoam 2>&1
+cp -p log.simpleFoam "$EVIDENCE/"
+grep -Fq 'Finalising parallel run' log.simpleFoam
+grep -aEq '^End$' log.simpleFoam
+grep -Eq '^Time = 20([[:space:]]|$)' log.simpleFoam
+grep -Fq 'Average wall-clock time per time step' log.simpleFoam
+if grep -Eq 'FOAM FATAL|MPI_ABORT|Segmentation fault' log.simpleFoam; then exit 8; fi
+printf 'official_result=false\nsmoke_case=pitzDaily_fused\nranks=5\ndecomposition=scotch\ncompiler=ICX 2025.3.2\nmpi=Intel MPI 2021.19.0\n' > "$EVIDENCE/provenance.txt"
+echo OF2512_ICX20253_IMPI202119_SMOKE_PASS
