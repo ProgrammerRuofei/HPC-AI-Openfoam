@@ -58,3 +58,26 @@ hashes under
 in the current local repository. The ICX 2025.3.2 hierarchical result
 was 2.040001329684563 s/step, but the two versions retained different
 communication/collective settings, so this is a stack comparison.
+
+## Two-node runtime-policy preflight (not a scored solver result)
+
+The approved unpreloaded, HCOLL-eligible policy probe `182573253.gadi-pbs`
+used private Open MPI 5.0.10 on two `normalsr` SPR nodes with one rank per
+node. It ended PBS Exit 1 and charged 4.04 SU because its anchored parser
+failed on stdout interleaved with collective verbose output. Both ranks had
+already completed cross-node Allreduce with sum 1; this job has no PASS marker
+and is not a valid completed preflight.
+
+The separately approved v2 probe `182574797.gadi-pbs` kept the same runtime
+policy and allocation but wrote independent rank receipts. It finished PBS
+Exit 0 with `ICX20262_OMPI5010_POLICY2025_2N_PASS`, 36 seconds walltime, and
+**4.16 SU**. The two ranks ran on different SPR hosts, each reported sum 1
+and `/usr/lib64/libucp.so.0` with library-reported UCP version 1.21.0.
+`mpi-smoke.ldd` resolved the private `libmpi.so.40`; the rank receipt hashes
+matched. MPI_COMM_WORLD verbose output selected HCOLL at priority 90 for
+this two-rank probe, with no UCP API incompatibility warning. This confirms
+two-node runtime compatibility only; it neither measures OpenFOAM speed nor
+proves the collective selected at 416 ranks. No four-node policy screening
+job was submitted. The local raw-log archive has separate job-keyed records
+for `182573253` and `182574797`, with original stdout, rank receipts,
+PBS status, source paths, and per-file SHA-256.
