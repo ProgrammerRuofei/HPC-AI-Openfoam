@@ -1,5 +1,18 @@
 # Gadi ICX 2025.3.2 / Open MPI 5.0.10 / OpenFOAM v2512 Scotch comparison
 
+## Same-stack hierarchical observation (2026-10-29)
+
+The separate hierarchical `(26 8 2)` job `182562739.gadi-pbs` completed at
+**2.040001329684563 s/step**, Cd **0.28772995935173329**, PBS walltime
+**00:13:14**, and **183.50 SU**. It used four Sapphire Rapids nodes, 416 ranks
+(104 per node), 150 steps, the same ICX 2025.3.2/Open MPI 5.0.10/OpenFOAM
+v2512 stack and fixed scientific input. PBS Exit 0, the job-specific pass
+marker, all four preparation-stage `End` lines, `simpleFoam` `Time = 150` and
+`End`, hash checks, and final `coefficient.dat` Cd were verified from the
+[original Gadi evidence](../../progress/2026-10-29-gadi-icx-hierarchical-26x8x2.md).
+This one hierarchical observation is about 3.2% slower than the 2025 Scotch
+point below. It is not a repeatability result.
+
 Controlled comparison with the two GCC 16.2.0 runs in
 `results/gadi-gcc162-ompi5010-scotch/run-registry.md`. All runs use
 Gadi `normalsr` Xeon Platinum 8470Q (Sapphire Rapids), four nodes,

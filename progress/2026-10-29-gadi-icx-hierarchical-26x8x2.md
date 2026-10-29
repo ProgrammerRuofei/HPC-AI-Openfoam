@@ -24,3 +24,11 @@ Expected job-keyed raw evidence is:
 /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182562739.gadi-pbs/evidence/
 
 PBS terminal status, pass marker, scientific checks, step time, Cd and actual SU are pending. The ICX 2026 job has not been submitted. Do not resubmit an uncertain qsub result or automatically retry a failed four-node job.
+
+## ICX 2025 completed and validated
+
+`182562739.gadi-pbs` finished with PBS `job_state=F`, `Exit_status=0`, walltime `00:13:14`, and NCI receipt `183.50` SU. Its own `exit-status.txt` says `script_exit_rc=0`; `run.log` ends with `ICX20253_OMPI5010_OF2512_HIERARCHICAL_26X8X2_4N_PASS`. The original `decomposition.txt` records 416 subdomains and hierarchical `(26 8 2)`. `rank-host-map.txt` has 104 ranks on each of `gadi-cpu-spr-0234` through `-0237`. The seven case-input checks, GCC/MPI/OpenFOAM archive checks, simpleFoam binary check, and private `libmpi.so.40` resolution all appear in the job log. `10_decomposePar.log`, `20_renumberMesh.log`, `30_potentialFoam.log`, `40_applyBoundaryLayer.log`, and `simpleFoam.log` each end normally; the solver reached `Time = 150` and `End`.
+
+Original result lines: `Average wall-clock time per time step = 2.040001329684563`; `final_Cd=2.8772995935173329e-01`. The `coefficient.dat` row at time 150 agrees. `10_decomposePar.log` reports 3,882,476 processor faces, maximum 157,057 cells/rank (0.00145% above mean), and maximum 61,085 faces between processors. These are partition measurements, not a direct MPI-wait profile.
+
+Raw remote evidence: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182562739.gadi-pbs/evidence/`; independent PBS stdout: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x8x2_v1.pbs.out`. These remain unmodified on Gadi. The original logs, not the status code alone, support the result. ICX 2026.2 remains unsubmitted at this point.
