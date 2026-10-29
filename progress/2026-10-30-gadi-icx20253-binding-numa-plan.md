@@ -53,3 +53,7 @@ stdout: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-omp
 Evidence: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/binding-numa-preflight-v1/182588070.gadi-pbs/evidence/`.
 
 P0 requests 104 cores/16 GB/20 GB JOBFS/10 minutes (34.67 SU max). AB and BA remain unsubmitted and must pass the documented gates. Pre-submission pm78 had 8.76 KSU available, scratch 527.80 GiB and 161.33K inodes. No historical evidence or unrelated files altered.
+
+## Active bounded follow-up
+
+Thread heartbeat `gadi-icx-binding` is ACTIVE at five-minute intervals to monitor P0 182588070 and advance only the approved gated AB/BA batch. It stays quiet on unchanged Q/R and pauses on failure, redundant treatment, or completion. Latest observed P0 state: Q; AB/BA not submitted. No additional SU scope beyond 312 maximum.
