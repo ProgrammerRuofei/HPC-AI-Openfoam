@@ -46,3 +46,20 @@ with separate default/core evidence,original names/bytes,SHA256,sources andPBS/S
 - `affinity_receipt_4n.py`: `76dc544c5d43f767a01d9651e6055e69f1e9ef1e451095f0ea3450a139d658d4`
 
 Prepared and validated locally;PBS not yet submitted. Latest direct user approval covers writing,synchronizing and submitting this pair once.
+
+## Submitted once — 182590339.gadi-pbs
+
+Reviewed script commit c24cc93192fe7be5a98b49a4c344af3405af78e2 synchronized to GitHub/Gadi. Remote checkout clean and ff-only; local/remote SHA and bash -n matched; independent stdout absent. Submitted exactly once from /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/control-repo:
+`qsub experiments/gadi-icx20253-binding-numa/run_binding_pair_4n_v1.pbs`
+Returned182590339.gadi-pbs; no further scheduler status read yet.
+
+PBS SHA256 b862283593e33c9b667ec08dbe73bcd5332b681b2204447ebb82ccc211712106.
+Arm SHA256 d9c6abd2ac2fabb89ec90de8fd4e3e8504e9502c5f52b397a9f715232807dcc2.
+Helper SHA256 76dc544c5d43f767a01d9651e6055e69f1e9ef1e451095f0ea3450a139d658d4.
+
+One normalsr allocation,4SPR nodes/416CPUs,760GB,100GBJOBFS,1hour/832SU ceiling. Default then core,each416ranks/150steps;ICX2025.3.2/OpenMPI5.0.10/OpenFOAMv2512/Scotch,fixed65M inputs. No retry.
+Stdout: /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_binding_pair_4n_v1.pbs.out
+Pair root: /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/binding-pair-4n-v1/182590339.gadi-pbs/
+Raw evidence is in evidence/ and default/evidence/,core/evidence/. Pending results,actualSU,Cd andseconds/step.
+
+Immediately after submission the user requested disabling the monitor. Deleted automation gadi-icx-binding successfully. No job cancellation or new submission; no further automatic polling. Resume evidence retrieval only when requested. Preserve this ID to prevent duplicate submission.
