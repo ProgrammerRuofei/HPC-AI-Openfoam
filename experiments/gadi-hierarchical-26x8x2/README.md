@@ -51,5 +51,30 @@ and one-hour walltime. Independent stdout is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x8x2_v1.pbs.out`.
 Job-keyed evidence is expected at
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182561241.gadi-pbs/evidence/`.
-Final timing, Cd and actual SU are pending. No ICX job or repeat was
-submitted.
+At submission, final timing, Cd and actual SU were pending. No ICX
+job or repeat was submitted.
+
+## Attempt 1: completed
+
+PBS `182561241.gadi-pbs` finished with `Exit_status=0` and
+`GCC162_OMPI5010_OF2512_HIERARCHICAL_26X8X2_4N_PASS`. The four SPR
+hosts were `0126`, `0127`, `0141`, and `0142`, each with 104 ranks.
+Source, three archive, and binary SHA-256 checks passed; `ldd` resolved
+private Open MPI 5.0.10. Each of the four preparation logs and the
+solver ended normally; the solver reached `Time = 150` and finalised MPI.
+
+The coded mean was **2.042666683442953 s/step** over 149 measured
+steps (standard deviation 0.017221054 s). Solver `ClockTime` was 317 s;
+final `coefficient.dat` **Cd was 0.28772890790810879**. PBS used 13:27,
+and the NCI receipt charged **186.51 SU**. Decomposition reported
+65,334,765 cells, 157,054–157,057 cells/rank, and 9,345–61,085
+processor faces/rank (7,764,952 summed rank faces, or 3,882,476 unique
+processor faces). These counts do not measure MPI waiting time.
+
+This one run is 0.772% faster per step than same-stack hierarchical
+`(16 13 2)` and 0.549% faster than `(26 16 1)`, but 2.651% slower than
+the two-run Scotch mean. It is the fastest **measured hierarchical
+candidate**, not a repeat-validated winner. Cd is within the official
+150-step sanity range; numerical Cd differences across decompositions
+remain visible. The selected GCC Scotch performance baseline stays in
+place. No ICX or repeat job was submitted.

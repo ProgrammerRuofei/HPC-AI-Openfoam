@@ -50,4 +50,27 @@ Independent stdout:
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x8x2_v1.pbs.out`.
 Job-keyed evidence:
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182561241.gadi-pbs/evidence/`.
-Final result and actual SU are pending; do not submit a repeat or ICX job.
+At submission, final result and actual SU were pending. That submission
+did not authorize a repeat or ICX job.
+
+## Completed result and next decision
+
+Job `182561241.gadi-pbs` had PBS `Exit_status=0`, pass marker
+`GCC162_OMPI5010_OF2512_HIERARCHICAL_26X8X2_4N_PASS`, and NCI receipt
+**186.51 SU** for 13:27. All source/runtime/binary SHA-256 gates and
+private MPI linkage passed. Four SPR hosts each carried 104 ranks;
+the entire preparation chain and solver reached `End`, with solver
+`Time = 150` and MPI finalisation. Coded mean **2.042666683442953
+s/step**, solver ClockTime 317 s, final **Cd 0.28772890790810879**.
+Decomposition had 65,334,765 cells (157,054–157,057/rank) and
+3,882,476 unique processor faces (9,345–61,085 faces/rank).
+
+This is the fastest of the three *single-run* GCC hierarchical shapes:
+0.772% faster than `(16 13 2)` and 0.549% faster than `(26 16 1)`.
+It remains 2.651% slower than the two-run GCC Scotch mean. A single
+run with a small shape advantage is insufficient to establish a stable
+hierarchical winner. User proposed testing both ICX 2025 and 2026 on
+the chosen hierarchical shape, with communication settings controlled;
+no ICX work was authorized by this GCC-only submission. Next, review
+the ICX comparison and its exact script diffs and cost with the user.
+No repeat or other four-node job was submitted.

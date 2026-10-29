@@ -10,6 +10,7 @@ unchanged. The copied case uses 416 ranks and Scotch decomposition.
 | Same-build Scotch repeat | `181371071.gadi-pbs` | 4 / 416 | 150 | **1.988625920 s** | **0.2918759493** | 00:16:36 | **230.19** | Valid completed repeat |
 | Same-stack hierarchical `(16 13 2)` | `181519873.gadi-pbs` | 4 / 416 | 150 | **2.058549642 s** | **0.2823061427** | 00:13:35 | **188.36** | Valid controlled decomposition comparison |
 | Same-stack hierarchical `(26 16 1)` | `182558696.gadi-pbs` | 4 / 416 | 150 | **2.053949465 s** | **0.2886683087** | 00:13:33 | **187.89** | Valid single-run shape comparison; Scotch remains baseline |
+| Same-stack hierarchical `(26 8 2)` | `182561241.gadi-pbs` | 4 / 416 | 150 | **2.042666683 s** | **0.2877289079** | 00:13:27 | **186.51** | Fastest measured hierarchical shape, single run; Scotch remains baseline |
 
 ## Configuration behind the comparison
 
