@@ -9,3 +9,31 @@ The gate is PBS Exit 0, unique pass marker, two distinct hosts, private MPI link
 ## Submission
 
 The script passed `bash -n`, the reviewed diff and `git diff --check`. Script SHA-256: `98a2d814a6f403bc4e68f9e48d2224f00808d13d5e10ed54265122fcfd22055a`; commit `faca03a9cf342a5f02196238e40579652a62df48`. The isolated GitHub and Gadi branches were pushed; the active Gadi worktree fast-forward check was up to date, its script hash matched, and the unique stdout path was absent. Exactly one `/opt/pbs/default/bin/qsub builds/build-scripts/gadi-icx20262-ompi5010/preflight_policy2025_2n_v1.pbs` returned `182573253.gadi-pbs`. Initial PBS status `Q` in `normalsr-exec`, 208 requested CPUs and 10-minute walltime. Independent stdout: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/preflight_policy2025_2n_v1.pbs.out`; job-keyed evidence will be `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/evidence/policy2025-2n.182573253.gadi-pbs/`. Terminal result and SU pending. No four-node job was submitted.
+
+## First attempt outcome and reviewed correction
+
+`182573253.gadi-pbs` ended `job_state=F`, `Exit_status=1`, PBS walltime
+`00:00:35`, actual **4.04 SU**. The two MPI ranks ran on distinct SPR hosts
+`gadi-cpu-spr-0700` and `gadi-cpu-spr-0718`; each reported `size=2`,
+`sum=1`, loaded `/usr/lib64/libucp.so.0` and UCP self-reported version
+`1.21.0`. MPI_COMM_WORLD collective verbose output selected `hcoll` at
+priority 90 on both ranks. This is a two-rank observation, not evidence of
+the selection at 416 ranks. No `UCP API version is incompatible` warning was
+found. The job did **not** print the final PASS marker.
+
+The first failing script check was the anchored `grep` for a complete
+`POLICY2025_CROSS_NODE` line. Collective verbose writes interleaved with
+rank stdout, yielding lines beginning with fragments such as
+`[gadi-cpu-sprPOLICY2025_CROSS_NODE...`; the MPI program and `mpirun` had
+already returned successfully. The original job-keyed evidence and stdout
+remain unchanged. The first attempt is therefore a **failed acceptance
+script**, not a successful preflight or proof that cross-node MPI failed.
+
+Reviewed v2 script `builds/build-scripts/gadi-icx20262-ompi5010/
+preflight_policy2025_2n_v2.pbs` writes one separate receipt per rank to the
+shared evidence directory, then checks those files. It keeps verbose MPI
+output as independent evidence and uses distinct stdout and job-keyed paths.
+Allocation and runtime policy are unchanged. Local `bash -n` and
+`git diff --no-index --check` passed. Script SHA-256:
+`d81cb6fe04a3d279a67f43d8ee2c9bc6406c75a83ba1d45d8ca7d2bc3b91f2aa`.
+The user approved this correction and one new two-node submission.
