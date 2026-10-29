@@ -13,3 +13,5 @@ GCC 16.2/Open MPI 5.0.10 hierarchical (26 8 2) control: job 182561241.gadi-pbs, 
 ## ICX 2025.3.2 observed result
 
 Job `182562739.gadi-pbs` passed PBS Exit 0 and the job-specific marker. Four SPR hosts carried 104 ranks each. All source/archive/binary hash gates and four preparation stages passed; `simpleFoam.log` reached `Time = 150` and `End`. Its coded mean was **2.040001329684563 s/step**, final Cd **0.28772995935173329**, walltime **00:13:14**, and NCI receipt **183.50 SU**. Decomposition reported **3,882,476 processor faces**. Source paths and key original lines are in [the progress record](../../progress/2026-10-29-gadi-icx-hierarchical-26x8x2.md). The 2025 within-stack Scotch reference is 1.976664844 s/step, so this hierarchical result is slower by about 3.2%; each configuration has only one successful run.
+
+The approved ICX 2026.2 arm was submitted once as **`182564097.gadi-pbs`** after the 2025 result passed. It was initially queued; its outcome is pending. The two arms retain their documented communication-setting differences, so any eventual 2025/2026 contrast is a stack comparison.

@@ -32,3 +32,15 @@ PBS terminal status, pass marker, scientific checks, step time, Cd and actual SU
 Original result lines: `Average wall-clock time per time step = 2.040001329684563`; `final_Cd=2.8772995935173329e-01`. The `coefficient.dat` row at time 150 agrees. `10_decomposePar.log` reports 3,882,476 processor faces, maximum 157,057 cells/rank (0.00145% above mean), and maximum 61,085 faces between processors. These are partition measurements, not a direct MPI-wait profile.
 
 Raw remote evidence: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182562739.gadi-pbs/evidence/`; independent PBS stdout: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x8x2_v1.pbs.out`. These remain unmodified on Gadi. The original logs, not the status code alone, support the result. ICX 2026.2 remains unsubmitted at this point.
+
+## ICX 2026.2 one-time submission
+
+The reviewed ICX 2025 result files were committed as `1b4040e90c4fa642a92252d796d8488b08727596`, pushed to the existing GitHub and Gadi isolated branches, and the Gadi execution checkout reported `Already up to date` after `git pull --ff-only` from the Gadi control repository. Its HEAD matched that commit, the worktree was clean, and the ICX 2026.2 PBS script passed `bash -n` with local and remote SHA-256 `cc57228f75a969e208245719df5ec94730ce7f8d1db84bc13a1531fe6cf4316b`. The independent stdout path did not exist before submission.
+
+The exact one-time command from `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/control-repo` was:
+`/opt/pbs/default/bin/qsub builds/build-scripts/gadi-icx20262-ompi5010/run_baseline_4n_hierarchical_26x8x2_v1.pbs`.
+It returned **`182564097.gadi-pbs`**. Initial `qstat -f` showed `Q` in `normalsr-exec`, 416 CPUs and one-hour requested walltime. This is the second and final user-approved four-node submission; no automatic repeat is authorized.
+
+Independent stdout: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x8x2_v1.pbs.out`.
+Expected job-keyed evidence: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182564097.gadi-pbs/evidence/`.
+Terminal PBS status, solver evidence, coded step time, Cd and actual SU are pending.
