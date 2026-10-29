@@ -20,6 +20,26 @@ Pre-submit account inspection reported 10.57 KSU available, zero SU
 reserved, and 156.25K/202K scratch inodes used.
 The reviewed script is
 `builds/build-scripts/gadi-gcc162-ompi5010/run_baseline_4n_hierarchical_26x16x1_v1.pbs`.
-Local syntax/diff checks completed; remote synchronization and one PBS
-submission are pending. The isolated branch is `codex/gadi-gcc162-build`;
-main and preexisting unrelated untracked files remain untouched.
+Local syntax and exact single-factor diff checks passed. Commit
+`edbd0a133eff9eb71a3fb8576a5d28dab7223d62` was pushed to the
+isolated GitHub and Gadi branches. The Gadi checkout HEAD and script
+SHA-256 matched the local copy; remote `bash -n` passed. The script
+hash is `2c68fb9a13735919a0f9b542594ebf6ee862420180ff808b94b7c3c4838e78c5`.
+The unique PBS stdout path was absent before submission. The exact
+single remote submission command was:
+
+```sh
+cd /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/control-repo
+/opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/run_baseline_4n_hierarchical_26x16x1_v1.pbs
+```
+
+PBS returned **`182558696.gadi-pbs`**. Its first `qstat -f` showed
+`Q` in `normalsr-exec`, `select=4:ncpus=104:mpiprocs=104`, 416 CPUs,
+100 GB JOBFS and one-hour walltime. Independent stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x16x1_v1.pbs.out`;
+job-keyed evidence will be under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical-26x16x1/182558696.gadi-pbs/evidence/`.
+The final result and actual SU are pending. Do not submit another
+four-node job or promote this configuration to baseline without
+reviewing the complete result. Main and preexisting unrelated untracked
+files remain untouched.

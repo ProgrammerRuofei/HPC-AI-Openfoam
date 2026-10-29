@@ -54,6 +54,17 @@ old Scotch PMPI profile measures this candidate's MPI time.
 The official task rules permit hierarchical settings in the Basic tier:
 https://github.com/hpcac/2026-APAC-HPC-AI/blob/main/2.%20OpenFOAM%20HPC%20Task%20Rules.md
 
-## Attempt
+## Attempt 1: submitted
 
-Prepared locally; submission and result pending.
+The reviewed script was committed as `edbd0a133eff9eb71a3fb8576a5d28dab7223d62`,
+pushed to the existing isolated GitHub and Gadi branches, and validated
+in the Gadi branch checkout with `bash -n` and identical SHA-256
+`2c68fb9a13735919a0f9b542594ebf6ee862420180ff808b94b7c3c4838e78c5`.
+One `qsub` returned **`182558696.gadi-pbs`**. Its first `qstat -f` showed
+`Q` in `normalsr-exec`, four allocations of 104 CPUs, 416 CPUs total,
+100 GB JOBFS and one-hour walltime. PBS stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x16x1_v1.pbs.out`.
+Job-keyed evidence is expected under
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical-26x16x1/182558696.gadi-pbs/evidence/`.
+The final PBS outcome, coded seconds/step, Cd and actual SU are pending.
+Do not automatically repeat or designate this candidate as a baseline.
