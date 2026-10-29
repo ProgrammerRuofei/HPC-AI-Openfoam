@@ -201,3 +201,7 @@ binding job `182017873.gadi-pbs` passed at **8.373520290 s/step**, Cd
 statistics. The observed core-binding gain was **0.32437%** in one pair,
 insufficient to justify a four-node run under the current SU constraint.
 See [binding-1n-40step.md](binding-1n-40step.md) for full provenance.
+
+### Paired PMPI decomposition diagnostic, 2026-10-29
+
+GCC16.2/Open MPI5.0.10/OpenFOAM v2512 hierarchical `(26 8 2)` diagnostic `182571605.gadi-pbs`: PBS Exit 0, four SPR nodes ×104 ranks, 150 steps, `2.06016262880537 s/step`, Cd `0.28772890790810879`, 204.53 SU. It is an unscored PMPI run. All preparation/solver End and 416 rank reports verified; original files and hashes are in the job-keyed local raw-log archive. The matched Scotch PMPI run `181908113` is `1.993566906751678 s/step`, Cd `0.29187594927465327`, 246.83 SU. See [paired analysis](pmpi-182571605-paired-analysis.md) and [416-rank table](pmpi-182571605-ranks.csv). The analysis excludes startup Barrier and distinguishes MPI call waiting from measured network transit.
