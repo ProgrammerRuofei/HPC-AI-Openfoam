@@ -39,4 +39,17 @@ hierarchical winner or change the selected Scotch performance baseline.
 
 ## Attempt 1
 
-Prepared locally; PBS submission and outcome are pending.
+The reviewed script was committed as `02db39c92b058ccc80ae311f88cec9d1e47642ae`
+and pushed to the existing isolated GitHub and Gadi branches. The Gadi
+execution checkout matched this commit and the local script SHA-256
+`f294fa2b0ded85bdec585d16551e012019089e67707482215f8ed4c7ea1c9cd0`;
+remote `bash -n` passed and its unique stdout path was absent.
+
+One `qsub` returned **`182561241.gadi-pbs`**. Its initial `qstat -f` was
+`Q` in `normalsr-exec`, four allocations of 104 CPUs/ranks, 100 GB JOBFS,
+and one-hour walltime. Independent stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x8x2_v1.pbs.out`.
+Job-keyed evidence is expected at
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182561241.gadi-pbs/evidence/`.
+Final timing, Cd and actual SU are pending. No ICX job or repeat was
+submitted.

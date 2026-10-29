@@ -26,3 +26,28 @@ verify the remote checkout and script hash, then submit this script once
 with a unique stdout path. Check PBS exit, all pass markers/logs, rank
 map, Cd, coded seconds/step, and actual SU. Do not submit any ICX job or
 automatic repeat.
+
+## Submission
+
+The reviewed script and initial records were committed as
+`02db39c92b058ccc80ae311f88cec9d1e47642ae` and pushed to the
+existing GitHub/Gadi isolated branches. The Gadi execution checkout
+was already at that commit; `git pull --ff-only` from the Gadi source
+repository reported `Already up to date`. Local and remote script
+SHA-256 both equalled
+`f294fa2b0ded85bdec585d16551e012019089e67707482215f8ed4c7ea1c9cd0`.
+Remote `bash -n` passed, and unique stdout did not exist beforehand.
+
+The exact one-time submission from the execution checkout was:
+
+```sh
+/opt/pbs/default/bin/qsub builds/build-scripts/gadi-gcc162-ompi5010/run_baseline_4n_hierarchical_26x8x2_v1.pbs
+```
+
+PBS returned **`182561241.gadi-pbs`**. Initial `qstat -f`: `Q` in
+`normalsr-exec`, 4 × 104 CPUs/ranks, one hour and 100 GB JOBFS.
+Independent stdout:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x8x2_v1.pbs.out`.
+Job-keyed evidence:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182561241.gadi-pbs/evidence/`.
+Final result and actual SU are pending; do not submit a repeat or ICX job.
