@@ -1,0 +1,2 @@
+experiment_id,attempt,pbs_job_id,status,exit_status,nodes,allocated_cpus,placement_ranks,runtime_probe_ranks,steps,seconds_per_step,Cd,walltime_s,actual_su,can_run_binding,actual_ucp,collective_evidence
+gadi-icx20253-binding-numa,p0-v1,182588070.gadi-pbs,validated-preflight,0,1,104,104,2,0,,,23,1.33,true,1.21.0 /usr/lib64/libucp.so.0,HCOLL enabled; two-rank probe only

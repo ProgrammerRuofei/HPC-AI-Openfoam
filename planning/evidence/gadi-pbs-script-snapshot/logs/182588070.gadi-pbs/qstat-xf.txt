@@ -1,0 +1,75 @@
+Job Id: 182588070.gadi-pbs
+    Job_Name = icx25_binding_preflight
+    Job_Owner = kj7183@gadi-login-06.gadi.nci.org.au
+    resources_used.cpupercent = 221
+    resources_used.cput = 00:00:52
+    resources_used.jobfs = 2079547326b
+    resources_used.mem = 3785736kb
+    resources_used.ncpus = 104
+    resources_used.vmem = 3785736kb
+    resources_used.walltime = 00:00:23
+    job_state = F
+    queue = normalsr-exec
+    server = gadi-pbs-01.gadi.nci.org.au
+    Checkpoint = u
+    ctime = Fri Oct 30 03:49:13 2026
+    Error_Path = gadi.nci.org.au:/scratch/pm78/kj7183/openfoam_cpu/toolchain-sc
+	reening/gadi-icx20262-ompi5010/control-repo/icx25_binding_preflight.e18
+	2588070
+    exec_host = gadi-cpu-spr-0381/0*104
+    exec_vnode = (gadi-cpu-spr-0381:ncpus=104:mem=16777216kb:jobfs=20971520kb)
+    group_list = pm78
+    Hold_Types = n
+    Join_Path = oe
+    Keep_Files = n
+    Mail_Points = a
+    mtime = Fri Oct 30 03:51:55 2026
+    Output_Path = gadi.nci.org.au:/scratch/pm78/kj7183/openfoam_cpu/toolchain-s
+	creening/gadi-icx20253-ompi5010/submit-logs/preflight_binding_numa_1n_v
+	1.pbs.out
+    Priority = 0
+    qtime = Fri Oct 30 03:49:13 2026
+    Rerunable = False
+    Resource_List.jobfs = 21474836480b
+    Resource_List.mem = 17179869184b
+    Resource_List.mpiprocs = 104
+    Resource_List.ncpus = 104
+    Resource_List.nodect = 1
+    Resource_List.place = free
+    Resource_List.select = 1:ncpus=104:mpiprocs=104:mem=17179869184:job_tags=no
+	rmalsr:jobfs=21474836480
+    Resource_List.storage = scratch/pm78
+    Resource_List.walltime = 00:10:00
+    Resource_List.wd = 1
+    stime = Fri Oct 30 03:51:23 2026
+    obittime = Fri Oct 30 03:51:55 2026
+    session_id = 3974276
+    jobdir = /home/397/kj7183
+    substate = 92
+    Variable_List = PBS_O_HOME=/home/397/kj7183,PBS_O_LANG=C.UTF-8,
+	PBS_O_LOGNAME=kj7183,
+	PBS_O_PATH=/opt/pbs/default/bin:/opt/nci/bin:/opt/bin:/opt/Modules/v4.
+	3.0/bin:/bin:/usr/bin:/opt/pbs/default/bin,PBS_O_SHELL=/bin/bash,
+	PBS_O_TZ=:/etc/localtime,PBS_O_INTERACTIVE_AUTH_METHOD=resvport,
+	PBS_O_HOST=gadi-login-06.gadi.nci.org.au,
+	PBS_O_WORKDIR=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/ga
+	di-icx20262-ompi5010/control-repo,PBS_O_SYSTEM=Linux,PROJECT=pm78,
+	PBS_NCI_HT=0,PBS_NCI_STORAGE=scratch/pm78,PBS_NCI_IMAGE=,PBS_NCPUS=104,
+	PBS_NGPUS=0,PBS_NNODES=1,PBS_NCI_NCPUS_PER_NODE=104,
+	PBS_NCI_NUMA_PER_NODE=8,PBS_NCI_NCPUS_PER_NUMA=13,PBS_VMEM=17179869184,
+	PBS_NCI_WD=1,PBS_NCI_JOBFS=20gb,PBS_NCI_LAUNCH_COMPATIBILITY=0,
+	PBS_NCI_FS_GDATA1=0,PBS_NCI_FS_GDATA1A=0,PBS_NCI_FS_GDATA1B=0,
+	PBS_NCI_FS_GDATA2=0,PBS_NCI_FS_GDATA3=0,PBS_NCI_FS_GDATA4=0,
+	PBS_O_QUEUE=normalsr,PBS_JOBFS=/jobfs/182588070.gadi-pbs
+    comment = Job run at Fri Oct 30 at 03:51 on (gadi-cpu-spr-0381:ncpus=104:me
+	m=16777216kb:jobfs=20971520kb) and finished
+    etime = Fri Oct 30 03:49:13 2026
+    run_count = 1
+    Stageout_status = 1
+    Exit_status = 0
+    Submit_arguments = experiments/gadi-icx20253-binding-numa/preflight_binding
+	_numa_1n_v1.pbs
+    history_timestamp = 1793292715
+    project = pm78
+    Submit_Host = gadi-login-06.gadi.nci.org.au
+

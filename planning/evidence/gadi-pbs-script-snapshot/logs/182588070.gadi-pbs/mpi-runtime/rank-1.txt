@@ -1,0 +1,1 @@
+BINDING_MPI_RUNTIME rank=1 size=2 host=gadi-cpu-spr-0381.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=1
