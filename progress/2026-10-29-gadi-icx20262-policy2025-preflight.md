@@ -37,3 +37,18 @@ Allocation and runtime policy are unchanged. Local `bash -n` and
 `git diff --no-index --check` passed. Script SHA-256:
 `d81cb6fe04a3d279a67f43d8ee2c9bc6406c75a83ba1d45d8ca7d2bc3b91f2aa`.
 The user approved this correction and one new two-node submission.
+
+## Approved v2 submission
+
+The user approved the v2 correction and one retry. Commit
+`c4ab7773dd7b7e8c66166fb5141db8c8a9928584` was pushed to the existing
+GitHub and Gadi isolated branches. The Gadi execution checkout fast-forward
+check was up to date and clean; `bash -n` and the v2 SHA-256 matched the local
+script. The new stdout path was absent. `nci_account -P pm78` showed 9.02 KSU
+available, zero reserved, and scratch 512.48 GiB / 160.69K inodes used.
+Exactly one `qsub` of `preflight_policy2025_2n_v2.pbs` returned
+**`182574797.gadi-pbs`**. Initial `qstat -f` showed `Q` in `normalsr-exec`,
+208 CPUs and a 10-minute limit. Its independent stdout is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/preflight_policy2025_2n_v2.pbs.out`; job-keyed evidence is
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/evidence/policy2025-2n-v2.182574797.gadi-pbs/`.
+Final result and actual SU pending. No four-node job was submitted.
