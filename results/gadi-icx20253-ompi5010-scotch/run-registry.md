@@ -25,6 +25,7 @@ SHA-256 gates are enforced in the PBS script.
 | Run | PBS job | Compiler for OpenFOAM | MPI / UCX / UCC | Average wall-clock per step | Final Cd | PBS walltime | SU | Status |
 | --- | --- | --- | --- | ---: | ---: | --- | ---: | --- |
 | ICX first | `181399707.gadi-pbs` | ICX 2025.3.2 `Opt` | Private Open MPI 5.0.10 / 1.18.1 / 1.4.4 | **1.976664844 s** | **0.2918761744** | 00:16:30 | **228.80 calculated** | Valid completed run |
+| ICX verified repeat | `182564679.gadi-pbs` | ICX 2025.3.2 `Opt` | Private Open MPI 5.0.10; historical UCX/UCC runtime selection not fully recorded | **1.975253477 s** | **0.2918761744** | 00:16:28 | **228.34 posted** | PBS Exit 0; pass marker, four stages, Time 150 and End verified |
 | ICX same-build repeat | `181402435.gadi-pbs` | Same | Same | No result | No result | 00:02:04 | About 28.66 calculated | Cancelled at user request; PBS exit 271 |
 | GCC control 1 | `181368883.gadi-pbs` | GCC 16.2.0 `Opt` | Same | 1.991194389 s | 0.2918759493 | 00:16:19 | 226.26 posted | Valid completed run |
 | GCC control 2 | `181371071.gadi-pbs` | GCC 16.2.0 `Opt` | Same | 1.988625920 s | 0.2918759493 | 00:16:36 | 230.19 posted | Valid completed repeat |
@@ -66,3 +67,14 @@ reservation; a later check showed it released and aggregate usage rise
 from 1.12 to 1.15 KSU. NCI rounds that display to 0.01 KSU, so the
 exact per-job posted amount is not visible from this account report.
 No further repeat will be submitted without the user's permission.
+
+The approved later repeat `182564679.gadi-pbs` used the same build and
+scientific controls. Its two-run mean with `181399707.gadi-pbs` is
+**1.975959161 s/step**; the run-to-run spread is 0.001411367 s/step
+(about 0.071% of the first run). The repeated Cd is identical at the
+reported precision. The raw PBS stdout and 26 job-keyed evidence files
+were SHA-256-verified and archived under
+`planning/evidence/gadi-pbs-script-snapshot/logs/182564679.gadi-pbs/` in
+the current local repository. This repeat confirms timing stability but
+does not establish which communication library or collective was actually
+selected at runtime by the historical stack.

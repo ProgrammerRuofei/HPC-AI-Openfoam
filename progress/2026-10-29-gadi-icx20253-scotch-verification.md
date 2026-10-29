@@ -19,3 +19,11 @@ Expected job-keyed evidence: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screen
 ## Pending validation
 
 Check terminal PBS Exit_status; pass marker and script exit status; four SPR hosts each with 104 ranks; source, archive and binary hashes; Scotch `decomposePar` and all preparation-stage `End` markers; `simpleFoam` Time=150, End and coded seconds/step; `coefficient.dat` Cd; and actual per-job SU. Preserve raw logs and use the job-keyed archive workflow. Do not submit another four-node run automatically. Historical jobs did not record UCP's runtime version, collective selection or per-rank CPU affinity; this repeat retains the performance conditions and does not claim to close those evidence gaps.
+
+## Completed result
+
+`182564679.gadi-pbs` finished `job_state=F`, `Exit_status=0`, PBS walltime `00:16:28`, and **228.34 SU**. The job-keyed `run.log` contains `ICX20253_OMPI5010_OF2512_SCOTCH_4N_PASS`; `exit-status.txt` records `script_exit_rc=0`. Four preparation logs and `simpleFoam.log` end normally; the solver reaches `Time = 150` and `End`. The mapped four Sapphire Rapids hosts each ran 104 ranks. The source/input hash checks and Scotch selection are retained in the original logs.
+
+Original `simpleFoam.log`: `Average wall-clock time per time step = 1.975253477255034`. Original `run.log`: `final_Cd=2.9187617440389690e-01`, agreeing with the final `coefficient.dat` row. Compared with the first valid ICX 2025 Scotch run (`181399707.gadi-pbs`, 1.976664843872483 s/step), the repeat is 0.001411367 s/step faster, about 0.071%. The Cd values agree at the displayed precision. This establishes close same-build repeatability; it does not isolate compiler, UCX, UCC, or binding effects.
+
+The 27 retained raw files, including PBS stdout, were pulled read-only and locally SHA-256 matched to fresh remote hashes under `planning/evidence/gadi-pbs-script-snapshot/logs/182564679.gadi-pbs/` in the current local repository. Remote originals remain unchanged.

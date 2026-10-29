@@ -44,3 +44,9 @@ It returned **`182564097.gadi-pbs`**. Initial `qstat -f` showed `Q` in `normalsr
 Independent stdout: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/run_baseline_4n_hierarchical_26x8x2_v1.pbs.out`.
 Expected job-keyed evidence: `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/baseline-4n-hierarchical-26x8x2/182564097.gadi-pbs/evidence/`.
 Terminal PBS status, solver evidence, coded step time, Cd and actual SU are pending.
+
+## ICX 2026.2 completed result
+
+`182564097.gadi-pbs` finished `job_state=F`, `Exit_status=0`, PBS walltime `00:16:40`, and **231.11 SU**. The job-keyed marker is `ICX20262_OMPI5010_UCX118_OF2512_HIERARCHICAL_26X8X2_4N_PASS`; `exit-status.txt` says `script_exit_rc=0`. The four SPR hosts each mapped 104 ranks; the fixed scientific input hashes and source/binary checks are retained. All four preparation logs and `simpleFoam.log` end normally; the latter reaches `Time = 150` and `End`.
+
+Original measured result: **2.078723972046979 s/step**, final **Cd 0.28773188557326351**. This is 0.038722642 s/step slower than the ICX 2025.3.2 hierarchical `(26 8 2)` run (2.040001329684563 s/step). The two builds retained their respective successful Scotch templates and differ in communication/collective settings, so this is a stack comparison, not a compiler-only estimate. The 31 retained raw files, including PBS stdout, were pulled read-only and locally SHA-256 matched to fresh remote hashes under `planning/evidence/gadi-pbs-script-snapshot/logs/182564097.gadi-pbs/` in the current local repository; remote originals remain unchanged.

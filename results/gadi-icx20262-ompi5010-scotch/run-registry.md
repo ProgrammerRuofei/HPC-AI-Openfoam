@@ -43,3 +43,18 @@ s/step with Cd 0.2918759493. This ICX 2026.2 run is 6.58% slower than
 that mean; its Cd differs by about 0.0000003224. The HCOLL exclusion and
 UCX preload differ from the older GCC configuration, so this is a stack
 comparison, not an isolated compiler comparison. No repeat was submitted.
+
+## Separate hierarchical `(26 8 2)` result
+
+The single 4-node, 416-rank, 150-step hierarchical job
+`182564097.gadi-pbs` finished PBS Exit 0 with its job-specific pass
+marker, all four preparation-stage `End` markers, `simpleFoam` `Time = 150`
+and `End`, and final coefficient evidence. It measured
+**2.078723972046979 s/step**, final **Cd 0.28773188557326351**,
+PBS walltime **00:16:40**, and **231.11 SU**. The 31 raw files (including
+PBS stdout) were pulled read-only and SHA-256 matched to fresh remote
+hashes under
+`planning/evidence/gadi-pbs-script-snapshot/logs/182564097.gadi-pbs/`
+in the current local repository. The ICX 2025.3.2 hierarchical result
+was 2.040001329684563 s/step, but the two versions retained different
+communication/collective settings, so this is a stack comparison.
