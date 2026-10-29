@@ -11,3 +11,9 @@ The primary checkout retains the earlier job index; this branch adds only this b
 | Job | Raw local logs | Outcome |
 |---|---|---|
 |182588604|[AB:465 original files + qstat,SHA verified](182588604.gadi-pbs/README.md)|Exit0/PASS;default8.252224/core8.248215s/step;79.50SU|
+
+## Binding BA archive — 2026-10-30
+
+| Job | Raw local logs | Outcome |
+|---|---|---|
+|182589631|[BA:465 original files + qstat,SHA verified](182589631.gadi-pbs/README.md)|Exit0/PASS;core8.260328/default8.274169s/step;78.69SU|

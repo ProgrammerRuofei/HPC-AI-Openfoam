@@ -1,0 +1,40 @@
+Currently Loaded Modulefiles:
+ 1) intel-compiler-llvm/2025.3.2   2) ucx/1.18.1   3) ucc/1.4.4  
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/Allrun.gadi: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/include/caseDefinition: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/controlDict.noWrite: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSchemes: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSolution: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSolution.fixedIter: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/FOwallClockTimeStatistics: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK
+Intel(R) oneAPI DPC++/C++ Compiler 2025.3.2 (2025.3.2.20260112)
+mpirun (Open MPI) 5.0.10
+icx
+/jobfs/182589631.gadi-pbs/of2512-icx20253-binding-pair-182589631.gadi-pbs/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/bin/simpleFoam: OK
+	libmpi.so.40 => /jobfs/182589631.gadi-pbs/of2512-icx20253-binding-pair-182589631.gadi-pbs/openmpi-5.0.10/lib/libmpi.so.40 (0x00001512b2c78000)
+Restore 0/ from 0.orig/  [processor dirs]
+    Average wall-clock time per time step = 8.260328297461541
+ExecutionTime = 339.15 s  ClockTime = 347 s
+final_Cd=4.3806006706848277e-01
+ICX20253_OMPI5010_BINDING_1N_40STEP_core_PASS
+Restore 0/ from 0.orig/  [processor dirs]
+    Average wall-clock time per time step = 8.274169132589744
+ExecutionTime = 338.69 s  ClockTime = 346 s
+final_Cd=4.3806006706848277e-01
+ICX20253_OMPI5010_BINDING_1N_40STEP_default_PASS
+ICX20253_OMPI5010_BINDING_PAIR_ba_PASS
+
+======================================================================================
+                  Resource Usage on 2026-10-30 05:10:05:
+   Job Id:             182589631.gadi-pbs
+   Project:            pm78
+   Exit Status:        0
+   Service Units:      78.69
+   NCPUs Requested:    104                 CPU Time Used: 22:36:22        
+   Memory Requested:   190.0GB               Memory Used: 190.0GB         
+   Walltime Requested: 00:40:00            Walltime Used: 00:22:42        
+   JobFS Requested:    100.0GB                JobFS Used: 38.94GB         
+======================================================================================

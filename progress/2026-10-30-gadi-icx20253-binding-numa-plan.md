@@ -96,3 +96,48 @@ Same approved single-SPR104CPU/190GB/100GBJOBFS/40minute request,138.67SU maximu
 Pre-submit account check:8.06KSU available,624SU reserved; scratch558.49GiB/1TiB,164.40K/202Kinodes. Other approved work uses the shared allocation. Control connection restored; prior missing socket did not imply any PBS failure. Original raw whitespace preserved despite git diff whitespace warnings.
 
 Next: monitor this BA ID,verify both arms and archive with per-file SHA; compare AB/BA paired ratios and order effects. No extra retry,four-node or NUMA solve authorized. Stop/delete binding automation after final records,or upon failure.
+
+## BA validated and first batch complete — 182589631.gadi-pbs
+
+PBS F / Exit0, script_exit_rc0 and both arm PASS plus pair_ba_PASS. One Gadi
+normalsr Sapphire Rapids 8470Q host gadi-cpu-spr-0388, 104 allocated CPUs,
+190 GB memory, 100 GB JOBFS, 40-minute request. ICX 2025.3.2 + private Open MPI
+5.0.10 (GCC16.2 runtime), OpenFOAM v2512, Scotch, fixed 65,334,765-cell input.
+UCX1.18.1/UCC1.4.4 are declared modules; solver runtime UCP and collective
+selection remain unmeasured. The P0 UCP1.21.0/HCOLL evidence is probe-only.
+
+Core then default, each 104 ranks and 40 SIMPLE steps. Core 8.260328297461541
+s/step; default 8.274169132589744 s/step; core lower by 0.1672776433%.
+Both final Cd = 0.43806006706848277, full Cd trajectories identical.
+Independent local checks passed: all preparation End markers, exact Time1..40
+and solver End/finalization, finite positive timing, identical input manifests
+and 104-partition geometry, same host, 104 unique core assignments within each
+rank's default mask, 104 solver-wrapper receipts per arm, recomputed pair-summary.
+The coded average covers 39 measured steps after the first step, consistently
+in all four arms; each solver still completed 40 steps.
+
+Walltime 22:42 (1362 s), actual whole-pair 78.69 SU. All 465 original remote
+files (464 evidence plus PBS stdout) matched remote SHA-256; qstat-xf.txt is
+separately captured scheduler output. Original bytes and core/default directories
+are preserved with sources.tsv, SHA256SUMS and README. Missing retained files:
+none against completed remote inventory. No run scripts changed or jobs retried.
+
+AB (host0201, default then core) showed 0.0485832% lower core time; BA (host0388,
+core then default) showed 0.1672776%. Both signs agree despite reverse order,
+but two small effects do not establish a reproducible or practically material
+speedup, nor isolate every order/host effect. Geometric mean of the two paired
+core/default ratios gives a descriptive 0.1079480% reduction, not a confidence
+interval. These are 40-step single-node screening runs, not 150-step scores.
+Pre-exec allowed CPU masks do not prove post-MPI_Init affinity or memory-page
+residency. A single-node near-null result cannot rule out a four-node benefit.
+A separate subsequent user instruction explicitly approved preparing and submitting
+one four-node default/core binding pair; it is outside this completed first batch.
+
+All three approved jobs are complete: P0 1.33 + AB 79.50 + BA 78.69 = 159.52 SU,
+within the 312 SU request ceiling. No further job may be submitted under this
+batch. Monitoring will be updated for the separately approved four-node pair.
+
+Retrieval note: the first completed-job SHA inventory command exceeded a
+40-second local timeout; the control connection remained healthy. A bounded
+180-second read completed before transfer. This was not PBS failure or an
+authentication retry; no remote evidence was changed.

@@ -1,0 +1,277 @@
+[1793296342.936474] [gadi-cpu-spr-0388:663113:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.936474] [gadi-cpu-spr-0388:663113:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.940261] [gadi-cpu-spr-0388:663114:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.940261] [gadi-cpu-spr-0388:663114:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.940345] [gadi-cpu-spr-0388:663101:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.940345] [gadi-cpu-spr-0388:663101:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.940954] [gadi-cpu-spr-0388:663106:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.940954] [gadi-cpu-spr-0388:663106:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.941145] [gadi-cpu-spr-0388:663109:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.941145] [gadi-cpu-spr-0388:663109:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.943025] [gadi-cpu-spr-0388:663108:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.943025] [gadi-cpu-spr-0388:663108:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.943362] [gadi-cpu-spr-0388:663117:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.943362] [gadi-cpu-spr-0388:663117:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.943408] [gadi-cpu-spr-0388:663112:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.943408] [gadi-cpu-spr-0388:663112:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.944641] [gadi-cpu-spr-0388:663107:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.944641] [gadi-cpu-spr-0388:663107:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.945521] [gadi-cpu-spr-0388:663110:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.945521] [gadi-cpu-spr-0388:663110:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.945721] [gadi-cpu-spr-0388:663118:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.945721] [gadi-cpu-spr-0388:663118:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296342.947015] [gadi-cpu-spr-0388:663125:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296342.947015] [gadi-cpu-spr-0388:663125:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.000564] [gadi-cpu-spr-0388:663134:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.000564] [gadi-cpu-spr-0388:663134:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.002844] [gadi-cpu-spr-0388:663136:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.002844] [gadi-cpu-spr-0388:663136:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.021196] [gadi-cpu-spr-0388:663135:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.021196] [gadi-cpu-spr-0388:663135:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.041373] [gadi-cpu-spr-0388:663138:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.041373] [gadi-cpu-spr-0388:663138:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.049481] [gadi-cpu-spr-0388:663137:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.049481] [gadi-cpu-spr-0388:663137:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.082908] [gadi-cpu-spr-0388:663124:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.082908] [gadi-cpu-spr-0388:663124:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.085001] [gadi-cpu-spr-0388:663120:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.085001] [gadi-cpu-spr-0388:663120:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.090354] [gadi-cpu-spr-0388:663123:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.090354] [gadi-cpu-spr-0388:663123:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.094677] [gadi-cpu-spr-0388:663126:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.094677] [gadi-cpu-spr-0388:663126:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.097521] [gadi-cpu-spr-0388:663133:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.097521] [gadi-cpu-spr-0388:663133:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.099545] [gadi-cpu-spr-0388:663139:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.099545] [gadi-cpu-spr-0388:663139:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.100193] [gadi-cpu-spr-0388:663130:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.100193] [gadi-cpu-spr-0388:663130:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.102919] [gadi-cpu-spr-0388:663104:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.102919] [gadi-cpu-spr-0388:663104:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.103228] [gadi-cpu-spr-0388:663115:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.103228] [gadi-cpu-spr-0388:663115:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.107858] [gadi-cpu-spr-0388:663105:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.107858] [gadi-cpu-spr-0388:663105:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.123727] [gadi-cpu-spr-0388:663132:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.123727] [gadi-cpu-spr-0388:663132:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.148083] [gadi-cpu-spr-0388:663100:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.148083] [gadi-cpu-spr-0388:663100:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.148545] [gadi-cpu-spr-0388:663131:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.148545] [gadi-cpu-spr-0388:663131:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.151119] [gadi-cpu-spr-0388:663119:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.151119] [gadi-cpu-spr-0388:663119:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.151554] [gadi-cpu-spr-0388:663122:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.151554] [gadi-cpu-spr-0388:663122:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.155396] [gadi-cpu-spr-0388:663129:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.155396] [gadi-cpu-spr-0388:663129:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.155431] [gadi-cpu-spr-0388:663116:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.155431] [gadi-cpu-spr-0388:663116:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.155509] [gadi-cpu-spr-0388:663111:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.155509] [gadi-cpu-spr-0388:663111:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.155599] [gadi-cpu-spr-0388:663128:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.155599] [gadi-cpu-spr-0388:663128:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.156119] [gadi-cpu-spr-0388:663148:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.156119] [gadi-cpu-spr-0388:663148:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.156320] [gadi-cpu-spr-0388:663140:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.156320] [gadi-cpu-spr-0388:663140:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.156385] [gadi-cpu-spr-0388:663146:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.156385] [gadi-cpu-spr-0388:663146:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.156441] [gadi-cpu-spr-0388:663121:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.156441] [gadi-cpu-spr-0388:663121:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.156504] [gadi-cpu-spr-0388:663102:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.156504] [gadi-cpu-spr-0388:663102:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.156886] [gadi-cpu-spr-0388:663103:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.156886] [gadi-cpu-spr-0388:663103:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.158022] [gadi-cpu-spr-0388:663127:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.158022] [gadi-cpu-spr-0388:663127:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.160494] [gadi-cpu-spr-0388:663149:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.160494] [gadi-cpu-spr-0388:663149:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.160839] [gadi-cpu-spr-0388:663145:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.160839] [gadi-cpu-spr-0388:663145:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.161073] [gadi-cpu-spr-0388:663143:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.161073] [gadi-cpu-spr-0388:663143:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.161561] [gadi-cpu-spr-0388:663144:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.161561] [gadi-cpu-spr-0388:663144:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.161975] [gadi-cpu-spr-0388:663142:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.161975] [gadi-cpu-spr-0388:663142:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.166459] [gadi-cpu-spr-0388:663156:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.166459] [gadi-cpu-spr-0388:663156:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.167865] [gadi-cpu-spr-0388:663141:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.167865] [gadi-cpu-spr-0388:663141:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.238189] [gadi-cpu-spr-0388:663150:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.238189] [gadi-cpu-spr-0388:663150:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.242875] [gadi-cpu-spr-0388:663152:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.242875] [gadi-cpu-spr-0388:663152:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.242883] [gadi-cpu-spr-0388:663147:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.242883] [gadi-cpu-spr-0388:663147:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.244170] [gadi-cpu-spr-0388:663157:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.244170] [gadi-cpu-spr-0388:663157:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.244307] [gadi-cpu-spr-0388:663160:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.244307] [gadi-cpu-spr-0388:663160:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.244699] [gadi-cpu-spr-0388:663155:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.244699] [gadi-cpu-spr-0388:663155:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.245773] [gadi-cpu-spr-0388:663151:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.245773] [gadi-cpu-spr-0388:663151:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.246047] [gadi-cpu-spr-0388:663153:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.246047] [gadi-cpu-spr-0388:663153:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.246623] [gadi-cpu-spr-0388:663158:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.246623] [gadi-cpu-spr-0388:663158:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.246624] [gadi-cpu-spr-0388:663161:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.246698] [gadi-cpu-spr-0388:663154:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.246698] [gadi-cpu-spr-0388:663154:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.246624] [gadi-cpu-spr-0388:663161:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.246754] [gadi-cpu-spr-0388:663159:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.246754] [gadi-cpu-spr-0388:663159:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.246832] [gadi-cpu-spr-0388:663162:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.246832] [gadi-cpu-spr-0388:663162:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.247132] [gadi-cpu-spr-0388:663163:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.247132] [gadi-cpu-spr-0388:663163:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.247309] [gadi-cpu-spr-0388:663168:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.247309] [gadi-cpu-spr-0388:663168:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.247537] [gadi-cpu-spr-0388:663164:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.247537] [gadi-cpu-spr-0388:663164:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.250510] [gadi-cpu-spr-0388:663167:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.250510] [gadi-cpu-spr-0388:663167:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.257314] [gadi-cpu-spr-0388:663169:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.257314] [gadi-cpu-spr-0388:663169:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.330604] [gadi-cpu-spr-0388:663165:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.330604] [gadi-cpu-spr-0388:663165:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.331053] [gadi-cpu-spr-0388:663173:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.331053] [gadi-cpu-spr-0388:663173:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.372511] [gadi-cpu-spr-0388:663166:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.372511] [gadi-cpu-spr-0388:663166:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.372748] [gadi-cpu-spr-0388:663176:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.372748] [gadi-cpu-spr-0388:663176:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.373543] [gadi-cpu-spr-0388:663171:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.373543] [gadi-cpu-spr-0388:663171:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.374027] [gadi-cpu-spr-0388:663172:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.374027] [gadi-cpu-spr-0388:663172:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.377584] [gadi-cpu-spr-0388:663175:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.377584] [gadi-cpu-spr-0388:663175:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.378487] [gadi-cpu-spr-0388:663174:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.378487] [gadi-cpu-spr-0388:663174:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.378510] [gadi-cpu-spr-0388:663187:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.378510] [gadi-cpu-spr-0388:663187:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.399877] [gadi-cpu-spr-0388:663194:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.399877] [gadi-cpu-spr-0388:663194:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.410428] [gadi-cpu-spr-0388:663193:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.410428] [gadi-cpu-spr-0388:663193:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.410922] [gadi-cpu-spr-0388:663188:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.410922] [gadi-cpu-spr-0388:663188:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.414228] [gadi-cpu-spr-0388:663183:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.414228] [gadi-cpu-spr-0388:663183:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.414785] [gadi-cpu-spr-0388:663170:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.414785] [gadi-cpu-spr-0388:663170:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.416047] [gadi-cpu-spr-0388:663199:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.416047] [gadi-cpu-spr-0388:663199:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.416864] [gadi-cpu-spr-0388:663197:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.416864] [gadi-cpu-spr-0388:663197:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.417120] [gadi-cpu-spr-0388:663190:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.417120] [gadi-cpu-spr-0388:663190:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.418435] [gadi-cpu-spr-0388:663195:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.418435] [gadi-cpu-spr-0388:663195:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.419541] [gadi-cpu-spr-0388:663184:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.419541] [gadi-cpu-spr-0388:663184:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.422126] [gadi-cpu-spr-0388:663182:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.422126] [gadi-cpu-spr-0388:663182:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.422606] [gadi-cpu-spr-0388:663189:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.422606] [gadi-cpu-spr-0388:663189:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.430568] [gadi-cpu-spr-0388:663196:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.430568] [gadi-cpu-spr-0388:663196:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.456412] [gadi-cpu-spr-0388:663185:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.456412] [gadi-cpu-spr-0388:663185:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.458040] [gadi-cpu-spr-0388:663180:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.458040] [gadi-cpu-spr-0388:663180:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.458164] [gadi-cpu-spr-0388:663186:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.458164] [gadi-cpu-spr-0388:663186:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.458330] [gadi-cpu-spr-0388:663179:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.458330] [gadi-cpu-spr-0388:663179:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.458908] [gadi-cpu-spr-0388:663192:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.458908] [gadi-cpu-spr-0388:663192:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459080] [gadi-cpu-spr-0388:663203:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459080] [gadi-cpu-spr-0388:663203:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459157] [gadi-cpu-spr-0388:663191:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459157] [gadi-cpu-spr-0388:663191:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459387] [gadi-cpu-spr-0388:663201:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459387] [gadi-cpu-spr-0388:663201:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459398] [gadi-cpu-spr-0388:663202:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459398] [gadi-cpu-spr-0388:663202:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459407] [gadi-cpu-spr-0388:663177:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459407] [gadi-cpu-spr-0388:663177:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459485] [gadi-cpu-spr-0388:663178:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459485] [gadi-cpu-spr-0388:663178:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459687] [gadi-cpu-spr-0388:663198:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459687] [gadi-cpu-spr-0388:663198:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459877] [gadi-cpu-spr-0388:663200:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459877] [gadi-cpu-spr-0388:663200:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793296343.459990] [gadi-cpu-spr-0388:663181:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793296343.459990] [gadi-cpu-spr-0388:663181:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2512                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : v2512 OPENFOAM=2512 version=v2512
+Arch   : "LSB;label=32;scalar=64"
+Exec   : potentialFoam -initialiseUBCs -parallel
+Date   : Oct 30 2026
+Time   : 04:52:25
+Host   : gadi-cpu-spr-0388.gadi.nci.org.au
+PID    : 663107
+I/O    : uncollated
+Case   : /jobfs/182589631.gadi-pbs/of2512-icx20253-binding-pair-182589631.gadi-pbs/case-core
+nProcs : 104
+Hosts  :
+(
+    (gadi-cpu-spr-0388.gadi.nci.org.au 104)
+)
+Pstream initialized with:
+    node communication : off [type=host] (104 ranks, 1 nodes)
+    topology controls  : none
+    consensus exchange : 0 (tuning: 0)
+    exchange algorithm : 0
+    commsType          : nonBlocking
+    polling iterations : 0
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+potentialFlow: Operating solver in PISO mode
+
+Reading velocity field U
+
+Constructing pressure field p
+
+Constructing velocity potential field Phi
+
+No MRF models present
+
+
+Calculating potential flow
+GAMG:  Solving for Phi, Initial residual = 1, Final residual = 0.007252072307407688, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 0.02200842080732141, Final residual = 1.552643944883047e-06, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 0.0004281654095309343, Final residual = 1.509443906138268e-08, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 1.918158091263721e-05, Final residual = 8.039481924472997e-10, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 1.781860632882821e-06, Final residual = 7.729530210435763e-11, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 2.115941819043849e-07, Final residual = 7.751102805534834e-12, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 3.129846132420774e-08, Final residual = 2.54981586004057e-12, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 7.05071128667565e-09, Final residual = 1.753743161995881e-12, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 2.499618559200952e-09, Final residual = 1.416483106331231e-12, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 1.277095353251051e-09, Final residual = 7.064114826947513e-13, No Iterations 12
+GAMG:  Solving for Phi, Initial residual = 7.915844129975469e-10, Final residual = 4.629556452513207e-13, No Iterations 12
+Continuity error = 2.827443966065892e-11
+Interpolated velocity error = 0.0001038587648755027
+ExecutionTime = 24.76 s  ClockTime = 29 s
+
+End
+
+Finalising parallel run

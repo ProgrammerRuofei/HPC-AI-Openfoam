@@ -1,0 +1,3 @@
+pbs_jobid=182589631.gadi-pbs
+ranks=104
+steps=40
