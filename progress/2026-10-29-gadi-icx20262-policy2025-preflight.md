@@ -52,3 +52,23 @@ Exactly one `qsub` of `preflight_policy2025_2n_v2.pbs` returned
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/preflight_policy2025_2n_v2.pbs.out`; job-keyed evidence is
 `/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/evidence/policy2025-2n-v2.182574797.gadi-pbs/`.
 Final result and actual SU pending. No four-node job was submitted.
+
+## v2 final result
+
+`182574797.gadi-pbs` finished `job_state=F`, `Exit_status=0`, PBS walltime
+`00:00:36`, and **4.16 actual SU**. The unique
+`ICX20262_OMPI5010_POLICY2025_2N_PASS` marker and `script_exit_rc=0` are
+present. Ranks 0 and 1 ran on different SPR nodes (`0663`, `0669`), each
+reported `size=2`, `sum=1`, actual loaded `/usr/lib64/libucp.so.0`, and UCP
+self-reported `1.21.0`. `mpi-smoke.ldd` resolved the private
+`openmpi-5.0.10/lib/libmpi.so.40`. Two rank receipts passed the saved
+`rank-receipts.sha256` manifest. Verbose MPI_COMM_WORLD selection showed
+`hcoll` priority 90 on both ranks; no `UCP API version is incompatible`
+warning appeared. This is a two-rank runtime-compatibility result, not a
+416-rank collective selection or OpenFOAM performance result.
+
+Original PBS stdout:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010/submit-logs/preflight_policy2025_2n_v2.pbs.out`.
+Job-keyed raw evidence:
+`/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-ompi5010-of2512/evidence/policy2025-2n-v2.182574797.gadi-pbs/`.
+No four-node job has been submitted under this runtime-policy study.
