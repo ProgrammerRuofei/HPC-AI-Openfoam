@@ -1,0 +1,220 @@
+--- existing-GCC-affinity-probe
++++ proposed-ICX-preflight
+@@ -1,18 +1,18 @@
+ #!/bin/bash
+-# One-node affinity audit for the verified GCC 16.2/Open MPI 5.0.10 stack.
++# One-node affinity audit for the verified ICX 2025.3.2/Open MPI 5.0.10 runtime.
+ # Submit from the Gadi control repository; writes job-keyed evidence in scratch.
+ # It launches no OpenFOAM solver and changes no scientific input.
+ #PBS -P pm78
+ #PBS -q normalsr
+-#PBS -N gcc162_binding_1n_v1
++#PBS -N icx25_binding_preflight
+ #PBS -l ncpus=104
+ #PBS -l mem=16GB
+ #PBS -l jobfs=20GB
+-#PBS -l walltime=00:05:00
++#PBS -l walltime=00:10:00
+ #PBS -l storage=scratch/pm78
+ #PBS -l wd
+ #PBS -j oe
+-#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/submit-logs/probe_gcc162_ompi5010_binding_1n_v1.pbs.out
++#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/preflight_binding_numa_1n_v1.pbs.out
+ set -euo pipefail
+ 
+ STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+@@ -20,9 +20,9 @@
+ MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+ GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+ MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+-RUN_ROOT="$STACK_ROOT/binding-probe-1n/${PBS_JOBID:?}"
++RUN_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/binding-numa-preflight-v1/${PBS_JOBID:?}"
+ EVIDENCE="$RUN_ROOT/evidence"
+-LOCAL_ROOT="${PBS_JOBFS:?}/gcc162-binding-${PBS_JOBID}"
++LOCAL_ROOT="${PBS_JOBFS:?}/icx20253-binding-preflight-${PBS_JOBID}"
+ GCC_PREFIX="$LOCAL_ROOT/gcc-16.2.0"
+ MPI_PREFIX="$LOCAL_ROOT/openmpi-5.0.10"
+ 
+@@ -34,9 +34,9 @@
+ finish() { rc=$?; printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"; return "$rc"; }
+ trap finish EXIT
+ 
+-printf 'job_id=%s\nstack=gcc16.2-ompi5.0.10\npurpose=affinity-audit-only\n' "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
++printf 'job_id=%s\nstack=icx2025.3.2-ompi5.0.10\npurpose=affinity-audit-only\n' "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
+ module purge
+-module load ucx/1.18.1 ucc/1.4.4
++module load intel-compiler-llvm/2025.3.2 ucx/1.18.1 ucc/1.4.4
+ module list 2>&1 | tee "$EVIDENCE/modules.txt"
+ test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+ test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+@@ -54,62 +54,116 @@
+ lscpu | grep -E 'Model name|Socket|Core|Thread|NUMA' | tee "$EVIDENCE/lscpu.txt"
+ grep -Fq 'Xeon(R) Platinum 8470Q' "$EVIDENCE/lscpu.txt"
+ 
+-# Each rank reports the OS affinity mask and the physical cores it covers.
+-# JSON avoids ambiguity when Linux formats CPU masks with embedded commas.
+-cat > "$EVIDENCE/report_affinity.py" <<'PY'
+-import glob
+-import json
+-import os
+-from pathlib import Path
+-import socket
+ 
+-def read_int(path):
+-    return int(Path(path).read_text().strip())
++# Reject inherited communication overrides; do not silently change the test policy.
++test -z "${LD_PRELOAD:-}"; test -z "${OMPI_MCA_coll:-}"
++export OMPI_CC=icx OMPI_CXX=icpx
++icx --version | head -n 1 | grep -F '2025.3.2'
++mpicc --showme:command | grep -Fx icx
++HELPER="$PBS_O_WORKDIR/experiments/gadi-icx20253-binding-numa/affinity_receipt.py"
++test -f "$HELPER"
++sha256sum "$HELPER" | awk '{print $1}' > "$EVIDENCE/helper.sha256"
++lscpu -p=CPU,CORE,SOCKET,NODE > "$EVIDENCE/topology.csv"
++for variant in default core; do
++    mkdir "$EVIDENCE/$variant"
++    options=(); if [[ "$variant" = core ]]; then options=(--bind-to core); fi
++    timeout -k 10s 90s mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node \
++        "${options[@]}" --report-bindings --mca pml ucx -np 104 \
++        python3 "$HELPER" record "$EVIDENCE/$variant" \
++        > "$EVIDENCE/$variant.stdout" 2> "$EVIDENCE/$variant.bindings.txt"
++    python3 "$HELPER" validate "$EVIDENCE/$variant" "$variant" > "$EVIDENCE/$variant.summary.json"
++done
++python3 "$HELPER" compare "$EVIDENCE/default" "$EVIDENCE/core" > "$EVIDENCE/acceptance.json"
+ 
+-cpus = sorted(os.sched_getaffinity(0))
+-cores = set()
+-numa = set()
+-for cpu in cpus:
+-    base = f'/sys/devices/system/cpu/cpu{cpu}'
+-    package = read_int(f'{base}/topology/physical_package_id')
+-    core = read_int(f'{base}/topology/core_id')
+-    cores.add((package, core))
+-    numa.update(int(Path(p).name[4:]) for p in glob.glob(f'{base}/node[0-9]*'))
+-print(json.dumps(dict(rank=int(os.environ['OMPI_COMM_WORLD_RANK']),
+-                      local_rank=int(os.environ['OMPI_COMM_WORLD_LOCAL_RANK']),
+-                      host=socket.gethostname().split('.')[0], cpus=cpus,
+-                      cores=sorted(cores), numa=sorted(numa)), sort_keys=True), flush=True)
++# Optional later-study maps: an unsupported map is recorded, never substituted.
++numa_ok=$(python3 - "$EVIDENCE/topology.csv" <<'PY'
++import pathlib, sys
++d={}
++for line in pathlib.Path(sys.argv[1]).read_text().splitlines():
++    if line.startswith('#'): continue
++    cpu,core,socket,node=line.split(',')
++    if node and node!='-1': d.setdefault(int(node),set()).add((int(socket),int(core)))
++print(int(len(d)==8 and all(len(v)==13 for v in d.values())))
+ PY
++)
++if [[ "$numa_ok" = 1 ]]; then
++    for order in fill span; do
++        mkdir "$EVIDENCE/numa-$order"
++        set +e
++        timeout -k 10s 60s mpirun --prefix "$MPI_PREFIX" --map-by ppr:13:numa \
++            --rank-by "$order" --bind-to core --report-bindings --mca pml ucx -np 104 \
++            python3 "$HELPER" record "$EVIDENCE/numa-$order" \
++            > "$EVIDENCE/numa-$order.stdout" 2> "$EVIDENCE/numa-$order.bindings.txt"
++        rc=$?
++        set -e
++        printf 'launcher_rc=%s\n' "$rc" > "$EVIDENCE/numa-$order.status"
++        if [[ "$rc" = 124 || "$rc" = 137 ]]; then exit "$rc"; fi
++        if [[ "$rc" = 0 ]]; then
++            python3 "$HELPER" validate "$EVIDENCE/numa-$order" core > "$EVIDENCE/numa-$order.summary.json"
++        fi
++    done
++else
++    printf 'NUMA map test skipped: topology is not eight 13-core domains\n' > "$EVIDENCE/numa-skipped.txt"
++fi
+ 
+-# Preserve the baseline mapping and UCX PML. The second launch adds only
+-# explicit core binding; --report-bindings is evidence output in both.
+-for variant in default core; do
+-    options=()
+-    if [[ "$variant" = core ]]; then options=(--bind-to core); fi
+-    mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node \
+-        "${options[@]}" --report-bindings --mca pml ucx -np 104 \
+-        python3 "$EVIDENCE/report_affinity.py" \
+-        > "$EVIDENCE/$variant.jsonl" 2> "$EVIDENCE/$variant.bindings.txt"
++cat > "$EVIDENCE/mpi-runtime.c" <<'C_EOF'
++#define _GNU_SOURCE
++#include <mpi.h>
++#include <dlfcn.h>
++#include <link.h>
++#include <stdio.h>
++#include <string.h>
++#include <unistd.h>
++static char ucp_path[4096];
++static int locate(struct dl_phdr_info *info, size_t size, void *data) {
++    (void)size; (void)data;
++    if (info->dlpi_name && strstr(info->dlpi_name, "libucp.so")) {
++        snprintf(ucp_path, sizeof(ucp_path), "%s", info->dlpi_name);
++        return 1;
++    }
++    return 0;
++}
++int main(int argc, char **argv) {
++    int rank, size, sum;
++    char host[256];
++    MPI_Init(&argc, &argv);
++    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
++    MPI_Comm_size(MPI_COMM_WORLD, &size);
++    MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
++    gethostname(host, sizeof host);
++    host[sizeof host - 1] = 0;
++    dl_iterate_phdr(locate, NULL);
++    void *handle = ucp_path[0] ? dlopen(ucp_path, RTLD_NOW | RTLD_NOLOAD) : NULL;
++    const char *(*version)(void) = handle ? dlsym(handle, "ucp_get_version_string") : NULL;
++    char receipt[8192];
++    int wrote = 0;
++    if (argc > 1) {
++        snprintf(receipt, sizeof receipt, "%s/rank-%d.txt", argv[1], rank);
++        FILE *out = fopen(receipt, "wx");
++        if (out) {
++            fprintf(out, "BINDING_MPI_RUNTIME rank=%d size=%d host=%s path=%s version=%s sum=%d\n",
++                    rank, size, host, ucp_path[0] ? ucp_path : "MISSING",
++                    version ? version() : "MISSING", sum);
++            wrote = fclose(out) == 0;
++        }
++    }
++    if (handle) dlclose(handle);
++    MPI_Finalize();
++    return size == 2 && sum == 1 && ucp_path[0] && version && wrote ? 0 : 1;
++}
++C_EOF
++
++mkdir "$EVIDENCE/mpi-runtime"
++timeout -k 5s 60s mpicc "$EVIDENCE/mpi-runtime.c" -ldl -o "$LOCAL_ROOT/mpi-runtime"
++ldd "$LOCAL_ROOT/mpi-runtime" > "$EVIDENCE/mpi-runtime.ldd"
++! grep -Fq 'not found' "$EVIDENCE/mpi-runtime.ldd"
++grep -F "$MPI_PREFIX/lib/libmpi.so" "$EVIDENCE/mpi-runtime.ldd"
++timeout -k 10s 60s mpirun --prefix "$MPI_PREFIX" --map-by ppr:2:node --mca pml ucx \
++    --mca coll_base_verbose 30 --report-bindings -np 2 "$LOCAL_ROOT/mpi-runtime" "$EVIDENCE/mpi-runtime" \
++    > "$EVIDENCE/mpi-runtime.log" 2>&1
++for rank in 0 1; do
++    grep -Eq "^BINDING_MPI_RUNTIME rank=$rank size=2 host=.+ path=.+ version=.+ sum=1$" "$EVIDENCE/mpi-runtime/rank-$rank.txt"
+ done
+-
+-python3 - "$EVIDENCE" <<'PY' | tee "$EVIDENCE/summary.txt"
+-import collections
+-import json
+-import pathlib
+-import sys
+-
+-root = pathlib.Path(sys.argv[1])
+-for variant in ('default', 'core'):
+-    rows = [json.loads(line) for line in (root / f'{variant}.jsonl').read_text().splitlines()]
+-    assert len(rows) == 104, (variant, len(rows))
+-    assert {r['rank'] for r in rows} == set(range(104))
+-    assert {r['local_rank'] for r in rows} == set(range(104))
+-    assert len({r['host'] for r in rows}) == 1
+-    widths = collections.Counter(len(r['cores']) for r in rows)
+-    single = [tuple(r['cores'][0]) for r in rows if len(r['cores']) == 1]
+-    node_counts = collections.Counter(r['numa'][0] for r in rows if len(r['numa']) == 1)
+-    print(f'{variant}: rank_count=104 physical_core_mask_widths={dict(sorted(widths.items()))}')
+-    print(f'{variant}: singleton_core_ranks={len(single)} distinct_singleton_cores={len(set(single))}')
+-    print(f'{variant}: singleton_numa_rank_counts={dict(sorted(node_counts.items()))}')
+-print('GCC162_OMPI5010_BINDING_1N_PROBE_PASS')
+-PY
++! grep -Eq 'path=MISSING|version=MISSING' "$EVIDENCE/mpi-runtime/"rank-*.txt
++! grep -Fq 'UCP API version is incompatible' "$EVIDENCE/mpi-runtime.log"
++echo ICX20253_OMPI5010_BINDING_NUMA_PREFLIGHT_PASS

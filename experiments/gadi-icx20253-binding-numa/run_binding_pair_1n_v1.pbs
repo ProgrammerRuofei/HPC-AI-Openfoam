@@ -1,0 +1,230 @@
+#!/bin/bash
+# One SPR host: paired default/core ICX 2025 Scotch 40-step screen, AB or BA.
+# Change only the core binding option; fresh 104-rank case for each arm.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx25_binding_pair
+#PBS -l ncpus=104
+#PBS -l mem=190GB
+#PBS -l jobfs=100GB
+#PBS -l walltime=00:40:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_binding_pair_1n_v1.UNSET.pbs.out
+set -euo pipefail
+
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+OF_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512
+SOURCE_CASE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+OF_ARCHIVE="$OF_ROOT/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz"
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+OF_SHA=a832416d47a1a26cc2a02ef0c69eb09dbf142043d619ed22ece37d96b029dfcd
+BIN_SHA=7cc4af8c576eba1e97ba16a767fca5843293c391b71a3904a596b3981d2913e4
+case "${BIND_ORDER:?qsub -v BIND_ORDER=ab or ba,BIND_PREFLIGHT_JOB=<id>}" in
+    ab) ARMS=(default core) ;;
+    ba) ARMS=(core default) ;;
+    *) exit 2 ;;
+esac
+[[ "${BIND_PREFLIGHT_JOB:?}" =~ ^[0-9]+\.gadi-pbs$ ]]
+PREFLIGHT="$OF_ROOT/binding-numa-preflight-v1/$BIND_PREFLIGHT_JOB/evidence"
+HELPER="$PBS_O_WORKDIR/experiments/gadi-icx20253-binding-numa/affinity_receipt.py"
+test -f "$HELPER"
+grep -Fxq ICX20253_OMPI5010_BINDING_NUMA_PREFLIGHT_PASS "$PREFLIGHT/run.log"
+grep -Fxq script_exit_rc=0 "$PREFLIGHT/exit-status.txt"
+python3 - "$PREFLIGHT/acceptance.json" <<'PY'
+import json,sys
+assert json.load(open(sys.argv[1]))['can_run_binding'], 'probe found no distinct binding treatment'
+PY
+test "$(sha256sum "$HELPER" | awk '{print $1}')" = "$(cat "$PREFLIGHT/helper.sha256")"
+RUN_ROOT="$OF_ROOT/binding-pair-1n-v1/$BIND_ORDER/${PBS_JOBID:?}"
+EVIDENCE="$RUN_ROOT/evidence"
+LOCAL_ROOT="${PBS_JOBFS:?}/of2512-icx20253-binding-pair-${PBS_JOBID}"
+GCC_PREFIX="$LOCAL_ROOT/gcc-16.2.0"
+MPI_PREFIX="$LOCAL_ROOT/openmpi-5.0.10"
+FOAM_ROOT="$LOCAL_ROOT/OpenFOAM-v2512"
+CURRENT_ARM=
+
+test "${PBS_NNODES:?}" -eq 1
+test "${PBS_NCPUS:?}" -eq 104
+test ! -e "$RUN_ROOT"
+test ! -e "$LOCAL_ROOT"
+mkdir -p "$EVIDENCE" "$LOCAL_ROOT"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+preserve() {
+    rc=$?; set +e
+    if [[ -n "$CURRENT_ARM" ]]; then
+        arm_evidence="$EVIDENCE/$CURRENT_ARM"
+        arm_case="$LOCAL_ROOT/case-$CURRENT_ARM"
+        coefficient=$(find "$arm_case/postProcessing/forceCoeffsAll" -name coefficient.dat -type f 2>/dev/null | head -n 1)
+        if test -n "$coefficient" && test ! -e "$arm_evidence/coefficient.dat"; then cp -p "$coefficient" "$arm_evidence/coefficient.dat"; fi
+    fi
+    printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"
+    return "$rc"
+}
+trap preserve EXIT
+
+printf 'pbs_jobid=%s\nstack=icx2025.3.2-ompi5.0.10-openfoamv2512\ndecomposition=scotch\nrank_arms=104,104\nsteps_per_arm=40\nbinding=paired_default_core\n' "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
+sort -u "$PBS_NODEFILE" > "$EVIDENCE/nodes.txt"
+test "$(wc -l < "$PBS_NODEFILE")" -eq 104
+test "$(wc -l < "$EVIDENCE/nodes.txt")" -eq 1
+lscpu | grep -E 'Model name|Socket|Core|Thread|NUMA' > "$EVIDENCE/lscpu.txt"
+grep -Fq 'Xeon(R) Platinum 8470Q' "$EVIDENCE/lscpu.txt"
+module purge
+module load intel-compiler-llvm/2025.3.2 ucx/1.18.1 ucc/1.4.4
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+
+cat > "$EVIDENCE/expected-source.sha256" <<EOF
+2a02ec456ce880b2242d566da6c5b28fae1aa99218169260030cd53f5a662ec3  $SOURCE_CASE/Allrun.gadi
+1da44731f5f723c1b8471bee6c6186c6f402f63154f84cacd26bf27e30e6a6c6  $SOURCE_CASE/system/include/caseDefinition
+ce4ec0f52bcc88eea8402b454940dc5aad1f31dea6441e7d98413b651427ef06  $SOURCE_CASE/system/controlDict.noWrite
+064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3  $SOURCE_CASE/system/fvSchemes
+5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba  $SOURCE_CASE/system/fvSolution
+5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba  $SOURCE_CASE/system/fvSolution.fixedIter
+0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08  $SOURCE_CASE/system/FOwallClockTimeStatistics
+EOF
+sha256sum -c "$EVIDENCE/expected-source.sha256"
+printf '%s  %s\n' "$GCC_SHA" "$GCC_ARCHIVE" | sha256sum -c -
+printf '%s  %s\n' "$MPI_SHA" "$MPI_ARCHIVE" | sha256sum -c -
+printf '%s  %s\n' "$OF_SHA" "$OF_ARCHIVE" | sha256sum -c -
+tar -xzf "$GCC_ARCHIVE" -C "$LOCAL_ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$LOCAL_ROOT"
+tar -xzf "$OF_ARCHIVE" -C "$LOCAL_ROOT"
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export OMPI_CC=icx OMPI_CXX=icpx
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+icx --version | head -n 1 | grep -F '2025.3.2'
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+mpicc --showme:command | grep -Fx icx
+BIN="$FOAM_ROOT/platforms/linux64IcxDPInt32Opt/bin/simpleFoam"
+printf '%s  %s\n' "$BIN_SHA" "$BIN" | sha256sum -c -
+set +u; . "$FOAM_ROOT/etc/bashrc" WM_COMPILER=Icx WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt; set -u
+test "$WM_PROJECT_DIR" = "$FOAM_ROOT"
+test "$WM_OPTIONS" = linux64IcxDPInt32Opt
+ldd "$BIN" > "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/simpleFoam.ldd"
+
+# Confirm the actual allocated host reproduces the intended treatment before a solve.
+test -z "${LD_PRELOAD:-}"; test -z "${OMPI_MCA_coll:-}"
+printf 'order=%s\npreflight_job=%s\n' "$BIND_ORDER" "$BIND_PREFLIGHT_JOB" >> "$EVIDENCE/provenance.txt"
+sha256sum "$HELPER" > "$EVIDENCE/helper.sha256"
+lscpu -p=CPU,CORE,SOCKET,NODE > "$EVIDENCE/topology.csv"
+for policy in default core; do
+    mkdir -p "$EVIDENCE/placement-$policy"
+    extra=(); if [[ "$policy" = core ]]; then extra=(--bind-to core); fi
+    timeout -k 10s 90s mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node \
+        "${extra[@]}" --report-bindings --mca pml ucx -np 104 python3 "$HELPER" record "$EVIDENCE/placement-$policy" \
+        > "$EVIDENCE/placement-$policy.stdout" 2> "$EVIDENCE/placement-$policy.bindings.txt"
+done
+python3 "$HELPER" compare "$EVIDENCE/placement-default" "$EVIDENCE/placement-core" > "$EVIDENCE/placement-comparison.json"
+python3 - "$EVIDENCE/placement-comparison.json" <<'PY'
+import json,sys
+assert json.load(open(sys.argv[1]))['can_run_binding'], 'no distinct binding treatment'
+PY
+(cd "$SOURCE_CASE" && sha256sum constant/polyMesh/{faces,owner,neighbour,points,boundary}) > "$EVIDENCE/source-mesh.sha256"
+for arm in "${ARMS[@]}"; do
+    ranks=104
+    CURRENT_ARM="$arm"
+    arm_evidence="$EVIDENCE/$arm"
+    arm_case="$LOCAL_ROOT/case-$arm"
+    mkdir "$arm_evidence" "$arm_case"
+    printf 'pbs_jobid=%s\nranks=%s\nsteps=40\n' "$PBS_JOBID" "$ranks" > "$arm_evidence/provenance.txt"
+    cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$arm_case/"
+    for part in faces owner neighbour points boundary; do
+        cmp -s "$SOURCE_CASE/constant/polyMesh/$part" "$arm_case/constant/polyMesh/$part"
+    done
+    cd "$arm_case"
+    sha256sum -c "$EVIDENCE/source-mesh.sha256" > "$arm_evidence/mesh-check.txt"
+    cp system/controlDict.noWrite system/controlDict
+    cp system/fvSolution.fixedIter system/fvSolution
+    sed -i -E "s/^([[:space:]]*nCores[[:space:]]+)[0-9]+;/\\1${ranks};/" system/include/caseDefinition
+    sed -i -E 's/^([[:space:]]*decompositionMethod[[:space:]]+)[a-z]+;/\1scotch;/' system/include/caseDefinition
+    sed -i -E 's/^([[:space:]]*endTime[[:space:]]+)[0-9]+;/\140;/' system/controlDict
+    grep -Eq "^[[:space:]]*nCores[[:space:]]+${ranks};" system/include/caseDefinition
+    grep -Eq '^[[:space:]]*decompositionMethod[[:space:]]+scotch;' system/include/caseDefinition
+    grep -Eq '^[[:space:]]*endTime[[:space:]]+40;' system/controlDict
+    cmp -s system/fvSolution system/fvSolution.fixedIter
+    sha256sum system/fvSchemes system/fvSolution system/controlDict.noWrite > "$arm_evidence/case-inputs.sha256"
+    set +u; . "$FOAM_ROOT/bin/tools/RunFunctions"; set -u
+    decomposePar -constant > "$arm_evidence/10_decomposePar.log" 2>&1
+    grep -Fq 'Decomposition method scotch' "$arm_evidence/10_decomposePar.log"
+    grep -aEq '^End$' "$arm_evidence/10_decomposePar.log"
+    restore0Dir -processor
+    test "$(find . -mindepth 1 -maxdepth 1 -type d -name 'processor*' | wc -l)" -eq "$ranks"
+
+    extra=(); if [[ "$arm" = core ]]; then extra=(--bind-to core); fi
+    PAREX=(mpirun --prefix "$MPI_PREFIX" --map-by "ppr:${ranks}:node" "${extra[@]}" --mca pml ucx -np "$ranks")
+    "${PAREX[@]}" --report-bindings /bin/bash -c 'printf "%s %s %s\n" "${OMPI_COMM_WORLD_RANK:?}" "$(hostname)" "$(awk '\''/Cpus_allowed_list/{print $2}'\'' /proc/self/status)"' > "$arm_evidence/rank-affinity.txt" 2> "$arm_evidence/mpi-bindings.txt"
+    awk -v r="$ranks" '{ if ($1<0 || $1>=r || seen[$1]++) bad=1; host[$2]=1 } END { if (NR!=r || bad || length(host)!=1) exit 1 }' "$arm_evidence/rank-affinity.txt"
+    "${PAREX[@]}" renumberMesh -constant -overwrite -parallel > "$arm_evidence/20_renumberMesh.log" 2>&1
+    "${PAREX[@]}" potentialFoam -initialiseUBCs -parallel > "$arm_evidence/30_potentialFoam.log" 2>&1
+    "${PAREX[@]}" applyBoundaryLayer -ybl 0.0450244 -parallel > "$arm_evidence/40_applyBoundaryLayer.log" 2>&1
+    mkdir "$arm_evidence/solver-affinity"
+    "${PAREX[@]}" python3 "$HELPER" record "$arm_evidence/solver-affinity" "$BIN" -parallel > "$arm_evidence/simpleFoam.log" 2>&1
+    python3 "$HELPER" validate "$arm_evidence/solver-affinity" "$arm" > "$arm_evidence/solver-affinity-summary.json"
+    for step in 10_decomposePar 20_renumberMesh 30_potentialFoam 40_applyBoundaryLayer; do
+        grep -aEq '^End$' "$arm_evidence/$step.log"
+    done
+    grep -aEq '^Time = 40[[:space:]]*$' "$arm_evidence/simpleFoam.log"
+    grep -aFq 'Finalising parallel run' "$arm_evidence/simpleFoam.log"
+    grep -aEq '^End$' "$arm_evidence/simpleFoam.log"
+    grep -a 'Average wall-clock time per time step' "$arm_evidence/simpleFoam.log" | tail -n 1 | tee "$arm_evidence/avg-step-time.txt"
+    grep -aE 'ExecutionTime|ClockTime' "$arm_evidence/simpleFoam.log" | tail -n 1 | tee "$arm_evidence/clocktime.txt"
+    coefficient=$(find "$arm_case/postProcessing/forceCoeffsAll" -name coefficient.dat -type f | head -n 1)
+    test -s "$coefficient"
+    cp -p "$coefficient" "$arm_evidence/coefficient.dat"
+    cd_value=$(awk '/^#/ { for (i=2;i<=NF;i++) if ($i=="Cd") col=i-1; next } NF && col { last=$col } END { if (col) print last }' "$arm_evidence/coefficient.dat")
+    python3 - "$cd_value" <<'PY'
+import math, sys
+value = float(sys.argv[1])
+assert math.isfinite(value) and 0.42 < value < 0.45
+PY
+    printf 'final_Cd=%s\n' "$cd_value" | tee "$arm_evidence/final-Cd.txt"
+    echo "ICX20253_OMPI5010_BINDING_1N_40STEP_${arm}_PASS"
+done
+python3 "$HELPER" compare "$EVIDENCE/default/solver-affinity" "$EVIDENCE/core/solver-affinity" > "$EVIDENCE/solver-placement-comparison.json"
+python3 - "$EVIDENCE" <<'PY'
+from pathlib import Path
+import re,sys,math,json
+root=Path(sys.argv[1]); a=root/'default'; b=root/'core'
+assert (a/'case-inputs.sha256').read_bytes()==(b/'case-inputs.sha256').read_bytes()
+def geometry(p):
+    lines=p.read_text().splitlines()
+    keep=[s.strip() for s in lines if re.match(r'^Processor \d+$',s) or re.match(r'\s+Number of (cells|points|faces shared with processor|processor patches|processor faces|boundary faces)',s)]
+    assert sum(bool(re.match(r'^Processor \d+$',s)) for s in keep)==104
+    return keep
+assert geometry(a/'10_decomposePar.log')==geometry(b/'10_decomposePar.log'), 'partition differs'
+def result(p):
+    log=(p/'simpleFoam.log').read_text()
+    times=[float(x) for x in re.findall(r'^Time = ([0-9.]+)\s*$',log,re.M)]
+    assert times==list(range(1,41)), 'solver steps differ'
+    t=float(re.findall(r'Average wall-clock time per time step\s*=\s*([0-9.eE+-]+)',log)[-1])
+    assert math.isfinite(t) and t>0
+    return t
+def cd_series(p):
+    columns=None; data=[]
+    for line in (p/'coefficient.dat').read_text().splitlines():
+        if line.startswith('#'):
+            fields=line.lstrip('#').split()
+            if 'Time' in fields and 'Cd' in fields: columns=fields
+        elif line.strip():
+            assert columns is not None
+            fields=line.split(); data.append((float(fields[0]),float(fields[columns.index('Cd')])))
+    assert data and all(math.isfinite(v) for row in data for v in row)
+    return data
+ca,cb=cd_series(a),cd_series(b)
+assert [x[0] for x in ca]==[x[0] for x in cb], 'coefficient time points differ'
+max_cd_difference=max(abs(x[1]-y[1]) for x,y in zip(ca,cb))
+summary=dict(default_s_step=result(a),core_s_step=result(b),partition_identical=True,max_abs_Cd_difference=max_cd_difference,comparable_cd=max_cd_difference<=1e-8)
+summary['core_improvement_percent']=100*(summary['default_s_step']-summary['core_s_step'])/summary['default_s_step']
+(root/'pair-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+assert summary['comparable_cd'], 'binding pair Cd changed: preserve and inspect, do not promote'
+PY
+echo "ICX20253_OMPI5010_BINDING_PAIR_${BIND_ORDER}_PASS"
