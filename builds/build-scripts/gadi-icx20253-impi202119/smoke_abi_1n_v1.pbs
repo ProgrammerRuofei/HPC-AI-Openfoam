@@ -1,0 +1,76 @@
+#!/bin/bash
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx25_impi19_abi
+#PBS -l ncpus=4
+#PBS -l mem=16GB
+#PBS -l jobfs=30GB
+#PBS -l walltime=00:20:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-impi202119/submit-logs/smoke_abi_1n_v1.pbs.out
+set -euo pipefail
+
+: "${PBS_JOBID:?}" "${PBS_JOBFS:?}" "${PBS_NCPUS:?}"
+test "$PBS_NCPUS" -eq 4
+root=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-impi202119
+archive=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20262-impi202119/runtime-archive/gadi-icx20262-impi202119.182138851.gadi-pbs.tar.gz
+archive_sha=013ea4758e05b3656b5474845577fcd0631b28d783e115b5e42d644d321a2fbc
+evidence="$root/evidence/$PBS_JOBID"
+work="$PBS_JOBFS/icx20253-impi202119-$PBS_JOBID"
+test ! -e "$evidence" && test ! -e "$work"
+mkdir -p "$evidence" "$work/opt/intel"
+exec > >(tee "$evidence/probe.log") 2>&1
+
+printf 'job_id=%s\narchive=%s\narchive_sha256=%s\n' "$PBS_JOBID" "$archive" "$archive_sha"
+printf '%s  %s\n' "$archive_sha" "$archive" | sha256sum -c -
+module purge
+module load intel-compiler-llvm/2025.3.2
+module list 2>&1
+tar -C "$work/opt/intel" -xzf "$archive"
+mpi="$work/opt/intel/oneapi/mpi/2021.19"
+test -f "$mpi/env/vars.sh"
+set +u
+. "$mpi/env/vars.sh"
+set -u
+export I_MPI_ROOT="$mpi" MPI_ROOT="$mpi"
+export I_MPI_HYDRA_BOOTSTRAP=rsh I_MPI_HYDRA_BOOTSTRAP_EXEC=/opt/pbs/default/bin/pbs_tmrsh
+for tool in icx icpx mpiicx mpiicpx mpirun; do command -v "$tool"; done
+icx --version | tee "$evidence/icx-version.txt"
+icpx --version | tee "$evidence/icpx-version.txt"
+mpirun -version | tee "$evidence/mpi-version.txt"
+mpiicpx -show | tee "$evidence/mpiicpx-show.txt"
+grep -Fq '2025.3.2' "$evidence/icx-version.txt"
+grep -Fq '2025.3.2' "$evidence/icpx-version.txt"
+grep -Fq '2021.19.0' "$evidence/mpi-version.txt"
+test "$(command -v mpirun)" = "$mpi/bin/mpirun"
+grep -Eq '(^|/)icpx([[:space:]]|$)' "$evidence/mpiicpx-show.txt"
+
+cat > "$work/mpi-smoke.cpp" <<'CPP'
+#include <mpi.h>
+#include <cstdio>
+#include <cstring>
+#include <unistd.h>
+int main(int argc, char **argv) {
+    MPI_Init(&argc, &argv);
+    int rank = -1, size = -1, len = 0;
+    char host[256] = {}, version[MPI_MAX_LIBRARY_VERSION_STRING] = {};
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Get_library_version(version, &len);
+    gethostname(host, sizeof(host));
+    std::printf("ICX20253_IMPI202119_RANK=%d SIZE=%d HOST=%s LIB=%.*s\n", rank, size, host, len, version);
+    MPI_Finalize();
+    return size == 2 && std::strstr(version, "Intel(R) MPI") && std::strstr(version, "2021.19") ? 0 : 1;
+}
+CPP
+mpiicpx -O2 "$work/mpi-smoke.cpp" -o "$work/mpi-smoke"
+ldd "$work/mpi-smoke" | tee "$evidence/mpi-smoke.ldd"
+! grep -Fq 'not found' "$evidence/mpi-smoke.ldd"
+grep -E "libmpi\.so.*$mpi/" "$evidence/mpi-smoke.ldd"
+I_MPI_DEBUG=4 mpirun -n 2 "$work/mpi-smoke" 2>&1 | tee "$evidence/mpi-smoke.txt"
+test "$(grep -c '^ICX20253_IMPI202119_RANK=' "$evidence/mpi-smoke.txt")" -eq 2
+grep -q '^ICX20253_IMPI202119_RANK=0 SIZE=2 ' "$evidence/mpi-smoke.txt"
+grep -q '^ICX20253_IMPI202119_RANK=1 SIZE=2 ' "$evidence/mpi-smoke.txt"
+printf 'ICX20253_IMPI202119_ABI_SMOKE_PASS\n'
