@@ -59,3 +59,13 @@ Default then core,104 ranks and40steps each. Default8.25222384897436s/step,core8
 Walltime22:56,actual79.50SU for the whole pair (not per arm),posted PBS receipt. Peak memory receipt190GB,JOBFS38.94GB. All465 remote originals (464 evidence files plus stdout) SHA matched; captured qstat is separate. Source paths/fileSHA in job archive sources.tsv/SHA256SUMS,default/core subdirectories preserved. No source/input or run-script change; no retry. Tiny one-pair timing difference is not a demonstrated binding benefit;40steps is screening,not a150step score.
 
 BA remains conditional and unsubmitted at this validation record. After synchronization,quota check,hash checks and absent BAstdout,submit the already approved BA once;record returned ID immediately. Total cost so far P0+AB=80.83SU.
+
+## BA submitted once — 182589631.gadi-pbs
+
+AB full evidence/result commit eaeb2d85e47cae2c8125b3bd99d755db7447baad pushed to existing GitHub/Gadi isolated branch; remote ff-only, script/helper and pair-result SHA verified. No script changes. Prior BA stdout absent; submitted exactly once with `qsub -v BIND_ORDER=ba,BIND_PREFLIGHT_JOB=182588070.gadi-pbs -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_binding_pair_1n_v1_ba.pbs.out experiments/gadi-icx20253-binding-numa/run_binding_pair_1n_v1.pbs`. Returned182589631.gadi-pbs; initial Q.
+
+Same approved single-SPR104CPU/190GB/100GBJOBFS/40minute request,138.67SU maximum; core then default,104ranks/40steps each,ICX2025.3.2/OpenMPI5.0.10/OpenFOAMv2512/Scotch. Remote evidence root: /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/binding-pair-1n-v1/ba/182589631.gadi-pbs/evidence/. Do not resubmit P0,AB or BA.
+
+Pre-submit account check:8.06KSU available,624SU reserved; scratch558.49GiB/1TiB,164.40K/202Kinodes. Other approved work uses the shared allocation. Control connection restored; prior missing socket did not imply any PBS failure. Original raw whitespace preserved despite git diff whitespace warnings.
+
+Next: monitor this BA ID,verify both arms and archive with per-file SHA; compare AB/BA paired ratios and order effects. No extra retry,four-node or NUMA solve authorized. Stop/delete binding automation after final records,or upon failure.
