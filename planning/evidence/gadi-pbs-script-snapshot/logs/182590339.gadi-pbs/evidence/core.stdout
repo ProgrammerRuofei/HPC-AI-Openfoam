@@ -1,0 +1,34 @@
+pbs_jobid=182590339.gadi-pbs
+performance_screen=uninstrumented_binding_pair
+verification=binding_pair_150step
+stack=icx2025.3.2-ompi5.0.10-openfoamv2512
+decomposition=scotch
+gadi-cpu-spr-0514.gadi.nci.org.au
+gadi-cpu-spr-0515.gadi.nci.org.au
+gadi-cpu-spr-0516.gadi.nci.org.au
+gadi-cpu-spr-0526.gadi.nci.org.au
+Thread(s) per core:  2
+Core(s) per socket:  52
+Socket(s):           2
+NUMA node(s):        8
+Model name:          Intel(R) Xeon(R) Platinum 8470Q
+NUMA node0 CPU(s):   0-12,104-116
+NUMA node1 CPU(s):   13-25,117-129
+NUMA node2 CPU(s):   26-38,130-142
+NUMA node3 CPU(s):   39-51,143-155
+NUMA node4 CPU(s):   52-64,156-168
+NUMA node5 CPU(s):   65-77,169-181
+NUMA node6 CPU(s):   78-90,182-194
+NUMA node7 CPU(s):   91-103,195-207
+Currently Loaded Modulefiles:
+ 1) intel-compiler-llvm/2025.3.2   2) ucx/1.18.1   3) ucc/1.4.4  
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/Allrun.gadi: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/include/caseDefinition: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/controlDict.noWrite: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSchemes: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSolution: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSolution.fixedIter: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/FOwallClockTimeStatistics: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK

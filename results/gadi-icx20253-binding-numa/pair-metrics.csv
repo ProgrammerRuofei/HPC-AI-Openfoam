@@ -1,3 +1,4 @@
 pbs_job_id,order,status,exit_status,nodes,ranks_per_arm,steps_per_arm,default_s_step,core_s_step,default_Cd,core_Cd,max_abs_Cd_difference,partition_identical,core_improvement_percent,walltime_s,actual_su_pair
 182588604.gadi-pbs,ab,validated,0,1,104,40,8.25222384897436,8.248214656871795,0.4380600670684828,0.4380600670684828,0,True,0.048583171953862886,1376,79.5
 182589631.gadi-pbs,ba,validated,0,1,104,40,8.274169132589744,8.260328297461541,0.43806006706848277,0.43806006706848277,0.0,True,0.16727764330665848,1362,78.69
+182590339.gadi-pbs,ab,failed_jobfs_core_not_started,271,4,416,150,1.985561463114094,,0.29187617440389690,,,,,1047,241.97

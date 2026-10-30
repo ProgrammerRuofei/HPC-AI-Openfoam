@@ -1,0 +1,1 @@
+{"can_run_binding": true, "core_distinct_physical_cores": 416, "core_within_default": true, "hosts": ["gadi-cpu-spr-0514.gadi.nci.org.au", "gadi-cpu-spr-0515.gadi.nci.org.au", "gadi-cpu-spr-0516.gadi.nci.org.au", "gadi-cpu-spr-0526.gadi.nci.org.au"], "ranks": 416}

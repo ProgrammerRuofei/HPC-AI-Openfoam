@@ -63,3 +63,50 @@ Pair root: /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-o
 Raw evidence is in evidence/ and default/evidence/,core/evidence/. Pending results,actualSU,Cd andseconds/step.
 
 Immediately after submission the user requested disabling the monitor. Deleted automation gadi-icx-binding successfully. No job cancellation or new submission; no further automatic polling. Resume evidence retrieval only when requested. Preserve this ID to prevent duplicate submission.
+
+## Result inspected — 182590339.gadi-pbs: incomplete pair, JOBFS limit
+
+PBS F / Exit_status271,SIGTERM,walltime00:17:27 (1047s),posted actual241.97SU
+for the entire job. One normalsr allocation,4 Sapphire Rapids8470Q hosts
+0514,0515,0516,0526;each104 CPUs/ranks,total416. ICX2025.3.2/private
+OpenMPI5.0.10/OpenFOAMv2512/Scotch,unchanged65,334,765-cell occDrivAerStaticMesh.
+UCX1.18.1/UCC1.4.4 are declared modules only;actual solver UCP version,
+UCC/HCOLL selection remain unmeasured. No UCX preload or collective override.
+
+Default arm completed all four preparation stages and Time1..150/End/finalization.
+Coded149-step mean1.985561463114094s/step (first step excluded),Cd at150
+0.29187617440389690,ExecutionTime302.06s/ClockTime308s.416rank mapping,
+source/actualmesh checks,archive/binary checks and default PASS present.
+Pre-exec solver masks allow13physicalcores perrank;not post-MPI affinity or
+memory residency. The separate416rank core probe had unique cores within
+corresponding default masks. Core arm stopped during runtime staging after
+its node0 receipt;no decomposition or solver log,Cd,step-time,corePASS or
+pairPASS/summary. Therefore this is not a valid completed binding comparison.
+Default completed-arm data are retained as partial-job evidence,not a successful
+paired result or a core-binding benefit.
+
+Authoritative PBS stdout: `Job 182590339.gadi-pbs killed due to exceeding jobfs quota. Quota: 25.0GB, Used: 26.53GB, Host: gadi-cpu-spr-0514`.
+PBS select gives4nodes eachjobfs26843545600bytes:100GB total is25GB/node.
+The first arm's JOBFS files remained while the second unpacked a separate runtime.
+The pre-submit capacity estimate failed to budget simultaneous per-node peak;
+this is a workflow resource-planning error,not a demonstrated MPI/solver defect.
+Retained pair_exit_rc=0 and core script_exit_rc=0 contradict PBS termination and
+must never override it. Signal-aware failure reporting needs review separately.
+
+1256 original evidence/stdout files retrieved with remote/local SHA agreement;
+44 remaining rank receipts are listed in missing-files.tsv. qstat -xf was
+read remotely and showed F/271,but its full raw stdout was not captured locally
+before SSH expired;the archived PBS stdout independently records Exit271 andSU.
+Original names/bytes and evidence/default/core paths
+preserved;README,SHA256SUMS,sources.tsv and remote inventory retained. Missing
+expected outputs were never produced:core solve/preparation,core coefficients,
+pair-summary and pairPASS. The first bulk SCP pull reached its600-second local transfer bound;1091 verified originals were recovered from preserved staging and a remaining-only pull recovered165 more files before the master connection broke.
+Stopped remote operations at SSH failure,no automatic authentication retry.
+Full independent affinity validation is deferred until the44 missing receipts arrive.
+No archived originals overwritten;no remote file
+modified,no repair/retry/newPBS submission ormonitor restart.
+
+Next proposed remedy requires a new reviewed diff and approval:calculate per-node
+peak from both arms,then choose adequate per-node JOBFS or reuse the immutable
+runtime across arms while preserving independent cases and all evidence;correct
+signal status capture. Do not delete existing evidence or reuse this job ID.

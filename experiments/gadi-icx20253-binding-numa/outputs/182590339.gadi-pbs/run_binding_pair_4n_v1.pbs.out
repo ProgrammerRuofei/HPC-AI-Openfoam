@@ -1,0 +1,43 @@
+experiments/gadi-icx20253-binding-numa/run_binding_arm_4n_v1.sh: OK
+experiments/gadi-icx20253-binding-numa/affinity_receipt_4n.py: OK
+builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_runtime_node.sh: OK
+builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_processors_node.sh: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK
+STAGE_4N_RUNTIME_PASS host=gadi-cpu-spr-0514.gadi.nci.org.au root=/jobfs/182590339.gadi-pbs/of2512-icx20253-binding4n-182590339.gadi-pbs-default
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK
+STAGE_4N_RUNTIME_PASS host=gadi-cpu-spr-0515.gadi.nci.org.au root=/jobfs/182590339.gadi-pbs/of2512-icx20253-binding4n-182590339.gadi-pbs-default
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK
+STAGE_4N_RUNTIME_PASS host=gadi-cpu-spr-0516.gadi.nci.org.au root=/jobfs/182590339.gadi-pbs/of2512-icx20253-binding4n-182590339.gadi-pbs-default
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK
+STAGE_4N_RUNTIME_PASS host=gadi-cpu-spr-0526.gadi.nci.org.au root=/jobfs/182590339.gadi-pbs/of2512-icx20253-binding4n-182590339.gadi-pbs-default
+STAGE_4N_PROCESSORS_PASS host=gadi-cpu-spr-0515.gadi.nci.org.au first=104 last=207 count=104
+STAGE_4N_PROCESSORS_PASS host=gadi-cpu-spr-0516.gadi.nci.org.au first=208 last=311 count=104
+STAGE_4N_PROCESSORS_PASS host=gadi-cpu-spr-0526.gadi.nci.org.au first=312 last=415 count=104
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK
+STAGE_4N_RUNTIME_PASS host=gadi-cpu-spr-0514.gadi.nci.org.au root=/jobfs/182590339.gadi-pbs/of2512-icx20253-binding4n-182590339.gadi-pbs-core
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK
+Job 182590339.gadi-pbs killed due to exceeding jobfs quota. Quota: 25.0GB, Used: 26.53GB, Host: gadi-cpu-spr-0514
+
+======================================================================================
+                  Resource Usage on 2026-10-30 05:46:00:
+   Job Id:             182590339.gadi-pbs
+   Project:            pm78
+   Exit Status:        271 (Linux Signal 15 SIGTERM Termination)
+   Service Units:      241.97
+   NCPUs Requested:    416                 CPU Time Used: 38:15:58        
+   Memory Requested:   760.0GB               Memory Used: 286.06GB        
+   Walltime Requested: 01:00:00            Walltime Used: 00:17:27        
+   JobFS Requested:    100.0GB                JobFS Used: 26.53GB         
+======================================================================================

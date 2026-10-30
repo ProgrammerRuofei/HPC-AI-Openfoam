@@ -1,0 +1,4 @@
+experiments/gadi-icx20253-binding-numa/run_binding_arm_4n_v1.sh: OK
+experiments/gadi-icx20253-binding-numa/affinity_receipt_4n.py: OK
+builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_runtime_node.sh: OK
+builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_processors_node.sh: OK
