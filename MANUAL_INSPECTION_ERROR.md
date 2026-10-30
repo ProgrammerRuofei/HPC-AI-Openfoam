@@ -315,3 +315,7 @@ Next proposed remedy requires a new reviewed diff and approval:calculate per-nod
 peak from both arms,then choose adequate per-node JOBFS or reuse the immutable
 runtime across arms while preserving independent cases and all evidence;correct
 signal status capture. Do not delete existing evidence or reuse this job ID.
+
+### Binding182590339 follow-up — AUTHORIZED_FOR_PATCH
+
+User approved correction andone retry. v2 raisesJOBFS to100GiB/node,addsheadroomreceipts andsignal/completion guards. Locallytested;oldrunretained,monitoroff. Seeprogress/2026-10-30-gadi-icx20253-binding-4n-v2.md.

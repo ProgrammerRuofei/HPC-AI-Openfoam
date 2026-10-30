@@ -21,3 +21,5 @@ The primary checkout retains the earlier job index; this branch adds only this b
 ## Four-node binding182590339
 
 [Raw local logs: partial,1256/1300 originals,SHA verified;44rank receipts pending](182590339.gadi-pbs/README.md).PBSExit271/JOBFS;default150steps1.985561463s/step,Cd0.291876174;core did not solve.241.97SU.
+
+182590339 Raw local logs: **complete** (1300originals+qstat,SHAverified). Prior44missingfilesresolved;historicalgapreceiptsretained.

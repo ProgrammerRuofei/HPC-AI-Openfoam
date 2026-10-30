@@ -55,3 +55,10 @@ Next proposed remedy requires a new reviewed diff and approval:calculate per-nod
 peak from both arms,then choose adequate per-node JOBFS or reuse the immutable
 runtime across arms while preserving independent cases and all evidence;correct
 signal status capture. Do not delete existing evidence or reuse this job ID.
+
+## Archive completion after connection recovery
+
+All1300 remote original files now present andSHAverified;fullqstat-xf.txt captured,
+confirmingF/Exit271. Earliermissing-files.tsv andpartial-1256 manifests are retained
+as historicaltransferreceipts;all44listedfiles are nowresolved. No rawbytesoverwritten.
+Runfailure/defaultresult unchanged. No retry ofv1;v2isaseparateauthorizedattempt.

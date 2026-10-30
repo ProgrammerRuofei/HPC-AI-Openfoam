@@ -1,0 +1,111 @@
+#!/bin/bash
+# One authorized four-node ICX default/core pair. Each arm is a fresh 150-step solve.
+# Submit from the reviewed isolated checkout; unique stdout; no retries.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx25_binding4n_pair_v2
+#PBS -l ncpus=416
+#PBS -l mem=760GB
+#PBS -l jobfs=400GB
+#PBS -l walltime=01:00:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_binding_pair_4n_v2.pbs.out
+set -euo pipefail
+SECONDS=0
+cd "${PBS_O_WORKDIR:?}"
+CONTROL_ROOT=$PWD
+PAIR_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/binding-pair-4n-v2/${PBS_JOBID:?}"
+test "${PBS_NNODES:?}" -eq 4; test "${PBS_NCPUS:?}" -eq 416
+test ! -e "$PAIR_ROOT"
+test "${PBS_NCI_JOBFS:?}" = 400gb
+test -z "${LD_PRELOAD:-}"; test -z "${OMPI_MCA_coll:-}"
+mkdir -p "$PAIR_ROOT/evidence"
+exec > >(tee "$PAIR_ROOT/evidence/pair.log") 2>&1
+PAIR_COMPLETE=0
+finish_pair() {
+    rc=$?; trap - EXIT; set +e
+    if (( rc == 0 && PAIR_COMPLETE != 1 )); then rc=1; fi
+    printf 'pair_exit_rc=%s\n' "$rc" > "$PAIR_ROOT/evidence/exit-status.txt"
+    exit "$rc"
+}
+trap finish_pair EXIT
+trap 'exit 143' TERM
+trap 'exit 130' INT
+trap 'exit 129' HUP
+printf 'pbs_jobid=%s\norder=default,core\nsteps_per_arm=150\nranks_per_arm=416\n' "$PBS_JOBID" > "$PAIR_ROOT/evidence/provenance.txt"
+git rev-parse HEAD >> "$PAIR_ROOT/evidence/provenance.txt"
+cp -p "$0" "$PAIR_ROOT/evidence/submitted-pair.pbs"
+cat > "$PAIR_ROOT/evidence/expected-scripts.sha256" <<'HASHES'
+cbac993b3cf07e2a51f05c9a9177917289a6cf9227e487c7e3bd6fbe73bd17d5  experiments/gadi-icx20253-binding-numa/run_binding_arm_4n_v2.sh
+76dc544c5d43f767a01d9651e6055e69f1e9ef1e451095f0ea3450a139d658d4  experiments/gadi-icx20253-binding-numa/affinity_receipt_4n.py
+ea9a0fca74e1bc52cac4984a75c95072227ee3c437b37d9998e43b5ed380dd06  builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_runtime_node.sh
+2caa257b7ede430a638b97eed8a2b88e91f4b019cd9a828e0bcb05b1f9a2fa2e  builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_processors_node.sh
+HASHES
+sha256sum -c "$PAIR_ROOT/evidence/expected-scripts.sha256"
+# PBS divides 400GiB across four nodes. Check allocated-quota headroom,
+# not df free space (which describes the physical device, not this job's quota).
+jobfs_receipts() {
+    phase=$1; reserve_kib=$2
+    for idx in 0 104 208 312; do
+        /opt/pbs/default/bin/pbsdsh -n "$idx" -s -- /bin/bash -c '
+            set -euo pipefail
+            used_kib=$(du -sk "$1" | awk "{print \$1}")
+            quota_kib=$((100 * 1024 * 1024))
+            printf "host=%s phase=%s used_kib=%s quota_kib=%s reserve_kib=%s\n" "$(hostname)" "$3" "$used_kib" "$quota_kib" "$2"
+            test "$((used_kib + $2))" -le "$quota_kib"
+        ' jobfs-check "$PBS_JOBFS" "$reserve_kib" "$phase" > "$PAIR_ROOT/evidence/jobfs-$phase-$idx.txt" 2>&1
+    done
+}
+for arm in default core; do
+    cd "$CONTROL_ROOT"
+    # Leave 25 minutes for a complete second arm and exit; never start it late.
+    if (( SECONDS > 2100 )); then echo 'Insufficient remaining walltime' >&2; exit 3; fi
+    jobfs_receipts "before-$arm" "$((50 * 1024 * 1024))"
+    BIND_ARM="$arm" /bin/bash experiments/gadi-icx20253-binding-numa/run_binding_arm_4n_v2.sh > "$PAIR_ROOT/evidence/$arm.stdout" 2>&1
+    grep -Fxq "ICX20253_OMPI5010_BINDING_4N_150STEP_${arm}_V2_PASS" "$PAIR_ROOT/$arm/evidence/run.log"
+    grep -Fxq script_exit_rc=0 "$PAIR_ROOT/$arm/evidence/exit-status.txt"
+    jobfs_receipts "after-$arm" 0
+done
+python3 experiments/gadi-icx20253-binding-numa/affinity_receipt_4n.py compare "$PAIR_ROOT/default/evidence/solver-affinity" "$PAIR_ROOT/core/evidence/solver-affinity" > "$PAIR_ROOT/evidence/solver-placement-comparison.json"
+python3 - "$PAIR_ROOT" <<'PYPAIR'
+from pathlib import Path
+import re,sys,math,json
+root=Path(sys.argv[1]); a=root/'default/evidence'; b=root/'core/evidence'
+assert (a/'case-inputs.sha256').read_bytes()==(b/'case-inputs.sha256').read_bytes()
+def geometry(p):
+    lines=p.read_text().splitlines()
+    keep=[s.strip() for s in lines if re.match(r'^Processor \d+$',s) or re.match(r'\s+Number of (cells|points|faces shared with processor|processor patches|processor faces|boundary faces)',s)]
+    assert sum(bool(re.match(r'^Processor \d+$',s)) for s in keep)==416
+    return keep
+assert geometry(a/'10_decomposePar.log')==geometry(b/'10_decomposePar.log'), 'partition differs'
+def result(p):
+    log=(p/'simpleFoam.log').read_text()
+    times=[float(x) for x in re.findall(r'^Time = ([0-9.]+)\s*$',log,re.M)]
+    assert re.search(r'^End$', log, re.M) and 'Finalising parallel run' in log
+    assert times==list(range(1,151)), 'solver steps differ'
+    t=float(re.findall(r'Average wall-clock time per time step\s*=\s*([0-9.eE+-]+)',log)[-1])
+    assert math.isfinite(t) and t>0
+    return t
+def cd_series(p):
+    columns=None; data=[]
+    for line in (p/'coefficient.dat').read_text().splitlines():
+        if line.startswith('#'):
+            fields=line.lstrip('#').split()
+            if 'Time' in fields and 'Cd' in fields: columns=fields
+        elif line.strip():
+            assert columns is not None
+            fields=line.split(); data.append((float(fields[0]),float(fields[columns.index('Cd')])))
+    assert data and all(math.isfinite(v) for row in data for v in row)
+    return data
+ca,cb=cd_series(a),cd_series(b)
+assert [x[0] for x in ca]==[x[0] for x in cb], 'coefficient time points differ'
+max_cd_difference=max(abs(x[1]-y[1]) for x,y in zip(ca,cb))
+summary=dict(default_s_step=result(a),core_s_step=result(b),partition_identical=True,max_abs_Cd_difference=max_cd_difference,comparable_cd=max_cd_difference<=1e-8)
+summary['core_improvement_percent']=100*(summary['default_s_step']-summary['core_s_step'])/summary['default_s_step']
+(root/'evidence/pair-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+assert summary['comparable_cd'], 'binding pair Cd changed: preserve and inspect, do not promote'
+PYPAIR
+echo ICX20253_OMPI5010_BINDING_PAIR_4N_150STEP_V2_PASS
+PAIR_COMPLETE=1
