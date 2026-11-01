@@ -1,0 +1,215 @@
+--- a/builds/build-scripts/gadi-icx20253-ompi5010/smoke_openfoam_v2512_v1.pbs
++++ b/experiments/gadi-icx20253-collective-policy/smoke_collective_policy_1n_v1.pbs
+@@ -1,17 +1,17 @@
+ #!/bin/bash
+-# Fresh-job runtime and Scotch smoke for ICX build job 181392981.
++# Paired collective-policy compatibility check; diagnostic only, no scored run.
+ # This tutorial smoke is not a scored 65M benchmark and never edits the official case.
+ #PBS -P pm78
+ #PBS -q normalsr
+-#PBS -N of2512_icx20253_smoke_v1
++#PBS -N icx25_coll_smoke_v1
+ #PBS -l ncpus=5
+ #PBS -l mem=16GB
+-#PBS -l jobfs=12GB
+-#PBS -l walltime=00:20:00
++#PBS -l jobfs=20GB
++#PBS -l walltime=00:10:00
+ #PBS -l storage=scratch/pm78
+ #PBS -l wd
+ #PBS -j oe
+-#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/smoke_openfoam_v2512_v1.pbs.out
++#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/smoke_collective_policy_1n_v1.pbs.out
+ set -euo pipefail
+ STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+ OF_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512
+@@ -24,13 +24,16 @@
+ BIN_SHA=7cc4af8c576eba1e97ba16a767fca5843293c391b71a3904a596b3981d2913e4
+ FO_FILE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/FOwallClockTimeStatistics
+ FO_SHA=0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08
+-ROOT="${PBS_JOBFS:?}/of2512-icx20253-smoke-${PBS_JOBID:?}"
+-EVIDENCE="$OF_ROOT/evidence/smoke.${PBS_JOBID}"
++ROOT="${PBS_JOBFS:?}/of2512-icx20253-collective-${PBS_JOBID:?}"
++EVIDENCE="$OF_ROOT/collective-policy-smoke-v1/${PBS_JOBID}/evidence"
+ GCC_PREFIX="$ROOT/gcc-16.2.0"
+ MPI_PREFIX="$ROOT/openmpi-5.0.10"
+ FOAM_ROOT="$ROOT/OpenFOAM-v2512"
+-CASE="$ROOT/pitzDaily_fused"
++CASE=""
++ARM_EVIDENCE=""
++COMPLETE=0
+ test "${PBS_NCPUS:?}" -eq 5
++test "${PBS_NNODES:?}" -eq 1
+ test ! -e "$ROOT"; test ! -e "$EVIDENCE"
+ for item in "$GCC_SHA $GCC_ARCHIVE" "$MPI_SHA $MPI_ARCHIVE" "$OF_SHA $OF_ARCHIVE" "$FO_SHA $FO_FILE"; do
+     read -r hash file <<< "$item"
+@@ -39,15 +42,25 @@
+ mkdir -p "$ROOT" "$EVIDENCE"
+ exec > >(tee "$EVIDENCE/run.log") 2>&1
+ preserve() {
+-    status=$?; set +e
+-    test -f "$CASE/log.simpleFoam" && cp -p "$CASE/log.simpleFoam" "$EVIDENCE/"
+-    printf 'pbs_exit_status=%s\n' "$status" > "$EVIDENCE/exit-status.txt"
++    status=$?; trap - EXIT; set +e
++    if (( status == 0 && COMPLETE != 1 )); then status=1; fi
++    if [[ -n "$CASE" && -n "$ARM_EVIDENCE" && -f "$CASE/log.simpleFoam" ]]; then
++        cp -p "$CASE/log.simpleFoam" "$ARM_EVIDENCE/"
++    fi
++    printf 'script_exit_rc=%s\n' "$status" > "$EVIDENCE/exit-status.txt"
+     exit "$status"
+ }
+ trap preserve EXIT
++trap 'exit 143' TERM
++trap 'exit 130' INT
++trap 'exit 129' HUP
++# Preserve the scored-run communication policy except for the explicit treatment.
++for key in LD_PRELOAD OMPI_MCA_coll OMPI_MCA_pml OMPI_MCA_coll_hcoll_enable OMPI_MCA_coll_ucc_enable; do
++    test -z "${!key:-}" || { printf 'Unexpected inherited override: %s\n' "$key"; exit 2; }
++done
+ module purge
+ module load intel-compiler-llvm/2025.3.2 ucx/1.18.1 ucc/1.4.4
+-module list 2>&1
++module list 2>&1 | tee "$EVIDENCE/modules.txt"
+ test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+ test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+ tar -xzf "$GCC_ARCHIVE" -C "$ROOT"
+@@ -73,21 +86,121 @@
+ ldd "$BIN" | tee "$EVIDENCE/simpleFoam.ldd"
+ ! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+ grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/simpleFoam.ldd"
+-cp -a /apps/OpenFOAM/2512/tutorials/incompressible/simpleFoam/pitzDaily_fused "$CASE"
+-cd "$CASE"
+-cp -p "$FO_FILE" system/FOwallClockTimeStatistics
+-sed -i -E 's/^(method[[:space:]]+)hierarchical;/\1scotch;/' system/decomposeParDict
+-grep -Eq '^method[[:space:]]+scotch;' system/decomposeParDict
+-printf '\nfunctions\n{\n    #include "FOwallClockTimeStatistics"\n}\n' >> system/controlDict
+-sed -i -E 's/^(endTime[[:space:]]+)[0-9]+;/\120;/' system/controlDict
+-blockMesh > "$EVIDENCE/blockMesh.log" 2>&1
+-decomposePar > "$EVIDENCE/decomposePar.log" 2>&1
+-grep -Eiq 'scotch|finished decomposition' "$EVIDENCE/decomposePar.log"
+-mpirun --mca pml ucx -np 5 "$BIN" -parallel > log.simpleFoam 2>&1
+-cp -p log.simpleFoam "$EVIDENCE/"
+-grep -Fq 'Finalising parallel run' log.simpleFoam
+-grep -aEq '^End$' log.simpleFoam
+-grep -Fq 'Average wall-clock time per time step' log.simpleFoam
+-if grep -Eq 'FOAM FATAL|MPI_ABORT|Segmentation fault' log.simpleFoam; then exit 8; fi
+-printf 'official_result=false\nsmoke_case=pitzDaily_fused\nranks=5\ndecomposition=scotch\n' > "$EVIDENCE/provenance.txt"
+-echo OF2512_ICX20253_OMPI5010_SMOKE_PASS
++
++cp -p "$PBS_O_WORKDIR/experiments/gadi-icx20253-collective-policy/smoke_collective_policy_1n_v1.pbs" "$EVIDENCE/submitted.pbs"
++ompi_info --param coll all --level 9 > "$EVIDENCE/ompi-coll-info.txt"
++printf 'official_result=false\npbs_jobid=%s\ncase=pitzDaily_fused\nranks=5\nsteps=20\norder=default,no-hcoll\n' "$PBS_JOBID" > "$EVIDENCE/provenance.txt"
++cat > "$EVIDENCE/mpi-runtime.c" <<'C_EOF'
++#define _GNU_SOURCE
++#include <mpi.h>
++#include <dlfcn.h>
++#include <link.h>
++#include <stdio.h>
++#include <string.h>
++#include <unistd.h>
++static char ucp_path[4096];
++static int locate(struct dl_phdr_info *info, size_t size, void *data) {
++    (void)size; (void)data;
++    if (info->dlpi_name && strstr(info->dlpi_name, "libucp.so")) {
++        snprintf(ucp_path, sizeof(ucp_path), "%s", info->dlpi_name);
++        return 1;
++    }
++    return 0;
++}
++int main(int argc, char **argv) {
++    int rank, size, sum;
++    char host[256];
++    MPI_Init(&argc, &argv);
++    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
++    MPI_Comm_size(MPI_COMM_WORLD, &size);
++    MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
++    gethostname(host, sizeof host);
++    host[sizeof host - 1] = 0;
++    dl_iterate_phdr(locate, NULL);
++    void *handle = ucp_path[0] ? dlopen(ucp_path, RTLD_NOW | RTLD_NOLOAD) : NULL;
++    const char *(*version)(void) = handle ? dlsym(handle, "ucp_get_version_string") : NULL;
++    char receipt[8192];
++    int wrote = 0;
++    if (argc > 1) {
++        snprintf(receipt, sizeof receipt, "%s/rank-%d.txt", argv[1], rank);
++        FILE *out = fopen(receipt, "wx");
++        if (out) {
++            fprintf(out, "COLLECTIVE_MPI_RUNTIME rank=%d size=%d host=%s path=%s version=%s sum=%d\n",
++                    rank, size, host, ucp_path[0] ? ucp_path : "MISSING",
++                    version ? version() : "MISSING", sum);
++            wrote = fclose(out) == 0;
++        }
++    }
++    if (handle) dlclose(handle);
++    MPI_Finalize();
++    return size == 5 && sum == 10 && ucp_path[0] && version && wrote ? 0 : 1;
++}
++C_EOF
++timeout -k 5s 60s mpicc "$EVIDENCE/mpi-runtime.c" -ldl -o "$ROOT/mpi-runtime"
++ldd "$ROOT/mpi-runtime" > "$EVIDENCE/mpi-runtime.ldd"
++! grep -Fq 'not found' "$EVIDENCE/mpi-runtime.ldd"
++grep -F "$MPI_PREFIX/lib/libmpi.so" "$EVIDENCE/mpi-runtime.ldd"
++for arm in default no-hcoll; do
++    ARM_EVIDENCE="$EVIDENCE/$arm"
++    CASE="$ROOT/pitzDaily_fused-$arm"
++    mkdir -p "$ARM_EVIDENCE/mpi-runtime"
++    EXTRA=(); if [[ "$arm" = no-hcoll ]]; then EXTRA=(--mca coll '^hcoll'); fi
++    LAUNCH=(mpirun --prefix "$MPI_PREFIX" --map-by ppr:5:node --mca pml ucx "${EXTRA[@]}" --mca coll_base_verbose 30 --report-bindings -np 5)
++    printf '%q ' "${LAUNCH[@]}" > "$ARM_EVIDENCE/launcher.txt"; printf '\n' >> "$ARM_EVIDENCE/launcher.txt"
++    timeout -k 10s 60s "${LAUNCH[@]}" "$ROOT/mpi-runtime" "$ARM_EVIDENCE/mpi-runtime" > "$ARM_EVIDENCE/mpi-runtime.log" 2>&1
++    for rank in 0 1 2 3 4; do
++        grep -Eq "^COLLECTIVE_MPI_RUNTIME rank=$rank size=5 host=.+ path=.+ version=.+ sum=10$" "$ARM_EVIDENCE/mpi-runtime/rank-$rank.txt"
++    done
++    ! grep -Eq 'path=MISSING|version=MISSING' "$ARM_EVIDENCE/mpi-runtime/"rank-*.txt
++    cp -a /apps/OpenFOAM/2512/tutorials/incompressible/simpleFoam/pitzDaily_fused "$CASE"
++    cd "$CASE"
++    cp -p "$FO_FILE" system/FOwallClockTimeStatistics
++    sed -i -E 's/^(method[[:space:]]+)[^;]+;/\1scotch;/' system/decomposeParDict
++    grep -Eq '^method[[:space:]]+scotch;' system/decomposeParDict
++    sed -i -E 's/^(numberOfSubdomains[[:space:]]+)[0-9]+;/\15;/' system/decomposeParDict
++    grep -Eq '^numberOfSubdomains[[:space:]]+5;' system/decomposeParDict
++    printf '\nfunctions\n{\n    #include "FOwallClockTimeStatistics"\n}\n' >> system/controlDict
++    sed -i -E 's/^(endTime[[:space:]]+)[0-9]+;/\120;/' system/controlDict
++    grep -Eq '^endTime[[:space:]]+20;' system/controlDict
++    sha256sum system/fvSchemes system/fvSolution system/decomposeParDict system/controlDict system/FOwallClockTimeStatistics > "$ARM_EVIDENCE/case-inputs.sha256"
++    cp -p system/decomposeParDict system/controlDict "$ARM_EVIDENCE/"
++    timeout -k 10s 60s blockMesh > "$ARM_EVIDENCE/blockMesh.log" 2>&1
++    timeout -k 10s 60s decomposePar > "$ARM_EVIDENCE/decomposePar.log" 2>&1
++    timeout -k 10s 150s "${LAUNCH[@]}" "$BIN" -parallel > log.simpleFoam 2>&1
++    cp -p log.simpleFoam "$ARM_EVIDENCE/"
++    grep -Fq 'Finalising parallel run' log.simpleFoam
++    grep -aEq '^End$' log.simpleFoam
++    grep -Fq 'Average wall-clock time per time step' log.simpleFoam
++    ! grep -Eq 'FOAM FATAL|MPI_ABORT|Segmentation fault|UCP API version is incompatible' log.simpleFoam "$ARM_EVIDENCE/mpi-runtime.log"
++    grep -E 'coll:base:comm_select:.*(selecting|Enabled|Disabled)' log.simpleFoam > "$ARM_EVIDENCE/collective-selection.txt"
++    if [[ "$arm" = no-hcoll ]]; then
++        ! grep -E 'selecting[[:space:]]+hcoll,.*Enabled' "$ARM_EVIDENCE/collective-selection.txt"
++    fi
++    printf 'COLLECTIVE_POLICY_%s_SMOKE_PASS\n' "$arm"
++done
++cmp "$EVIDENCE/default/case-inputs.sha256" "$EVIDENCE/no-hcoll/case-inputs.sha256"
++python3 - "$EVIDENCE" <<'PYVALIDATE'
++from pathlib import Path
++import re,sys,json,math
++root=Path(sys.argv[1]); summary={}
++for arm in ('default','no-hcoll'):
++    p=root/arm; t=(p/'log.simpleFoam').read_text()
++    assert [int(x) for x in re.findall(r'^Time = (\d+)$',t,re.M)]==list(range(1,21))
++    for f in ('blockMesh.log','decomposePar.log'):
++        assert re.search(r'^End\s*$',(p/f).read_text(),re.M),f
++    assert 'scotch' in (p/'decomposePar.log').read_text().lower()
++    seconds=float(re.findall(r'Average wall-clock time per time step\s*=\s*([0-9.eE+-]+)',t)[-1])
++    assert math.isfinite(seconds) and seconds>0
++    receipts=[(p/'mpi-runtime'/('rank-%d.txt'%rank)).read_text() for rank in range(5)]
++    hosts={re.search(r'host=(\S+)',x)[1] for x in receipts};assert len(hosts)==1
++    sel=(p/'collective-selection.txt').read_text()
++    summary[arm]={'diagnostic_s_step':seconds,'probe_receipts':receipts,
++      'hcoll_enabled_observed':bool(re.search(r'selecting\s+hcoll,.*Enabled',sel)),
++      'solver_collective_selection_file':str(p/'collective-selection.txt')}
++summary['hcoll_contrast_observed']=summary['default']['hcoll_enabled_observed'] and not summary['no-hcoll']['hcoll_enabled_observed']
++summary['four_node_authorized']=False
++summary['limits']='5-rank tutorial; probe UCP is not solver UCP proof; component Enabled is not per-call algorithm attribution; verbose timing not a performance result; no Cd test in this tutorial'
++(root/'compatibility-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
++PYVALIDATE
++COMPLETE=1
++echo ICX20253_COLLECTIVE_POLICY_5RANK_SMOKE_PASS

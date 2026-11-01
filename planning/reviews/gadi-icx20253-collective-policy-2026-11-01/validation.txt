@@ -1,0 +1,3 @@
+Proposed content only; no executable file installed. bash -n stdin PASS; embedded Python AST PASS. C derived from successful P0 runtime probe; not compiled locally. No remote calls.
+Base SHA256 bd669b7afc8732ad5cb216ade9758f50844f4e2282817e4975403a0f9f189000
+Proposed SHA256 5f964f4939ae5885d84d232813d254a1784c5fd1fff49ff4d6b4d490166c4ac4
