@@ -16,3 +16,5 @@ Require PBS Exit0, final/arm PASS, five rank receipts per arm, Time1..20,
 End/finalization, identical input hashes and no-HCOLL exclusion evidence.
 Preserve all original evidence; no automatic retry or monitor.
 No job submitted yet. Results pending.
+
+Submitted exactly once: **182829851.gadi-pbs**, script commit485ab33. [Submission record](../../progress/2026-11-01-gadi-collective-policy-review.md). Results pending; no automatic retry.
