@@ -1,0 +1,1 @@
+COLLECTIVE_MPI_RUNTIME rank=0 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10

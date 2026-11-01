@@ -1,0 +1,1401 @@
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212516] Rank 0 bound to package[1][core:L52-56]
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212516] Rank 1 bound to package[1][core:L52-56]
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212516] Rank 2 bound to package[1][core:L52-56]
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212516] Rank 3 bound to package[1][core:L52-56]
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212516] Rank 4 bound to package[1][core:L52-56]
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: registering framework coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component adapt register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component basic register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component han register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component inter register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component libnbc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component self register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component sync register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component tuned register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component ftagree register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component monitoring register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component sm register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_register: component ucc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: opening coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: component adapt open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: component han open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: component libnbc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: component tuned open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: component monitoring open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: components_open: component ucc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: registering framework coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component adapt register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component basic register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component han register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component inter register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component libnbc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component self register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component sync register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component tuned register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component ftagree register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component monitoring register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component sm register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_register: component ucc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: opening coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: component adapt open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: component han open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: component libnbc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: component tuned open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: component monitoring open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: components_open: component ucc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: registering framework coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component adapt register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component basic register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: registering framework coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component adapt register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component basic register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component han register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component inter register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component libnbc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component self register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component sync register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component han register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component inter register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component libnbc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component self register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component sync register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component tuned register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component ftagree register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component monitoring register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component sm register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component tuned register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_register: component ucc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: opening coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component ftagree register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: component adapt open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: component han open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component monitoring register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: component libnbc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: component tuned open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: component monitoring open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component sm register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: components_open: component ucc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_register: component ucc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: opening coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: component adapt open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: component han open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: component libnbc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: component tuned open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: component monitoring open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: components_open: component ucc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: registering framework coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component adapt register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component basic register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component han register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component inter register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component libnbc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component self register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component sync register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component tuned register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component ftagree register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component monitoring register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component sm register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_register: component ucc register function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: opening coll components
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: component adapt open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: component han open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: component libnbc open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: component tuned open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: component monitoring open function successful
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: found loaded component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: components_open: component ucc open function successful
+[1793545707.196350] [gadi-cpu-spr-0248:1212523:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793545707.196350] [gadi-cpu-spr-0248:1212523:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793545707.203844] [gadi-cpu-spr-0248:1212522:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793545707.203844] [gadi-cpu-spr-0248:1212522:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793545707.208089] [gadi-cpu-spr-0248:1212520:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793545707.208089] [gadi-cpu-spr-0248:1212520:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793545707.215829] [gadi-cpu-spr-0248:1212521:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793545707.215829] [gadi-cpu-spr-0248:1212521:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[1793545707.221286] [gadi-cpu-spr-0248:1212519:0]          parser.c:2359 UCX  WARN  unused environment variables: UCX_ROOT (maybe: UCX_PROTOS?); UCX_VERSION; UCX_BASE (maybe: UCX_TLS?)
+[1793545707.221286] [gadi-cpu-spr-0248:1212519:0]          parser.c:2359 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component adapt is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component basic is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:han:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component han is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component inter is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component libnbc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component adapt is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component basic is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:han:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component han is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component inter is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component libnbc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component self is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component sync is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component adapt is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component basic is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:han:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component han is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component inter is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component libnbc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component self is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component adapt is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component basic is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:han:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component han is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component inter is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component libnbc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component self is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component sync is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component tuned is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component ftagree is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component monitoring is not available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: component monitoring closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component sm is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: querying coll component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:find_available: coll component ucc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component tuned is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component ftagree is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component monitoring is not available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: component monitoring closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:sm:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component sm is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: querying coll component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:find_available: coll component ucc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component sync is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component tuned is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component ftagree is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component monitoring is not available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: component monitoring closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:sm:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component self is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component sync is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component tuned is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component ftagree is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component monitoring is not available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: component monitoring closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component sm is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: querying coll component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:find_available: coll component ucc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:sm:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component sm is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: querying coll component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:find_available: coll component ucc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component adapt is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component basic is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:han:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component han is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component inter is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component libnbc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component self is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component sync is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component tuned is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component ftagree is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component monitoring is not available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: component monitoring closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component monitoring
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:sm:init_query: pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component sm is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: querying coll component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:find_available: coll component ucc is available
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: new communicator: MPI_COMM_WORLD (cid 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:adapt:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: new communicator: MPI_COMM_WORLD (cid 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:adapt:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:han:comm_query (0/MPI_COMM_WORLD): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: new communicator: MPI_COMM_WORLD (cid 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:adapt:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:han:comm_query (0/MPI_COMM_WORLD): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:sm:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: new communicator: MPI_COMM_WORLD (cid 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:adapt:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:han:comm_query (0/MPI_COMM_WORLD): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:sm:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:sm:enable (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: new communicator: MPI_COMM_SELF (cid 1)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:adapt:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: adapt (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:han:comm_query (1/MPI_COMM_SELF): comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:enable (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: new communicator: MPI_COMM_SELF (cid 1)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:adapt:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:sm:enable (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: self, priority: 75
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: tuned (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:sm:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small, or not all peers local; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: sm (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: adapt (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:han:comm_query (1/MPI_COMM_SELF): comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: self, priority: 75
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: tuned (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small, or not all peers local; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: sm (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: new communicator: MPI_COMM_SELF (cid 1)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:adapt:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: adapt (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting        self, priority  75, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting        self, priority  75, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:han:comm_query (1/MPI_COMM_SELF): comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: self, priority: 75
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: tuned (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:sm:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small, or not all peers local; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: sm (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting        self, priority  75, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:han:comm_query (0/MPI_COMM_WORLD): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:sm:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:sm:enable (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: new communicator: MPI_COMM_SELF (cid 1)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:adapt:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: adapt (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:han:comm_query (1/MPI_COMM_SELF): comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: self, priority: 75
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: tuned (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:sm:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small, or not all peers local; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: sm (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting        self, priority  75, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: new communicator: MPI_COMM_WORLD (cid 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:adapt:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:han:comm_query (0/MPI_COMM_WORLD): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:sm:comm_query (0/MPI_COMM_WORLD): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:sm:enable (0/MPI_COMM_WORLD): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: new communicator: MPI_COMM_SELF (cid 1)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:adapt:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: adapt (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:han:comm_query (1/MPI_COMM_SELF): comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: self, priority: 75
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: tuned (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:sm:comm_query (1/MPI_COMM_SELF): intercomm, comm is too small, or not all peers local; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: sm (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting        self, priority  75, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: new communicator: MPI COMM 3 DUP FROM 0 (cid 3)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:adapt:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:han:comm_query (3/MPI COMM 3 DUP FROM 0): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: new communicator: MPI COMM 3 DUP FROM 0 (cid 3)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:adapt:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:han:comm_query (3/MPI COMM 3 DUP FROM 0): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: new communicator: MPI COMM 3 DUP FROM 0 (cid 3)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: new communicator: MPI COMM 3 DUP FROM 0 (cid 3)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:adapt:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:han:comm_query (3/MPI COMM 3 DUP FROM 0): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: new communicator: MPI COMM 3 DUP FROM 0 (cid 3)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:adapt:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:han:comm_query (3/MPI COMM 3 DUP FROM 0): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:enable (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:sm:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:sm:enable (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:sm:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:sm:enable (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:sm:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:sm:enable (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:adapt:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:han:comm_query (3/MPI COMM 3 DUP FROM 0): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:sm:comm_query (3/MPI COMM 3 DUP FROM 0): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:sm:enable (3/MPI COMM 3 DUP FROM 0): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: new communicator: MPI COMM 4 GROUP FROM 3 (cid 4)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:adapt:comm_query (4/MPI COMM 4 GROUP FROM 3): intercomm, comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: adapt (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:han:comm_query (4/MPI COMM 4 GROUP FROM 3): comm is too small; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: self, priority: 75
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: tuned (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:comm_query (4/MPI COMM 4 GROUP FROM 3): intercomm, comm is too small, or not all peers local; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: sm (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting        self, priority  75, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: new communicator: MPI COMM 5 GROUP FROM 3 (cid 5)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:adapt:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:han:comm_query (5/MPI COMM 5 GROUP FROM 3): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: new communicator: MPI COMM 5 GROUP FROM 3 (cid 5)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:adapt:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:han:comm_query (5/MPI COMM 5 GROUP FROM 3): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: new communicator: MPI COMM 5 GROUP FROM 3 (cid 5)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:adapt:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:han:comm_query (5/MPI COMM 5 GROUP FROM 3): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:sm:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: new communicator: MPI COMM 5 GROUP FROM 3 (cid 5)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:adapt:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:han:comm_query (5/MPI COMM 5 GROUP FROM 3): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:sm:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:sm:enable (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: new communicator: MPI COMM 5 GROUP FROM 3 (cid 5)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:sm:enable (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:sm:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:sm:enable (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:sm:enable (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: Checking all available modules
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:adapt:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: adapt, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: basic, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:han:comm_query (5/MPI COMM 5 GROUP FROM 3): comm has only local processes; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: han (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: inter (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: libnbc, priority: 10
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: self (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: sync (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: tuned, priority: 30
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: ftagree (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:sm:comm_query (5/MPI COMM 5 GROUP FROM 3): pick me! pick me!
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component available: sm, priority: 0
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component not available: ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: component disqualified: ucc (priority -1 < 0)
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       adapt, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:sm:enable (5/MPI COMM 5 GROUP FROM 3): no underlying reduce; disqualifying myself
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting          sm, priority   0, Disabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       basic, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting      libnbc, priority  10, Enabled
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] coll:base:comm_select: selecting       tuned, priority  30, Enabled
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2512                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : v2512 OPENFOAM=2512 version=v2512
+Arch   : "LSB;label=32;scalar=64"
+Exec   : /jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/bin/simpleFoam -parallel
+Date   : Nov 02 2026
+Time   : 02:08:27
+Host   : gadi-cpu-spr-0248.gadi.nci.org.au
+PID    : 1212519
+I/O    : uncollated
+Case   : /jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/pitzDaily_fused-no-hcoll
+nProcs : 5
+Hosts  :
+(
+    (gadi-cpu-spr-0248.gadi.nci.org.au 5)
+)
+Pstream initialized with:
+    node communication : off [type=host] (5 ranks, 1 nodes)
+    topology controls  : none
+    consensus exchange : 0 (tuning: 0)
+    exchange algorithm : 0
+    commsType          : nonBlocking
+    polling iterations : 0
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+SIMPLE: convergence criteria
+    field p	 tolerance 0.01
+    field U	 tolerance 0.001
+    field "(k|epsilon|omega|f|v2)"	 tolerance 0.001
+
+Reading field p
+
+Reading field U
+
+Reading/calculating face flux field phi
+
+Selecting incompressible transport model Newtonian
+Selecting turbulence model type RAS
+Selecting RAS turbulence model kEpsilon
+RAS
+{
+    RASModel        kEpsilon;
+    turbulence      on;
+    printCoeffs     on;
+    Cmu             0.09;
+    C1              1.44;
+    C2              1.92;
+    C3              0;
+    sigmak          1;
+    sigmaEps        1.3;
+    twoLayerTreatment false;
+    ReyStar         200;
+    ReyFactor       0.05;
+}
+
+No MRF models present
+
+No finite volume options present
+
+Starting time loop
+
+Using dynamicCode for functionObject wallClockTimeStatistics at line 39 in "/jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/pitzDaily_fused-no-hcoll/system/controlDict/functions/wallClockTimeStatistics"
+Could not load "/jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/pitzDaily_fused-no-hcoll/dynamicCode/platforms/linux64IcxDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so"
+/jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/pitzDaily_fused-no-hcoll/dynamicCode/platforms/linux64IcxDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so: cannot open shared object file: No such file or directory
+Creating new library in "dynamicCode/wallClockTimeStatistics/platforms/linux64IcxDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so"
+Invoking wmake libso /jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/pitzDaily_fused-no-hcoll/dynamicCode/wallClockTimeStatistics
+wmake libso /jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/pitzDaily_fused-no-hcoll/dynamicCode/wallClockTimeStatistics
+    ln: ./lnInclude
+    dep: functionObjectTemplate.C
+    Ctoo: functionObjectTemplate.C
+    link: /jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/pitzDaily_fused-no-hcoll/dynamicCode/wallClockTimeStatistics/../platforms/linux64IcxDPInt32Opt/lib/libwallClockTimeStatistics_6e8d888ad28997c1bc9eebd1c08a1a15774516a4.so
+Time = 1
+
+smoothSolver:  Solving for Ux, Initial residual = 1, Final residual = 0.05381009596168164, No Iterations 1
+smoothSolver:  Solving for Uy, Initial residual = 0.9999999999999991, Final residual = 0.03092500947817721, No Iterations 2
+GAMG:  Solving for p, Initial residual = 1, Final residual = 0.0950514829965709, No Iterations 15
+time step continuity errors : sum local = 1.663199927879047, global = 0.2519408922898238, cumulative = 0.2519408922898238
+smoothSolver:  Solving for epsilon, Initial residual = 0.2015496959726336, Final residual = 0.01089672733699773, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.9999999999999988, Final residual = 0.04939318906375464, No Iterations 3
+ExecutionTime = 0.05 s  ClockTime = 5 s
+
+Time = 2
+
+smoothSolver:  Solving for Ux, Initial residual = 0.4441705743744226, Final residual = 0.03395796475821715, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.2943603229092582, Final residual = 0.02753769908491255, No Iterations 4
+GAMG:  Solving for p, Initial residual = 0.05275144350787005, Final residual = 0.005206164623725433, No Iterations 15
+time step continuity errors : sum local = 4.898988822348938, global = -0.214012701646446, cumulative = 0.03792819064337785
+smoothSolver:  Solving for epsilon, Initial residual = 0.1471268542075445, Final residual = 0.009512277629253166, No Iterations 3
+bounding epsilon, min: -333.0212032109519 max: 26223.92828593222 average: 88.02199295290376
+smoothSolver:  Solving for k, Initial residual = 0.4285796705028278, Final residual = 0.02989871407440241, No Iterations 3
+ExecutionTime = 0.05 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.006826375 s
+
+Time = 3
+
+smoothSolver:  Solving for Ux, Initial residual = 0.130084471656826, Final residual = 0.008277967011273896, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.1985094485560178, Final residual = 0.01723573577091394, No Iterations 4
+GAMG:  Solving for p, Initial residual = 0.1290669729025371, Final residual = 0.0127097620113751, No Iterations 6
+time step continuity errors : sum local = 3.753206830433652, global = 0.3072626446328049, cumulative = 0.3451908352761828
+smoothSolver:  Solving for epsilon, Initial residual = 0.08722891842209698, Final residual = 0.00616260141732109, No Iterations 2
+bounding epsilon, min: -13.93148279358685 max: 39293.5007762255 average: 123.458883348857
+smoothSolver:  Solving for k, Initial residual = 0.1821299559266197, Final residual = 0.01293024437426449, No Iterations 3
+ExecutionTime = 0.06 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.004324153 s
+
+Time = 4
+
+smoothSolver:  Solving for Ux, Initial residual = 0.06722569036471036, Final residual = 0.00464011833166479, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.09893443285361692, Final residual = 0.008983479010457313, No Iterations 4
+GAMG:  Solving for p, Initial residual = 0.1260490912319054, Final residual = 0.01162901935037373, No Iterations 6
+time step continuity errors : sum local = 1.946168915555239, global = 0.1200404378220903, cumulative = 0.4652312730982731
+smoothSolver:  Solving for epsilon, Initial residual = 0.08695844471652063, Final residual = 0.005133353810427134, No Iterations 2
+smoothSolver:  Solving for k, Initial residual = 0.1166783527107418, Final residual = 0.009557729917901036, No Iterations 3
+ExecutionTime = 0.06 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003760934 s
+
+Time = 5
+
+smoothSolver:  Solving for Ux, Initial residual = 0.05673260174319844, Final residual = 0.004218986172115163, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.08609473158875505, Final residual = 0.005414910544334039, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.1161866241150454, Final residual = 0.01036001341869036, No Iterations 4
+time step continuity errors : sum local = 1.212913896949637, global = 0.1438455504429762, cumulative = 0.6090768235412493
+smoothSolver:  Solving for epsilon, Initial residual = 0.05174552184975827, Final residual = 0.004503120577576945, No Iterations 2
+smoothSolver:  Solving for k, Initial residual = 0.08735913435764929, Final residual = 0.008325652351601097, No Iterations 3
+ExecutionTime = 0.07000000000000001 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003381824 s
+
+Time = 6
+
+smoothSolver:  Solving for Ux, Initial residual = 0.05147856242972665, Final residual = 0.004147773328038147, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.07219133421097777, Final residual = 0.005171458376990714, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.09031399886362375, Final residual = 0.007783593036064444, No Iterations 4
+time step continuity errors : sum local = 0.8496923635750634, global = 0.111705998907239, cumulative = 0.7207828224484882
+smoothSolver:  Solving for epsilon, Initial residual = 0.03972993567411318, Final residual = 0.003947072738434084, No Iterations 2
+smoothSolver:  Solving for k, Initial residual = 0.07262965119755199, Final residual = 0.004659308152137387, No Iterations 4
+ExecutionTime = 0.07000000000000001 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003359273 s
+
+Time = 7
+
+smoothSolver:  Solving for Ux, Initial residual = 0.04734318416807106, Final residual = 0.004108769564891499, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.06314519238341648, Final residual = 0.004804038319299642, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.07167820907155187, Final residual = 0.005556108218656103, No Iterations 4
+time step continuity errors : sum local = 0.6111051566671901, global = 0.07144735424039132, cumulative = 0.7922301766888795
+smoothSolver:  Solving for epsilon, Initial residual = 0.03504371712328817, Final residual = 0.002152837621297228, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.06347476728097567, Final residual = 0.004723149928520669, No Iterations 4
+ExecutionTime = 0.07000000000000001 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003392382 s
+
+Time = 8
+
+smoothSolver:  Solving for Ux, Initial residual = 0.04384231235266147, Final residual = 0.004038326521905632, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.05871098312870368, Final residual = 0.004681334184568522, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.06093234266460294, Final residual = 0.004076688790108939, No Iterations 4
+time step continuity errors : sum local = 0.4581312573850458, global = 0.0626192107440612, cumulative = 0.8548493874329407
+smoothSolver:  Solving for epsilon, Initial residual = 0.03193868855715582, Final residual = 0.002126276910955895, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.05665858536715055, Final residual = 0.004459837139773715, No Iterations 4
+ExecutionTime = 0.08 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003376366 s
+
+Time = 9
+
+smoothSolver:  Solving for Ux, Initial residual = 0.0406706340240961, Final residual = 0.003898627421129324, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.05550038113795591, Final residual = 0.004601728413778749, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.05384720275596187, Final residual = 0.003570744623627977, No Iterations 4
+time step continuity errors : sum local = 0.4097059523810209, global = 0.04431050506681698, cumulative = 0.8991598924997577
+smoothSolver:  Solving for epsilon, Initial residual = 0.0301245486294814, Final residual = 0.002187529563671509, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.05256197217885455, Final residual = 0.004288720163394565, No Iterations 4
+ExecutionTime = 0.08 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003345611 s
+
+Time = 10
+
+smoothSolver:  Solving for Ux, Initial residual = 0.03813699647025776, Final residual = 0.003734030895942557, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.05162155897820025, Final residual = 0.004469879913628779, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.0512101361605667, Final residual = 0.004561551295146511, No Iterations 3
+time step continuity errors : sum local = 0.5434742570064802, global = 0.00169400063225462, cumulative = 0.9008538931320124
+smoothSolver:  Solving for epsilon, Initial residual = 0.02821480673498695, Final residual = 0.002207404944118404, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.0486134854511024, Final residual = 0.004057510973162528, No Iterations 4
+ExecutionTime = 0.08 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003201793 s
+
+Time = 11
+
+smoothSolver:  Solving for Ux, Initial residual = 0.03566069497303615, Final residual = 0.003560825811403567, No Iterations 5
+smoothSolver:  Solving for Uy, Initial residual = 0.04849241274125349, Final residual = 0.00439629584347832, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.05112834043684023, Final residual = 0.004545455714920611, No Iterations 3
+time step continuity errors : sum local = 0.5586494638091324, global = 0.0002184971971719454, cumulative = 0.9010723903291843
+smoothSolver:  Solving for epsilon, Initial residual = 0.02651596661269092, Final residual = 0.00223615190939858, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.04584131974849803, Final residual = 0.003848543651443891, No Iterations 4
+ExecutionTime = 0.08 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003202689 s
+
+Time = 12
+
+smoothSolver:  Solving for Ux, Initial residual = 0.03343025942880595, Final residual = 0.002192452863289862, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.04626866320687159, Final residual = 0.004332232015019687, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.05022303231921361, Final residual = 0.00468851697868472, No Iterations 3
+time step continuity errors : sum local = 0.5503142084894505, global = -0.001903844025097462, cumulative = 0.8991685463040868
+smoothSolver:  Solving for epsilon, Initial residual = 0.02479916320103731, Final residual = 0.002170384463282334, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.0429525879533029, Final residual = 0.003656096800179886, No Iterations 4
+ExecutionTime = 0.09 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.00332066 s
+
+Time = 13
+
+smoothSolver:  Solving for Ux, Initial residual = 0.03137086481944329, Final residual = 0.002060092315991735, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.04522449828942194, Final residual = 0.004334582135898503, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.04966796290634373, Final residual = 0.004372855498097778, No Iterations 3
+time step continuity errors : sum local = 0.5037095581870382, global = 0.007030163499570357, cumulative = 0.9061987098036571
+smoothSolver:  Solving for epsilon, Initial residual = 0.02355789690725261, Final residual = 0.002141196192275786, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.04037598859230766, Final residual = 0.003460193457126178, No Iterations 4
+ExecutionTime = 0.09 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003336962 s
+
+Time = 14
+
+smoothSolver:  Solving for Ux, Initial residual = 0.0294764505966549, Final residual = 0.001935876101301506, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.04456657149165008, Final residual = 0.004336915522871898, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.04717996755693297, Final residual = 0.004192007409280397, No Iterations 3
+time step continuity errors : sum local = 0.4600606537586204, global = 0.00110777321990608, cumulative = 0.9073064830235632
+smoothSolver:  Solving for epsilon, Initial residual = 0.02177386880974057, Final residual = 0.002101648883153982, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.03829339556624153, Final residual = 0.00329750967456326, No Iterations 4
+ExecutionTime = 0.09 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003307706 s
+
+Time = 15
+
+smoothSolver:  Solving for Ux, Initial residual = 0.02751875857202922, Final residual = 0.001826298181429648, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.04357451749095853, Final residual = 0.004298087018425396, No Iterations 5
+GAMG:  Solving for p, Initial residual = 0.04399352215661147, Final residual = 0.004134452456511254, No Iterations 3
+time step continuity errors : sum local = 0.4380153254132377, global = -0.002090253854455831, cumulative = 0.9052162291691074
+smoothSolver:  Solving for epsilon, Initial residual = 0.020564662111074, Final residual = 0.002041021788619342, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.03626614729818682, Final residual = 0.003137562129633243, No Iterations 4
+ExecutionTime = 0.1 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.00326695 s
+
+Time = 16
+
+smoothSolver:  Solving for Ux, Initial residual = 0.02565218494314093, Final residual = 0.001719162508772601, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.04216088297971559, Final residual = 0.002756408012762931, No Iterations 6
+GAMG:  Solving for p, Initial residual = 0.04198711054681832, Final residual = 0.004138545238212349, No Iterations 3
+time step continuity errors : sum local = 0.4285062493259631, global = -0.001321592046435695, cumulative = 0.9038946371226717
+smoothSolver:  Solving for epsilon, Initial residual = 0.01933137009366969, Final residual = 0.001185404923471262, No Iterations 4
+smoothSolver:  Solving for k, Initial residual = 0.03416011405200402, Final residual = 0.002937242326544581, No Iterations 4
+ExecutionTime = 0.1 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003369855 s
+
+Time = 17
+
+smoothSolver:  Solving for Ux, Initial residual = 0.02420940443668887, Final residual = 0.001630098751313659, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.04049585579764695, Final residual = 0.002674542353504587, No Iterations 6
+GAMG:  Solving for p, Initial residual = 0.04015692336243445, Final residual = 0.00396793825178877, No Iterations 3
+time step continuity errors : sum local = 0.3995018931236418, global = 0.001218359015879617, cumulative = 0.9051129961385513
+smoothSolver:  Solving for epsilon, Initial residual = 0.01814764329592343, Final residual = 0.001084913374336494, No Iterations 4
+smoothSolver:  Solving for k, Initial residual = 0.03188775223150316, Final residual = 0.002685299711751408, No Iterations 4
+ExecutionTime = 0.11 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003386533 s
+
+Time = 18
+
+smoothSolver:  Solving for Ux, Initial residual = 0.02294465199601511, Final residual = 0.001544547532924575, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.0389745501648607, Final residual = 0.002599639867822103, No Iterations 6
+GAMG:  Solving for p, Initial residual = 0.03849450209833542, Final residual = 0.003790694573051263, No Iterations 3
+time step continuity errors : sum local = 0.3725449396193402, global = -0.001096093585788996, cumulative = 0.9040169025527623
+smoothSolver:  Solving for epsilon, Initial residual = 0.01711701912216591, Final residual = 0.001648231670154031, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.03008540856852263, Final residual = 0.002470122520282171, No Iterations 4
+ExecutionTime = 0.11 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003312023 s
+
+Time = 19
+
+smoothSolver:  Solving for Ux, Initial residual = 0.02165620806042119, Final residual = 0.001454557779491346, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.03757099106772133, Final residual = 0.002544054106978799, No Iterations 6
+GAMG:  Solving for p, Initial residual = 0.03667964908301521, Final residual = 0.003642990326610315, No Iterations 3
+time step continuity errors : sum local = 0.3485475950555422, global = 0.01469714041792728, cumulative = 0.9187140429706896
+smoothSolver:  Solving for epsilon, Initial residual = 0.01644755016660093, Final residual = 0.001553176974751127, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.0286831489942196, Final residual = 0.002349103400213223, No Iterations 4
+ExecutionTime = 0.11 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003268288 s
+
+Time = 20
+
+smoothSolver:  Solving for Ux, Initial residual = 0.02038663823433299, Final residual = 0.001365421205499718, No Iterations 6
+smoothSolver:  Solving for Uy, Initial residual = 0.03634016832671774, Final residual = 0.002511215423392293, No Iterations 6
+GAMG:  Solving for p, Initial residual = 0.03506975194436629, Final residual = 0.002612365053619229, No Iterations 4
+time step continuity errors : sum local = 0.2435077150191036, global = -9.480397344880883e-05, cumulative = 0.9186192389972407
+smoothSolver:  Solving for epsilon, Initial residual = 0.01572085016806153, Final residual = 0.001481815508685755, No Iterations 3
+smoothSolver:  Solving for k, Initial residual = 0.02717730056047836, Final residual = 0.002241473637507852, No Iterations 4
+ExecutionTime = 0.12 s  ClockTime = 5 s
+
+Wall-clock time elapsed during the current time step = 0.003493513 s
+
+Statistics:
+    Number of measured time steps = 19
+    Average wall-clock time per time step = 0.003591257368421052
+    Standard deviation of wall-clock time per time step = 0.0008008075812601342
+    Minimum number of measured time steps for 2% error at 95% confidence level = 478
+
+--> FOAM Warning : 
+    From virtual bool Foam::wallClockTimeStatisticsFunctionObject::end()
+    in file /jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/pitzDaily_fused-no-hcoll/system/controlDict/functions/wallClockTimeStatistics at line 175
+    Number of time steps of the current run is smaller than the calculated one by the statistical analysis. Consider to raise endTime in controlDict.
+
+End
+
+Finalising parallel run
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: component adapt closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: component han closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: component libnbc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: component tuned closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: component ftagree closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: component sm closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: component ucc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212519] mca: base: close: unloading component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: component adapt closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: component han closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: component libnbc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: component tuned closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: component ftagree closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: component sm closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: component ucc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212520] mca: base: close: unloading component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: component adapt closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: component han closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: component libnbc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: component tuned closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: component ftagree closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: component sm closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: component ucc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212523] mca: base: close: unloading component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: component adapt closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: component han closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: component libnbc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: component tuned closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: component ftagree closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: component sm closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: component ucc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212522] mca: base: close: unloading component ucc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: component adapt closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component adapt
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component basic
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: component han closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component han
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component inter
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: component libnbc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component libnbc
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component self
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component sync
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: component tuned closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component tuned
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: component ftagree closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component ftagree
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: component sm closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component sm
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: component ucc closed
+[gadi-cpu-spr-0248.gadi.nci.org.au:1212521] mca: base: close: unloading component ucc

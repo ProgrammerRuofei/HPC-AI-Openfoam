@@ -18,3 +18,5 @@ Preserve all original evidence; no automatic retry or monitor.
 No job submitted yet. Results pending.
 
 Submitted exactly once: **182829851.gadi-pbs**, script commit485ab33. [Submission record](../../progress/2026-11-01-gadi-collective-policy-review.md). Results pending; no automatic retry.
+
+Smoke182829851:Exit0/PASS,0.16SU,58sec,rawarchivecomplete. User authorized next controlledpair without anotherapprovalpause; full diff shown and validated. [Four-node review](../../planning/reviews/gadi-icx20253-collective-4n-2026-11-01/README.md),832SUceiling,noextrasubmissions.

@@ -1,0 +1,291 @@
+--- experiments/gadi-icx20253-binding-numa/run_binding_arm_4n_v2.sh
++++ experiments/gadi-icx20253-collective-policy/run_collective_arm_4n_v1.sh
+@@ -1,5 +1,5 @@
+ #!/bin/bash
+-# One arm of the authorized four-node binding pair; invoked only by wrapper PBS.
++# One arm of the authorized four-node collective pair; invoked only by wrapper PBS.
+ # Processor data stays in node-local JOBFS to preserve pm78 scratch inodes.
+ set -euo pipefail
+ 
+@@ -13,15 +13,15 @@
+ MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+ OF_SHA=a832416d47a1a26cc2a02ef0c69eb09dbf142043d619ed22ece37d96b029dfcd
+ BIN_SHA=7cc4af8c576eba1e97ba16a767fca5843293c391b71a3904a596b3981d2913e4
+-case "${BIND_ARM:?wrapper must set default or core}" in default|core) ;; *) exit 2;; esac
++case "${COLLECTIVE_ARM:?wrapper must set default or no-hcoll}" in default|no-hcoll) ;; *) exit 2;; esac
+ NRANKS=416
+-PAIR_ROOT="$OF_ROOT/binding-pair-4n-v2/${PBS_JOBID:?}"
++PAIR_ROOT="$OF_ROOT/collective-pair-4n-v1/${PBS_JOBID:?}"
+ HELPER="$PBS_O_WORKDIR/experiments/gadi-icx20253-binding-numa/affinity_receipt_4n.py"
+-EXTRA=(); if [[ "$BIND_ARM" = core ]]; then EXTRA=(--bind-to core); fi
+-RUN_ROOT="$PAIR_ROOT/$BIND_ARM"
++EXTRA=(); if [[ "$COLLECTIVE_ARM" = no-hcoll ]]; then EXTRA=(--mca coll '^hcoll'); fi
++RUN_ROOT="$PAIR_ROOT/$COLLECTIVE_ARM"
+ EVIDENCE="$RUN_ROOT/evidence"
+ SHARED_CASE="$RUN_ROOT/case"
+-LOCAL_ROOT="${PBS_JOBFS:?}/of2512-icx20253-binding4n-v2-${PBS_JOBID}-${BIND_ARM}"
++LOCAL_ROOT="${PBS_JOBFS:?}/of2512-icx20253-collective4n-v1-${PBS_JOBID}-${COLLECTIVE_ARM}"
+ LOCAL_CASE="$LOCAL_ROOT/case"
+ GCC_PREFIX="$LOCAL_ROOT/gcc-16.2.0"
+ MPI_PREFIX="$LOCAL_ROOT/openmpi-5.0.10"
+@@ -30,7 +30,7 @@
+ STAGE_PROCESSORS="$PBS_O_WORKDIR/builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_processors_node.sh"
+ 
+ test -f "$HELPER"
+-test -z "${LD_PRELOAD:-}"; test -z "${OMPI_MCA_coll:-}"
++for key in LD_PRELOAD OMPI_MCA_coll OMPI_MCA_pml OMPI_MCA_coll_hcoll_enable OMPI_MCA_coll_ucc_enable; do test -z "${!key:-}" || { echo "Unexpected override: $key"; exit 2; }; done
+ test "${PBS_NNODES:?}" -eq 4; test "${PBS_NCPUS:?}" -eq "$NRANKS"
+ test ! -e "$RUN_ROOT"; test -f "$STAGE_RUNTIME"; test -f "$STAGE_PROCESSORS"
+ mkdir -p "$EVIDENCE" "$SHARED_CASE" "$RUN_ROOT/stage"
+@@ -49,7 +49,7 @@
+ trap 'exit 130' INT
+ trap 'exit 129' HUP
+ 
+-printf 'pbs_jobid=%s\nperformance_screen=uninstrumented_binding_pair\nverification=binding_pair_150step\nstack=icx2025.3.2-ompi5.0.10-openfoamv2512\ndecomposition=scotch\n' "$PBS_JOBID" | tee "$EVIDENCE/provenance.txt"
++printf 'pbs_jobid=%s\nperformance_screen=uninstrumented_collective_pair\nverification=collective_pair_150step\nstack=icx2025.3.2-ompi5.0.10-openfoamv2512\ndecomposition=scotch\n' "$PBS_JOBID" | tee "$EVIDENCE/provenance.txt"
+ sort -u "$PBS_NODEFILE" | tee "$EVIDENCE/nodes.txt"
+ test "$(sort -u "$PBS_NODEFILE" | wc -l)" -eq 4
+ test "$(awk '{c[$0]++} END {for (h in c) print c[h]}' "$PBS_NODEFILE" | sort -u)" = 104
+@@ -101,24 +101,46 @@
+ grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/simpleFoam.ldd"
+ 
+ # The scientific case is copied verbatim to JOBFS for serial decomposition.
+-PAREX=(mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node "${EXTRA[@]}" --mca pml ucx -np 416)
++PAREX=(mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node --mca pml ucx -np 416)
+ # Verify the full 416-rank treatment on the actual allocation before decomposition.
+ mkdir "$EVIDENCE/placement"
+ timeout -k 10s 180s "${PAREX[@]}" --report-bindings python3 "$HELPER" record "$EVIDENCE/placement" > "$EVIDENCE/placement.stdout" 2> "$EVIDENCE/placement.bindings.txt"
+-python3 "$HELPER" validate "$EVIDENCE/placement" "$BIND_ARM" > "$EVIDENCE/placement-summary.json"
+-if [[ "$BIND_ARM" = default ]]; then
+-    mkdir "$EVIDENCE/core-probe"
+-    timeout -k 10s 180s mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node --bind-to core --mca pml ucx -np 416 python3 "$HELPER" record "$EVIDENCE/core-probe" > "$EVIDENCE/core-probe.stdout" 2> "$EVIDENCE/core-probe.bindings.txt"
+-    python3 "$HELPER" compare "$EVIDENCE/placement" "$EVIDENCE/core-probe" > "$EVIDENCE/placement-comparison.json"
++python3 "$HELPER" validate "$EVIDENCE/placement" default > "$EVIDENCE/placement-summary.json"
++COMPARE="$PBS_O_WORKDIR/experiments/gadi-icx20253-collective-policy/compare_collective_placement.py"
++if [[ "$COLLECTIVE_ARM" = no-hcoll ]]; then
++    python3 "$COMPARE" "$PAIR_ROOT/default/evidence/solver-affinity" "$EVIDENCE/placement" > "$EVIDENCE/placement-comparison.json"
++fi
++# Dedicated 416-rank probe before decomposition. Not part of the timed solver.
++PROBE_SOURCE="$PBS_O_WORKDIR/experiments/gadi-icx20253-collective-policy/collective_runtime_4n.c"
++mkdir "$EVIDENCE/mpi-runtime"
++timeout -k 5s 60s mpicc "$PROBE_SOURCE" -ldl -o "$EVIDENCE/mpi-runtime-probe"
++cp -p "$PROBE_SOURCE" "$EVIDENCE/"
++ldd "$EVIDENCE/mpi-runtime-probe" > "$EVIDENCE/mpi-runtime.ldd"
++! grep -Fq 'not found' "$EVIDENCE/mpi-runtime.ldd"
++grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/mpi-runtime.ldd"
++timeout -k 10s 120s "${PAREX[@]}" "${EXTRA[@]}" --mca coll_base_verbose 30 --report-bindings "$EVIDENCE/mpi-runtime-probe" "$EVIDENCE/mpi-runtime" > "$EVIDENCE/mpi-runtime.log" 2>&1
++! grep -Eq 'path=MISSING|version=MISSING' "$EVIDENCE/mpi-runtime/"rank-*.txt
++! grep -Fq 'UCP API version is incompatible' "$EVIDENCE/mpi-runtime.log"
++python3 - "$EVIDENCE/mpi-runtime" "$PAIR_ROOT/default/evidence/mpi-runtime" <<'PYPROBE'
++from pathlib import Path
++import re,sys,collections,json
++def read(folder):
++    data={}
++    for p in Path(folder).glob('rank-*.txt'):
++        s=p.read_text();m=re.fullmatch(r'COLLECTIVE_MPI_RUNTIME rank=(\d+) size=416 host=(\S+) path=(\S+) version=(\S+) sum=86320\s*',s);assert m,p
++        rank=int(m[1]);assert rank not in data;data[rank]=m.groups()[1:]
++    assert set(data)==set(range(416));hosts=collections.Counter(v[0] for v in data.values());assert len(hosts)==4 and set(hosts.values())=={104}
++    return data
++a=read(sys.argv[1]);b=read(sys.argv[2]);assert a==b,'probe host/UCP path/version changed between policies'
++print(json.dumps({'ranks':416,'cross_node_allreduce_sum':86320,'probe_runtime_matches_control':True}))
++PYPROBE
++if [[ "$COLLECTIVE_ARM" = default ]]; then
++    grep -Eq 'selecting[[:space:]]+hcoll,.*Enabled' "$EVIDENCE/mpi-runtime.log"
+ else
+-    python3 "$HELPER" compare "$PAIR_ROOT/default/evidence/solver-affinity" "$EVIDENCE/placement" > "$EVIDENCE/placement-comparison.json"
++    ! grep -Eq 'selecting[[:space:]]+hcoll,.*Enabled' "$EVIDENCE/mpi-runtime.log"
+ fi
+-python3 - "$EVIDENCE/placement-comparison.json" <<'PYGATE'
+-import json,sys
+-assert json.load(open(sys.argv[1]))['can_run_binding'], 'no distinct binding treatment'
+-PYGATE
+ (cd "$SOURCE_CASE" && sha256sum constant/polyMesh/{faces,owner,neighbour,points,boundary}) > "$EVIDENCE/source-mesh.sha256"
+-printf 'arm=%s\nsteps=150\nranks=416\n' "$BIND_ARM" >> "$EVIDENCE/provenance.txt"
++printf 'arm=%s\nsteps=150\nranks=416\n' "$COLLECTIVE_ARM" >> "$EVIDENCE/provenance.txt"
+ mkdir "$LOCAL_CASE"
+ cp -a "$SOURCE_CASE/0.orig" "$SOURCE_CASE/constant" "$SOURCE_CASE/system" "$LOCAL_CASE/"
+ for part in faces owner neighbour points boundary; do
+@@ -171,7 +193,7 @@
+ cmp -s "$SHARED_CASE/system/fvSchemes" "$SOURCE_CASE/system/fvSchemes"
+ cmp -s "$SHARED_CASE/system/fvSolution" "$SOURCE_CASE/system/fvSolution.fixedIter"
+ 
+-PAREX=(mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node "${EXTRA[@]}" --mca pml ucx -np 416)
++PAREX=(mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node --mca pml ucx -np 416)
+ "${PAREX[@]}" /bin/bash -c 'printf "%s %s\n" "${OMPI_COMM_WORLD_RANK:?}" "$(hostname)"' > "$EVIDENCE/rank-host-map.txt"
+ awk -v a="${HOSTS[0]}" -v b="${HOSTS[1]}" -v c="${HOSTS[2]}" -v d="${HOSTS[3]}" '
+     { expected=($1<104?a:($1<208?b:($1<312?c:d))); if ($2!=expected || seen[$1]++) bad=1 }
+@@ -182,8 +204,10 @@
+ "${PAREX[@]}" potentialFoam -initialiseUBCs -parallel > "$EVIDENCE/30_potentialFoam.log" 2>&1
+ "${PAREX[@]}" applyBoundaryLayer -ybl 0.0450244 -parallel > "$EVIDENCE/40_applyBoundaryLayer.log" 2>&1
+ mkdir "$EVIDENCE/solver-affinity"
+-"${PAREX[@]}" --report-bindings python3 "$HELPER" record "$EVIDENCE/solver-affinity" "$BIN" -parallel > "$EVIDENCE/simpleFoam.log" 2>&1
+-python3 "$HELPER" validate "$EVIDENCE/solver-affinity" "$BIND_ARM" > "$EVIDENCE/solver-affinity-summary.json"
++printf '%q ' "${PAREX[@]}" "${EXTRA[@]}" --report-bindings python3 "$HELPER" record "$EVIDENCE/solver-affinity" "$BIN" -parallel > "$EVIDENCE/solver-launcher.txt"
++printf '\n' >> "$EVIDENCE/solver-launcher.txt"
++"${PAREX[@]}" "${EXTRA[@]}" --report-bindings python3 "$HELPER" record "$EVIDENCE/solver-affinity" "$BIN" -parallel > "$EVIDENCE/simpleFoam.log" 2>&1
++python3 "$HELPER" validate "$EVIDENCE/solver-affinity" default > "$EVIDENCE/solver-affinity-summary.json"
+ for step in 10_decomposePar 20_renumberMesh 30_potentialFoam 40_applyBoundaryLayer; do
+     grep -aEq '^End$' "$EVIDENCE/$step.log"
+ done
+@@ -207,5 +231,5 @@
+ assert math.isfinite(t) and t>0
+ PYARM
+ (cd "$SOURCE_CASE" && sha256sum -c "$EVIDENCE/source-mesh.sha256") > "$EVIDENCE/master-mesh-after.txt"
+-echo "ICX20253_OMPI5010_BINDING_4N_150STEP_${BIND_ARM}_V2_PASS"
++echo "ICX20253_OMPI5010_COLLECTIVE_4N_150STEP_${COLLECTIVE_ARM}_V1_PASS"
+ ARM_COMPLETE=1
+--- /dev/null
++++ experiments/gadi-icx20253-collective-policy/compare_collective_placement.py
+@@ -0,0 +1,15 @@
++#!/usr/bin/env python3
++"""Require identical pre-exec CPU/rank placement for this collective-only comparison."""
++from pathlib import Path
++import sys,json,collections
++
++def rows(folder):
++    data=[json.loads(p.read_text()) for p in Path(folder).glob('rank-*.json')]
++    assert len(data)==416 and {r['rank'] for r in data}==set(range(416))
++    hosts=collections.Counter(r['host'] for r in data);assert len(hosts)==4 and set(hosts.values())=={104}
++    return sorted(data,key=lambda r:r['rank'])
++a,b=rows(sys.argv[1]),rows(sys.argv[2])
++for x,y in zip(a,b):
++    for key in ('rank','local_rank','host','cpus','cores','numa','mems_allowed_list'):
++        assert x[key]==y[key], (x['rank'],key,'placement changed')
++print(json.dumps({'ranks':416,'hosts':sorted({r['host'] for r in a}), 'pre_exec_placement_identical':True}))
+--- /dev/null
++++ experiments/gadi-icx20253-collective-policy/collective_runtime_4n.c
+@@ -0,0 +1,44 @@
++#define _GNU_SOURCE
++#include <mpi.h>
++#include <dlfcn.h>
++#include <link.h>
++#include <stdio.h>
++#include <string.h>
++#include <unistd.h>
++static char ucp_path[4096];
++static int locate(struct dl_phdr_info *info, size_t size, void *data) {
++    (void)size; (void)data;
++    if (info->dlpi_name && strstr(info->dlpi_name, "libucp.so")) {
++        snprintf(ucp_path, sizeof(ucp_path), "%s", info->dlpi_name);
++        return 1;
++    }
++    return 0;
++}
++int main(int argc, char **argv) {
++    int rank, size, sum;
++    char host[256];
++    MPI_Init(&argc, &argv);
++    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
++    MPI_Comm_size(MPI_COMM_WORLD, &size);
++    MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
++    gethostname(host, sizeof host);
++    host[sizeof host - 1] = 0;
++    dl_iterate_phdr(locate, NULL);
++    void *handle = ucp_path[0] ? dlopen(ucp_path, RTLD_NOW | RTLD_NOLOAD) : NULL;
++    const char *(*version)(void) = handle ? dlsym(handle, "ucp_get_version_string") : NULL;
++    char receipt[8192];
++    int wrote = 0;
++    if (argc > 1) {
++        snprintf(receipt, sizeof receipt, "%s/rank-%d.txt", argv[1], rank);
++        FILE *out = fopen(receipt, "wx");
++        if (out) {
++            fprintf(out, "COLLECTIVE_MPI_RUNTIME rank=%d size=%d host=%s path=%s version=%s sum=%d\n",
++                    rank, size, host, ucp_path[0] ? ucp_path : "MISSING",
++                    version ? version() : "MISSING", sum);
++            wrote = fclose(out) == 0;
++        }
++    }
++    if (handle) dlclose(handle);
++    MPI_Finalize();
++    return size == 416 && sum == 86320 && ucp_path[0] && version && wrote ? 0 : 1;
++}
+--- experiments/gadi-icx20253-binding-numa/run_binding_pair_4n_v2.pbs
++++ experiments/gadi-icx20253-collective-policy/run_collective_pair_4n_v1.pbs
+@@ -1,9 +1,9 @@
+ #!/bin/bash
+-# One authorized four-node ICX default/core pair. Each arm is a fresh 150-step solve.
++# One authorized four-node ICX default/no-HCOLL pair. Each arm is a fresh 150-step solve.
+ # Submit from the reviewed isolated checkout; unique stdout; no retries.
+ #PBS -P pm78
+ #PBS -q normalsr
+-#PBS -N icx25_binding4n_pair_v2
++#PBS -N icx25_collective4n_pair_v1
+ #PBS -l ncpus=416
+ #PBS -l mem=760GB
+ #PBS -l jobfs=400GB
+@@ -11,12 +11,12 @@
+ #PBS -l storage=scratch/pm78
+ #PBS -l wd
+ #PBS -j oe
+-#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_binding_pair_4n_v2.pbs.out
++#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_collective_pair_4n_v1.pbs.out
+ set -euo pipefail
+ SECONDS=0
+ cd "${PBS_O_WORKDIR:?}"
+ CONTROL_ROOT=$PWD
+-PAIR_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/binding-pair-4n-v2/${PBS_JOBID:?}"
++PAIR_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/collective-pair-4n-v1/${PBS_JOBID:?}"
+ test "${PBS_NNODES:?}" -eq 4; test "${PBS_NCPUS:?}" -eq 416
+ test ! -e "$PAIR_ROOT"
+ test "${PBS_NCI_JOBFS:?}" = 400gb
+@@ -34,14 +34,16 @@
+ trap 'exit 143' TERM
+ trap 'exit 130' INT
+ trap 'exit 129' HUP
+-printf 'pbs_jobid=%s\norder=default,core\nsteps_per_arm=150\nranks_per_arm=416\n' "$PBS_JOBID" > "$PAIR_ROOT/evidence/provenance.txt"
++printf 'pbs_jobid=%s\norder=default,no-hcoll\nsteps_per_arm=150\nranks_per_arm=416\n' "$PBS_JOBID" > "$PAIR_ROOT/evidence/provenance.txt"
+ git rev-parse HEAD >> "$PAIR_ROOT/evidence/provenance.txt"
+ cp -p "$0" "$PAIR_ROOT/evidence/submitted-pair.pbs"
+ cat > "$PAIR_ROOT/evidence/expected-scripts.sha256" <<'HASHES'
+-cbac993b3cf07e2a51f05c9a9177917289a6cf9227e487c7e3bd6fbe73bd17d5  experiments/gadi-icx20253-binding-numa/run_binding_arm_4n_v2.sh
++850b76fad9929a560000b3dd06b965e8bb8382dc83f2a8d27a132801eb98adbf  experiments/gadi-icx20253-collective-policy/run_collective_arm_4n_v1.sh
+ 76dc544c5d43f767a01d9651e6055e69f1e9ef1e451095f0ea3450a139d658d4  experiments/gadi-icx20253-binding-numa/affinity_receipt_4n.py
+ ea9a0fca74e1bc52cac4984a75c95072227ee3c437b37d9998e43b5ed380dd06  builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_runtime_node.sh
+ 2caa257b7ede430a638b97eed8a2b88e91f4b019cd9a828e0bcb05b1f9a2fa2e  builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_processors_node.sh
++442ac0945438f9334572de5c344ad67d03a7dc4d409f66bcdafc8fd84a436348  experiments/gadi-icx20253-collective-policy/compare_collective_placement.py
++90a59a4a094442b510c781dd44469489648683e079b9a713081d49ca509a06d6  experiments/gadi-icx20253-collective-policy/collective_runtime_4n.c
+ HASHES
+ sha256sum -c "$PAIR_ROOT/evidence/expected-scripts.sha256"
+ # PBS divides 400GiB across four nodes. Check allocated-quota headroom,
+@@ -58,21 +60,21 @@
+         ' jobfs-check "$PBS_JOBFS" "$reserve_kib" "$phase" > "$PAIR_ROOT/evidence/jobfs-$phase-$idx.txt" 2>&1
+     done
+ }
+-for arm in default core; do
++for arm in default no-hcoll; do
+     cd "$CONTROL_ROOT"
+     # Leave 25 minutes for a complete second arm and exit; never start it late.
+     if (( SECONDS > 2100 )); then echo 'Insufficient remaining walltime' >&2; exit 3; fi
+     jobfs_receipts "before-$arm" "$((50 * 1024 * 1024))"
+-    BIND_ARM="$arm" /bin/bash experiments/gadi-icx20253-binding-numa/run_binding_arm_4n_v2.sh > "$PAIR_ROOT/evidence/$arm.stdout" 2>&1
+-    grep -Fxq "ICX20253_OMPI5010_BINDING_4N_150STEP_${arm}_V2_PASS" "$PAIR_ROOT/$arm/evidence/run.log"
++    COLLECTIVE_ARM="$arm" /bin/bash experiments/gadi-icx20253-collective-policy/run_collective_arm_4n_v1.sh > "$PAIR_ROOT/evidence/$arm.stdout" 2>&1
++    grep -Fxq "ICX20253_OMPI5010_COLLECTIVE_4N_150STEP_${arm}_V1_PASS" "$PAIR_ROOT/$arm/evidence/run.log"
+     grep -Fxq script_exit_rc=0 "$PAIR_ROOT/$arm/evidence/exit-status.txt"
+     jobfs_receipts "after-$arm" 0
+ done
+-python3 experiments/gadi-icx20253-binding-numa/affinity_receipt_4n.py compare "$PAIR_ROOT/default/evidence/solver-affinity" "$PAIR_ROOT/core/evidence/solver-affinity" > "$PAIR_ROOT/evidence/solver-placement-comparison.json"
++python3 experiments/gadi-icx20253-collective-policy/compare_collective_placement.py "$PAIR_ROOT/default/evidence/solver-affinity" "$PAIR_ROOT/no-hcoll/evidence/solver-affinity" > "$PAIR_ROOT/evidence/solver-placement-comparison.json"
+ python3 - "$PAIR_ROOT" <<'PYPAIR'
+ from pathlib import Path
+ import re,sys,math,json
+-root=Path(sys.argv[1]); a=root/'default/evidence'; b=root/'core/evidence'
++root=Path(sys.argv[1]); a=root/'default/evidence'; b=root/'no-hcoll/evidence'
+ assert (a/'case-inputs.sha256').read_bytes()==(b/'case-inputs.sha256').read_bytes()
+ def geometry(p):
+     lines=p.read_text().splitlines()
+@@ -102,10 +104,10 @@
+ ca,cb=cd_series(a),cd_series(b)
+ assert [x[0] for x in ca]==[x[0] for x in cb], 'coefficient time points differ'
+ max_cd_difference=max(abs(x[1]-y[1]) for x,y in zip(ca,cb))
+-summary=dict(default_s_step=result(a),core_s_step=result(b),partition_identical=True,max_abs_Cd_difference=max_cd_difference,comparable_cd=max_cd_difference<=1e-8)
+-summary['core_improvement_percent']=100*(summary['default_s_step']-summary['core_s_step'])/summary['default_s_step']
++summary=dict(default_s_step=result(a),no_hcoll_s_step=result(b),partition_identical=True,max_abs_Cd_difference=max_cd_difference,comparable_cd=max_cd_difference<=1e-8)
++summary['no_hcoll_improvement_percent']=100*(summary['default_s_step']-summary['no_hcoll_s_step'])/summary['default_s_step']
+ (root/'evidence/pair-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+-assert summary['comparable_cd'], 'binding pair Cd changed: preserve and inspect, do not promote'
++assert summary['comparable_cd'], 'collective pair Cd changed: preserve and inspect, do not promote'
+ PYPAIR
+-echo ICX20253_OMPI5010_BINDING_PAIR_4N_150STEP_V2_PASS
++echo ICX20253_OMPI5010_COLLECTIVE_PAIR_4N_150STEP_V1_PASS
+ PAIR_COMPLETE=1

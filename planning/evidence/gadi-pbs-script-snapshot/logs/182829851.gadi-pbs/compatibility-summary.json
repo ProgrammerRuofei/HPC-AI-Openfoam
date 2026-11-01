@@ -1,0 +1,29 @@
+{
+  "default": {
+    "diagnostic_s_step": 0.003530716684210526,
+    "probe_receipts": [
+      "COLLECTIVE_MPI_RUNTIME rank=0 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n",
+      "COLLECTIVE_MPI_RUNTIME rank=1 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n",
+      "COLLECTIVE_MPI_RUNTIME rank=2 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n",
+      "COLLECTIVE_MPI_RUNTIME rank=3 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n",
+      "COLLECTIVE_MPI_RUNTIME rank=4 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n"
+    ],
+    "hcoll_enabled_observed": true,
+    "solver_collective_selection_file": "/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/collective-policy-smoke-v1/182829851.gadi-pbs/evidence/default/collective-selection.txt"
+  },
+  "no-hcoll": {
+    "diagnostic_s_step": 0.003591257368421052,
+    "probe_receipts": [
+      "COLLECTIVE_MPI_RUNTIME rank=0 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n",
+      "COLLECTIVE_MPI_RUNTIME rank=1 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n",
+      "COLLECTIVE_MPI_RUNTIME rank=2 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n",
+      "COLLECTIVE_MPI_RUNTIME rank=3 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n",
+      "COLLECTIVE_MPI_RUNTIME rank=4 size=5 host=gadi-cpu-spr-0248.gadi.nci.org.au path=/usr/lib64/libucp.so.0 version=1.21.0 sum=10\n"
+    ],
+    "hcoll_enabled_observed": false,
+    "solver_collective_selection_file": "/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/collective-policy-smoke-v1/182829851.gadi-pbs/evidence/no-hcoll/collective-selection.txt"
+  },
+  "hcoll_contrast_observed": true,
+  "four_node_authorized": false,
+  "limits": "5-rank tutorial; probe UCP is not solver UCP proof; component Enabled is not per-call algorithm attribution; verbose timing not a performance result; no Cd test in this tutorial"
+}

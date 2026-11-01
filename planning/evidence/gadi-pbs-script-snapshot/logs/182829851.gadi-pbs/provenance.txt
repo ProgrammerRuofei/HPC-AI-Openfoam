@@ -1,0 +1,6 @@
+official_result=false
+pbs_jobid=182829851.gadi-pbs
+case=pitzDaily_fused
+ranks=5
+steps=20
+order=default,no-hcoll

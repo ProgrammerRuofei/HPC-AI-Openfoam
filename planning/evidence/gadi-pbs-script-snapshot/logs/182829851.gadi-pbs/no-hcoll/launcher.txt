@@ -1,0 +1,1 @@
+mpirun --prefix /jobfs/182829851.gadi-pbs/of2512-icx20253-collective-182829851.gadi-pbs/openmpi-5.0.10 --map-by ppr:5:node --mca pml ucx --mca coll \^hcoll --mca coll_base_verbose 30 --report-bindings -np 5 
