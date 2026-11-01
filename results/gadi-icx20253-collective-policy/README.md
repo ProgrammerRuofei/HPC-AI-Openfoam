@@ -25,3 +25,7 @@ Script SHA5f964f4939ae5885d84d232813d254a1784c5fd1fff49ff4d6b4d490166c4ac4.
 No binary rebuild or official-science modification.
 
 [Original archive](../../planning/evidence/gadi-pbs-script-snapshot/logs/182829851.gadi-pbs/README.md)
+
+## Four-node pair submitted
+
+Job `182830268.gadi-pbs`, script commit `d3bbdef`; ICX2025.3.2/OpenMPI5.0.10/Scotch,4nodes/416ranks,150steps per arm. Default then no-HCOLL,default binding. Status submitted; time,Cd,actualSU pending. 832SU ceiling; not a result. See [handoff](../../progress/2026-11-01-gadi-collective-4n.md).
