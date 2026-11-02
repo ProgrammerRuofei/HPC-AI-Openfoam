@@ -1,0 +1,2 @@
+job_id,attempt,pbs_state,exit_status,nodes,ranks_per_node,total_ranks,planned_steps_per_arm,control_s_per_step,candidate_s_per_step,control_cd,candidate_cd,walltime_seconds,actual_su,failure_stage
+182932939.gadi-pbs,v1,F,1,4,104,416,150,,,,,152,35.13,control_topology_receipt_before_mpi

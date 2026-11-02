@@ -1,0 +1,4 @@
+gadi-cpu-spr-0201.gadi.nci.org.au
+gadi-cpu-spr-0202.gadi.nci.org.au
+gadi-cpu-spr-0203.gadi.nci.org.au
+gadi-cpu-spr-0204.gadi.nci.org.au

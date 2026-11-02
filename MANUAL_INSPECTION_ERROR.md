@@ -341,3 +341,9 @@ No resource patch or retry applied. Await approval of new local review diff.
 ### Rank/NUMA182926714 resolution — RESOLVED for memory-headroom preflight
 
 User approved exact64GB v2 once;182929980 F/Exit0/PASS,48sec,2.77SU,20.89GBmemory. All624rankreceipts independently validated;655originals+qstat fully archived/SHAverified. No MRregistration failure in six launches. Original16GBfailure preserved. This resolves the preflight memory shortage, not four-node performance or solver-memory placement. No further job submitted.
+
+## GADI-RANK-NUMA-182932939-TOPOLOGY-RECEIPT — USER_ACTION_REQUIRED
+
+2026-11-02, four-node rank/NUMA pair v1, job182932939, F/Exit1/152s/35.13SU, SPR0201–0204. ICX2025.3.2/privateOpenMPI5.0.10/Scotch,416ranks, planned150stepsperarm. Runtime staging and pinned source/archive/binary checks passed. Empty control/evidence/lscpu-0.txt, despite lscpu output in stdout, causes required topology receipt gate failure before MPI placement/solver. First identified failure is arm lines106–107; exact failing command lacks ERR tracing. This is an apparent workflow output-capture defect; no MPI or numerical failure is established.
+
+[Original evidence](planning/evidence/gadi-pbs-script-snapshot/logs/182932939.gadi-pbs/README.md). Preserve raw evidence. Proposal: write topology receipt inside node-side helper, validate nonempty/model, add precise error-stage logging; test locally and show full v2 diff/newpaths/hash before retry. No patch/retry applied; explicit current authorization excludes automatic retries. Waiting for next-attempt approval after complete diff.

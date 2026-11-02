@@ -1,0 +1,1 @@
+host=gadi-cpu-spr-0201.gadi.nci.org.au phase=before-control used_kib=0 quota_kib=104857600 reserve_kib=52428800

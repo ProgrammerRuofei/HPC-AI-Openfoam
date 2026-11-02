@@ -31,3 +31,7 @@ The primary checkout retains the earlier job index; this branch adds only this b
 - [182926714.gadi-pbs](182926714.gadi-pbs/README.md): Raw local logs **complete for all produced evidence** (14 original files + qstat, SHA verified). MPI-only preflight F/Exit137,16GB memory exceeded,28sec/1.62SU; baseline receipts and candidate outputs were never produced.
 
 - [182929980.gadi-pbs](182929980.gadi-pbs/README.md): Raw local logs **complete**,655 verified originals+qstat; independent624-rankreceipt validation PASS,F/Exit0,48sec,2.77SU. One-node MPI-only placement compatibility; not performance.
+
+## 182932939.gadi-pbs — rank/NUMA pair v1 failure
+
+[Raw local logs](182932939.gadi-pbs/README.md): **complete for produced evidence**, 24 original files plus qstat, all SHA verified. F/Exit1,152s,35.13SU. Empty lscpu topology receipt before MPI mapping/decomposition/solver; no150step result or Cd. Candidate not started. No retry submitted.

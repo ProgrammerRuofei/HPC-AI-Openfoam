@@ -19,3 +19,13 @@ Root: /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi50
 Topreceipt: evidence/; arms: control/evidence/ and candidate/evidence/.
 
 User approved resumed5minute monitoring. NormalQ/Rsilent;finishindependentlyvalidateboth150stepchains,geometries,input/binaryhash,placementandruntimeproof,Cd/seconds/SU; archiveoriginals. Diagnosefailurewithoutautomaticretry. No extrafournode/BA/flagsauthorized.
+
+## 182932939.gadi-pbs — failed topology receipt, 2026-11-02
+
+F / Exit1, 00:02:32, **35.13 actual SU**; SPR0201–0204, 4×104 requested ranks, 416 total. ICX2025.3.2 / private OpenMPI5.0.10 / OpenFOAMv2512 / Scotch. Planned control then candidate, each150steps; neither reached solver. No seconds/step or Cd.
+
+Four runtime staging receipts and source-dictionary/archive/binary SHA checks passed. `control/evidence/lscpu-0.txt` is empty while PBS stdout contains lscpu output. The first identified failing gate is the required model grep following the pbsdsh stdout redirection (arm script lines106–107); no ERR trace is available. Failure is in topology evidence collection, before baseline rank mapping, MPI probe, decomposition or candidate. Runtime UCP version / collective selection are unknown; module names and ldd do not establish them.
+
+24 original files plus qstat captured, SHA verified, no originals excluded or overwritten. [Raw local logs](../planning/evidence/gadi-pbs-script-snapshot/logs/182932939.gadi-pbs/README.md). Preserve failure; no automatic retry. Proposed repair is node-side receipt writing with nonempty/model checks and explicit error-stage logging, followed by local tests and a complete new-version diff for approval. No run-script change applied.
+
+Connection restored by user; `ssh -O check gadi-comp` reported master pid60987. Read-only `qstat -xf 182932939.gadi-pbs`, stdout, find/wc/cat and SHA inspections; verified `scp -p -o BatchMode=yes` to a fresh temporary directory, then immutable local archival. No qsub/qdel or remote data modification. Main and unrelated collective dirty files preserved. Automation gadi-rank-numa was deleted after confirming this attempt had finished. Next action: review a complete topology-receipt v2 repair proposal and approve a new attempt before execution.
