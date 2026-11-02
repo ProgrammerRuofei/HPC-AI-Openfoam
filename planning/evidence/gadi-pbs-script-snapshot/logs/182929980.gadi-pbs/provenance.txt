@@ -1,0 +1,3 @@
+job=182929980.gadi-pbs
+mode=MPI-placement-only
+61453ffe0a0d1aaf68232bc7dc019934ada03913

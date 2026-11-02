@@ -1,0 +1,37 @@
+{
+  "control": {
+    "ranks": 104,
+    "changed_core_masks": 0,
+    "pre_post_MPI_match": true,
+    "allreduce_sum": 5356,
+    "ring_pass": true
+  },
+  "candidate-node0": {
+    "ranks": 104,
+    "changed_core_masks": 3,
+    "pre_post_MPI_match": true,
+    "allreduce_sum": 5356,
+    "ring_pass": true
+  },
+  "candidate-node1": {
+    "ranks": 104,
+    "changed_core_masks": 6,
+    "pre_post_MPI_match": true,
+    "allreduce_sum": 5356,
+    "ring_pass": true
+  },
+  "candidate-node2": {
+    "ranks": 104,
+    "changed_core_masks": 10,
+    "pre_post_MPI_match": true,
+    "allreduce_sum": 5356,
+    "ring_pass": true
+  },
+  "candidate-node3": {
+    "ranks": 104,
+    "changed_core_masks": 2,
+    "pre_post_MPI_match": true,
+    "allreduce_sum": 5356,
+    "ring_pass": true
+  }
+}

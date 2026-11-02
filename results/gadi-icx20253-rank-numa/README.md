@@ -11,3 +11,7 @@ Module names are not runtime-library/collective proof. The six launches record a
 ## v2 submitted
 
 182929980.gadi-pbs: initialQ; sameICX2025.3.2/privateOpenMPI5.0.10,1SPR/104ranks,64GB RAM/20GBJOBFS/10min.34.67SU max,actualpending. MPI-only; no solversteps/Cd/timing. No success assumed.
+
+## v2 completed and independently verified
+
+182929980: F/Exit0/PASS,48s,2.77SU,SPR0686,104ranks;64GBrequested/20.89GBused.655originals+qstatSHAverified;624rankJSON validated. Same MPIInitmask and5356/ring,104cores/13perNUMA;candidatechanges3/6/10/2. ActualprobeUCP1.21.0 from/usr/lib64;collectiveunknown. No OpenFOAMtime/Cd. [Raw logs](../../planning/evidence/gadi-pbs-script-snapshot/logs/182929980.gadi-pbs/README.md).

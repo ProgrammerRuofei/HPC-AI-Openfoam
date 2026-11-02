@@ -337,3 +337,7 @@ Propose one v2 retry with RAM16->64GB, unique filenames/paths;104CPU/10min
 unchanged,34.67SU ceiling. Keep MPI/HCOLL/UCX and mapping fixed so memory is
 the only configuration change. MR warning resolution remains unproven.
 No resource patch or retry applied. Await approval of new local review diff.
+
+### Rank/NUMA182926714 resolution — RESOLVED for memory-headroom preflight
+
+User approved exact64GB v2 once;182929980 F/Exit0/PASS,48sec,2.77SU,20.89GBmemory. All624rankreceipts independently validated;655originals+qstat fully archived/SHAverified. No MRregistration failure in six launches. Original16GBfailure preserved. This resolves the preflight memory shortage, not four-node performance or solver-memory placement. No further job submitted.

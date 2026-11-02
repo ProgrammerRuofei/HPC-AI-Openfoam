@@ -1,0 +1,82 @@
+{
+  "independent_local_validation": "PASS",
+  "job": "182929980.gadi-pbs",
+  "state": "F",
+  "exit_status": 0,
+  "walltime_s": 48,
+  "actual_SU": 2.77,
+  "memory_used_reported_GB": 20.89,
+  "jobfs_used_reported_GB": 1.94,
+  "host": "gadi-cpu-spr-0686.gadi.nci.org.au",
+  "receipts": 624,
+  "changed_core_masks": {
+    "control": 0,
+    "candidate-node0": 3,
+    "candidate-node1": 6,
+    "candidate-node2": 10,
+    "candidate-node3": 2
+  },
+  "allreduce_sum": 5356,
+  "ring_pass": true,
+  "pre_post_MPI_masks_equal": true,
+  "each_launch_distinct_cores": 104,
+  "ranks_per_NUMA": 13,
+  "ucp_path": "/usr/lib64/libucp.so.0",
+  "ucp_version": "1.21.0",
+  "warnings": {
+    "candidate-node0.stdout": {
+      "unused_UCX_env": 104,
+      "MR_registration_failure": 0
+    },
+    "candidate-node2.stdout": {
+      "unused_UCX_env": 104,
+      "MR_registration_failure": 0
+    },
+    "control.stdout": {
+      "unused_UCX_env": 104,
+      "MR_registration_failure": 0
+    },
+    "candidate-node1.stdout": {
+      "unused_UCX_env": 104,
+      "MR_registration_failure": 0
+    },
+    "candidate-node3.stdout": {
+      "unused_UCX_env": 104,
+      "MR_registration_failure": 0
+    },
+    "baseline.stdout": {
+      "unused_UCX_env": 104,
+      "MR_registration_failure": 0
+    },
+    "candidate-node2.bindings.txt": {
+      "unused_UCX_env": 0,
+      "MR_registration_failure": 0
+    },
+    "candidate-node3.bindings.txt": {
+      "unused_UCX_env": 0,
+      "MR_registration_failure": 0
+    },
+    "candidate-node1.bindings.txt": {
+      "unused_UCX_env": 0,
+      "MR_registration_failure": 0
+    },
+    "baseline.bindings.txt": {
+      "unused_UCX_env": 0,
+      "MR_registration_failure": 0
+    },
+    "control.bindings.txt": {
+      "unused_UCX_env": 0,
+      "MR_registration_failure": 0
+    },
+    "candidate-node0.bindings.txt": {
+      "unused_UCX_env": 0,
+      "MR_registration_failure": 0
+    }
+  },
+  "limits": [
+    "MPI probe only; no OpenFOAM performance or Cd",
+    "single node; candidate node blocks tested on same host",
+    "CPU masks do not establish memory-page placement",
+    "UCX/UCC module names do not establish effective collective selection"
+  ]
+}

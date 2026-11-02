@@ -1,0 +1,10 @@
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+Intel(R) oneAPI DPC++/C++ Compiler 2025.3.2 (2025.3.2.20260112)
+mpirun (Open MPI) 5.0.10
+icx
+rank_numa_probe.c: OK
+rank_numa_preflight.py: OK
+candidate-map-v1.csv: OK
+	libmpi.so.40 => /jobfs/182929980.gadi-pbs/rank-numa-v2/openmpi-5.0.10/lib/libmpi.so.40 (0x000014b00f057000)
+ICX20253_OMPI5010_RANK_NUMA_PREFLIGHT_1N_V2_PASS

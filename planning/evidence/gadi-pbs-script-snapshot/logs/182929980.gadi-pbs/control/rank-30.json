@@ -1,0 +1,1 @@
+{"rank":30,"size":104,"host":"gadi-cpu-spr-0686.gadi.nci.org.au","sum":5356,"ring_from":29,"pre_cpus":[30],"post_cpus":[30],"ucp_path":"/usr/lib64/libucp.so.0","ucp_version":"1.21.0"}

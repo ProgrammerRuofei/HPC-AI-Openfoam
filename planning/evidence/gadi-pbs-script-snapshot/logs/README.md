@@ -29,3 +29,5 @@ The primary checkout retains the earlier job index; this branch adds only this b
 [Raw local logs: complete,39 originals+qstat,SHA verified](182829851.gadi-pbs/README.md). Exit0/PASS,58sec,0.16SU;5ranktutorial20stepsperpolicy;HCOLLcontrastobserved.
 
 - [182926714.gadi-pbs](182926714.gadi-pbs/README.md): Raw local logs **complete for all produced evidence** (14 original files + qstat, SHA verified). MPI-only preflight F/Exit137,16GB memory exceeded,28sec/1.62SU; baseline receipts and candidate outputs were never produced.
+
+- [182929980.gadi-pbs](182929980.gadi-pbs/README.md): Raw local logs **complete**,655 verified originals+qstat; independent624-rankreceipt validation PASS,F/Exit0,48sec,2.77SU. One-node MPI-only placement compatibility; not performance.
