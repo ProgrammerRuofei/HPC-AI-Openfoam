@@ -1,0 +1,51 @@
+{
+  "analysis_date": "2026-11-02",
+  "scope": "offline geometric proxy only, 0 SU; not a measured performance improvement",
+  "raw_graph_job": "182830268.gadi-pbs",
+  "GCC_PMPI_graph_identical": true,
+  "cell_count": 65334765,
+  "edge_count": 2307,
+  "control": {
+    "same_numa_faces": 1673959,
+    "same_numa_edges": 1132,
+    "within_node_cross_socket_faces": 164284,
+    "within_node_cross_socket_edges": 193,
+    "within_socket_cross_numa_faces": 552095,
+    "within_socket_cross_numa_edges": 630,
+    "cross_node_faces": 300065,
+    "cross_node_edges": 352,
+    "within_node_cross_numa_faces": 716379,
+    "total_unique_faces": 2690403,
+    "max_cells_per_numa": 2054052,
+    "numa_cell_cv_percent": 0.32465120907507045
+  },
+  "candidate": {
+    "same_numa_faces": 1689983,
+    "same_numa_edges": 1142,
+    "within_node_cross_socket_faces": 164284,
+    "within_node_cross_socket_edges": 193,
+    "within_socket_cross_numa_faces": 536071,
+    "within_socket_cross_numa_edges": 620,
+    "cross_node_faces": 300065,
+    "cross_node_edges": 352,
+    "within_node_cross_numa_faces": 700355,
+    "total_unique_faces": 2690403,
+    "max_cells_per_numa": 2054052,
+    "numa_cell_cv_percent": 0.3209011480022925
+  },
+  "greedy_swaps": 3,
+  "lookahead_passes": 2,
+  "ranks_changed_numa": 21,
+  "ranks_changed_core_slot": 21,
+  "within_socket_face_reduction_percent": 2.902399043642856,
+  "within_node_cross_numa_reduction_percent": 2.236804819795113,
+  "limitations": [
+    "Historical topology/core placement template must be verified on new allocation",
+    "Interface face counts are not measured bytes or time",
+    "Partition cells are a workload proxy, not timing",
+    "No memory page placement/bandwidth measured",
+    "Deterministic greedy plus bounded swap-prefix search; no global optimum claim",
+    "Pair control and treatment both core bound; no claim core binding is a selected speedup",
+    "Full current-job per-rank raw receipt archival remains incomplete"
+  ]
+}

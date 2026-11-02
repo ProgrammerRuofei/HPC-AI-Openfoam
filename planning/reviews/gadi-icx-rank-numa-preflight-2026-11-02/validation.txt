@@ -1,0 +1,9 @@
+Proposal only; no runtime scripts installed or transferred.
+PBS bash -n via stdin: PASS
+Python AST: PASS
+C MPI source not compiled or remotely executed; compilation occurs only inside approved PBS.
+Synthetic 104-rank measured-topology/rankfile generation and all four permutations: PASS
+Reject post-MPI affinity corruption: PASS
+Reject duplicate destination core: PASS
+Offline analysis rerun deterministic and independent CSV edge recount: PASS
+Synthetic checks do not establish live Open MPI support or performance.
