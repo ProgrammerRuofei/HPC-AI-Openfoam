@@ -1,0 +1,5 @@
+pbs_jobid=182939454.gadi-pbs
+order=control,candidate
+steps_per_arm=150
+ranks_per_arm=416
+05b56bebf55a01aeda5dcf40c820978df8c087ac

@@ -1,0 +1,8 @@
+pbs_jobid=182939454.gadi-pbs
+performance_screen=uninstrumented_rank_numa_pair
+verification=rank_numa_pair_150step
+stack=icx2025.3.2-ompi5.0.10-openfoamv2512
+decomposition=scotch
+arm=control
+steps=150
+ranks=416

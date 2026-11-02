@@ -1,0 +1,5 @@
+constant/polyMesh/faces: OK
+constant/polyMesh/owner: OK
+constant/polyMesh/neighbour: OK
+constant/polyMesh/points: OK
+constant/polyMesh/boundary: OK

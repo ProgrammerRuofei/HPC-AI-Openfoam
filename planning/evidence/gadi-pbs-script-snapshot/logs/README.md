@@ -41,3 +41,7 @@ The primary checkout retains the earlier job index; this branch adds only this b
 - [182940799](182940799.gadi-pbs/README.md): Raw local logs **complete for retained evidence**,40originals+qstatSHAverified;Exit0/PASS,150steps,416full+416bucketreports;1.984600097s/step,Cd0.2918761744,244.98SU.
 - [181908113](181908113.gadi-pbs/README.md): Raw local logs **now complete for retained evidence**,40originals+freshqstatcapture;oldpartialarchiveexpandedwithoutoverwriting. HistoricalPBSstdoutExit0/246.83SU;freshqstatexpired,notfailure.
 - [Paired analysis](../../../analysis/gadi-icx-gcc-pmpi-2026-11-02/README.md): WaitalllowerinICX,Allreducenotimproved;runtime/node/bindinguncertaintyretained.
+
+## 182939454.gadi-pbs — rank/NUMA paired v2
+
+[Raw local logs](182939454.gadi-pbs/README.md): **complete**,3447originals+qstatSHAverified,3328rankJSON;F/Exit0/2051s/474.01SU. Control1.984055638/candidate1.984123310s/step,Cd0.291876174identical. Singlepair,no usefulspeedup;probeUCP1.21.0/HCOLL selectionnotblanketsolverproof.

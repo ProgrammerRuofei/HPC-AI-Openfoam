@@ -1,0 +1,1 @@
+host=gadi-cpu-spr-0264.gadi.nci.org.au phase=after-control used_kib=8875980 quota_kib=104857600 reserve_kib=0

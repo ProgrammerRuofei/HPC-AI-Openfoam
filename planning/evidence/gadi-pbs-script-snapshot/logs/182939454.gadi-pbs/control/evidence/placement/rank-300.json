@@ -1,0 +1,1 @@
+{"cores": [[1, 40]], "cpus": [92], "host": "gadi-cpu-spr-0263.gadi.nci.org.au", "local_rank": 92, "mems_allowed_list": "0-7", "numa": [7], "phase": "pre-exec", "pid": 1463379, "rank": 300}

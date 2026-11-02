@@ -1,0 +1,69 @@
+{
+  "independent_acceptance": "PASS",
+  "job": "182939454.gadi-pbs",
+  "pbs_exit": 0,
+  "actual_su": 474.01,
+  "walltime_seconds": 2051,
+  "arms": {
+    "control": {
+      "s_per_step": 1.984055637966442,
+      "final_cd": 0.2918761744038969,
+      "cd_points": 150,
+      "cells": 65334765,
+      "partition_sha256": "6c3d197ff7f601a68ed937fe736b99f9e2c280392cd802a3895a250b46c724b5",
+      "changed_masks_by_node": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "ucp": [
+        [
+          "/usr/lib64/libucp.so.0",
+          "1.21.0"
+        ]
+      ],
+      "hosts": [
+        "gadi-cpu-spr-0261.gadi.nci.org.au",
+        "gadi-cpu-spr-0262.gadi.nci.org.au",
+        "gadi-cpu-spr-0263.gadi.nci.org.au",
+        "gadi-cpu-spr-0264.gadi.nci.org.au"
+      ],
+      "rank_receipts": 1664
+    },
+    "candidate": {
+      "s_per_step": 1.984123309966443,
+      "final_cd": 0.2918761744038969,
+      "cd_points": 150,
+      "cells": 65334765,
+      "partition_sha256": "6c3d197ff7f601a68ed937fe736b99f9e2c280392cd802a3895a250b46c724b5",
+      "changed_masks_by_node": [
+        3,
+        6,
+        10,
+        2
+      ],
+      "ucp": [
+        [
+          "/usr/lib64/libucp.so.0",
+          "1.21.0"
+        ]
+      ],
+      "hosts": [
+        "gadi-cpu-spr-0261.gadi.nci.org.au",
+        "gadi-cpu-spr-0262.gadi.nci.org.au",
+        "gadi-cpu-spr-0263.gadi.nci.org.au",
+        "gadi-cpu-spr-0264.gadi.nci.org.au"
+      ],
+      "rank_receipts": 1664
+    }
+  },
+  "max_abs_cd_difference": 0.0,
+  "candidate_improvement_percent": -0.0034107914468758664,
+  "limits": [
+    "one control-then-candidate pair, no repeatability claim",
+    "probe runtime selection does not prove every solver collective",
+    "pre-exec CPU affinity is not memory page residency",
+    "CPU/MPI flags unchanged; no causal mechanism identified"
+  ]
+}

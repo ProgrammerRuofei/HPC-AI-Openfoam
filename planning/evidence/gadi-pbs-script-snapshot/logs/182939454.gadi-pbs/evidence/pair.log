@@ -1,0 +1,9 @@
+experiments/gadi-icx20253-rank-numa/topology_receipt_4n_v2.sh: OK
+experiments/gadi-icx20253-rank-numa/run_rank_numa_arm_4n_v2.sh: OK
+experiments/gadi-icx20253-rank-numa/rank_numa_4n.py: OK
+experiments/gadi-icx20253-rank-numa/rank_numa_probe_4n.c: OK
+experiments/gadi-icx20253-rank-numa/jobfs_receipt_4n.sh: OK
+experiments/gadi-icx20253-rank-numa/candidate-map-v1.csv: OK
+builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_runtime_node.sh: OK
+builds/build-scripts/gadi-icx20253-ompi5010/stage_4n_processors_node.sh: OK
+ICX20253_OMPI5010_RANK_NUMA_PAIR_4N_150STEP_V2_PASS

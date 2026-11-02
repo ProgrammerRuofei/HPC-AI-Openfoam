@@ -31,3 +31,9 @@ Four runtime staging receipts and source-dictionary/archive/binary SHA checks pa
 ## V2 retry submitted
 
 182939454.gadi-pbs, ICX2025.3.2/privateOpenMPI5.0.10/Scotch,4SPR×104ranks,control then candidate150steps each. Topology receipt capture repaired; all science/resources unchanged.832SU request ceiling; actualSU,seconds/step,Cd pending. No success assumed.
+
+## V2 completed — 182939454.gadi-pbs
+
+F/Exit0, botharms/pair PASS and independent local acceptance PASS. SPR0261–0264,4×104ranks,ICX2025.3.2/privateOpenMPI5.0.10/OpenFOAMv2512/Scotch/fixed65,334,765cells. Same explicit corebinding;21rank moveswithinoriginalnode/socket. Each150steps andcompletepreparation/End/finalization. Control **1.984055637966442s/step**, candidate **1.984123309966443s/step**; finalCd both **0.2918761744038969**, fulltrajectorydifference0. Runtime probesbothUCP1.21.0 at/usr/lib64/libucp.so.0;HCOLL selection appears inbothprobeverbose logs,notproof ofevery solvercollective. ModulesUCX1.18.1/UCC1.4.4.
+
+Actual **474.01SU**,2051s;recordonceperpair. Candidate0.0034107914%slower; singleorderedpair showsno usefulspeedup,notreproducible regression. CPUmaskdoesnotprove memorypage locality. 3447originals+qstatSHAverified,3328rankJSON independentlychecked. [Raw local logs](../../planning/evidence/gadi-pbs-script-snapshot/logs/182939454.gadi-pbs/README.md). No newjob/retry.

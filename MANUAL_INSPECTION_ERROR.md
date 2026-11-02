@@ -347,3 +347,7 @@ User approved exact64GB v2 once;182929980 F/Exit0/PASS,48sec,2.77SU,20.89GBmemor
 2026-11-02, four-node rank/NUMA pair v1, job182932939, F/Exit1/152s/35.13SU, SPR0201–0204. ICX2025.3.2/privateOpenMPI5.0.10/Scotch,416ranks, planned150stepsperarm. Runtime staging and pinned source/archive/binary checks passed. Empty control/evidence/lscpu-0.txt, despite lscpu output in stdout, causes required topology receipt gate failure before MPI placement/solver. First identified failure is arm lines106–107; exact failing command lacks ERR tracing. This is an apparent workflow output-capture defect; no MPI or numerical failure is established.
 
 [Original evidence](planning/evidence/gadi-pbs-script-snapshot/logs/182932939.gadi-pbs/README.md). Preserve raw evidence. Proposal: write topology receipt inside node-side helper, validate nonempty/model, add precise error-stage logging; test locally and show full v2 diff/newpaths/hash before retry. No patch/retry applied; explicit current authorization excludes automatic retries. Waiting for next-attempt approval after complete diff.
+
+### GADI-RANK-NUMA-182932939-TOPOLOGY-RECEIPT — RESOLVED by authorized v2
+
+User explicitly approved one retry. New node-side receipt helper and freshv2paths/hash were locally reviewed/tested and submitted onceas182939454. Fourhost topology checks andbothfull150stepchains passed,PBSExit0,474.01SU. All3447originals+qstatSHAarchived. Originalfailedv1preserved,no evidenceoverwritten. This resolvesreceiptcapturedefect,notanoptimizationbenefit; noadditionalretryauthorized.

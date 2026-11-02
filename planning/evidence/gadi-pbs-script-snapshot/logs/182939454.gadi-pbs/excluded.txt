@@ -1,0 +1,4 @@
+Only compiled MPI probe executables excluded (not logs):
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-pair-4n-v2/182939454.gadi-pbs/control/evidence/mpi-placement-probe
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-pair-4n-v2/182939454.gadi-pbs/candidate/evidence/mpi-placement-probe
+Scientific case/processor data remain on cluster; this is the evidence/log archive.

@@ -1,0 +1,10 @@
+{
+  "original_staging_preserved": "/private/tmp/archive-182939454-bw6wzna1",
+  "verified_files_reused": 2307,
+  "interrupted_files_preserved_in_original_stage": [
+    "control/evidence/mpi-runtime/rank-262.json",
+    "control/evidence/mpi-runtime/rank-271.json",
+    "control/evidence/mpi-runtime/rank-5.json"
+  ],
+  "fetch_count": 1140
+}

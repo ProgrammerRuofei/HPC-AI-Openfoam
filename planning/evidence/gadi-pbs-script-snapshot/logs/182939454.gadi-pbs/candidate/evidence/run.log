@@ -1,0 +1,131 @@
+pbs_jobid=182939454.gadi-pbs
+performance_screen=uninstrumented_rank_numa_pair
+verification=rank_numa_pair_150step
+stack=icx2025.3.2-ompi5.0.10-openfoamv2512
+decomposition=scotch
+gadi-cpu-spr-0261.gadi.nci.org.au
+gadi-cpu-spr-0262.gadi.nci.org.au
+gadi-cpu-spr-0263.gadi.nci.org.au
+gadi-cpu-spr-0264.gadi.nci.org.au
+Thread(s) per core:  2
+Core(s) per socket:  52
+Socket(s):           2
+NUMA node(s):        8
+Model name:          Intel(R) Xeon(R) Platinum 8470Q
+NUMA node0 CPU(s):   0-12,104-116
+NUMA node1 CPU(s):   13-25,117-129
+NUMA node2 CPU(s):   26-38,130-142
+NUMA node3 CPU(s):   39-51,143-155
+NUMA node4 CPU(s):   52-64,156-168
+NUMA node5 CPU(s):   65-77,169-181
+NUMA node6 CPU(s):   78-90,182-194
+NUMA node7 CPU(s):   91-103,195-207
+Currently Loaded Modulefiles:
+ 1) intel-compiler-llvm/2025.3.2   2) ucx/1.18.1   3) ucc/1.4.4  
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/Allrun.gadi: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/include/caseDefinition: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/controlDict.noWrite: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSchemes: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSolution: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/fvSolution.fixedIter: OK
+/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/FOwallClockTimeStatistics: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz: OK
+Intel(R) oneAPI DPC++/C++ Compiler 2025.3.2 (2025.3.2.20260112)
+mpirun (Open MPI) 5.0.10
+icx
+icpx
+/jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/bin/simpleFoam: OK
+	linux-vdso.so.1 (0x00007ffe8ebfd000)
+	libfiniteVolume.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libfiniteVolume.so (0x000014c2432f3000)
+	libfvOptions.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libfvOptions.so (0x000014c242e25000)
+	libmeshTools.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libmeshTools.so (0x000014c2423d9000)
+	libsampling.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libsampling.so (0x000014c241d4f000)
+	libdynamicMesh.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libdynamicMesh.so (0x000014c24157e000)
+	libdynamicFvMesh.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libdynamicFvMesh.so (0x000014c2412a0000)
+	libturbulenceModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libturbulenceModels.so (0x000014c240e7c000)
+	libincompressibleTurbulenceModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libincompressibleTurbulenceModels.so (0x000014c2409be000)
+	libincompressibleTransportModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libincompressibleTransportModels.so (0x000014c240732000)
+	libatmosphericModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libatmosphericModels.so (0x000014c24033c000)
+	libOpenFOAM.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libOpenFOAM.so (0x000014c23f529000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x000014c23f325000)
+	libm.so.6 => /lib64/libm.so.6 (0x000014c23efa3000)
+	libstdc++.so.6 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/gcc-16.2.0/lib64/libstdc++.so.6 (0x000014c23eae7000)
+	libgcc_s.so.1 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/gcc-16.2.0/lib64/libgcc_s.so.1 (0x000014c23e8ba000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x000014c23e69a000)
+	libc.so.6 => /lib64/libc.so.6 (0x000014c23e2c4000)
+	libPstream.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/sys-openmpi/libPstream.so (0x000014c23e09c000)
+	libfileFormats.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libfileFormats.so (0x000014c23dd58000)
+	libsurfMesh.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libsurfMesh.so (0x000014c23d8b3000)
+	libsvml.so => /apps/intel-tools/intel-compiler-llvm/2025.3.2/lib/libsvml.so (0x000014c23c393000)
+	libirng.so => /apps/intel-tools/intel-compiler-llvm/2025.3.2/lib/libirng.so (0x000014c245135000)
+	libimf.so => /apps/intel-tools/intel-compiler-llvm/2025.3.2/lib/libimf.so (0x000014c23bf6e000)
+	libintlc.so.5 => /apps/intel-tools/intel-compiler-llvm/2025.3.2/lib/libintlc.so.5 (0x000014c2450d2000)
+	libfluidThermophysicalModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libfluidThermophysicalModels.so (0x000014c23b26e000)
+	libsolidThermo.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libsolidThermo.so (0x000014c23aeb8000)
+	libcompressibleTurbulenceModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libcompressibleTurbulenceModels.so (0x000014c23aa42000)
+	libreactionThermophysicalModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libreactionThermophysicalModels.so (0x000014c239984000)
+	liboverset.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/liboverset.so (0x000014c239538000)
+	liblagrangian.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/liblagrangian.so (0x000014c2392f4000)
+	libextrudeModel.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libextrudeModel.so (0x000014c2390c9000)
+	libtwoPhaseMixture.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libtwoPhaseMixture.so (0x000014c238ea9000)
+	libz.so.1 => /lib64/libz.so.1 (0x000014c238c91000)
+	/lib64/ld-linux-x86-64.so.2 (0x000014c24501b000)
+	libmpi.so.40 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/openmpi-5.0.10/lib/libmpi.so.40 (0x000014c2386bc000)
+	libcompressibleTransportModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libcompressibleTransportModels.so (0x000014c2384b8000)
+	libspecie.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libspecie.so (0x000014c237df6000)
+	libthermophysicalProperties.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libthermophysicalProperties.so (0x000014c237b4a000)
+	libsolidSpecie.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libsolidSpecie.so (0x000014c237909000)
+	libradiationModels.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libradiationModels.so (0x000014c237574000)
+	libblockMesh.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libblockMesh.so (0x000014c2372c0000)
+	libdecompositionMethods.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libdecompositionMethods.so (0x000014c237015000)
+	libucc.so.1 => /apps/ucc/1.4.4/lib/libucc.so.1 (0x000014c245080000)
+	libhcoll.so.1 => /opt/mellanox/hcoll/lib/libhcoll.so.1 (0x000014c236ce5000)
+	libocoms.so.0 => /opt/mellanox/hcoll/lib/libocoms.so.0 (0x000014c236a98000)
+	librdmacm.so.1 => /usr/lib64/librdmacm.so.1 (0x000014c245062000)
+	libibverbs.so.1 => /usr/lib64/libibverbs.so.1 (0x000014c236a74000)
+	liblustreapi.so.1 => /usr/lib64/liblustreapi.so.1 (0x000014c236844000)
+	libopen-pal.so.80 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/openmpi-5.0.10/lib/libopen-pal.so.80 (0x000014c2364f3000)
+	libucp.so.0 => /usr/lib64/libucp.so.0 (0x000014c2361ee000)
+	libucs.so.0 => /usr/lib64/libucs.so.0 (0x000014c235e41000)
+	libucm.so.0 => /usr/lib64/libucm.so.0 (0x000014c235c25000)
+	libuct.so.0 => /usr/lib64/libuct.so.0 (0x000014c2359e6000)
+	libxpmem.so.0 => /usr/lib64/libxpmem.so.0 (0x000014c2357e3000)
+	librt.so.1 => /usr/lib64/librt.so.1 (0x000014c2355db000)
+	libpmix.so.2 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/openmpi-5.0.10/lib/libpmix.so.2 (0x000014c23518c000)
+	libmunge.so.2 => /usr/lib64/libmunge.so.2 (0x000014c234f82000)
+	libutil.so.1 => /usr/lib64/libutil.so.1 (0x000014c234d7e000)
+	libevent_core-2.1.so.7 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/openmpi-5.0.10/lib/libevent_core-2.1.so.7 (0x000014c234b47000)
+	libevent_pthreads-2.1.so.7 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/openmpi-5.0.10/lib/libevent_pthreads-2.1.so.7 (0x000014c234944000)
+	libhwloc.so.15 => /usr/lib64/libhwloc.so.15 (0x000014c2346f4000)
+	libudev.so.1 => /usr/lib64/libudev.so.1 (0x000014c234457000)
+	libSLGThermo.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libSLGThermo.so (0x000014c234250000)
+	libdistributed.so => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/OpenFOAM-v2512/platforms/linux64IcxDPInt32Opt/lib/libdistributed.so (0x000014c233f9a000)
+	libnl-3.so.200 => /usr/lib64/libnl-3.so.200 (0x000014c233d77000)
+	libnl-route-3.so.200 => /usr/lib64/libnl-route-3.so.200 (0x000014c233ae5000)
+	libkeyutils.so.1 => /usr/lib64/libkeyutils.so.1 (0x000014c2338e1000)
+	libmount.so.1 => /usr/lib64/libmount.so.1 (0x000014c233687000)
+	libblkid.so.1 => /usr/lib64/libblkid.so.1 (0x000014c233434000)
+	libuuid.so.1 => /usr/lib64/libuuid.so.1 (0x000014c23322c000)
+	libselinux.so.1 => /usr/lib64/libselinux.so.1 (0x000014c233001000)
+	libpcre2-8.so.0 => /usr/lib64/libpcre2-8.so.0 (0x000014c232d7d000)
+	libmpi.so.40 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/openmpi-5.0.10/lib/libmpi.so.40 (0x000014c2386bc000)
+TOPOLOGY_RECEIPT_BEGIN task=0 host=gadi-cpu-spr-0261.gadi.nci.org.au
+TOPOLOGY_RECEIPT_VALIDATED task=0
+TOPOLOGY_RECEIPT_BEGIN task=104 host=gadi-cpu-spr-0262.gadi.nci.org.au
+TOPOLOGY_RECEIPT_VALIDATED task=104
+TOPOLOGY_RECEIPT_BEGIN task=208 host=gadi-cpu-spr-0263.gadi.nci.org.au
+TOPOLOGY_RECEIPT_VALIDATED task=208
+TOPOLOGY_RECEIPT_BEGIN task=312 host=gadi-cpu-spr-0264.gadi.nci.org.au
+TOPOLOGY_RECEIPT_VALIDATED task=312
+	libmpi.so.40 => /jobfs/182939454.gadi-pbs/of2512-icx20253-ranknuma4n-v2-182939454.gadi-pbs-candidate/openmpi-5.0.10/lib/libmpi.so.40 (0x0000147addfb9000)
+064bb50455d37a7edd2c0fb24bbe30baaf851623f0250d550450c10e407889b3  system/fvSchemes
+5e1db8548ee82c44f8fa3377a80971af2b5aabb95b3ee7efcd8b723c5dcab1ba  system/fvSolution
+ce4ec0f52bcc88eea8402b454940dc5aad1f31dea6441e7d98413b651427ef06  system/controlDict.noWrite
+restore0Dir is a function
+Restore 0/ from 0.orig/  [processor dirs]
+    Average wall-clock time per time step = 1.984123309966443
+ExecutionTime = 297.68 s  ClockTime = 306 s
+final_Cd=2.9187617440389690e-01
+ICX20253_OMPI5010_RANK_NUMA_4N_150STEP_candidate_V2_PASS

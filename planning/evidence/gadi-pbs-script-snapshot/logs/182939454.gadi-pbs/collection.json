@@ -1,0 +1,8 @@
+{
+  "job": "182939454.gadi-pbs",
+  "original_files": 3447,
+  "sha256_verified": true,
+  "qstat_capture": true,
+  "excluded_probe_executables": 2,
+  "resumed_without_overwriting": true
+}
