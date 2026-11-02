@@ -15,3 +15,5 @@ Status: submitted once as **182926714.gadi-pbs**, initial PBS state **Q**, 2026-
 ## v2 memory-only retry
 
 User approved once on2026-11-02:104CPU/64GB/20GBJOBFS/10min,max34.67SU. Exact reviewed script74a325010a6f0800860928faf9e7f5b1166131acb190f95a53e83c254e73c655; source/helper/map unchanged. New unique v2 paths; submission pending.
+
+Submitted v2 once: **182929980.gadi-pbs**, initialQ at2026-11-02 18:42:57 Gadi time. Result/actualSU pending. [Handoff](../../progress/2026-11-02-gadi-rank-numa-preflight-v2.md).
