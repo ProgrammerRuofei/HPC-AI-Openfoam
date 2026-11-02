@@ -1,0 +1,9 @@
+Review-only; runtime scripts not installed.
+All shell files bash -n PASS.
+Python helper and PYGEOMETRY/PYARM/PYPAIR AST PASS.
+Synthetic416-rank4-host logical core and control/candidate rankfile generation PASS.
+Expected0/3/6/10/2 changes PASS.
+MPI sum86320/ring/postMPI masks PASS on synthetic data.
+Reject wrong host and postMPI CPU mismatch PASS.
+Pinned source/archive/binary hashes and scientific commands unchanged PASS.
+Actual four-node launch/C compilation/performance pending.

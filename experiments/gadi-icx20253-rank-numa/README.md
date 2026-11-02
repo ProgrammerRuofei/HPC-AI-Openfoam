@@ -21,3 +21,7 @@ Submitted v2 once: **182929980.gadi-pbs**, initialQ at2026-11-02 18:42:57 Gadi t
 ## v2 acceptance
 
 182929980 F/Exit0/PASS,48sec,2.77SU. Full655originalfiles+qstatSHAarchive,independent624rankreceipt validation PASS. Memory20.89GB confirms16GBv1wasinsufficient;noMRregistrationfailurein v2. Four-node proposal now prepared locally; no performance claim or extra submission.
+
+## Approved four-node pair
+
+One PBS control->candidate pair,4SPR/416ranks,150steps each,ICX2025.3.2/OpenMPI5.0.10/Scotch,core-bound botharms. Only21rank placements differ withinoriginalsocket/node.416CPU/760GB/400GBJOBFS/1h,max832SU,estimated465–500SU. [Approved review](../../planning/reviews/gadi-icx-rank-numa-4n-2026-11-02/README.md). Scripts installed with exact approved hashes; submission pending. Preserve all prior evidence; no automatic retry.
