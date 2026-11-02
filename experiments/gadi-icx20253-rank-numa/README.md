@@ -39,3 +39,5 @@ Four runtime staging receipts and source-dictionary/archive/binary SHA checks pa
 ## v2 topology receipt repair — one retry authorized
 
 User explicitly approved retry after the35.13SU v1 failure. Exact local v2 diff displayed before sync: node-side topology receipt writing, nonempty/model/host checks, error line/status logging; fresh v2 PBS/job-root/JOBFS paths and PASS markers. No science/runtime/rank-algorithm/resource changes. Local syntax/embeddedPython/hash tests and positive/negative receipt mock tests passed; mocks do not prove cluster execution. Same4SPR×104ranks,150stepsperarm,760GBRAM/400GBJOBFS/1h,max832SU,expected465–500SU. Submit once after remote ff-only/hash/quota checks; no extra automatic retry.
+
+V2 submitted once: **182939454.gadi-pbs**. [Handoff](../../progress/2026-11-02-gadi-rank-numa-4n-v2.md). Results and actual SU pending.

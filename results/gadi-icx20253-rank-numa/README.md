@@ -27,3 +27,7 @@ F / Exit1, 00:02:32, **35.13 actual SU**; SPR0201–0204, 4×104 requested ranks
 Four runtime staging receipts and source-dictionary/archive/binary SHA checks passed. `control/evidence/lscpu-0.txt` is empty while PBS stdout contains lscpu output. The first identified failing gate is the required model grep following the pbsdsh stdout redirection (arm script lines106–107); no ERR trace is available. Failure is in topology evidence collection, before baseline rank mapping, MPI probe, decomposition or candidate. Runtime UCP version / collective selection are unknown; module names and ldd do not establish them.
 
 24 original files plus qstat captured, SHA verified, no originals excluded or overwritten. [Raw local logs](../../planning/evidence/gadi-pbs-script-snapshot/logs/182932939.gadi-pbs/README.md). Preserve failure; no automatic retry. Proposed repair is node-side receipt writing with nonempty/model checks and explicit error-stage logging, followed by local tests and a complete new-version diff for approval. No run-script change applied.
+
+## V2 retry submitted
+
+182939454.gadi-pbs, ICX2025.3.2/privateOpenMPI5.0.10/Scotch,4SPR×104ranks,control then candidate150steps each. Topology receipt capture repaired; all science/resources unchanged.832SU request ceiling; actualSU,seconds/step,Cd pending. No success assumed.
