@@ -1,0 +1,172 @@
+#!/bin/bash
+# C-only PMPI timing diagnostic; one node, never a scored science run.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx20253_pmpi_timing
+#PBS -l ncpus=5
+#PBS -l mem=16GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:15:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/smoke_icx20253_pmpi_timing_1n_v1.pbs.out
+set -euo pipefail
+
+STACK_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010
+OF_ROOT=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512
+SOURCE="$STACK_ROOT/submit-logs/pmpi_timing_v2.submitted.c"
+SOURCE_SHA=b3e8f31868cce92284048b896d6339fc0b01d0b8b900eef3e28409207790ccd0
+GCC_ARCHIVE="$STACK_ROOT/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI_ARCHIVE="$STACK_ROOT/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+OF_ARCHIVE="$OF_ROOT/runtime-archive/gadi-icx20253-ompi5010-of2512.181392981.gadi-pbs.tar.gz"
+GCC_SHA=1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714
+MPI_SHA=8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6
+OF_SHA=a832416d47a1a26cc2a02ef0c69eb09dbf142043d619ed22ece37d96b029dfcd
+BIN_SHA=7cc4af8c576eba1e97ba16a767fca5843293c391b71a3904a596b3981d2913e4
+FO_FILE=/scratch/pm78/kj7183/openfoam_cpu/case/occDrivAerStaticMesh/system/FOwallClockTimeStatistics
+FO_SHA=0a0e5d072527bc1e67e5bc505da30bec0abebc67262aa47ecaece4d13b2ece08
+ROOT="${PBS_JOBFS:?}/icx20253-pmpi-timing-v1-${PBS_JOBID:?}"
+EVIDENCE="$OF_ROOT/evidence/icx20253-pmpi-timing-v1-smoke.${PBS_JOBID}"
+GCC_PREFIX="$ROOT/gcc-16.2.0"
+MPI_PREFIX="$ROOT/openmpi-5.0.10"
+FOAM_ROOT="$ROOT/OpenFOAM-v2512"
+CASE="$ROOT/pitzDaily_fused"
+LIB="$ROOT/libpmpi_timing.so"
+
+test "${PBS_NNODES:?}" -eq 1
+test "${PBS_NCPUS:?}" -eq 5
+test ! -e "$ROOT"; test ! -e "$EVIDENCE"
+command -v timeout
+for item in "$SOURCE_SHA $SOURCE" "$GCC_SHA $GCC_ARCHIVE" "$MPI_SHA $MPI_ARCHIVE" "$OF_SHA $OF_ARCHIVE" "$FO_SHA $FO_FILE"; do
+    read -r hash file <<< "$item"
+    printf '%s  %s\n' "$hash" "$file" | sha256sum -c -
+done
+mkdir -p "$ROOT" "$EVIDENCE" "$EVIDENCE/probe-reports" "$EVIDENCE/tutorial-reports"
+exec > >(tee "$EVIDENCE/run.log") 2>&1
+preserve() {
+    rc=$?; set +e
+    test -f "$CASE/log.simpleFoam" && cp -p "$CASE/log.simpleFoam" "$EVIDENCE/"
+    printf 'script_exit_rc=%s\n' "$rc" > "$EVIDENCE/exit-status.txt"
+    return "$rc"
+}
+trap preserve EXIT
+
+module purge
+module load intel-compiler-llvm/2025.3.2 ucx/1.18.1 ucc/1.4.4
+module list 2>&1 | tee "$EVIDENCE/modules.txt"
+test "${UCX_ROOT:?}" = /apps/ucx/1.18.1
+test "${UCC_ROOT:?}" = /apps/ucc/1.4.4
+tar -xzf "$GCC_ARCHIVE" -C "$ROOT"
+tar -xzf "$MPI_ARCHIVE" -C "$ROOT"
+tar -xzf "$OF_ARCHIVE" -C "$ROOT"
+export OPAL_PREFIX="$MPI_PREFIX" PMIX_PREFIX="$MPI_PREFIX" PRTE_PREFIX="$MPI_PREFIX"
+export OMPI_CC="$GCC_PREFIX/bin/gcc" OMPI_CXX="$GCC_PREFIX/bin/g++"
+export PATH="$MPI_PREFIX/bin:$GCC_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$MPI_PREFIX/lib:$GCC_PREFIX/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+gcc --version | head -n 1 | grep -Fx 'gcc (GCC) 16.2.0'
+mpirun --version | head -n 1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+mpicc --showme:command | grep -Fx "$GCC_PREFIX/bin/gcc"
+mpicc -O2 -g -std=gnu17 -Wall -Wextra -Werror -fPIC -shared "$SOURCE" -o "$LIB" \
+    > "$EVIDENCE/build.log" 2>&1
+test -s "$LIB"
+ldd "$LIB" | tee "$EVIDENCE/pmpi_timing.ldd"
+! grep -Fq 'not found' "$EVIDENCE/pmpi_timing.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/pmpi_timing.ldd"
+cp -p "$LIB" "$EVIDENCE/"
+sha256sum "$EVIDENCE/libpmpi_timing.so" > "$EVIDENCE/libpmpi_timing.sha256"
+
+cat > "$ROOT/mpi_probe.c" <<'PROBE'
+#include <mpi.h>
+#include <stdio.h>
+int main(int argc, char **argv) {
+    int rank = -1, sum = -1;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0 && sum == 1) puts("MPI_PROBE_PASS");
+    MPI_Finalize();
+    return sum == 1 ? 0 : 2;
+}
+PROBE
+mpicc "$ROOT/mpi_probe.c" -o "$ROOT/mpi_probe"
+ldd "$ROOT/mpi_probe" | tee "$EVIDENCE/mpi_probe.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/mpi_probe.ldd"
+timeout -k 5s 45s mpirun --mca pml ucx -np 2 /usr/bin/env \
+    LD_PRELOAD="$LIB" PMPI_TIMING_DIR="$EVIDENCE/probe-reports" \
+    "$ROOT/mpi_probe" > "$EVIDENCE/mpi_probe.log" 2>&1
+grep -Fq MPI_PROBE_PASS "$EVIDENCE/mpi_probe.log"
+
+BIN="$FOAM_ROOT/platforms/linux64IcxDPInt32Opt/bin/simpleFoam"
+test -x "$BIN"
+printf '%s  %s\n' "$BIN_SHA" "$BIN" | sha256sum -c -
+set +u
+. "$FOAM_ROOT/etc/bashrc" WM_COMPILER=Icx WM_MPLIB=SYSTEMOPENMPI WM_COMPILE_OPTION=Opt
+set -u
+test "$WM_OPTIONS" = linux64IcxDPInt32Opt
+test "$(command -v mpicc)" = "$MPI_PREFIX/bin/mpicc"
+export OMPI_CC=icx OMPI_CXX=icpx
+mpicc --showme:command | grep -Fx icx
+ldd "$BIN" | tee "$EVIDENCE/simpleFoam.ldd"
+! grep -Fq 'not found' "$EVIDENCE/simpleFoam.ldd"
+grep -F "libmpi.so.40 => $MPI_PREFIX/lib/" "$EVIDENCE/simpleFoam.ldd"
+cp -a /apps/OpenFOAM/2512/tutorials/incompressible/simpleFoam/pitzDaily_fused "$CASE"
+cd "$CASE"
+cp -p "$FO_FILE" system/FOwallClockTimeStatistics
+sed -i -E 's/^(method[[:space:]]+)hierarchical;/\1scotch;/' system/decomposeParDict
+grep -Eq '^method[[:space:]]+scotch;' system/decomposeParDict
+printf '\nfunctions\n{\n    #include "FOwallClockTimeStatistics"\n}\n' >> system/controlDict
+sed -i -E 's/^(endTime[[:space:]]+)[0-9]+;/\120;/' system/controlDict
+blockMesh > "$EVIDENCE/blockMesh.log" 2>&1
+decomposePar > "$EVIDENCE/decomposePar.log" 2>&1
+grep -Eiq 'scotch|finished decomposition' "$EVIDENCE/decomposePar.log"
+timeout -k 5s 180s mpirun --mca pml ucx -np 5 /usr/bin/env \
+    LD_PRELOAD="$LIB" PMPI_TIMING_DIR="$EVIDENCE/tutorial-reports" \
+    "$BIN" -parallel > log.simpleFoam 2>&1
+cp -p log.simpleFoam "$EVIDENCE/"
+grep -Fq 'Finalising parallel run' log.simpleFoam
+grep -aEq '^End$' log.simpleFoam
+if grep -Eq 'FOAM FATAL|MPI_ABORT|Segmentation fault' log.simpleFoam; then exit 8; fi
+/bin/python3 - "$EVIDENCE" <<'CHECK'
+import csv
+import pathlib
+import sys
+base = pathlib.Path(sys.argv[1])
+for subdir, n in (("probe-reports", 2), ("tutorial-reports", 5)):
+    folder = base / subdir
+    summaries = sorted(folder.glob("rank-??????.csv"))
+    buckets = sorted(folder.glob("rank-??????-buckets.csv"))
+    assert len(summaries) == len(buckets) == n, (subdir, summaries, buckets)
+    ranks = set()
+    total_calls = 0
+    for summary_path in summaries:
+        bucket_path = summary_path.with_name(summary_path.stem + "-buckets.csv")
+        assert bucket_path in buckets, bucket_path
+        with summary_path.open(newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        with bucket_path.open(newline="") as stream:
+            windows = list(csv.DictReader(stream))
+        assert len(rows) == 14 and windows, summary_path
+        rank = int(rows[0]["rank"])
+        assert all(int(row["rank"]) == rank for row in rows + windows)
+        assert int(rows[0]["elapsed_ns"]) > 0
+        assert all(int(row["window_start_s"]) % 10 == 0 for row in windows)
+        assert all(0 <= int(row["window_start_s"]) < 3600 for row in windows)
+        per_call = {row["call"]: row for row in rows}
+        assert len(per_call) == 14
+        for call, row in per_call.items():
+            selected = [window for window in windows if window["call"] == call]
+            assert sum(int(window["count"]) for window in selected) == int(row["count"]), (rank, call, "count")
+            assert sum(int(window["total_ns"]) for window in selected) == int(row["total_ns"]), (rank, call, "duration")
+        ranks.add(rank)
+        total_calls += sum(int(row["count"]) for row in rows)
+        if subdir == "probe-reports":
+            assert int(per_call["MPI_Allreduce"]["count"]) >= 1
+            assert int(per_call["MPI_Barrier"]["count"]) >= 1
+    assert ranks == set(range(n)), (subdir, ranks)
+    assert total_calls > 0, subdir
+    print("PMPI_BUCKET_REPORT_PASS", subdir, n, total_calls)
+CHECK
+printf 'official_result=false\nsource=C-only-PMPI-timing-v2-10s-windows\nranks=2+5\ndecomposition=scotch\nsolver_steps=20\n' > "$EVIDENCE/provenance.txt"
+echo GCC162_OMPI5010_PMPI_TIMING_V2_1N_SMOKE_PASS
