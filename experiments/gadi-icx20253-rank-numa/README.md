@@ -25,3 +25,5 @@ Submitted v2 once: **182929980.gadi-pbs**, initialQ at2026-11-02 18:42:57 Gadi t
 ## Approved four-node pair
 
 One PBS control->candidate pair,4SPR/416ranks,150steps each,ICX2025.3.2/OpenMPI5.0.10/Scotch,core-bound botharms. Only21rank placements differ withinoriginalsocket/node.416CPU/760GB/400GBJOBFS/1h,max832SU,estimated465–500SU. [Approved review](../../planning/reviews/gadi-icx-rank-numa-4n-2026-11-02/README.md). Scripts installed with exact approved hashes; submission pending. Preserve all prior evidence; no automatic retry.
+
+Four-node pair submitted once as **182932939.gadi-pbs**, initialQ. [Submission and monitoring handoff](../../progress/2026-11-02-gadi-rank-numa-4n-pair.md). No result yet;max832SU.
