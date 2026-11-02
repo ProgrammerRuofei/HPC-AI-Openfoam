@@ -1,0 +1,1 @@
+PASS: bash -n for 3 files; embedded Python AST; valid topology receipt; reject overwrite without byte change; reject wrong hostname, empty output, wrong CPU model, and lscpu nonzero exit; v2 independent stdout; all helper hashes match. Local stub tests only, not cluster execution.

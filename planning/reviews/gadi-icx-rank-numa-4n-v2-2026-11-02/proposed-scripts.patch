@@ -1,0 +1,119 @@
+--- experiments/gadi-icx20253-rank-numa/run_rank_numa_pair_4n_v1.pbs
++++ experiments/gadi-icx20253-rank-numa/run_rank_numa_pair_4n_v2.pbs
+@@ -3,7 +3,7 @@
+ # Submit from the reviewed isolated checkout; unique stdout; no retries.
+ #PBS -P pm78
+ #PBS -q normalsr
+-#PBS -N icx25_ranknuma4n_pair_v1
++#PBS -N icx25_ranknuma4n_pair_v2
+ #PBS -l ncpus=416
+ #PBS -l mem=760GB
+ #PBS -l jobfs=400GB
+@@ -11,12 +11,12 @@
+ #PBS -l storage=scratch/pm78
+ #PBS -l wd
+ #PBS -j oe
+-#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_rank_numa_pair_4n_v1.pbs.out
++#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/run_rank_numa_pair_4n_v2.pbs.out
+ set -euo pipefail
+ SECONDS=0
+ cd "${PBS_O_WORKDIR:?}"
+ CONTROL_ROOT=$PWD
+-PAIR_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-pair-4n-v1/${PBS_JOBID:?}"
++PAIR_ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-pair-4n-v2/${PBS_JOBID:?}"
+ test "${PBS_NNODES:?}" -eq 4; test "${PBS_NCPUS:?}" -eq 416
+ test ! -e "$PAIR_ROOT"
+ test "${PBS_NCI_JOBFS:?}" = 400gb
+@@ -38,7 +38,8 @@
+ git rev-parse HEAD >> "$PAIR_ROOT/evidence/provenance.txt"
+ cp -p "$0" "$PAIR_ROOT/evidence/submitted-pair.pbs"
+ cat > "$PAIR_ROOT/evidence/expected-scripts.sha256" <<'HASHES'
+-086bd34a47e07192fd95fa632edfe3ad72c376a287373565557c63a1452a674b  experiments/gadi-icx20253-rank-numa/run_rank_numa_arm_4n_v1.sh
++a5b69bb03327069ff9e96ce7ab14cb061ce6ba16e6ed465495edb249659c17ed  experiments/gadi-icx20253-rank-numa/topology_receipt_4n_v2.sh
++95cdc642dab5ffe4db9e12212cbdbbca242e30d236585f1ec7797a48c023279d  experiments/gadi-icx20253-rank-numa/run_rank_numa_arm_4n_v2.sh
+ f6b67603d54603a36265cae63ab5340b7d29f35f33be89168916515bf896feb7  experiments/gadi-icx20253-rank-numa/rank_numa_4n.py
+ 73e5bdf8d1ebb85058b873f4ab08fa65d7fe6a8001fc78960570e650bb4c88d3  experiments/gadi-icx20253-rank-numa/rank_numa_probe_4n.c
+ 877d5bdcff2c821c06c60b3a538a3d697d43cae8633832522113867800d2ba86  experiments/gadi-icx20253-rank-numa/jobfs_receipt_4n.sh
+@@ -62,8 +63,8 @@
+     # Leave 25 minutes for a complete second arm and exit; never start it late.
+     if (( SECONDS > 2100 )); then echo 'Insufficient remaining walltime' >&2; exit 3; fi
+     jobfs_receipts "before-$arm" "$((50 * 1024 * 1024))"
+-    NUMA_ARM="$arm" /bin/bash experiments/gadi-icx20253-rank-numa/run_rank_numa_arm_4n_v1.sh > "$PAIR_ROOT/evidence/$arm.stdout" 2>&1
+-    grep -Fxq "ICX20253_OMPI5010_RANK_NUMA_4N_150STEP_${arm}_V1_PASS" "$PAIR_ROOT/$arm/evidence/run.log"
++    NUMA_ARM="$arm" /bin/bash experiments/gadi-icx20253-rank-numa/run_rank_numa_arm_4n_v2.sh > "$PAIR_ROOT/evidence/$arm.stdout" 2>&1
++    grep -Fxq "ICX20253_OMPI5010_RANK_NUMA_4N_150STEP_${arm}_V2_PASS" "$PAIR_ROOT/$arm/evidence/run.log"
+     grep -Fxq script_exit_rc=0 "$PAIR_ROOT/$arm/evidence/exit-status.txt"
+     jobfs_receipts "after-$arm" 0
+ done
+@@ -111,5 +112,5 @@
+ (root/'evidence/pair-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+ assert summary['comparable_cd'], 'rank-NUMA pair Cd changed: preserve and inspect, do not promote'
+ PYPAIR
+-echo ICX20253_OMPI5010_RANK_NUMA_PAIR_4N_150STEP_V1_PASS
++echo ICX20253_OMPI5010_RANK_NUMA_PAIR_4N_150STEP_V2_PASS
+ PAIR_COMPLETE=1
+--- experiments/gadi-icx20253-rank-numa/run_rank_numa_arm_4n_v1.sh
++++ experiments/gadi-icx20253-rank-numa/run_rank_numa_arm_4n_v2.sh
+@@ -15,14 +15,14 @@
+ BIN_SHA=7cc4af8c576eba1e97ba16a767fca5843293c391b71a3904a596b3981d2913e4
+ case "${NUMA_ARM:?wrapper must set control or candidate}" in control|candidate) ;; *) exit 2;; esac
+ NRANKS=416
+-PAIR_ROOT="$OF_ROOT/rank-numa-pair-4n-v1/${PBS_JOBID:?}"
++PAIR_ROOT="$OF_ROOT/rank-numa-pair-4n-v2/${PBS_JOBID:?}"
+ HELPER="$PBS_O_WORKDIR/experiments/gadi-icx20253-rank-numa/rank_numa_4n.py"
+ MAP="$PBS_O_WORKDIR/experiments/gadi-icx20253-rank-numa/candidate-map-v1.csv"
+ PROBE_SOURCE="$PBS_O_WORKDIR/experiments/gadi-icx20253-rank-numa/rank_numa_probe_4n.c"
+ RUN_ROOT="$PAIR_ROOT/$NUMA_ARM"
+ EVIDENCE="$RUN_ROOT/evidence"
+ SHARED_CASE="$RUN_ROOT/case"
+-LOCAL_ROOT="${PBS_JOBFS:?}/of2512-icx20253-ranknuma4n-v1-${PBS_JOBID}-${NUMA_ARM}"
++LOCAL_ROOT="${PBS_JOBFS:?}/of2512-icx20253-ranknuma4n-v2-${PBS_JOBID}-${NUMA_ARM}"
+ LOCAL_CASE="$LOCAL_ROOT/case"
+ GCC_PREFIX="$LOCAL_ROOT/gcc-16.2.0"
+ MPI_PREFIX="$LOCAL_ROOT/openmpi-5.0.10"
+@@ -46,6 +46,7 @@
+     exit "$rc"
+ }
+ trap preserve EXIT
++trap 'rc=$?; printf "ARM_COMMAND_FAILED line=%s rc=%s\n" "$LINENO" "$rc" >&2' ERR
+ trap 'exit 143' TERM
+ trap 'exit 130' INT
+ trap 'exit 129' HUP
+@@ -103,8 +104,12 @@
+ 
+ # Measure every node's topology and current logical-core mapping before decomposition.
+ for idx in 0 104 208 312; do
+-    /opt/pbs/default/bin/pbsdsh -n "$idx" -s -- /usr/bin/lscpu > "$EVIDENCE/lscpu-$idx.txt"
+-    grep -Fq 'Xeon(R) Platinum 8470Q' "$EVIDENCE/lscpu-$idx.txt"
++    receipt="$EVIDENCE/lscpu-$idx.txt"
++    printf 'TOPOLOGY_RECEIPT_BEGIN task=%s host=%s\n' "$idx" "${HOSTS[$((idx / 104))]}"
++    /opt/pbs/default/bin/pbsdsh -n "$idx" -s -- /bin/bash "$PBS_O_WORKDIR/experiments/gadi-icx20253-rank-numa/topology_receipt_4n_v2.sh" "$receipt" "${HOSTS[$((idx / 104))]}"
++    test -s "$receipt"
++    grep -Fq 'Xeon(R) Platinum 8470Q' "$receipt"
++    printf 'TOPOLOGY_RECEIPT_VALIDATED task=%s\n' "$idx"
+ done
+ mkdir "$EVIDENCE/baseline"
+ timeout -k 10s 180s mpirun --prefix "$MPI_PREFIX" --map-by ppr:104:node --bind-to core --report-bindings --mca pml ucx -np 416 python3 "$HELPER" record "$EVIDENCE/baseline" > "$EVIDENCE/baseline.stdout" 2> "$EVIDENCE/baseline.bindings.txt"
+@@ -220,5 +225,5 @@
+ assert math.isfinite(t) and t>0
+ PYARM
+ (cd "$SOURCE_CASE" && sha256sum -c "$EVIDENCE/source-mesh.sha256") > "$EVIDENCE/master-mesh-after.txt"
+-echo "ICX20253_OMPI5010_RANK_NUMA_4N_150STEP_${NUMA_ARM}_V1_PASS"
++echo "ICX20253_OMPI5010_RANK_NUMA_4N_150STEP_${NUMA_ARM}_V2_PASS"
+ ARM_COMPLETE=1
+--- /dev/null
++++ experiments/gadi-icx20253-rank-numa/topology_receipt_4n_v2.sh
+@@ -0,0 +1,13 @@
++#!/bin/bash
++# Execute on each allocated node via pbsdsh. Write topology at the supplied new receipt path.
++# Inputs: receipt path and expected hostname. No scientific input or runtime setting changes.
++set -euo pipefail
++receipt=${1:?receipt path required}
++expected_host=${2:?expected hostname required}
++test ! -e "$receipt"
++test "$(hostname)" = "$expected_host"
++# pbsdsh output may go directly to PBS stdout; capture inside the node-side process.
++( set -o noclobber; LC_ALL=C /usr/bin/lscpu > "$receipt" )
++test -s "$receipt"
++grep -Fq 'Xeon(R) Platinum 8470Q' "$receipt"
++printf 'TOPOLOGY_RECEIPT_PASS host=%s receipt=%s\n' "$expected_host" "$receipt"
