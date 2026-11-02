@@ -35,3 +35,9 @@ All originals retrieved read-only with verified SCP into fresh staging, archived
 The original collector stopped after the SSH interruption. Resume session 49317 completed in a new staging directory, `/private/tmp/archive-182939454-resume-1gkl2w93`, reusing 2307 SHA-matched files and retrieving only 1140 missing or incomplete files. Both staging directories remain intact.
 
 The local validator passed all 3448 manifest hashes (3447 original files plus the PBS query capture), all 3328 rank JSON receipts, both 150-step solver chains, the fixed partition/input checks, and the identical Cd trajectories. The three success markers each occur exactly once in their respective logs. The previously incomplete archival is now complete. Git synchronization is the remaining administrative step; no further PBS work is authorized.
+
+## Synchronization verified; monitor closed
+
+Archive/result commit `76024ca4f1942a477e41789c1b26bb0a2144fefc` is present on GitHub and the existing Gadi branch. The execution checkout is clean; `git pull --ff-only /scratch/pm78/kj7183/openfoam_cpu/control-repo codex/gadi-gcc162-build` returned Already up to date. Remote `sha256sum --quiet -c SHA256SUMS` passed all 3448 entries; result CSV, manifest and independent-validation JSON hashes also match locally.
+
+The completed `gadi-rank-numa-v2-monitor` automation was deleted successfully. No new PBS job, cancellation, runtime change, or scientific-input change occurred. Unrelated collective-policy changes and other untracked files remain untouched. There is no remaining action for this monitor.
