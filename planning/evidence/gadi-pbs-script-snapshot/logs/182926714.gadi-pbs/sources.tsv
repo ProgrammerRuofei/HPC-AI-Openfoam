@@ -1,0 +1,16 @@
+local_file	remote_source
+baseline.bindings.txt	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/baseline.bindings.txt
+baseline.stdout	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/baseline.stdout
+candidate-map-v1.csv	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/candidate-map-v1.csv
+exit-status.txt	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/exit-status.txt
+lscpu.txt	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/lscpu.txt
+modules.txt	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/modules.txt
+preflight_rank_numa_1n_v1.pbs.out	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/preflight_rank_numa_1n_v1.pbs.out
+probe.ldd	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/probe.ldd
+provenance.txt	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/provenance.txt
+qstat.txt	qstat -xf 182926714.gadi-pbs
+rank_numa_preflight.py	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/rank_numa_preflight.py
+rank_numa_probe.c	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/rank_numa_probe.c
+run.log	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/run.log
+submitted.pbs	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/submitted.pbs
+topology.csv	/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/182926714.gadi-pbs/evidence/topology.csv

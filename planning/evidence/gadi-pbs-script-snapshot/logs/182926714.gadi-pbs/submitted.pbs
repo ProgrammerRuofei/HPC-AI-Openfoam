@@ -1,0 +1,67 @@
+#!/bin/bash
+# One-node 104-rank placement compatibility probe; no solver or four-node submission.
+#PBS -P pm78
+#PBS -q normalsr
+#PBS -N icx25_rank_numa_p0_v1
+#PBS -l ncpus=104
+#PBS -l mem=16GB
+#PBS -l jobfs=20GB
+#PBS -l walltime=00:10:00
+#PBS -l storage=scratch/pm78
+#PBS -l wd
+#PBS -j oe
+#PBS -o /scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010/submit-logs/preflight_rank_numa_1n_v1.pbs.out
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?}"
+SCRIPT_DIR="$PWD/experiments/gadi-icx20253-rank-numa"
+test "${PBS_NNODES:?}" -eq 1;test "${PBS_NCPUS:?}" -eq 104
+for k in LD_PRELOAD OMPI_MCA_coll OMPI_MCA_pml OMPI_MCA_coll_hcoll_enable OMPI_MCA_coll_ucc_enable; do test -z "${!k:-}"; done
+ROOT="/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-icx20253-ompi5010-of2512/rank-numa-preflight-v1/${PBS_JOBID:?}"
+test ! -e "$ROOT";mkdir -p "$ROOT/evidence"
+E="$ROOT/evidence";exec > >(tee "$E/run.log") 2>&1
+COMPLETE=0
+finish(){ rc=$?;trap - EXIT;set +e;if ((rc==0 && COMPLETE!=1));then rc=1;fi;printf 'script_exit_rc=%s\n' "$rc" > "$E/exit-status.txt";exit "$rc"; }
+trap finish EXIT;trap 'exit 143' TERM;trap 'exit 130' INT;trap 'exit 129' HUP
+printf 'job=%s\nmode=MPI-placement-only\n' "$PBS_JOBID" > "$E/provenance.txt"
+git rev-parse HEAD >> "$E/provenance.txt";cp -p "$0" "$E/submitted.pbs"
+module purge;module load intel-compiler-llvm/2025.3.2 ucx/1.18.1 ucc/1.4.4
+module list > "$E/modules.txt" 2>&1
+lscpu > "$E/lscpu.txt";grep -Fq 'Xeon(R) Platinum 8470Q' "$E/lscpu.txt"
+lscpu -p=CPU,CORE,SOCKET,NODE > "$E/topology.csv"
+LOCAL="${PBS_JOBFS:?}/rank-numa-v1";mkdir "$LOCAL"
+STACK=/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive
+GCC="$STACK/gcc-16.2.0.181342083.gadi-pbs.tar.gz"
+MPI="$STACK/openmpi-5.0.10.181346004.gadi-pbs.tar.gz"
+printf '%s  %s\n' 1149c0d97412ae3741cc18d60f233cdd3dd5e33bc92c55c59db2dd8cf535b714 "$GCC" 8ac121e4f64eb329dc33cd2cc8229dc9f655064a757cbcaa36af962b21619fc6 "$MPI" | sha256sum -c -
+tar -xzf "$GCC" -C "$LOCAL";tar -xzf "$MPI" -C "$LOCAL"
+PREFIX="$LOCAL/openmpi-5.0.10"
+export OPAL_PREFIX="$PREFIX" PMIX_PREFIX="$PREFIX" PRTE_PREFIX="$PREFIX"
+export PATH="$PREFIX/bin:$LOCAL/gcc-16.2.0/bin:$PATH"
+export LD_LIBRARY_PATH="$PREFIX/lib:$LOCAL/gcc-16.2.0/lib64:/opt/pbs/default/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export OMPI_CC=icx OMPI_CXX=icpx
+icx --version | head -1 | grep -F '2025.3.2'
+mpirun --version | head -1 | grep -Fx 'mpirun (Open MPI) 5.0.10'
+mpicc --showme:command | grep -Fx icx
+(
+ cd "$SCRIPT_DIR"
+ sha256sum -c - <<'HASHES'
+693de09cc0d8adeec5cb6badd3c7218ffb1f013122fdbb4c9fb23ef86404f52b  rank_numa_probe.c
+0e6cff53301a5c079e7b4824e2eeca25a167e47d1ecc91681d8d7d584945b431  rank_numa_preflight.py
+b82e7f750816a3f0b9fb5951ee7be00f83b2c75ec02e8be6454c4c7a8fda3c91  candidate-map-v1.csv
+HASHES
+)
+cp -p "$SCRIPT_DIR/rank_numa_probe.c" "$SCRIPT_DIR/rank_numa_preflight.py" "$SCRIPT_DIR/candidate-map-v1.csv" "$E/"
+timeout -k 5s 60s mpicc "$SCRIPT_DIR/rank_numa_probe.c" -ldl -o "$LOCAL/probe"
+ldd "$LOCAL/probe" > "$E/probe.ldd"
+! grep -Fq 'not found' "$E/probe.ldd"
+grep -F "libmpi.so.40 => $PREFIX/lib/" "$E/probe.ldd"
+mkdir "$E/baseline"
+timeout -k 5s 45s mpirun --prefix "$PREFIX" --map-by ppr:104:node --bind-to core --report-bindings --mca pml ucx -np 104 "$LOCAL/probe" "$E/baseline" > "$E/baseline.stdout" 2> "$E/baseline.bindings.txt"
+python3 "$SCRIPT_DIR/rank_numa_preflight.py" prepare "$E" "$SCRIPT_DIR/candidate-map-v1.csv"
+for name in control candidate-node0 candidate-node1 candidate-node2 candidate-node3; do
+ mkdir "$E/$name"
+ timeout -k 5s 45s mpirun --prefix "$PREFIX" --map-by "rankfile:file=$E/$name.rankfile" --bind-to core --report-bindings --mca pml ucx -np 104 "$LOCAL/probe" "$E/$name" > "$E/$name.stdout" 2> "$E/$name.bindings.txt"
+done
+python3 "$SCRIPT_DIR/rank_numa_preflight.py" validate "$E" "$SCRIPT_DIR/candidate-map-v1.csv"
+echo ICX20253_OMPI5010_RANK_NUMA_PREFLIGHT_1N_V1_PASS
+COMPLETE=1

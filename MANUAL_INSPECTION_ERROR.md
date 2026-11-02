@@ -319,3 +319,21 @@ signal status capture. Do not delete existing evidence or reuse this job ID.
 ### Binding182590339 follow-up — AUTHORIZED_FOR_PATCH
 
 User approved correction andone retry. v2 raisesJOBFS to100GiB/node,addsheadroomreceipts andsignal/completion guards. Locallytested;oldrunretained,monitoroff. Seeprogress/2026-10-30-gadi-icx20253-binding-4n-v2.md.
+
+## 2026-11-02 — rank/NUMA preflight 182926714, USER_ACTION_REQUIRED
+
+Track 2 resource/MPI initialization failure. PBS F/Exit137; script_exit_rc=137;
+SPR0201;104ranks;28sec;1.62SU;16GB RAM/20GB JOBFS/10min. ICX2025.3.2,
+private Open MPI5.0.10 and source/archive hashes passed. Scheduler explicitly
+reported memory allocation exceeded.104 probe RSS entries sum16.180843GiB
+(excludes launcher/other processes); this is a kill-time snapshot, not a peak.
+Baseline bindings also report LOG_CAT_MCAST Failed to register MR errno12.
+No baseline rankJSON, acceptance.json or PASS was produced; rankfile control
+and candidates never launched. No measured UCP version/collective or mapping
+correctness conclusion. Do not treat this as a failed performance optimization.
+Raw14 originals plus qstat fully archived and SHA verified under
+planning/evidence/gadi-pbs-script-snapshot/logs/182926714.gadi-pbs/.
+Propose one v2 retry with RAM16->64GB, unique filenames/paths;104CPU/10min
+unchanged,34.67SU ceiling. Keep MPI/HCOLL/UCX and mapping fixed so memory is
+the only configuration change. MR warning resolution remains unproven.
+No resource patch or retry applied. Await approval of new local review diff.

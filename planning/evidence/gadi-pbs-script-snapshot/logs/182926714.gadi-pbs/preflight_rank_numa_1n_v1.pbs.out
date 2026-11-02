@@ -1,0 +1,137 @@
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/gcc-16.2.0.181342083.gadi-pbs.tar.gz: OK
+/scratch/pm78/kj7183/openfoam_cpu/toolchain-screening/gadi-gcc162-ompi5010/runtime-archive/openmpi-5.0.10.181346004.gadi-pbs.tar.gz: OK
+Intel(R) oneAPI DPC++/C++ Compiler 2025.3.2 (2025.3.2.20260112)
+mpirun (Open MPI) 5.0.10
+icx
+rank_numa_probe.c: OK
+rank_numa_preflight.py: OK
+candidate-map-v1.csv: OK
+	libmpi.so.40 => /jobfs/182926714.gadi-pbs/rank-numa-v1/openmpi-5.0.10/lib/libmpi.so.40 (0x000014915fb0b000)
+
+------------------------------------------------------------------------
+Job 182926714 has exceeded memory allocation on node gadi-cpu-spr-0201.gadi.nci.org.au
+Process "bash", pid 2363379, rss 3551232, vmem 23932928
+Process "182926714.gadi-", pid 2363446, rss 3190784, vmem 10387456
+Process "182926714.gadi-", pid 2363452, rss 2002944, vmem 10252288
+Process "tee", pid 2363453, rss 880640, vmem 4583424
+Process "timeout", pid 2363583, rss 1183744, vmem 8953856
+Process "prterun", pid 2363584, rss 14188544, vmem 1071788032
+Process "probe", pid 2363600, rss 170573824, vmem 16480903168
+Process "probe", pid 2363601, rss 166989824, vmem 7775502336
+Process "probe", pid 2363602, rss 165928960, vmem 4737921024
+Process "probe", pid 2363603, rss 167403520, vmem 13083934720
+Process "probe", pid 2363604, rss 166383616, vmem 8084672512
+Process "probe", pid 2363605, rss 168615936, vmem 7358464000
+Process "probe", pid 2363606, rss 167514112, vmem 11765297152
+Process "probe", pid 2363607, rss 168304640, vmem 8450543616
+Process "probe", pid 2363608, rss 169414656, vmem 12217442304
+Process "probe", pid 2363609, rss 166240256, vmem 12147773440
+Process "probe", pid 2363610, rss 166522880, vmem 2441080832
+Process "probe", pid 2363611, rss 164499456, vmem 16227880960
+Process "probe", pid 2363612, rss 167563264, vmem 7499812864
+Process "probe", pid 2363613, rss 169140224, vmem 4069437440
+Process "probe", pid 2363614, rss 167202816, vmem 10848428032
+Process "probe", pid 2363615, rss 166899712, vmem 6730309632
+Process "probe", pid 2363616, rss 166731776, vmem 2676576256
+Process "probe", pid 2363617, rss 170500096, vmem 1070997504
+Process "probe", pid 2363618, rss 169545728, vmem 9165381632
+Process "probe", pid 2363619, rss 168726528, vmem 11647672320
+Process "probe", pid 2363620, rss 166146048, vmem 12069658624
+Process "probe", pid 2363621, rss 166715392, vmem 3697229824
+Process "probe", pid 2363622, rss 167469056, vmem 12260786176
+Process "probe", pid 2363623, rss 167047168, vmem 10996719616
+Process "probe", pid 2363624, rss 166813696, vmem 13880168448
+Process "probe", pid 2363625, rss 169009152, vmem 9498697728
+Process "probe", pid 2363626, rss 169455616, vmem 14167822336
+Process "probe", pid 2363627, rss 166563840, vmem 11765186560
+Process "probe", pid 2363628, rss 165130240, vmem 3779174400
+Process "probe", pid 2363629, rss 167137280, vmem 14621212672
+Process "probe", pid 2363630, rss 166027264, vmem 8886652928
+Process "probe", pid 2363631, rss 167460864, vmem 7938953216
+Process "probe", pid 2363632, rss 168054784, vmem 14382678016
+Process "probe", pid 2363633, rss 170590208, vmem 6185156608
+Process "probe", pid 2363634, rss 165490688, vmem 3187769344
+Process "probe", pid 2363635, rss 166821888, vmem 2559328256
+Process "probe", pid 2363636, rss 167067648, vmem 7847337984
+Process "probe", pid 2363637, rss 166223872, vmem 3628040192
+Process "probe", pid 2363638, rss 167567360, vmem 3341975552
+Process "probe", pid 2363639, rss 167366656, vmem 16943038464
+Process "probe", pid 2363640, rss 166678528, vmem 16609435648
+Process "probe", pid 2363641, rss 166952960, vmem 8770387968
+Process "probe", pid 2363642, rss 168763392, vmem 10498781184
+Process "probe", pid 2363643, rss 166506496, vmem 7935660032
+Process "probe", pid 2363644, rss 166727680, vmem 2735710208
+Process "probe", pid 2363645, rss 166227968, vmem 14505336832
+Process "probe", pid 2363646, rss 165322752, vmem 15202422784
+Process "probe", pid 2363647, rss 165421056, vmem 4841029632
+Process "probe", pid 2363648, rss 167825408, vmem 12218294272
+Process "probe", pid 2363649, rss 166862848, vmem 7079804928
+Process "probe", pid 2363650, rss 166797312, vmem 3855171584
+Process "probe", pid 2363651, rss 169172992, vmem 4830633984
+Process "probe", pid 2363652, rss 170577920, vmem 3104571392
+Process "probe", pid 2363653, rss 165421056, vmem 13595336704
+Process "probe", pid 2363654, rss 173019136, vmem 12522741760
+Process "probe", pid 2363655, rss 168534016, vmem 14834417664
+Process "probe", pid 2363656, rss 169058304, vmem 9496780800
+Process "probe", pid 2363657, rss 165457920, vmem 16129077248
+Process "probe", pid 2363658, rss 165838848, vmem 5631827968
+Process "probe", pid 2363659, rss 165691392, vmem 8325332992
+Process "probe", pid 2363660, rss 165236736, vmem 10665414656
+Process "probe", pid 2363661, rss 165703680, vmem 5688705024
+Process "probe", pid 2363662, rss 166805504, vmem 4692848640
+Process "probe", pid 2363663, rss 166490112, vmem 2176946176
+Process "probe", pid 2363664, rss 165105664, vmem 16437813248
+Process "probe", pid 2363665, rss 167747584, vmem 14686932992
+Process "probe", pid 2363666, rss 166879232, vmem 14815207424
+Process "probe", pid 2363667, rss 165789696, vmem 14936457216
+Process "probe", pid 2363668, rss 166432768, vmem 7654301696
+Process "probe", pid 2363669, rss 165937152, vmem 1368240128
+Process "probe", pid 2363670, rss 166809600, vmem 9186541568
+Process "probe", pid 2363671, rss 165134336, vmem 10984787968
+Process "probe", pid 2363672, rss 170967040, vmem 3907923968
+Process "probe", pid 2363673, rss 165933056, vmem 10836721664
+Process "probe", pid 2363674, rss 166952960, vmem 11180048384
+Process "probe", pid 2363675, rss 165179392, vmem 5026689024
+Process "probe", pid 2363676, rss 165154816, vmem 13996863488
+Process "probe", pid 2363677, rss 165048320, vmem 8133984256
+Process "probe", pid 2363678, rss 166932480, vmem 4358160384
+Process "probe", pid 2363679, rss 165498880, vmem 3057528832
+Process "probe", pid 2363680, rss 165109760, vmem 12924506112
+Process "probe", pid 2363681, rss 166481920, vmem 10249551872
+Process "probe", pid 2363682, rss 165806080, vmem 500817920
+Process "probe", pid 2363683, rss 170147840, vmem 16757456896
+Process "probe", pid 2363684, rss 164823040, vmem 8344023040
+Process "probe", pid 2363685, rss 166551552, vmem 7580639232
+Process "probe", pid 2363686, rss 165122048, vmem 17037750272
+Process "probe", pid 2363687, rss 166105088, vmem 15569293312
+Process "probe", pid 2363688, rss 169553920, vmem 5637865472
+Process "probe", pid 2363689, rss 166785024, vmem 8241618944
+Process "probe", pid 2363690, rss 167669760, vmem 10660974592
+Process "probe", pid 2363691, rss 169435136, vmem 5077135360
+Process "probe", pid 2363692, rss 167030784, vmem 10963718144
+Process "probe", pid 2363693, rss 165470208, vmem 3665059840
+Process "probe", pid 2363694, rss 165634048, vmem 2144600064
+Process "probe", pid 2363695, rss 169807872, vmem 7285272576
+Process "probe", pid 2363696, rss 164909056, vmem 16627396608
+Process "probe", pid 2363697, rss 167948288, vmem 4393992192
+Process "probe", pid 2363698, rss 165445632, vmem 9415606272
+Process "probe", pid 2363699, rss 167694336, vmem 2043281408
+Process "probe", pid 2363700, rss 167170048, vmem 9379069952
+Process "probe", pid 2363701, rss 167256064, vmem 10150285312
+Process "probe", pid 2363702, rss 165478400, vmem 3237875712
+Process "probe", pid 2363703, rss 165154816, vmem 4435320832
+------------------------------------------------------------------------
+For more information visit https://opus.nci.org.au/x/SwGRAQ
+------------------------------------------------------------------------
+
+======================================================================================
+                  Resource Usage on 2026-11-02 18:14:24:
+   Job Id:             182926714.gadi-pbs
+   Project:            pm78
+   Exit Status:        137 (Linux Signal 9 SIGKILL Kill, unblockable)
+   Service Units:      1.62
+   NCPUs Requested:    104                 CPU Time Used: 00:09:51        
+   Memory Requested:   16.0GB                Memory Used: 16.0GB          
+   Walltime Requested: 00:10:00            Walltime Used: 00:00:28        
+   JobFS Requested:    20.0GB                 JobFS Used: 1.94GB          
+======================================================================================
