@@ -18,6 +18,7 @@ This Gadi baseline does not establish an ASPIRE2A baseline.
 | --- | --- | --- | --- | --- | --- | --- |
 | GCC/Open MPI Phase 0 repeatability | `phase0/README.md` | 2026-09-03 | R1–R4 four-node control | Closed; no causal diagnosis | Three runs are tightly grouped; R2 is a valid sustained slowdown; all-run CV is about 14.6% because R2 is retained. | Freeze configuration; screen toolchain stacks one variable at a time. |
 | Compiler/toolchain stack screening | This plan | 2026-09-03 | Not started | Await explicit execution approval | Repository evidence proves only GCC 8.5.0 + Open MPI 4.1.7 + OpenFOAM/2512 control. | Read-only module discovery, then build and screen candidates. |
+| ICX/GCC Scotch PMPI | [gadi-icx-gcc-pmpi-2026-11-02](analysis/gadi-icx-gcc-pmpi-2026-11-02/README.md) | 2026-11-02 | 181908113 vs 182940799, 4 SPR nodes / 416 ranks / 150 steps | Diagnostic analysis complete | Same partition and per-rank call counts; ICX Waitall lower, Allreduce not improved. Runtime/placement gaps prevent compiler-only attribution. | Review CPU profile evidence; any new diagnostic requires separate approval. |
 
 ## Next direction
 

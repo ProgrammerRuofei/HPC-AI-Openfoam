@@ -1,0 +1,6 @@
+pbs_jobid=182940799.gadi-pbs
+official_result=diagnostic-not-scored
+stack=icx2025.3.2-ompi5.0.10-openfoamv2512
+decomposition=scotch
+profile_tool=C-only-PMPI-v2
+profile_window_seconds=10

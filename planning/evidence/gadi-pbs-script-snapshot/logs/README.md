@@ -35,3 +35,9 @@ The primary checkout retains the earlier job index; this branch adds only this b
 ## 182932939.gadi-pbs — rank/NUMA pair v1 failure
 
 [Raw local logs](182932939.gadi-pbs/README.md): **complete for produced evidence**, 24 original files plus qstat, all SHA verified. F/Exit1,152s,35.13SU. Empty lscpu topology receipt before MPI mapping/decomposition/solver; no150step result or Cd. Candidate not started. No retry submitted.
+
+## ICX/GCC PMPI comparison — 2026-11-02
+
+- [182940799](182940799.gadi-pbs/README.md): Raw local logs **complete for retained evidence**,40originals+qstatSHAverified;Exit0/PASS,150steps,416full+416bucketreports;1.984600097s/step,Cd0.2918761744,244.98SU.
+- [181908113](181908113.gadi-pbs/README.md): Raw local logs **now complete for retained evidence**,40originals+freshqstatcapture;oldpartialarchiveexpandedwithoutoverwriting. HistoricalPBSstdoutExit0/246.83SU;freshqstatexpired,notfailure.
+- [Paired analysis](../../../analysis/gadi-icx-gcc-pmpi-2026-11-02/README.md): WaitalllowerinICX,Allreducenotimproved;runtime/node/bindinguncertaintyretained.

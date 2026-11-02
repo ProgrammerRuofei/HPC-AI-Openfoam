@@ -1,0 +1,9 @@
+# ICX/GCC PMPI completed analysis
+
+2026-11-02, Asia/Singapore. User said continue profiling after successful PBS status; no new jobs, builds or configuration changes. Startup files/dirty state reviewed and preserved. Existing gadi-comp master restored(pid72272); ssh -O check and bounded BatchMode read-only qstat/find/sha256sum plus verified scp -p -o BatchMode=yes succeeded. No credentials read, no remote file modification.
+
+182940799 ICX2025.3.2/OpenMPI5.0.10/Scotch,4SPR0325–0328×104ranks,150steps/149timed,Exit0/PASS,1.984600097053691s/step,Cd0.29187617440389690,17:40,244.98SU. 40remoteoriginals+qstat captured and SHAverified. GCC181908113 missing raw logs also retrieved; existing4archives reused afterremoteSHAcheck;40originals total+freshUnknownJobIdreceipt. RetainedPBSstdoutExit0,17:48,246.83SU. UnknownJobId notfailure.
+
+Both416full+416bucket reports independently reconcile all14wrappedcalls; complete preparationEnd,solver150steps/End,150Cdrows,4×104hostmapsverified. Inputs/partitiongraphs andper-rankfullcallcountsmatch. StartupBarrierGCC~64s/ICX~71s;common80–360swindow Waitall18.0320→17.0823s/rank,Allreduce18.5980→19.0079. DiagnosticICX0.4498%faster,notofficialscore;cannotcausallyexplain0.7011%historicalunprofiledmeanadvantage. Runtimecollective/coreaffinitynotfullyknown;PMPI.soSHAdiffersdespitesamehelper/source;CPUprofilenotperformedhere.
+
+See planning/analysis/gadi-icx-gcc-pmpi-2026-11-02/README.md and results/gadi-icx20253-ompi5010-scotch/pmpi-comparison-2026-11-02.csv. Original evidence under planning/evidence/gadi-pbs-script-snapshot/logs/{182940799,181908113}.gadi-pbs/. Mainpreexistingdirtyandothercollective/rankNUMAfilesunchanged. RankNUMA182939454separatearchiveblockerisnotclosedbythisPMPIwork. Next: reviewpairedreport/CPUevidence;newdiagnosticsneedreviewandapproval.

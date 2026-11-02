@@ -1,0 +1,2625 @@
+{
+  "GCC": {
+    "job": "181908113.gadi-pbs",
+    "avg_step_s": 1.993566906751678,
+    "Cd": 0.29187594927465327,
+    "steps": 150,
+    "timed_steps": 149,
+    "hosts": {
+      "gadi-cpu-spr-0181.gadi.nci.org.au": 104,
+      "gadi-cpu-spr-0182.gadi.nci.org.au": 104,
+      "gadi-cpu-spr-0183.gadi.nci.org.au": 104,
+      "gadi-cpu-spr-0184.gadi.nci.org.au": 104
+    },
+    "reports": 416,
+    "bucket_reports": 416,
+    "full_bucket_reconciliation": "PASS",
+    "elapsed_s": {
+      "mean": 368.05514616102886,
+      "median": 368.0552194215,
+      "p95": 368.05548102849997,
+      "min": 368.036338983,
+      "max": 368.056148407
+    },
+    "full_barrier_s": {
+      "mean": 63.804364415338945,
+      "median": 63.958158423,
+      "p95": 63.958319917,
+      "min": 0.00065283,
+      "max": 63.958650329
+    },
+    "cells": 65334765,
+    "unique_faces": 2690403,
+    "unique_cross_node_faces": 300065,
+    "calls": [
+      "MPI_Wait",
+      "MPI_Waitall",
+      "MPI_Waitany",
+      "MPI_Test",
+      "MPI_Testall",
+      "MPI_Allreduce",
+      "MPI_Barrier",
+      "MPI_Bcast",
+      "MPI_Reduce",
+      "MPI_Isend",
+      "MPI_Irecv",
+      "MPI_Send",
+      "MPI_Recv",
+      "MPI_Sendrecv"
+    ],
+    "windows": {
+      "full": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0011608969567307693,
+            "median": 3.54e-06,
+            "p95": 0.00501910625,
+            "min": 0.0,
+            "max": 0.035111506
+          },
+          "global_calls": 723
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 19.77104686149279,
+            "median": 20.521016709500003,
+            "p95": 28.260942974,
+            "min": 7.841170217,
+            "max": 33.232750644
+          },
+          "global_calls": 82432885
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.06721909210817308,
+            "median": 0.062049602499999995,
+            "p95": 0.10449192225000001,
+            "min": 0.026913711,
+            "max": 0.273415508
+          },
+          "global_calls": 913133670
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 21.323709872927886,
+            "median": 21.023932136,
+            "p95": 26.1537358245,
+            "min": 13.555195966,
+            "max": 32.979489167
+          },
+          "global_calls": 97040320
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 63.804364415338945,
+            "median": 63.958158423,
+            "p95": 63.958319917,
+            "min": 0.00065283,
+            "max": 63.958650329
+          },
+          "global_calls": 416
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 2.016186329439904,
+            "median": 1.881608857,
+            "p95": 3.4225934049999998,
+            "min": 0.01524457,
+            "max": 3.600629144
+          },
+          "global_calls": 1788800
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.7843329080697115,
+            "median": 1.700188051,
+            "p95": 2.826730806,
+            "min": 0.782727743,
+            "max": 7.206453699
+          },
+          "global_calls": 914203155
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.25341942834615383,
+            "median": 0.2373514875,
+            "p95": 0.3891775175,
+            "min": 0.120653048,
+            "max": 0.985561613
+          },
+          "global_calls": 914203155
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.002201241360576923,
+            "median": 0.0020105545,
+            "p95": 0.00315437,
+            "min": 0.0,
+            "max": 0.016113774
+          },
+          "global_calls": 820455
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.03332043051201923,
+            "median": 0.00473047,
+            "p95": 0.1500362615,
+            "min": 0.0,
+            "max": 0.436623215
+          },
+          "global_calls": 820455
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 45.25259706121394,
+          "median": 45.586952248,
+          "p95": 54.322533032,
+          "min": 32.526796269,
+          "max": 62.746439815
+        },
+        "corr_faces_waitall": 0.4946636191709946,
+        "slowest_waitall": [
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 33.232750644
+          },
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 31.98348142
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 31.614774713
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 30.589179627
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 30.506302152
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 30.124024768
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 29.759811405
+          },
+          {
+            "rank": 4,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 17002,
+            "waitall_s": 29.633945496
+          },
+          {
+            "rank": 203,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 10933,
+            "waitall_s": 29.174381725
+          },
+          {
+            "rank": 204,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 14768,
+            "waitall_s": 29.1271066
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0181.gadi.nci.org.au": 18.608868299086538,
+          "gadi-cpu-spr-0182.gadi.nci.org.au": 23.37372610125,
+          "gadi-cpu-spr-0183.gadi.nci.org.au": 17.609418006778846,
+          "gadi-cpu-spr-0184.gadi.nci.org.au": 19.49217503885577
+        }
+      },
+      "steady70": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 19.36200346903125,
+            "median": 20.102819611,
+            "p95": 27.59529103125,
+            "min": 7.731902428,
+            "max": 32.612663035
+          },
+          "global_calls": 82045916
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.0669827470625,
+            "median": 0.061832503999999996,
+            "p95": 0.1041275005,
+            "min": 0.026818921,
+            "max": 0.272485406
+          },
+          "global_calls": 910000476
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 20.0060136325,
+            "median": 19.709968381,
+            "p95": 24.680190175,
+            "min": 12.839610165,
+            "max": 31.441973006
+          },
+          "global_calls": 96186269
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 0.8424033638677885,
+            "median": 0.813443225,
+            "p95": 1.35004569625,
+            "min": 0.00945108,
+            "max": 1.522385073
+          },
+          "global_calls": 1746368
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.762898778485577,
+            "median": 1.6774850785000002,
+            "p95": 2.7950419792499996,
+            "min": 0.776360941,
+            "max": 7.109908967
+          },
+          "global_calls": 909999496
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.2518848922091346,
+            "median": 0.23592569800000002,
+            "p95": 0.38701132650000003,
+            "min": 0.120076352,
+            "max": 0.978153639
+          },
+          "global_calls": 909999491
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.0016362040961538462,
+            "median": 0.0013936535,
+            "p95": 0.00247447625,
+            "min": 0.0,
+            "max": 0.003169271
+          },
+          "global_calls": 809250
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.03329382380769231,
+            "median": 0.004725716,
+            "p95": 0.149924215,
+            "min": 0.0,
+            "max": 0.436416118
+          },
+          "global_calls": 809250
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 42.327116911060095,
+          "median": 42.593918835,
+          "p95": 50.87127863775,
+          "min": 30.404725816,
+          "max": 58.879743691
+        },
+        "corr_faces_waitall": 0.4812264009538335,
+        "slowest_waitall": [
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 32.612663035
+          },
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 31.523891
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 30.939695888
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 29.949890675
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 29.897009604
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 29.553229113
+          },
+          {
+            "rank": 4,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 17002,
+            "waitall_s": 28.877986107
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 28.809781302
+          },
+          {
+            "rank": 203,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 10933,
+            "waitall_s": 28.721730714
+          },
+          {
+            "rank": 283,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 14431,
+            "waitall_s": 28.581656733
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0181.gadi.nci.org.au": 18.159617018326923,
+          "gadi-cpu-spr-0182.gadi.nci.org.au": 22.811455967644232,
+          "gadi-cpu-spr-0183.gadi.nci.org.au": 17.34032014853846,
+          "gadi-cpu-spr-0184.gadi.nci.org.au": 19.136620741615385
+        }
+      },
+      "common70": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 18.855363790891825,
+            "median": 19.564515767,
+            "p95": 26.8299727525,
+            "min": 7.553568434,
+            "max": 31.766024724
+          },
+          "global_calls": 79847772
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.06518831221153847,
+            "median": 0.060167165499999994,
+            "p95": 0.10134734325,
+            "min": 0.026106994,
+            "max": 0.265176181
+          },
+          "global_calls": 885620100
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 19.47248285684375,
+            "median": 19.1782252725,
+            "p95": 24.02722363475,
+            "min": 12.534295159,
+            "max": 30.602336007
+          },
+          "global_calls": 93611229
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 0.8259619820865385,
+            "median": 0.7979014025,
+            "p95": 1.3235960325,
+            "min": 0.009173506,
+            "max": 1.491499506
+          },
+          "global_calls": 1690390
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.7163918577211539,
+            "median": 1.6334921365000001,
+            "p95": 2.721102188,
+            "min": 0.756010401,
+            "max": 6.92114194
+          },
+          "global_calls": 885619120
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.2451111019014423,
+            "median": 0.22955368850000002,
+            "p95": 0.3764954725,
+            "min": 0.116994612,
+            "max": 0.951902347
+          },
+          "global_calls": 885619115
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.0015973474975961538,
+            "median": 0.0013537695,
+            "p95": 0.0024247007499999997,
+            "min": 0.0,
+            "max": 0.003107037
+          },
+          "global_calls": 782751
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.032644040560096156,
+            "median": 0.004692458,
+            "p95": 0.14852854925,
+            "min": 0.0,
+            "max": 0.426274906
+          },
+          "global_calls": 782751
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 41.21474128971394,
+          "median": 41.4965451635,
+          "p95": 49.499629686,
+          "min": 29.636302034,
+          "max": 57.297932998
+        },
+        "corr_faces_waitall": 0.4806843751110247,
+        "slowest_waitall": [
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 31.766024724
+          },
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 30.715545269
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 30.126280692
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 29.105914516
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 29.070250443
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 28.833555884
+          },
+          {
+            "rank": 4,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 17002,
+            "waitall_s": 28.131348948
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 28.031074952
+          },
+          {
+            "rank": 203,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 10933,
+            "waitall_s": 27.946386665
+          },
+          {
+            "rank": 283,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 14431,
+            "waitall_s": 27.881093427
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0181.gadi.nci.org.au": 17.706862427480768,
+          "gadi-cpu-spr-0182.gadi.nci.org.au": 22.20102198414423,
+          "gadi-cpu-spr-0183.gadi.nci.org.au": 16.87294774253846,
+          "gadi-cpu-spr-0184.gadi.nci.org.au": 18.640623009403846
+        }
+      },
+      "common80": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 18.03200581675,
+            "median": 18.68272418,
+            "p95": 25.733105383,
+            "min": 7.238321724,
+            "max": 30.301925157
+          },
+          "global_calls": 77346463
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.06311451546394231,
+            "median": 0.0582634445,
+            "p95": 0.09810354825,
+            "min": 0.025285808,
+            "max": 0.256740415
+          },
+          "global_calls": 857876394
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 18.59799072540144,
+            "median": 18.3252179625,
+            "p95": 23.0144424975,
+            "min": 12.002701032,
+            "max": 29.344470021
+          },
+          "global_calls": 90699232
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 0.7423496880216346,
+            "median": 0.7179745215,
+            "p95": 1.21989312725,
+            "min": 0.008745658,
+            "max": 1.382117007
+          },
+          "global_calls": 1632150
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.6461186170697115,
+            "median": 1.5707713700000001,
+            "p95": 2.608059238,
+            "min": 0.727329401,
+            "max": 6.62787667
+          },
+          "global_calls": 857876394
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.23722810191826924,
+            "median": 0.222156904,
+            "p95": 0.36412083775,
+            "min": 0.113283042,
+            "max": 0.919716589
+          },
+          "global_calls": 857876394
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.0015208716370192308,
+            "median": 0.001303482,
+            "p95": 0.0022857372500000002,
+            "min": 0.0,
+            "max": 0.002944636
+          },
+          "global_calls": 755776
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.03070217277403846,
+            "median": 0.0046550975,
+            "p95": 0.1401953925,
+            "min": 0.0,
+            "max": 0.412251953
+          },
+          "global_calls": 755776
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 39.35103050903606,
+          "median": 39.6654216295,
+          "p95": 47.354023325,
+          "min": 28.182975783,
+          "max": 54.839010862
+        },
+        "corr_faces_waitall": 0.4792805973556195,
+        "slowest_waitall": [
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 30.301925157
+          },
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 29.586233421
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 29.134589958
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 28.17386493
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 27.683166792
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 27.665141658
+          },
+          {
+            "rank": 283,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 14431,
+            "waitall_s": 27.091734551
+          },
+          {
+            "rank": 4,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 17002,
+            "waitall_s": 27.081646437
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 26.907444961
+          },
+          {
+            "rank": 203,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 10933,
+            "waitall_s": 26.611019798
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0181.gadi.nci.org.au": 16.9135885355,
+          "gadi-cpu-spr-0182.gadi.nci.org.au": 21.202641056038463,
+          "gadi-cpu-spr-0183.gadi.nci.org.au": 16.163060568759615,
+          "gadi-cpu-spr-0184.gadi.nci.org.au": 17.848733106701925
+        }
+      },
+      "common100": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 16.59490499316827,
+            "median": 17.153663105,
+            "p95": 23.720964297000002,
+            "min": 6.64450324,
+            "max": 27.973846117
+          },
+          "global_calls": 71870658
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.05864318142548077,
+            "median": 0.054146989,
+            "p95": 0.09114117475,
+            "min": 0.023507019,
+            "max": 0.238565626
+          },
+          "global_calls": 797142797
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 17.112381174158653,
+            "median": 16.8602257135,
+            "p95": 21.25884963525,
+            "min": 11.070291347,
+            "max": 27.073658314
+          },
+          "global_calls": 84271200
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 0.6870984301947115,
+            "median": 0.6658705014999999,
+            "p95": 1.1289588692499999,
+            "min": 0.008107385,
+            "max": 1.282488257
+          },
+          "global_calls": 1515670
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.5243106261514423,
+            "median": 1.4518475734999998,
+            "p95": 2.41820287125,
+            "min": 0.674572825,
+            "max": 6.138554371
+          },
+          "global_calls": 797142345
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.2205106995048077,
+            "median": 0.206472388,
+            "p95": 0.338463065,
+            "min": 0.105270069,
+            "max": 0.855083983
+          },
+          "global_calls": 797142345
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.0013778413341346155,
+            "median": 0.001208892,
+            "p95": 0.0020345282499999997,
+            "min": 0.0,
+            "max": 0.002631735
+          },
+          "global_calls": 701826
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.02779640163701923,
+            "median": 0.003545794,
+            "p95": 0.126797732,
+            "min": 0.0,
+            "max": 0.382736086
+          },
+          "global_calls": 701826
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 36.227023347574516,
+          "median": 36.496397839,
+          "p95": 43.679911606,
+          "min": 25.911102403,
+          "max": 50.657307986
+        },
+        "corr_faces_waitall": 0.4792713567387005,
+        "slowest_waitall": [
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 27.973846117
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 27.218452395
+          },
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 27.142893425
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 25.941382742
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 25.63555125
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 25.603025922
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 25.187445602
+          },
+          {
+            "rank": 4,
+            "host": "gadi-cpu-spr-0181.gadi.nci.org.au",
+            "faces": 17002,
+            "waitall_s": 25.121857026
+          },
+          {
+            "rank": 283,
+            "host": "gadi-cpu-spr-0183.gadi.nci.org.au",
+            "faces": 14431,
+            "waitall_s": 24.876691529
+          },
+          {
+            "rank": 203,
+            "host": "gadi-cpu-spr-0182.gadi.nci.org.au",
+            "faces": 10933,
+            "waitall_s": 24.597432213
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0181.gadi.nci.org.au": 15.507858642451923,
+          "gadi-cpu-spr-0182.gadi.nci.org.au": 19.56965317601923,
+          "gadi-cpu-spr-0183.gadi.nci.org.au": 14.886326791721155,
+          "gadi-cpu-spr-0184.gadi.nci.org.au": 16.415781362480768
+        }
+      }
+    },
+    "barrier_buckets": {
+      "0": 63.80436284603606,
+      "60": 1.5693028846153847e-06
+    },
+    "common_end_s": 360,
+    "bucket_timeline": {
+      "0": {
+        "MPI_Waitall": 0.2953437930048077,
+        "MPI_Allreduce": 1.1126936362235578,
+        "MPI_Barrier": 63.80436284603606
+      },
+      "60": {
+        "MPI_Waitall": 0.11369959945673076,
+        "MPI_Allreduce": 0.20500260420432692,
+        "MPI_Barrier": 1.5693028846153847e-06
+      },
+      "70": {
+        "MPI_Waitall": 0.8233579741418269,
+        "MPI_Allreduce": 0.8744921314423076,
+        "MPI_Barrier": 0.0
+      },
+      "80": {
+        "MPI_Waitall": 0.7502019040673077,
+        "MPI_Allreduce": 0.7431153851802884,
+        "MPI_Barrier": 0.0
+      },
+      "90": {
+        "MPI_Waitall": 0.6868989195144231,
+        "MPI_Allreduce": 0.7424941660625,
+        "MPI_Barrier": 0.0
+      },
+      "100": {
+        "MPI_Waitall": 0.6850199538100962,
+        "MPI_Allreduce": 0.6936735052716346,
+        "MPI_Barrier": 0.0
+      },
+      "110": {
+        "MPI_Waitall": 0.7142242285480769,
+        "MPI_Allreduce": 0.7752145927740385,
+        "MPI_Barrier": 0.0
+      },
+      "120": {
+        "MPI_Waitall": 0.66205240265625,
+        "MPI_Allreduce": 0.6740017723365385,
+        "MPI_Barrier": 0.0
+      },
+      "130": {
+        "MPI_Waitall": 0.6556207029326923,
+        "MPI_Allreduce": 0.6759055044326923,
+        "MPI_Barrier": 0.0
+      },
+      "140": {
+        "MPI_Waitall": 0.674345084766827,
+        "MPI_Allreduce": 0.6925386163076923,
+        "MPI_Barrier": 0.0
+      },
+      "150": {
+        "MPI_Waitall": 0.6568124904182693,
+        "MPI_Allreduce": 0.6584160442211539,
+        "MPI_Barrier": 0.0
+      },
+      "160": {
+        "MPI_Waitall": 0.6710479966875,
+        "MPI_Allreduce": 0.7184072380673077,
+        "MPI_Barrier": 0.0
+      },
+      "170": {
+        "MPI_Waitall": 0.6493927080384615,
+        "MPI_Allreduce": 0.64283953084375,
+        "MPI_Barrier": 0.0
+      },
+      "180": {
+        "MPI_Waitall": 0.6154668143798077,
+        "MPI_Allreduce": 0.6547460935264423,
+        "MPI_Barrier": 0.0
+      },
+      "190": {
+        "MPI_Waitall": 0.6377583506610577,
+        "MPI_Allreduce": 0.63542137075,
+        "MPI_Barrier": 0.0
+      },
+      "200": {
+        "MPI_Waitall": 0.6415848822403846,
+        "MPI_Allreduce": 0.6256321849879808,
+        "MPI_Barrier": 0.0
+      },
+      "210": {
+        "MPI_Waitall": 0.6271998532884615,
+        "MPI_Allreduce": 0.6510972521754808,
+        "MPI_Barrier": 0.0
+      },
+      "220": {
+        "MPI_Waitall": 0.6385033708365384,
+        "MPI_Allreduce": 0.6815677821105769,
+        "MPI_Barrier": 0.0
+      },
+      "230": {
+        "MPI_Waitall": 0.6268059498966346,
+        "MPI_Allreduce": 0.6608064944879808,
+        "MPI_Barrier": 0.0
+      },
+      "240": {
+        "MPI_Waitall": 0.6329384979879807,
+        "MPI_Allreduce": 0.6742560091394231,
+        "MPI_Barrier": 0.0
+      },
+      "250": {
+        "MPI_Waitall": 0.6146480425264423,
+        "MPI_Allreduce": 0.6463985918846153,
+        "MPI_Barrier": 0.0
+      },
+      "260": {
+        "MPI_Waitall": 0.6138823588798077,
+        "MPI_Allreduce": 0.6230498811346153,
+        "MPI_Barrier": 0.0
+      },
+      "270": {
+        "MPI_Waitall": 0.6137483182908654,
+        "MPI_Allreduce": 0.6200602162692308,
+        "MPI_Barrier": 0.0
+      },
+      "280": {
+        "MPI_Waitall": 0.6171518136442308,
+        "MPI_Allreduce": 0.6647310922307692,
+        "MPI_Barrier": 0.0
+      },
+      "290": {
+        "MPI_Waitall": 0.6569636941706731,
+        "MPI_Allreduce": 0.6552826313221154,
+        "MPI_Barrier": 0.0
+      },
+      "300": {
+        "MPI_Waitall": 0.612162707375,
+        "MPI_Allreduce": 0.622292649735577,
+        "MPI_Barrier": 0.0
+      },
+      "310": {
+        "MPI_Waitall": 0.6185069113653846,
+        "MPI_Allreduce": 0.6515960711706731,
+        "MPI_Barrier": 0.0
+      },
+      "320": {
+        "MPI_Waitall": 0.6139026814879808,
+        "MPI_Allreduce": 0.6500449495120192,
+        "MPI_Barrier": 0.0
+      },
+      "330": {
+        "MPI_Waitall": 0.6225678975817308,
+        "MPI_Allreduce": 0.6172355873389423,
+        "MPI_Barrier": 0.0
+      },
+      "340": {
+        "MPI_Waitall": 0.6137993323822115,
+        "MPI_Allreduce": 0.6254942336322116,
+        "MPI_Barrier": 0.0
+      },
+      "350": {
+        "MPI_Waitall": 0.6087979483149039,
+        "MPI_Allreduce": 0.6216712784951923,
+        "MPI_Barrier": 0.0
+      },
+      "360": {
+        "MPI_Waitall": 0.5066396781394231,
+        "MPI_Allreduce": 0.53353077565625,
+        "MPI_Barrier": 0.0
+      }
+    }
+  },
+  "ICX": {
+    "job": "182940799.gadi-pbs",
+    "avg_step_s": 1.984600097053691,
+    "Cd": 0.2918761744038969,
+    "steps": 150,
+    "timed_steps": 149,
+    "hosts": {
+      "gadi-cpu-spr-0325.gadi.nci.org.au": 104,
+      "gadi-cpu-spr-0326.gadi.nci.org.au": 104,
+      "gadi-cpu-spr-0327.gadi.nci.org.au": 104,
+      "gadi-cpu-spr-0328.gadi.nci.org.au": 104
+    },
+    "reports": 416,
+    "bucket_reports": 416,
+    "full_bucket_reconciliation": "PASS",
+    "elapsed_s": {
+      "mean": 372.8083083562476,
+      "median": 372.8083203975,
+      "p95": 372.80862104475,
+      "min": 372.807373009,
+      "max": 372.809208889
+    },
+    "full_barrier_s": {
+      "mean": 70.47173350157932,
+      "median": 70.641594827,
+      "p95": 70.64184479625,
+      "min": 0.000466991,
+      "max": 70.642230917
+    },
+    "cells": 65334765,
+    "unique_faces": 2690403,
+    "unique_cross_node_faces": 300065,
+    "calls": [
+      "MPI_Wait",
+      "MPI_Waitall",
+      "MPI_Waitany",
+      "MPI_Test",
+      "MPI_Testall",
+      "MPI_Allreduce",
+      "MPI_Barrier",
+      "MPI_Bcast",
+      "MPI_Reduce",
+      "MPI_Isend",
+      "MPI_Irecv",
+      "MPI_Send",
+      "MPI_Recv",
+      "MPI_Sendrecv"
+    ],
+    "windows": {
+      "full": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0011746841971153846,
+            "median": 2.991e-06,
+            "p95": 0.005749227,
+            "min": 0.0,
+            "max": 0.036259778
+          },
+          "global_calls": 723
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 18.582939505848557,
+            "median": 18.997979899999997,
+            "p95": 26.3472931515,
+            "min": 8.043995922,
+            "max": 31.51916255
+          },
+          "global_calls": 82432885
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.06713908545192308,
+            "median": 0.061986269,
+            "p95": 0.107191279,
+            "min": 0.027232292,
+            "max": 0.282454205
+          },
+          "global_calls": 913133670
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 21.386292257725962,
+            "median": 21.028236321500003,
+            "p95": 25.875683669,
+            "min": 13.907242653,
+            "max": 32.487389424
+          },
+          "global_calls": 97040320
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 70.47173350157932,
+            "median": 70.641594827,
+            "p95": 70.64184479625,
+            "min": 0.000466991,
+            "max": 70.642230917
+          },
+          "global_calls": 416
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 1.582130224435096,
+            "median": 1.4727364915,
+            "p95": 2.7137343562500003,
+            "min": 0.014928697,
+            "max": 2.856633351
+          },
+          "global_calls": 1788800
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.7804567306995192,
+            "median": 1.6913789184999999,
+            "p95": 2.7937131852499997,
+            "min": 0.829290011,
+            "max": 7.20737965
+          },
+          "global_calls": 914203155
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.2552723334519231,
+            "median": 0.24136487099999998,
+            "p95": 0.39557514775,
+            "min": 0.11953229,
+            "max": 1.001033123
+          },
+          "global_calls": 914203155
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.002140620872596154,
+            "median": 0.002011559,
+            "p95": 0.0030328525,
+            "min": 0.0,
+            "max": 0.01109191
+          },
+          "global_calls": 820455
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.03125242782211538,
+            "median": 0.001043395,
+            "p95": 0.14539024875,
+            "min": 0.0,
+            "max": 0.447842027
+          },
+          "global_calls": 820455
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 43.68879787050481,
+          "median": 44.029501279,
+          "p95": 52.266049098500005,
+          "min": 32.390881888,
+          "max": 59.716889710000004
+        },
+        "corr_faces_waitall": 0.48405818222030056,
+        "slowest_waitall": [
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 31.51916255
+          },
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 31.497521091
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0325.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 31.26551247
+          },
+          {
+            "rank": 106,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 17154,
+            "waitall_s": 30.909203352
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 30.793591988
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 30.008931268
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 28.413101254
+          },
+          {
+            "rank": 284,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 16291,
+            "waitall_s": 28.223093293
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 27.979598646
+          },
+          {
+            "rank": 204,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 14768,
+            "waitall_s": 27.865307894
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0325.gadi.nci.org.au": 17.361138758173077,
+          "gadi-cpu-spr-0326.gadi.nci.org.au": 21.931947663509614,
+          "gadi-cpu-spr-0327.gadi.nci.org.au": 16.48924639491346,
+          "gadi-cpu-spr-0328.gadi.nci.org.au": 18.549425206798077
+        }
+      },
+      "steady70": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 18.294402013641825,
+            "median": 18.698268277,
+            "p95": 25.8357927395,
+            "min": 7.989306681,
+            "max": 31.198519833
+          },
+          "global_calls": 82332640
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.06713200501682692,
+            "median": 0.0619789335,
+            "p95": 0.10718408425,
+            "min": 0.027228785,
+            "max": 0.282438536
+          },
+          "global_calls": 913110600
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 20.341984705557692,
+            "median": 19.955811011,
+            "p95": 24.76846176075,
+            "min": 13.449554219,
+            "max": 31.274577717
+          },
+          "global_calls": 96879744
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 1.122574519230769e-06,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.000466991
+          },
+          "global_calls": 1
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 1.5384580388701923,
+            "median": 1.4242556975,
+            "p95": 2.65826014275,
+            "min": 0.01159029,
+            "max": 2.805466691
+          },
+          "global_calls": 1768416
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.774580378639423,
+            "median": 1.686660502,
+            "p95": 2.7826849122499997,
+            "min": 0.828309474,
+            "max": 7.168645286
+          },
+          "global_calls": 913179810
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.25470339627163463,
+            "median": 0.24092731550000002,
+            "p95": 0.3944793815,
+            "min": 0.119409612,
+            "max": 0.996395553
+          },
+          "global_calls": 913179810
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.001817963423076923,
+            "median": 0.0016424909999999998,
+            "p95": 0.0026930035,
+            "min": 0.0,
+            "max": 0.002972913
+          },
+          "global_calls": 820040
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.03125235333653846,
+            "median": 0.001043395,
+            "p95": 0.14539024875,
+            "min": 0.0,
+            "max": 0.447811041
+          },
+          "global_calls": 820040
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 42.30433085475721,
+          "median": 42.607676969,
+          "p95": 50.882125313,
+          "min": 31.135608299,
+          "max": 58.308872167
+        },
+        "corr_faces_waitall": 0.46893848199213506,
+        "slowest_waitall": [
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 31.198519833
+          },
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 30.981801161
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0325.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 30.451357675
+          },
+          {
+            "rank": 106,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 17154,
+            "waitall_s": 30.311147081
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 30.225538581
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 29.468939432
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 28.00272518
+          },
+          {
+            "rank": 284,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 16291,
+            "waitall_s": 27.827891012
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 27.495168535
+          },
+          {
+            "rank": 202,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 7952,
+            "waitall_s": 27.44974157
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0325.gadi.nci.org.au": 17.034678385028847,
+          "gadi-cpu-spr-0326.gadi.nci.org.au": 21.47631457551923,
+          "gadi-cpu-spr-0327.gadi.nci.org.au": 16.336094860932693,
+          "gadi-cpu-spr-0328.gadi.nci.org.au": 18.33052023308654
+        }
+      },
+      "common70": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 17.55143880043029,
+            "median": 17.92174757,
+            "p95": 24.8013249075,
+            "min": 7.671590877,
+            "max": 29.908037364
+          },
+          "global_calls": 78810784
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.06425776667307692,
+            "median": 0.059325672499999996,
+            "p95": 0.10259640825,
+            "min": 0.02605935,
+            "max": 0.270382975
+          },
+          "global_calls": 874048476
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 19.516054917415865,
+            "median": 19.1404501425,
+            "p95": 23.74210642475,
+            "min": 12.896419724,
+            "max": 29.983754641
+          },
+          "global_calls": 92750528
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 1.122574519230769e-06,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.000466991
+          },
+          "global_calls": 1
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 1.504197993826923,
+            "median": 1.3881354825,
+            "p95": 2.608991254,
+            "min": 0.011156156,
+            "max": 2.750253306
+          },
+          "global_calls": 1687712
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.7002269717235576,
+            "median": 1.6163088915000001,
+            "p95": 2.66542846,
+            "min": 0.793192558,
+            "max": 6.869722208
+          },
+          "global_calls": 874122300
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.2437889564326923,
+            "median": 0.2307141185,
+            "p95": 0.37757632725,
+            "min": 0.114301301,
+            "max": 0.953984346
+          },
+          "global_calls": 874122300
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.0017569268557692307,
+            "median": 0.00158082,
+            "p95": 0.0026234935,
+            "min": 0.0,
+            "max": 0.002917884
+          },
+          "global_calls": 782275
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.03003243335576923,
+            "median": 0.0009965185,
+            "p95": 0.13858553425,
+            "min": 0.0,
+            "max": 0.424412888
+          },
+          "global_calls": 782275
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 40.61175476671394,
+          "median": 40.904332571,
+          "p95": 48.860905925750004,
+          "min": 29.898743043,
+          "max": 55.973332556
+        },
+        "corr_faces_waitall": 0.4696755687133837,
+        "slowest_waitall": [
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 29.908037364
+          },
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 29.724524993
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0325.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 29.175943235
+          },
+          {
+            "rank": 106,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 17154,
+            "waitall_s": 29.052915765
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 28.974807311
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 28.187226915
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 26.843171596
+          },
+          {
+            "rank": 284,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 16291,
+            "waitall_s": 26.628585167
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 26.382426842
+          },
+          {
+            "rank": 202,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 7952,
+            "waitall_s": 26.302725498
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0325.gadi.nci.org.au": 16.366994220740384,
+          "gadi-cpu-spr-0326.gadi.nci.org.au": 20.604896039673076,
+          "gadi-cpu-spr-0327.gadi.nci.org.au": 15.66625818610577,
+          "gadi-cpu-spr-0328.gadi.nci.org.au": 17.567606755201922
+        }
+      },
+      "common80": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 17.082282150459136,
+            "median": 17.415663703,
+            "p95": 24.252338169999998,
+            "min": 7.307826642,
+            "max": 29.246147416
+          },
+          "global_calls": 77663037
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.06330111335336538,
+            "median": 0.058427262,
+            "p95": 0.1010593295,
+            "min": 0.025678564,
+            "max": 0.266412059
+          },
+          "global_calls": 861387842
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 19.00785700348077,
+            "median": 18.653883795,
+            "p95": 23.14039497525,
+            "min": 12.570188029,
+            "max": 29.248401888
+          },
+          "global_calls": 91072800
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 0.6943044324134615,
+            "median": 0.689141969,
+            "p95": 1.05040356025,
+            "min": 0.009019848,
+            "max": 1.182778575
+          },
+          "global_calls": 1642368
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.6551664925264422,
+            "median": 1.571990611,
+            "p95": 2.59626196675,
+            "min": 0.775179714,
+            "max": 6.684940006
+          },
+          "global_calls": 861392254
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.23991251824278848,
+            "median": 0.2271645385,
+            "p95": 0.37114368275000004,
+            "min": 0.112338591,
+            "max": 0.93810496
+          },
+          "global_calls": 861392254
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.0015400372259615385,
+            "median": 0.001318149,
+            "p95": 0.002363021,
+            "min": 0.0,
+            "max": 0.00262125
+          },
+          "global_calls": 760695
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.02921266373798077,
+            "median": 0.000979248,
+            "p95": 0.13523855775,
+            "min": 0.0,
+            "max": 0.420840391
+          },
+          "global_calls": 760695
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 38.773576411439905,
+          "median": 39.1311959875,
+          "p95": 46.71328906725,
+          "min": 28.587767273,
+          "max": 53.123815862
+        },
+        "corr_faces_waitall": 0.4682525836003187,
+        "slowest_waitall": [
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 29.246147416
+          },
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 28.86095947
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0325.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 28.628622131
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 28.333282635
+          },
+          {
+            "rank": 106,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 17154,
+            "waitall_s": 28.248880892
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 27.610557041
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 26.240857553
+          },
+          {
+            "rank": 284,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 16291,
+            "waitall_s": 26.129957495
+          },
+          {
+            "rank": 202,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 7952,
+            "waitall_s": 25.774696255
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 25.721722575
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0325.gadi.nci.org.au": 15.914048260596154,
+          "gadi-cpu-spr-0326.gadi.nci.org.au": 20.038395853615384,
+          "gadi-cpu-spr-0327.gadi.nci.org.au": 15.261323635692309,
+          "gadi-cpu-spr-0328.gadi.nci.org.au": 17.115360851932692
+        }
+      },
+      "common100": {
+        "MPI_Wait": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Waitall": {
+          "seconds_per_rank": {
+            "mean": 15.661069772372596,
+            "median": 16.0719605125,
+            "p95": 22.30828009775,
+            "min": 6.757112624,
+            "max": 26.972545951
+          },
+          "global_calls": 72187221
+        },
+        "MPI_Waitany": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Test": {
+          "seconds_per_rank": {
+            "mean": 0.05883237234855769,
+            "median": 0.054276317500000004,
+            "p95": 0.09389315625,
+            "min": 0.023877403,
+            "max": 0.247448903
+          },
+          "global_calls": 800653578
+        },
+        "MPI_Testall": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Allreduce": {
+          "seconds_per_rank": {
+            "mean": 17.458099640266827,
+            "median": 17.1058644905,
+            "p95": 21.36333496825,
+            "min": 11.630331394,
+            "max": 26.971193043
+          },
+          "global_calls": 84644768
+        },
+        "MPI_Barrier": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Bcast": {
+          "seconds_per_rank": {
+            "mean": 0.6384656002211538,
+            "median": 0.6316873595000001,
+            "p95": 0.96890360075,
+            "min": 0.008364231,
+            "max": 1.088659728
+          },
+          "global_calls": 1525888
+        },
+        "MPI_Reduce": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "MPI_Isend": {
+          "seconds_per_rank": {
+            "mean": 1.5301533566153847,
+            "median": 1.452342277,
+            "p95": 2.397614269,
+            "min": 0.718817541,
+            "max": 6.177854405
+          },
+          "global_calls": 800658081
+        },
+        "MPI_Irecv": {
+          "seconds_per_rank": {
+            "mean": 0.22305273533173076,
+            "median": 0.211217121,
+            "p95": 0.34426614475,
+            "min": 0.10425043,
+            "max": 0.872048778
+          },
+          "global_calls": 800658080
+        },
+        "MPI_Send": {
+          "seconds_per_rank": {
+            "mean": 0.0013943610673076924,
+            "median": 0.0012252725,
+            "p95": 0.0020979379999999997,
+            "min": 0.0,
+            "max": 0.002381362
+          },
+          "global_calls": 706745
+        },
+        "MPI_Recv": {
+          "seconds_per_rank": {
+            "mean": 0.02619570774519231,
+            "median": 0.0008828575,
+            "p95": 0.11993999749999999,
+            "min": 0.0,
+            "max": 0.388858379
+          },
+          "global_calls": 706745
+        },
+        "MPI_Sendrecv": {
+          "seconds_per_rank": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "global_calls": 0
+        },
+        "timed_MPI_nonBarrier_s": {
+          "mean": 35.59726354596875,
+          "median": 35.89963883,
+          "p95": 43.036381166,
+          "min": 26.192445375,
+          "max": 48.893732821
+        },
+        "corr_faces_waitall": 0.4634765251600027,
+        "slowest_waitall": [
+          {
+            "rank": 285,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 10656,
+            "waitall_s": 26.972545951
+          },
+          {
+            "rank": 112,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 13791,
+            "waitall_s": 26.432893447
+          },
+          {
+            "rank": 9,
+            "host": "gadi-cpu-spr-0325.gadi.nci.org.au",
+            "faces": 16998,
+            "waitall_s": 26.359046111
+          },
+          {
+            "rank": 111,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 16289,
+            "waitall_s": 26.260268838
+          },
+          {
+            "rank": 106,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 17154,
+            "waitall_s": 25.830209585
+          },
+          {
+            "rank": 282,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 12674,
+            "waitall_s": 25.628565349
+          },
+          {
+            "rank": 175,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18372,
+            "waitall_s": 24.334654941
+          },
+          {
+            "rank": 284,
+            "host": "gadi-cpu-spr-0327.gadi.nci.org.au",
+            "faces": 16291,
+            "waitall_s": 24.096772588
+          },
+          {
+            "rank": 202,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 7952,
+            "waitall_s": 23.634582533
+          },
+          {
+            "rank": 200,
+            "host": "gadi-cpu-spr-0326.gadi.nci.org.au",
+            "faces": 18618,
+            "waitall_s": 23.475226539
+          }
+        ],
+        "node_mean_waitall_s": {
+          "gadi-cpu-spr-0325.gadi.nci.org.au": 14.559765633528846,
+          "gadi-cpu-spr-0326.gadi.nci.org.au": 18.331070350788462,
+          "gadi-cpu-spr-0327.gadi.nci.org.au": 14.031452504923077,
+          "gadi-cpu-spr-0328.gadi.nci.org.au": 15.72199060025
+        }
+      }
+    },
+    "barrier_buckets": {
+      "0": 70.4717323790048,
+      "70": 1.1225745192307693e-06
+    },
+    "common_end_s": 360,
+    "bucket_timeline": {
+      "0": {
+        "MPI_Waitall": 0.28853749220673075,
+        "MPI_Allreduce": 1.0443075521682692,
+        "MPI_Barrier": 70.4717323790048
+      },
+      "70": {
+        "MPI_Waitall": 0.46915664997115386,
+        "MPI_Allreduce": 0.5081979139350962,
+        "MPI_Barrier": 1.1225745192307693e-06
+      },
+      "80": {
+        "MPI_Waitall": 0.7737086734543269,
+        "MPI_Allreduce": 0.7922614165480769,
+        "MPI_Barrier": 0.0
+      },
+      "90": {
+        "MPI_Waitall": 0.6475037046322115,
+        "MPI_Allreduce": 0.7574959466658654,
+        "MPI_Barrier": 0.0
+      },
+      "100": {
+        "MPI_Waitall": 0.6522331575048077,
+        "MPI_Allreduce": 0.7460446851225961,
+        "MPI_Barrier": 0.0
+      },
+      "110": {
+        "MPI_Waitall": 0.6304404509663462,
+        "MPI_Allreduce": 0.6949088254302884,
+        "MPI_Barrier": 0.0
+      },
+      "120": {
+        "MPI_Waitall": 0.6509621889783653,
+        "MPI_Allreduce": 0.7319867484711539,
+        "MPI_Barrier": 0.0
+      },
+      "130": {
+        "MPI_Waitall": 0.6126114380649038,
+        "MPI_Allreduce": 0.6840336842740384,
+        "MPI_Barrier": 0.0
+      },
+      "140": {
+        "MPI_Waitall": 0.6318646675793269,
+        "MPI_Allreduce": 0.6814580742403846,
+        "MPI_Barrier": 0.0
+      },
+      "150": {
+        "MPI_Waitall": 0.6259344102692308,
+        "MPI_Allreduce": 0.6892654328533654,
+        "MPI_Barrier": 0.0
+      },
+      "160": {
+        "MPI_Waitall": 0.6181643539399039,
+        "MPI_Allreduce": 0.7617499301514423,
+        "MPI_Barrier": 0.0
+      },
+      "170": {
+        "MPI_Waitall": 0.6114646430432692,
+        "MPI_Allreduce": 0.6771265175913461,
+        "MPI_Barrier": 0.0
+      },
+      "180": {
+        "MPI_Waitall": 0.5960002335288461,
+        "MPI_Allreduce": 0.6334897844134615,
+        "MPI_Barrier": 0.0
+      },
+      "190": {
+        "MPI_Waitall": 0.5895277152788462,
+        "MPI_Allreduce": 0.6364840720024039,
+        "MPI_Barrier": 0.0
+      },
+      "200": {
+        "MPI_Waitall": 0.6078067127860577,
+        "MPI_Allreduce": 0.6790045438197115,
+        "MPI_Barrier": 0.0
+      },
+      "210": {
+        "MPI_Waitall": 0.602225493485577,
+        "MPI_Allreduce": 0.6439949096009615,
+        "MPI_Barrier": 0.0
+      },
+      "220": {
+        "MPI_Waitall": 0.5990841553413462,
+        "MPI_Allreduce": 0.6812143290048077,
+        "MPI_Barrier": 0.0
+      },
+      "230": {
+        "MPI_Waitall": 0.5894618337403846,
+        "MPI_Allreduce": 0.6294230079711538,
+        "MPI_Barrier": 0.0
+      },
+      "240": {
+        "MPI_Waitall": 0.591208136875,
+        "MPI_Allreduce": 0.6540693470240385,
+        "MPI_Barrier": 0.0
+      },
+      "250": {
+        "MPI_Waitall": 0.595541569483173,
+        "MPI_Allreduce": 0.6610707253557693,
+        "MPI_Barrier": 0.0
+      },
+      "260": {
+        "MPI_Waitall": 0.5847628907139423,
+        "MPI_Allreduce": 0.6479680259759616,
+        "MPI_Barrier": 0.0
+      },
+      "270": {
+        "MPI_Waitall": 0.5692634109975961,
+        "MPI_Allreduce": 0.6034573021105769,
+        "MPI_Barrier": 0.0
+      },
+      "280": {
+        "MPI_Waitall": 0.5982747267211539,
+        "MPI_Allreduce": 0.6910144628942307,
+        "MPI_Barrier": 0.0
+      },
+      "290": {
+        "MPI_Waitall": 0.6024136005456731,
+        "MPI_Allreduce": 0.7740574776490384,
+        "MPI_Barrier": 0.0
+      },
+      "300": {
+        "MPI_Waitall": 0.6002608192259615,
+        "MPI_Allreduce": 0.6735406603846154,
+        "MPI_Barrier": 0.0
+      },
+      "310": {
+        "MPI_Waitall": 0.5806867941875,
+        "MPI_Allreduce": 0.6297288724807693,
+        "MPI_Barrier": 0.0
+      },
+      "320": {
+        "MPI_Waitall": 0.572572119875,
+        "MPI_Allreduce": 0.6236755689447115,
+        "MPI_Barrier": 0.0
+      },
+      "330": {
+        "MPI_Waitall": 0.5805562492716346,
+        "MPI_Allreduce": 0.6295716474230769,
+        "MPI_Barrier": 0.0
+      },
+      "340": {
+        "MPI_Waitall": 0.5940512544134615,
+        "MPI_Allreduce": 0.664813766375,
+        "MPI_Barrier": 0.0
+      },
+      "350": {
+        "MPI_Waitall": 0.5736967455552885,
+        "MPI_Allreduce": 0.634947238701923,
+        "MPI_Barrier": 0.0
+      },
+      "360": {
+        "MPI_Waitall": 0.5766925307932692,
+        "MPI_Allreduce": 0.6565250211850961,
+        "MPI_Barrier": 0.0
+      },
+      "370": {
+        "MPI_Waitall": 0.16627068241826923,
+        "MPI_Allreduce": 0.16940476695673076,
+        "MPI_Barrier": 0.0
+      }
+    }
+  },
+  "comparison": {
+    "per_rank_full_call_count_mismatches": [],
+    "partition_equal": true,
+    "science_inputs_equal": true,
+    "source_manifest_equal": true,
+    "diagnostic_ICX_faster_pct": 0.4497872465488273
+  }
+}

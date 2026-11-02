@@ -1,0 +1,13 @@
+Thread(s) per core:  2
+Core(s) per socket:  52
+Socket(s):           2
+NUMA node(s):        8
+Model name:          Intel(R) Xeon(R) Platinum 8470Q
+NUMA node0 CPU(s):   0-12,104-116
+NUMA node1 CPU(s):   13-25,117-129
+NUMA node2 CPU(s):   26-38,130-142
+NUMA node3 CPU(s):   39-51,143-155
+NUMA node4 CPU(s):   52-64,156-168
+NUMA node5 CPU(s):   65-77,169-181
+NUMA node6 CPU(s):   78-90,182-194
+NUMA node7 CPU(s):   91-103,195-207

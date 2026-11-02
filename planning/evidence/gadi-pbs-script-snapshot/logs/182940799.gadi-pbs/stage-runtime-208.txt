@@ -1,0 +1,1 @@
+STAGE_4N_RUNTIME_PASS host=gadi-cpu-spr-0327.gadi.nci.org.au root=/jobfs/182940799.gadi-pbs/of2512-icx20253-pmpi-4n-v1-182940799.gadi-pbs

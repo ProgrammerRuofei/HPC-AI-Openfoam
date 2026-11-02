@@ -65,3 +65,7 @@ For each controlled repeated-run set, retain every individual measurement and
 report the median, mean where useful, minimum, maximum, range, and standard
 deviation. Do not confuse a metric with a summary statistic: the hierarchy is
 `metric → repeated measurements → summary statistics`.
+
+## 2026-11-02 ICX/GCC PMPI diagnostic archive
+
+Two validated diagnostic rows (181908113 and 182940799) were added using the existing metrics.csv schema; actual SU appears once per job in notes and in [the companion table](gadi-icx20253-ompi5010-scotch/pmpi-comparison-2026-11-02.csv). These are PMPI measurements, not scored repeats. [Analysis](../planning/analysis/gadi-icx-gcc-pmpi-2026-11-02/README.md).
