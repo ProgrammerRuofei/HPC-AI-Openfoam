@@ -11,3 +11,7 @@ Status: submitted once as **182926714.gadi-pbs**, initial PBS state **Q**, 2026-
 ## Result v1
 
 182926714: F/Exit137,28sec,1.62SU on SPR0201; exceeded16GB during first104-rank baseline probe.0 rank receipts,no candidate launches/no PASS. [Raw evidence](../../planning/evidence/gadi-pbs-script-snapshot/logs/182926714.gadi-pbs/README.md). Track2 memory resource change proposed; not applied. No automatic retry.
+
+## v2 memory-only retry
+
+User approved once on2026-11-02:104CPU/64GB/20GBJOBFS/10min,max34.67SU. Exact reviewed script74a325010a6f0800860928faf9e7f5b1166131acb190f95a53e83c254e73c655; source/helper/map unchanged. New unique v2 paths; submission pending.
